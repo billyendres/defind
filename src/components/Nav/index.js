@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Login from "../Authentication/Login";
 import { useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./useDimensions";
@@ -32,6 +33,25 @@ const Nav = () => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
 
+  const menuItems = [
+    {
+      color: "#FF008C",
+      title: "Home",
+      route: "/",
+    },
+    {
+      color: "#D309E1",
+      title: "Profile",
+      route: "/profile",
+    },
+    { color: "#9C1AFF", title: "Contact", route: "/contact" },
+    {
+      color: "#D309E1",
+      title: "Settings",
+      route: "/settings",
+    },
+  ];
+
   return (
     <>
       <Navbar
@@ -44,18 +64,22 @@ const Nav = () => {
         <Navigation />
         <MenuToggle toggle={() => toggleOpen()} />
       </Navbar>
-      {/*  */}
-      {/* <Wrapper>
-        <TextWrapper>
-          {menuItems.map(({ title, key }) => {
+      {/* <Wrapper> */}
+      {/* <TextWrapper>
+          {menuItems.map(({ color, title, route }) => {
             return (
-              <div key={key}>
-                <Links to={`${key}`}>{title}</Links>
+              <div key={route}>
+                <Links style={{ color: color }} to={`${route}`}>
+                  {title}
+                </Links>
               </div>
             );
           })}
-        </TextWrapper>
-      </Wrapper> */}
+        </TextWrapper> */}
+      <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
+        <Login />
+      </div>
+      {/* </Wrapper> */}
     </>
   );
 };
@@ -88,6 +112,7 @@ const Sidebar = styled(motion.div)`
 
 const Wrapper = styled.div`
   position: fixed;
+  width: 100%;
   z-index: 1;
   display: flex;
   align-items: center;

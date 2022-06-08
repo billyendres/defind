@@ -2,18 +2,27 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
-// import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import Nav from "./components/Nav";
+import { useMoralis } from "react-moralis";
 
 const App = () => {
+  const { isAuthenticated } = useMoralis();
+
   return (
     <>
-      {/* <Navbar /> */}
       <Nav />
       <GloablStyle />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      {isAuthenticated ? (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      ) : (
+        <h1>Login</h1>
+      )}
     </>
   );
 };
@@ -36,17 +45,8 @@ html, body {
     color: #fff;
     font-family: 'Nunito', sans-serif;
     text-align: center;
-    /* padding: 0 1rem; */
     background: black;
     z-index: -1;
-
-    /* @media screen and (min-width: 768px) {
-      padding: 0 1.5rem;
-    }
-
-    @media screen and (min-width: 1200px) {
-      padding: 0 2rem;
-    } */
 }
 
   ul,

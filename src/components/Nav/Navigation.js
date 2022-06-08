@@ -12,7 +12,7 @@ const variants = {
   },
 };
 
-const itemIds = [0, 1, 2];
+const itemIds = [0, 1, 2, 3];
 
 export const Navigation = () => (
   <List variants={variants}>
