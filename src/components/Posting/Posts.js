@@ -3,7 +3,6 @@ import { useMoralis } from "react-moralis";
 
 const Posts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
-  const user = Moralis.User.current();
   const [postArr, setPostArr] = useState();
 
   useEffect(() => {
@@ -17,15 +16,12 @@ const Posts = ({ profile }) => {
         console.log(account);
         const results = await query.find();
         setPostArr(results);
-        // console.log(results);
       } catch (error) {
         console.error(error);
       }
     };
     getPosts();
-  }, [profile, account]);
-
-  // console.log(user);
+  }, [profile, account, Moralis.Object, Moralis.Query]);
 
   return (
     <div>

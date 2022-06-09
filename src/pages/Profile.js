@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-import Feed from "../components/Posting/Feed";
 import Posts from "../components/Posting/Posts";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
@@ -29,7 +28,6 @@ const Profile = () => {
         )}...
             ${user.attributes.ethAddress.slice(38)}`}</h3>
         <h4 style={{ margin: "2rem" }}>{user.attributes.bio}</h4>
-        {/* <Feed profile={true} /> */}
         <Posts profile={true} />
         <Link to="/settings">
           <h2 style={{ margin: "2rem" }}>Edit Profile</h2>

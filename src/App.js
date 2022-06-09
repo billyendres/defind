@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
@@ -6,10 +6,11 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
+import Logout from "./components/Authentication/Logout";
 import { useMoralis } from "react-moralis";
 
 const App = () => {
-  const { isAuthenticated, Moralis } = useMoralis();
+  const { isAuthenticated } = useMoralis();
 
   return (
     <>
@@ -17,15 +18,7 @@ const App = () => {
       <GloablStyle />
       {isAuthenticated ? (
         <>
-          <div
-            onClick={() => {
-              Moralis.User.logOut().then(() => {
-                window.location.reload();
-              });
-            }}
-          >
-            Logout
-          </div>
+          <Logout />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />

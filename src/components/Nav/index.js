@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Login from "../Authentication/Login";
 import { useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./useDimensions";
@@ -64,8 +63,8 @@ const Nav = () => {
         <Navigation />
         <MenuToggle toggle={() => toggleOpen()} />
       </Navbar>
-      {/* <Wrapper> */}
-      {/* <TextWrapper>
+      <Wrapper>
+        <TextWrapper>
           {menuItems.map(({ color, title, route }) => {
             return (
               <div key={route}>
@@ -75,11 +74,8 @@ const Nav = () => {
               </div>
             );
           })}
-        </TextWrapper> */}
-      {/* <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
-        <Login />
-      </div> */}
-      {/* </Wrapper> */}
+        </TextWrapper>
+      </Wrapper>
     </>
   );
 };
@@ -94,7 +90,7 @@ const Navbar = styled(motion.nav)`
   width: 50vw;
   z-index: 1;
   @media screen and (min-width: 769px) {
-    /* display: none; */
+    display: none;
   }
   @media screen and (max-height: 391px) {
     display: inline;

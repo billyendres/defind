@@ -4,8 +4,6 @@ import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 
 import Header from "../components/Home/Header";
 import Subheader from "../components/Home/Subheader";
-import Feed from "../components/Posting/Feed";
-import FileUpload from "../components/Posting/FileUpload";
 import NewPost from "../components/Posting/NewPost";
 import Posts from "../components/Posting/Posts";
 
@@ -111,7 +109,6 @@ const Home = () => {
         <div>
           <Header />
           <Subheader />
-          {/* <FileUpload /> */}
           <NewPost change={(e) => setPost(e.target.value)} inputValue={post} />
           {selectedFile && <img src={selectedFile} alt={selectedFile} />}
           <div onClick={onImageClick}>
@@ -120,14 +117,11 @@ const Home = () => {
               name="file"
               ref={inputFile}
               onChange={changeHandler}
-              // style={{ display: "none"}}
             />
           </div>
           <button onClick={savePost}>SAVE POST</button>
           <div style={{ margin: "3rem" }}></div>
           <button onClick={ethPost}>ETH POST</button>
-
-          {/* <Feed profile={false} /> */}
           <Posts profile={false} />
         </div>
       </Wrapper>

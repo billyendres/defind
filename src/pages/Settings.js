@@ -39,7 +39,7 @@ const Settings = () => {
     };
 
     fetchNfts();
-  }, [account]);
+  }, [account, Web3Api]);
 
   const clickHandler = () => {
     inputFile.current.click();
