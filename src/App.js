@@ -18,7 +18,7 @@ const App = () => {
       <GloablStyle />
       {isAuthenticated ? (
         <>
-          <Logout />
+          {/* <Logout /> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
@@ -26,9 +26,7 @@ const App = () => {
           </Routes>
         </>
       ) : (
-        <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
-          <Login />
-        </div>
+        <Nav />
       )}
     </>
   );

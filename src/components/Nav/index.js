@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useRef } from "react";
+import { useMoralis } from "react-moralis";
+
 import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./useDimensions";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
+import Login from "../Authentication/Login";
+import Logout from "../Authentication/Logout";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -28,6 +31,8 @@ const sidebar = {
 };
 
 const Nav = () => {
+  const { isAuthenticated } = useMoralis();
+
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
@@ -53,16 +58,24 @@ const Nav = () => {
 
   return (
     <>
-      <Navbar
-        initial={false}
-        animate={isOpen ? "open" : "closed"}
-        custom={height}
-        ref={containerRef}
-      >
-        <Sidebar variants={sidebar} />
-        <Navigation />
-        <MenuToggle toggle={() => toggleOpen()} />
-      </Navbar>
+      <NavContainer>
+        <div>
+          <Navbar
+            initial={false}
+            animate={isOpen ? "open" : "closed"}
+            custom={height}
+            ref={containerRef}
+          >
+            <Sidebar variants={sidebar} />
+            <Navigation />
+            <MenuToggle toggle={() => toggleOpen()} />
+          </Navbar>
+        </div>
+        <NavWrapper>
+          {!isAuthenticated && <Login />}
+          {isAuthenticated && <Logout />}
+        </NavWrapper>
+      </NavContainer>
       <Wrapper>
         <TextWrapper>
           {menuItems.map(({ color, title, route }) => {
@@ -75,6 +88,10 @@ const Nav = () => {
             );
           })}
         </TextWrapper>
+        <TextWrapper>
+          {!isAuthenticated && <Login />}
+          {isAuthenticated && <Logout />}
+        </TextWrapper>
       </Wrapper>
     </>
   );
@@ -82,13 +99,36 @@ const Nav = () => {
 
 export default Nav;
 
-const Navbar = styled(motion.nav)`
+const NavContainer = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 50vw;
+  width: 100%;
+  height: 5rem;
+  background: black;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  @media screen and (min-width: 768px) {
+    padding: 1.5rem 0 2rem 0;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding: 2rem 0;
+  }
+`;
+
+const Navbar = styled(motion.nav)`
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+  @media screen and (max-height: 391px) {
+    display: inline;
+  }
+`;
+
+const NavWrapper = styled.div`
   @media screen and (min-width: 769px) {
     display: none;
   }
@@ -109,16 +149,24 @@ const Sidebar = styled(motion.div)`
 const Wrapper = styled.div`
   position: fixed;
   width: 100%;
+  height: 5rem;
+  background: black;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  margin-left: -2rem;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  @media screen and (max-height: 391px) {
+    display: none;
+  }
 
   @media screen and (min-width: 768px) {
     padding: 1.5rem 0 2rem 0;
-    margin-left: 0;
   }
 
   @media screen and (min-width: 1200px) {

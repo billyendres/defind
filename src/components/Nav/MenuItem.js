@@ -22,7 +22,7 @@ const variants = {
 
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "cyan"];
 const menuItems = ["Home", "Contact", "Settings", "Profile"];
-const menuRoutes = ["/", "/contact", "/settings", "/profile"];
+const menuRoutes = ["/", "/contact", "/contact", "/profile"];
 
 export const MenuItem = ({ color, text }) => {
   const style = {
@@ -38,21 +38,12 @@ export const MenuItem = ({ color, text }) => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >
-      {/* <IconPlaceholder style={style} /> */}
       <DropdownLinks to={path} style={style}>
         {items}
       </DropdownLinks>
     </Items>
   );
 };
-
-const IconPlaceholder = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  flex: 2rem 0;
-  margin-right: 1rem;
-`;
 
 const DropdownLinks = styled(Link)`
   border-radius: 0.4rem;
