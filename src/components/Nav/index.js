@@ -76,9 +76,9 @@ const Nav = () => {
             );
           })}
         </TextWrapper> */}
-      <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
+      {/* <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
         <Login />
-      </div>
+      </div> */}
       {/* </Wrapper> */}
     </>
   );

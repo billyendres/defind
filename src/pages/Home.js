@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 
 import Header from "../components/Home/Header";
 import Subheader from "../components/Home/Subheader";
@@ -12,11 +12,66 @@ import Posts from "../components/Posting/Posts";
 const Home = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
-  const inputFile = useRef(null);
+  const contractProcessor = useWeb3ExecuteFunction();
 
+  const inputFile = useRef(null);
   const [selectedFile, setSelectedFile] = useState();
   const [postFile, setPostFile] = useState();
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState();
+
+  const ethPost = async () => {
+    if (!post) return;
+
+    let img;
+    if (postFile) {
+      const data = postFile;
+      const file = new Moralis.File(data.name, data);
+      await file.saveIPFS();
+      img = file.ipfs();
+    } else {
+      img = "noimg";
+    }
+
+    let options = {
+      contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
+      functionName: "addPost",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "postTxt",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "postImg",
+              type: "string",
+            },
+          ],
+          name: "addPost",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      params: {
+        postTxt: post,
+        postImg: img,
+      },
+      msgValue: Moralis.Units.ETH(1),
+    };
+
+    await contractProcessor.fetch({
+      params: options,
+      onSuccess: () => {
+        savePost();
+      },
+      onError: (error) => {
+        console.log(error.data.message);
+      },
+    });
+  };
 
   const savePost = async () => {
     if (!post) return;
@@ -54,8 +109,8 @@ const Home = () => {
     <>
       <Wrapper>
         <div>
-          {/* <Header /> */}
-          {/* <Subheader /> */}
+          <Header />
+          <Subheader />
           {/* <FileUpload /> */}
           <NewPost change={(e) => setPost(e.target.value)} inputValue={post} />
           {selectedFile && <img src={selectedFile} alt={selectedFile} />}
@@ -70,6 +125,8 @@ const Home = () => {
           </div>
           <button onClick={savePost}>SAVE POST</button>
           <div style={{ margin: "3rem" }}></div>
+          <button onClick={ethPost}>ETH POST</button>
+
           {/* <Feed profile={false} /> */}
           <Posts profile={false} />
         </div>

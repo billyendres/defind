@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMoralis } from "react-moralis";
+import { ConnectButton, Button } from "web3uikit";
 
 const Login = () => {
   const {
@@ -23,11 +24,12 @@ const Login = () => {
   }
   return (
     <div>
-      {isAuthenticating && <p>Authenticating</p>}
-      {authError && <p>{JSON.stringify(authError.message)}</p>}
-      <button onClick={() => authenticate()}>
+      {/* {isAuthenticating && <p>Authenticating</p>}
+      {authError && <p>{JSON.stringify(authError.message)}</p>} */}
+      {/* <button onClick={() => authenticate()}>
         <h1 style={{ fontSize: "2rem", padding: "0.75rem 1rem" }}>Login</h1>
-      </button>
+      </button> */}
+      <ConnectButton />
     </div>
   );
 };

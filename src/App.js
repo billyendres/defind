@@ -1,27 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Nav from "./components/Nav";
+import Login from "./components/Authentication/Login";
 import { useMoralis } from "react-moralis";
 
 const App = () => {
-  const { isAuthenticated } = useMoralis();
+  const { isAuthenticated, Moralis } = useMoralis();
 
   return (
     <>
       <Nav />
       <GloablStyle />
       {isAuthenticated ? (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
+        <>
+          <div
+            onClick={() => {
+              Moralis.User.logOut().then(() => {
+                window.location.reload();
+              });
+            }}
+          >
+            Logout
+          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </>
       ) : (
-        <h1>Login</h1>
+        <div style={{ width: "50vw", position: "fixed", top: 0, right: 0 }}>
+          <Login />
+        </div>
       )}
     </>
   );

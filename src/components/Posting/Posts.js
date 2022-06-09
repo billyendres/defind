@@ -23,7 +23,9 @@ const Posts = ({ profile }) => {
       }
     };
     getPosts();
-  }, [profile, account, Moralis.Object, Moralis.Query]);
+  }, [profile, account]);
+
+  // console.log(user);
 
   return (
     <div>

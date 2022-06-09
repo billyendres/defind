@@ -27,7 +27,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchNfts = async () => {
       const options = {
-        chain: "Ropsten Test Network",
+        chain: "Ropsten",
         address: account,
       };
 
