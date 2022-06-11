@@ -3,7 +3,7 @@ import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import styled from "styled-components";
 import Username from "../components/Profile/Username";
 import Bio from "../components/Profile/Bio";
-import BannerImage from "../components/Profile/BannerImage";
+import ProfileImage from "../components/Profile/ProfileImage";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
 const Settings = () => {
@@ -72,7 +72,7 @@ const Settings = () => {
       const data = theFile;
       const file = new Moralis.File(data.name, data);
       await file.saveIPFS();
-      myDetails.set("banner", file.ipfs());
+      myDetails.set("profilePic", file.ipfs());
     }
 
     await myDetails.save();
@@ -81,45 +81,51 @@ const Settings = () => {
 
   return (
     <Wrapper>
-      <h1 style={{ width: "100%" }}>Settings</h1>
-      <>
-        {userError && <p>{JSON.stringify(userError.message)}</p>}
+      <Container>
+        <h1 style={{ width: "100%" }}>Settings</h1>
+        <>
+          {userError && <p>{JSON.stringify(userError.message)}</p>}
 
-        <Username
-          change={(e) => setUsername(e.currentTarget.value)}
-          inputValue={username}
-        />
-        <Bio change={(e) => setBio(e.currentTarget.value)} inputValue={bio} />
-        <div style={{ width: "100%" }}>
-          <h2>Profile Image (Your NFTs)</h2>
-          <div>
-            {nfts.map((nft, key) => {
-              return (
-                <div
-                  key={key}
-                  style={{
-                    border: selectedNft === nft && "3px solid red",
-                  }}
-                >
-                  <img
-                    onClick={() => setSelectedNft(nft)}
-                    style={{ width: "10rem", padding: "1rem" }}
-                    src={nft}
-                    alt={nft}
-                  />
-                </div>
-              );
-            })}
+          <Username
+            change={(e) => setUsername(e.currentTarget.value)}
+            inputValue={username}
+          />
+          <Bio change={(e) => setBio(e.currentTarget.value)} inputValue={bio} />
+          <div style={{ width: "100%" }}>
+            <h2>Profile Image (Your NFTs)</h2>
+            <div>
+              {nfts.map((nft, key) => {
+                return (
+                  <div
+                    key={key}
+                    style={{
+                      border: selectedNft === nft && "3px solid red",
+                    }}
+                  >
+                    <img
+                      onClick={() => setSelectedNft(nft)}
+                      style={{ width: "10rem", padding: "1rem" }}
+                      src={nft}
+                      alt={nft}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <BannerImage
-          change={changeHandler}
-          click={clickHandler}
-          inputFile={inputFile}
-          file={user.attributes.banner ? user.attributes.banner : selectedFile}
-        />
-        <Button onClick={saveEdits}>Save</Button>
-      </>
+          <ProfileImage
+            change={changeHandler}
+            click={clickHandler}
+            inputFile={inputFile}
+            file={
+              user.attributes.profilePic
+                ? user.attributes.profilePic
+                : selectedFile
+            }
+          />
+          <Button onClick={saveEdits}>Save</Button>
+        </>
+      </Container>
     </Wrapper>
   );
 };
@@ -131,8 +137,10 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 100vh;
+  height: 100vh;
 `;
+
+const Container = styled.div``;
 
 const Button = styled.button`
   padding: 0.75rem 1rem;

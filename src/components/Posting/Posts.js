@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useMoralis } from "react-moralis";
+
+import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const Posts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
@@ -24,25 +27,23 @@ const Posts = ({ profile }) => {
   }, [profile, account, Moralis.Object, Moralis.Query]);
 
   return (
-    <div>
+    <>
       {postArr
         ?.map((e, key) => {
           return (
-            <div key={key}>
-              <h1>{e.attributes.postTxt}</h1>
-              <div>
-                {e.attributes.postImg && (
-                  <img src={e.attributes.postImg} alt={e} />
-                )}
-              </div>
-              <div>
-                POSTER: {e.attributes.posterUsername.slice(0, 6)}
-                <img
-                  style={{ width: "5rem" }}
-                  src={e.attributes.posterBanner}
+            <Wrapper key={key}>
+              <ProfileWrapper>
+                <ProfileImage
+                  src={
+                    e.attributes.posterProfilePic
+                      ? e.attributes.posterProfilePic
+                      : defaultProfileImage
+                  }
                   alt="Profile pic"
                 />
+
                 <div>
+                  <h4>{e.attributes.posterUsername.slice(0, 6)}</h4>
                   {`${e.attributes.posterAccount.slice(
                     0,
                     4
@@ -55,13 +56,67 @@ const Posts = ({ profile }) => {
                         })}
                         `}
                 </div>
-              </div>
-            </div>
+              </ProfileWrapper>
+              <PostWrapper>
+                <PostHeader>{e.attributes.postTxt}</PostHeader>
+                {e.attributes.postImg && (
+                  <>
+                    <PostImage src={e.attributes.postImg} alt={e} />
+                    {/* <a
+                      href={e.attributes.postImg}
+                      alt="Link"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {e.attributes.postImg}
+                    </a> */}
+                  </>
+                )}
+              </PostWrapper>
+            </Wrapper>
           );
         })
         .reverse()}
-    </div>
+    </>
   );
 };
 
 export default Posts;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+  width: 10rem;
+  margin: 0 2rem;
+`;
+
+const ProfileImage = styled.img`
+  width: 5rem;
+  border-radius: 50%;
+`;
+
+const PostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+  width: 10rem;
+  margin: 0 2rem;
+`;
+
+const PostHeader = styled.h2``;
+
+const PostImage = styled.img`
+  width: 10rem;
+  border: 2px solid red;
+`;

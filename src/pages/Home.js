@@ -15,10 +15,10 @@ const Home = () => {
   const inputFile = useRef(null);
   const [selectedFile, setSelectedFile] = useState();
   const [postFile, setPostFile] = useState();
-  const [post, setPost] = useState();
+  const [post, setPost] = useState("");
 
   const ethPost = async () => {
-    if (!post) return;
+    if (!post) return alert("No file detected");
 
     let img;
     if (postFile) {
@@ -72,20 +72,20 @@ const Home = () => {
   };
 
   const savePost = async () => {
-    if (!post) return;
+    if (!post) return alert("No file detected");
 
     const Posts = Moralis.Object.extend("Posts");
-
     const newPost = new Posts();
 
     newPost.set("postTxt", post);
-    newPost.set("posterBanner", user.attributes.banner);
+    newPost.set("posterProfilePic", user.attributes.profilePic);
     newPost.set("posterAccount", user.attributes.ethAddress);
     newPost.set("posterUsername", user.attributes.username);
 
     if (postFile) {
       const data = postFile;
       const file = new Moralis.File(data.name, data);
+
       await file.saveIPFS();
       newPost.set("postImg", file.ipfs());
     }
@@ -97,8 +97,14 @@ const Home = () => {
     inputFile.current.click();
   };
 
+  const imageMimeType = /image\/(png|jpg|jpeg)/i;
+
   const changeHandler = (e) => {
     const img = e.target.files[0];
+    if (!img.type.match(imageMimeType)) {
+      alert("Image type is not valid");
+      return;
+    }
     setPostFile(img);
     setSelectedFile(URL.createObjectURL(img));
   };
@@ -106,24 +112,37 @@ const Home = () => {
   return (
     <>
       <Wrapper>
-        <div>
-          <Header />
-          <Subheader />
-          <NewPost change={(e) => setPost(e.target.value)} inputValue={post} />
-          {selectedFile && <img src={selectedFile} alt={selectedFile} />}
-          <div onClick={onImageClick}>
-            <input
-              type="file"
-              name="file"
-              ref={inputFile}
-              onChange={changeHandler}
-            />
+        <Container>
+          <div style={{ marginTop: "10rem", marginBottom: "2rem" }}>
+            <h2>All Posts</h2>
           </div>
-          <button onClick={savePost}>SAVE POST</button>
-          <div style={{ margin: "3rem" }}></div>
-          <button onClick={ethPost}>ETH POST</button>
-          <Posts profile={false} />
-        </div>
+          <div>
+            {/* <Header />
+          <Subheader /> */}
+            <div>
+              <NewPost
+                change={(e) => setPost(e.target.value)}
+                inputValue={post}
+              />
+              {selectedFile && <img src={selectedFile} alt={selectedFile} />}
+              <div onClick={onImageClick}>
+                <input
+                  type="file"
+                  name="file"
+                  ref={inputFile}
+                  onChange={changeHandler}
+                  style={{ display: "none" }}
+                  accept="image/png, image/jpeg, image/jpg"
+                />
+                <h4 style={{ cursor: "pointer" }}>POST IMAGE</h4>
+              </div>
+              <button onClick={savePost}>SAVE POST</button>
+              <div style={{ margin: "3rem" }}></div>
+              <button onClick={ethPost}>ETH POST</button>
+            </div>
+            <Posts profile={false} />
+          </div>
+        </Container>
       </Wrapper>
     </>
   );
@@ -136,5 +155,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 150vh;
+  min-height: 100vh;
 `;
+
+const Container = styled.div``;

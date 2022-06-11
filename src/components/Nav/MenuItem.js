@@ -21,8 +21,8 @@ const variants = {
 };
 
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "cyan"];
-const menuItems = ["Home", "Contact", "Settings", "Profile"];
-const menuRoutes = ["/", "/contact", "/contact", "/profile"];
+const menuItems = ["Home", "My Posts", "Settings", "Profile"];
+const menuRoutes = ["/", "/myposts", "/settings", "/profile"];
 
 export const MenuItem = ({ color, text }) => {
   const style = {

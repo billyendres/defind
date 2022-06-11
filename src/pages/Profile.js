@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-import Posts from "../components/Posting/Posts";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
 const Profile = () => {
@@ -14,10 +13,10 @@ const Profile = () => {
       <div>
         <h1>Welcome {user.attributes.username}</h1>
         <img
-          style={{ width: "5rem" }}
+          style={{ width: "5rem", borderRadius: "50%" }}
           src={
-            user.attributes.banner
-              ? user.attributes.banner
+            user.attributes.profilePic
+              ? user.attributes.profilePic
               : defaultProfileImage
           }
           alt="Profile pic"
@@ -28,7 +27,6 @@ const Profile = () => {
         )}...
             ${user.attributes.ethAddress.slice(38)}`}</h3>
         <h4 style={{ margin: "2rem" }}>{user.attributes.bio}</h4>
-        <Posts profile={true} />
         <Link to="/settings">
           <h2 style={{ margin: "2rem" }}>Edit Profile</h2>
         </Link>

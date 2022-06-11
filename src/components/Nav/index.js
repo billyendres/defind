@@ -7,8 +7,8 @@ import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./useDimensions";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
-import Login from "../Authentication/Login";
 import Logout from "../Authentication/Logout";
+import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -31,7 +31,8 @@ const sidebar = {
 };
 
 const Nav = () => {
-  const { isAuthenticated } = useMoralis();
+  const { Moralis } = useMoralis();
+  const user = Moralis.User.current();
 
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
@@ -48,7 +49,7 @@ const Nav = () => {
       title: "Profile",
       route: "/profile",
     },
-    { color: "#9C1AFF", title: "Contact", route: "/contact" },
+    { color: "#9C1AFF", title: "My Posts", route: "/myposts" },
     {
       color: "#D309E1",
       title: "Settings",
@@ -72,8 +73,13 @@ const Nav = () => {
           </Navbar>
         </div>
         <NavWrapper>
-          {!isAuthenticated && <Login />}
-          {isAuthenticated && <Logout />}
+          <ProfileImage src={user.attributes.profilePic} alt="Profile pic" />
+          <div style={{ margin: "2rem" }}>{`${user.attributes.ethAddress.slice(
+            0,
+            4
+          )}...
+            ${user.attributes.ethAddress.slice(38)}`}</div>
+          <Logout />
         </NavWrapper>
       </NavContainer>
       <Wrapper>
@@ -89,8 +95,22 @@ const Nav = () => {
           })}
         </TextWrapper>
         <TextWrapper>
-          {!isAuthenticated && <Login />}
-          {isAuthenticated && <Logout />}
+          <ProfileImage
+            src={
+              user.attributes.profilePic
+                ? user.attributes.profilePic
+                : defaultProfileImage
+            }
+            alt="Profile pic"
+          />
+          <div>
+            <h4>{user.attributes.username}</h4>
+            <div
+              style={{ margin: " 0 2rem" }}
+            >{`${user.attributes.ethAddress.slice(0, 4)}...
+            ${user.attributes.ethAddress.slice(38)}`}</div>
+          </div>
+          <Logout />
         </TextWrapper>
       </Wrapper>
     </>
@@ -129,6 +149,8 @@ const Navbar = styled(motion.nav)`
 `;
 
 const NavWrapper = styled.div`
+  display: flex;
+  align-items: center;
   @media screen and (min-width: 769px) {
     display: none;
   }
@@ -144,6 +166,11 @@ const Sidebar = styled(motion.div)`
   bottom: 0;
   width: 50vw;
   background: #fff;
+`;
+
+const ProfileImage = styled.img`
+  width: 3rem;
+  border-radius: 50%;
 `;
 
 const Wrapper = styled.div`
@@ -176,6 +203,8 @@ const Wrapper = styled.div`
 
 const TextWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media screen and (max-width: 768px) {
     display: none;

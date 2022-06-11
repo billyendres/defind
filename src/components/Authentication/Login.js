@@ -14,7 +14,9 @@ const Login = () => {
       {isAuthenticating && <p>Authenticating</p>}
       {authError && <p>{JSON.stringify(authError.message)}</p>}
       <button onClick={() => authenticate()}>
-        <h1 style={{ fontSize: "2rem", padding: "0.75rem 1rem" }}>Login</h1>
+        <h1 style={{ fontSize: "2rem", padding: "0.75rem 1rem" }}>
+          Login With MetaMask
+        </h1>
       </button>
     </div>
   );

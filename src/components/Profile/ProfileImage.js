@@ -1,6 +1,6 @@
 import React from "react";
 
-const BannerImage = ({ change, click, inputFile, file }) => {
+const ProfileImage = ({ change, click, inputFile, file }) => {
   return (
     <div>
       <div onClick={click} style={{ width: "100%" }}>
@@ -11,11 +11,11 @@ const BannerImage = ({ change, click, inputFile, file }) => {
           onChange={change}
           style={{ display: "none" }}
         />
-        <h1 style={{ cursor: "pointer" }}>Change Banner Image</h1>
+        <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
       </div>
       {file && (
         <img
-          style={{ width: "10rem", objectFit: "cover" }}
+          style={{ width: "5rem", objectFit: "cover", borderRadius: "50%" }}
           src={file}
           alt={file}
         />
@@ -24,4 +24,4 @@ const BannerImage = ({ change, click, inputFile, file }) => {
   );
 };
 
-export default BannerImage;
+export default ProfileImage;

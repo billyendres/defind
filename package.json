@@ -13,6 +13,7 @@
     "magic-sdk": "^8.1.1",
     "moralis": "^1.8.0",
     "react": "^18.1.0",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
     "react-intersection-observer": "^9.2.0",
