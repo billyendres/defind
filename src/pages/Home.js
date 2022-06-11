@@ -57,7 +57,7 @@ const Home = () => {
         postTxt: post,
         postImg: img,
       },
-      msgValue: Moralis.Units.ETH(1),
+      msgValue: Moralis.Units.Token(0.01),
     };
 
     await contractProcessor.fetch({

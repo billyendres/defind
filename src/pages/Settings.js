@@ -19,27 +19,27 @@ const Settings = () => {
   const Web3Api = useMoralisWeb3Api();
   const user = Moralis.User.current();
 
-  const resolveLink = (url) => {
-    if (!url || !url.includes("ipfs://")) return url;
-    return url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
-  };
+  // const resolveLink = (url) => {
+  //   if (!url || !url.includes("ipfs://")) return url;
+  //   return url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
+  // };
 
-  useEffect(() => {
-    const fetchNfts = async () => {
-      const options = {
-        chain: "Ropsten",
-        address: account,
-      };
+  // useEffect(() => {
+  //   const fetchNfts = async () => {
+  //     const options = {
+  //       chain: "eth",
+  //       address: account,
+  //     };
 
-      const ropstenNfts = await Web3Api.account.getNFTs(options);
-      const images = ropstenNfts.result.map((e) =>
-        resolveLink(JSON.parse(e.metadata)?.image)
-      );
-      setNfts(images);
-    };
-
-    fetchNfts();
-  }, [account, Web3Api]);
+  //     const ropstenNfts = await Web3Api.account.getNFTs(options);
+  //     const images = ropstenNfts.result.map((e) =>
+  //       resolveLink(JSON.parse(e.metadata)?.image)
+  //     );
+  //     setNfts(images);
+  //   };
+  //   console.log(nfts);
+  //   fetchNfts();
+  // }, [account, Web3Api, nfts]);
 
   const clickHandler = () => {
     inputFile.current.click();
@@ -91,7 +91,7 @@ const Settings = () => {
             inputValue={username}
           />
           <Bio change={(e) => setBio(e.currentTarget.value)} inputValue={bio} />
-          <div style={{ width: "100%" }}>
+          {/* <div style={{ width: "100%" }}>
             <h2>Profile Image (Your NFTs)</h2>
             <div>
               {nfts.map((nft, key) => {
@@ -112,7 +112,7 @@ const Settings = () => {
                 );
               })}
             </div>
-          </div>
+          </div> */}
           <ProfileImage
             change={changeHandler}
             click={clickHandler}

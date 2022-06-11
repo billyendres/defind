@@ -22,7 +22,7 @@ const App = () => {
     isWeb3EnableLoading,
   } = useMoralis();
 
-  const walletConnectAuth = async () => {
+  const walletConnectAuth = () => {
     authenticate({
       provider: "walletconnect",
       mobileLinks: [
@@ -35,10 +35,8 @@ const App = () => {
       ],
       signingMessage: "Auth required",
     });
+    // console.log("Authentication:", authentication);
   };
-  // useEffect(() => {
-  //   if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) enableWeb3();
-  // }, [isAuthenticated, isWeb3Enabled, isWeb3EnableLoading, enableWeb3]);
 
   return (
     <>
