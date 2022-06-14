@@ -22,21 +22,39 @@ const App = () => {
     isWeb3EnableLoading,
   } = useMoralis();
 
-  const walletConnectAuth = () => {
-    authenticate({
-      provider: "walletconnect",
-      mobileLinks: [
-        "rainbow",
-        "metamask",
-        "argent",
-        "trust",
-        "imtoken",
-        "pillar",
-      ],
-      signingMessage: "Auth required",
-    });
-    // console.log("Authentication:", authentication);
+  const login = async () => {
+    if (!isAuthenticated) {
+      await authenticate({
+        provider: "walletconnect",
+        mobileLinks: ["metamask", "trust", "rainbow"],
+      })
+        .then(function (user) {
+          console.log(user.get("ethAddress"));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
+
+  const ethereum = window.ethereum;
+  console.log(ethereum);
+
+  // const walletConnectAuth = () => {
+  //   authenticate({
+  //     provider: "walletconnect",
+  //     mobileLinks: [
+  //       "metamask",
+  //       "trust",
+  //       "rainbow",
+  //       "argent",
+  //       "imtoken",
+  //       "pillar",
+  //     ],
+  //     signingMessage: "Auth required",
+  //   });
+  //   // console.log("Authentication:", authentication);
+  // };
 
   return (
     <>
@@ -53,14 +71,17 @@ const App = () => {
         </>
       ) : (
         <>
-          <Login />
-          <div>
-            {isAuthenticating && <p>Authenticating</p>}
-            {authError && <p>{JSON.stringify(authError.message)}</p>}
-            <button style={{ padding: "2rem" }} onClick={walletConnectAuth}>
-              Wallet Connect
-            </button>
-          </div>
+          {ethereum ? (
+            <Login />
+          ) : (
+            <div>
+              {isAuthenticating && <p>Authenticating</p>}
+              {authError && <p>{JSON.stringify(authError.message)}</p>}
+              <button style={{ padding: "2rem" }} onClick={login}>
+                Wallet Connect
+              </button>
+            </div>
+          )}
         </>
       )}
     </>

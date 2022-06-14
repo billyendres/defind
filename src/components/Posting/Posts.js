@@ -7,6 +7,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 const Posts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
   const [postArr, setPostArr] = useState();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getPosts = async () => {
@@ -28,11 +29,21 @@ const Posts = ({ profile }) => {
 
   return (
     <>
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {console.log("Search", search)}
       {postArr
-        ?.map((e, key) => {
+        ?.filter((e) =>
+          e.attributes.postTxt.toLowerCase().includes(search.toLowerCase())
+        )
+        .map((e, key) => {
           return (
             <Wrapper key={key}>
               <ProfileWrapper>
+                {console.log(e.attributes.postTxt)}
                 <ProfileImage
                   src={
                     e.attributes.posterProfilePic

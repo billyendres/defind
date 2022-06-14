@@ -72,7 +72,7 @@ const Nav = () => {
             <MenuToggle toggle={() => toggleOpen()} />
           </Navbar>
         </div>
-        <NavWrapper>
+        {/* <NavWrapper>
           <ProfileImage src={user.attributes.profilePic} alt="Profile pic" />
           <div style={{ margin: "2rem" }}>{`${user.attributes.ethAddress.slice(
             0,
@@ -80,7 +80,7 @@ const Nav = () => {
           )}...
             ${user.attributes.ethAddress.slice(38)}`}</div>
           <Logout />
-        </NavWrapper>
+        </NavWrapper> */}
       </NavContainer>
       <Wrapper>
         <TextWrapper>
@@ -141,10 +141,10 @@ const NavContainer = styled.div`
 
 const Navbar = styled(motion.nav)`
   @media screen and (min-width: 769px) {
-    display: none;
+    /* display: none; */
   }
   @media screen and (max-height: 391px) {
-    display: inline;
+    /* display: inline; */
   }
 `;
 
@@ -185,11 +185,11 @@ const Wrapper = styled.div`
   padding: 1rem;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
   }
 
   @media screen and (max-height: 391px) {
-    display: none;
+    /* display: none; */
   }
 
   @media screen and (min-width: 768px) {
@@ -207,12 +207,12 @@ const TextWrapper = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
   }
   cursor: pointer;
 
   @media screen and (max-height: 391px) {
-    display: none;
+    /* display: none; */
   }
 `;
 
