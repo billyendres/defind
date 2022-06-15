@@ -4,23 +4,19 @@ import { createGlobalStyle } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
+import UserProfile from "./pages/UserProfile";
+import EditUserProfile from "./pages/EditUserProfile";
+import BusinessProfile from "./pages/BusinessProfile";
+import EditBusinessProfile from "./pages/EditBusinessProfile";
+import JobForum from "./pages/JobForum";
 import MyPosts from "./pages/MyPosts";
+import Post from "./pages/Post";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
 
 const App = () => {
-  const {
-    isAuthenticated,
-    authenticate,
-    user,
-    enableWeb3,
-    isWeb3Enabled,
-    authError,
-    isAuthenticating,
-    isWeb3EnableLoading,
-  } = useMoralis();
+  const { isAuthenticated, authenticate, authError, isAuthenticating } =
+    useMoralis();
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -38,23 +34,6 @@ const App = () => {
   };
 
   const ethereum = window.ethereum;
-  console.log(ethereum);
-
-  // const walletConnectAuth = () => {
-  //   authenticate({
-  //     provider: "walletconnect",
-  //     mobileLinks: [
-  //       "metamask",
-  //       "trust",
-  //       "rainbow",
-  //       "argent",
-  //       "imtoken",
-  //       "pillar",
-  //     ],
-  //     signingMessage: "Auth required",
-  //   });
-  //   // console.log("Authentication:", authentication);
-  // };
 
   return (
     <>
@@ -64,9 +43,16 @@ const App = () => {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/businessprofile" element={<BusinessProfile />} />
+            <Route path="/edituserprofile" element={<EditUserProfile />} />
+            <Route
+              path="/editbusinessprofile"
+              element={<EditBusinessProfile />}
+            />
+            <Route path="/jobforum" element={<JobForum />} />
             <Route path="/myposts" element={<MyPosts />} />
+            <Route path="/post" element={<Post />} />
           </Routes>
         </>
       ) : (

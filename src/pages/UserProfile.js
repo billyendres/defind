@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
-const Profile = () => {
+const UserProfile = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
 
@@ -27,7 +27,11 @@ const Profile = () => {
         )}...
             ${user.attributes.ethAddress.slice(38)}`}</h3>
         <h4 style={{ margin: "2rem" }}>{user.attributes.bio}</h4>
-        <Link to="/settings">
+        <h4 style={{ margin: "2rem" }}>{user.attributes.course}</h4>
+        <h4 style={{ display: !user.attributes.institution && "none" }}>
+          {user.attributes.institution}
+        </h4>
+        <Link to="/edituserprofile">
           <h2 style={{ margin: "2rem" }}>Edit Profile</h2>
         </Link>
       </div>
@@ -35,7 +39,7 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;
 
 const Wrapper = styled.div`
   display: flex;

@@ -7,6 +7,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 const Posts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
   const [postArr, setPostArr] = useState();
+  const [postArrLength, setPostArrLength] = useState();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -17,7 +18,6 @@ const Posts = ({ profile }) => {
         if (profile) {
           query.equalTo("posterAccount", account);
         }
-        console.log(account);
         const results = await query.find();
         setPostArr(results);
       } catch (error) {
@@ -34,52 +34,57 @@ const Posts = ({ profile }) => {
         placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
       />
-      {console.log("Search", search)}
       {postArr
-        ?.filter((e) =>
-          e.attributes.postTxt.toLowerCase().includes(search.toLowerCase())
+        ?.filter(
+          (item) =>
+            item.attributes.postTxt
+              .toLowerCase()
+              .includes(search.toLowerCase()) ||
+            item.attributes.posterUsername
+              .toLowerCase()
+              .includes(search.toLowerCase())
         )
-        .map((e, key) => {
+        .map((item, key) => {
           return (
             <Wrapper key={key}>
+              {console.log(item.attributes.postDescription)}
               <ProfileWrapper>
-                {console.log(e.attributes.postTxt)}
                 <ProfileImage
                   src={
-                    e.attributes.posterProfilePic
-                      ? e.attributes.posterProfilePic
+                    item.attributes.posterProfilePic
+                      ? item.attributes.posterProfilePic
                       : defaultProfileImage
                   }
                   alt="Profile pic"
                 />
-
                 <div>
-                  <h4>{e.attributes.posterUsername.slice(0, 6)}</h4>
-                  {`${e.attributes.posterAccount.slice(
+                  <h4>{item.attributes.posterUsername.slice(0, 6)}</h4>
+                  {`${item.attributes.posterAccount.slice(
                     0,
                     4
-                  )}...${e.attributes.posterAccount.slice(38)} · 
-                        ${e.attributes.createdAt.toLocaleString("en-us", {
+                  )}...${item.attributes.posterAccount.slice(38)} · 
+                        ${item.attributes.createdAt.toLocaleString("en-us", {
                           month: "short",
                         })}  
-                        ${e.attributes.createdAt.toLocaleString("en-us", {
+                        ${item.attributes.createdAt.toLocaleString("en-us", {
                           day: "numeric",
                         })}
                         `}
                 </div>
               </ProfileWrapper>
               <PostWrapper>
-                <PostHeader>{e.attributes.postTxt}</PostHeader>
-                {e.attributes.postImg && (
+                <PostHeader>{item.attributes.postTxt}</PostHeader>
+                <h3>{item.attributes.postDescription}</h3>
+                {item.attributes.postImg && (
                   <>
-                    <PostImage src={e.attributes.postImg} alt={e} />
+                    <PostImage src={item.attributes.postImg} alt={item} />
                     {/* <a
-                      href={e.attributes.postImg}
+                      href={item.attributes.postImg}
                       alt="Link"
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      {e.attributes.postImg}
+                      {item.attributes.postImg}
                     </a> */}
                   </>
                 )}

@@ -1,6 +1,11 @@
 import React from "react";
 
-const NewPost = ({ inputValue, change }) => {
+const NewPost = ({
+  inputValue,
+  change,
+  inputDescription,
+  changeDescription,
+}) => {
   return (
     <>
       <div
@@ -11,6 +16,12 @@ const NewPost = ({ inputValue, change }) => {
         </div>
         <div style={{ width: "100%" }}>
           <input value={inputValue} onChange={change} />
+        </div>
+        <div style={{ width: "100%" }}>
+          <label>POST description</label>
+        </div>
+        <div style={{ width: "100%" }}>
+          <input value={inputDescription} onChange={changeDescription} />
         </div>
       </div>
     </>

@@ -16,6 +16,7 @@ const Home = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [postFile, setPostFile] = useState();
   const [post, setPost] = useState("");
+  const [description, setDescription] = useState("");
 
   const ethPost = async () => {
     if (!post) return alert("No file detected");
@@ -46,6 +47,11 @@ const Home = () => {
               name: "postImg",
               type: "string",
             },
+            {
+              internalType: "string",
+              name: "postDescription",
+              type: "string",
+            },
           ],
           name: "addPost",
           outputs: [],
@@ -56,6 +62,7 @@ const Home = () => {
       params: {
         postTxt: post,
         postImg: img,
+        postDescription: description,
       },
       msgValue: Moralis.Units.Token(0.01),
     };
@@ -78,6 +85,7 @@ const Home = () => {
     const newPost = new Posts();
 
     newPost.set("postTxt", post);
+    newPost.set("postDescription", description);
     newPost.set("posterProfilePic", user.attributes.profilePic);
     newPost.set("posterAccount", user.attributes.ethAddress);
     newPost.set("posterUsername", user.attributes.username);
@@ -113,16 +121,17 @@ const Home = () => {
     <>
       <Wrapper>
         <Container>
-          <div style={{ marginTop: "10rem", marginBottom: "2rem" }}>
-            <h2>All Posts</h2>
-          </div>
+          <div style={{ marginTop: "10rem", marginBottom: "2rem" }}></div>
           <div>
-            {/* <Header />
-          <Subheader /> */}
+            <Header />
+            <Subheader />
+            <h2>All Posts</h2>
             <div>
               <NewPost
                 change={(e) => setPost(e.target.value)}
                 inputValue={post}
+                changeDescription={(e) => setDescription(e.target.value)}
+                inputDescription={description}
               />
               {selectedFile && <img src={selectedFile} alt={selectedFile} />}
               <div onClick={onImageClick}>
