@@ -31,7 +31,7 @@ const UserProfile = () => {
         <h4 style={{ display: !user.attributes.institution && "none" }}>
           {user.attributes.institution}
         </h4>
-        <Link to="/edituserprofile">
+        <Link to="/editprofile">
           <h2 style={{ margin: "2rem" }}>Edit Profile</h2>
         </Link>
       </div>

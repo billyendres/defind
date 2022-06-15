@@ -4,10 +4,8 @@ import { createGlobalStyle } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
-import UserProfile from "./pages/UserProfile";
-import EditUserProfile from "./pages/EditUserProfile";
-import BusinessProfile from "./pages/BusinessProfile";
-import EditBusinessProfile from "./pages/EditBusinessProfile";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 import JobForum from "./pages/JobForum";
 import MyPosts from "./pages/MyPosts";
 import Post from "./pages/Post";
@@ -43,13 +41,8 @@ const App = () => {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/businessprofile" element={<BusinessProfile />} />
-            <Route path="/edituserprofile" element={<EditUserProfile />} />
-            <Route
-              path="/editbusinessprofile"
-              element={<EditBusinessProfile />}
-            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/editprofile" element={<EditProfile />} />
             <Route path="/jobforum" element={<JobForum />} />
             <Route path="/myposts" element={<MyPosts />} />
             <Route path="/post" element={<Post />} />

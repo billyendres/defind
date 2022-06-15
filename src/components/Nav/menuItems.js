@@ -6,23 +6,8 @@ export const menuItems = [
   },
   {
     color: "#D309E1",
-    title: "User Profile",
-    route: "/userprofile",
-  },
-  {
-    color: "#D309E1",
-    title: "Edit User Profile",
-    route: "/edituserprofile",
-  },
-  {
-    color: "#D309E1",
-    title: "Business Profile",
-    route: "/businessprofile",
-  },
-  {
-    color: "#D309E1",
-    title: "Edit Business Profile",
-    route: "/editbusinessprofile",
+    title: "Profile",
+    route: "/profile",
   },
   {
     color: "#D309E1",

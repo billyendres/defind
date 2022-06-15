@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Posts from "../components/Posting/Posts";
+import JobSeekerPosts from "../components/Posting/JobSeekerPosts";
 import { useMoralis } from "react-moralis";
 
 const MyPosts = () => {

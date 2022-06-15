@@ -6,8 +6,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const Posts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
-  const [postArr, setPostArr] = useState();
-  const [postArrLength, setPostArrLength] = useState();
+  const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const Posts = ({ profile }) => {
           query.equalTo("posterAccount", account);
         }
         const results = await query.find();
-        setPostArr(results);
+        setPostArray(results);
       } catch (error) {
         console.error(error);
       }
@@ -34,10 +33,10 @@ const Posts = ({ profile }) => {
         placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
       />
-      {postArr
+      {postArray
         ?.filter(
           (item) =>
-            item.attributes.postTxt
+            item.attributes.personalSummary
               .toLowerCase()
               .includes(search.toLowerCase()) ||
             item.attributes.posterUsername
@@ -48,6 +47,7 @@ const Posts = ({ profile }) => {
           return (
             <Wrapper key={key}>
               {console.log(item.attributes.postDescription)}
+              {console.log("Summary: ", item.attributes.personalSummary)}
               <ProfileWrapper>
                 <ProfileImage
                   src={
@@ -63,29 +63,29 @@ const Posts = ({ profile }) => {
                     0,
                     4
                   )}...${item.attributes.posterAccount.slice(38)} · 
-                        ${item.attributes.createdAt.toLocaleString("en-us", {
-                          month: "short",
-                        })}  
-                        ${item.attributes.createdAt.toLocaleString("en-us", {
-                          day: "numeric",
-                        })}
-                        `}
+                    ${item.attributes.createdAt.toLocaleString("en-us", {
+                      month: "short",
+                    })}  
+                    ${item.attributes.createdAt.toLocaleString("en-us", {
+                      day: "numeric",
+                    })}
+                    `}
                 </div>
               </ProfileWrapper>
               <PostWrapper>
-                <PostHeader>{item.attributes.postTxt}</PostHeader>
+                <PostHeader>{item.attributes.personalSummary}</PostHeader>
                 <h3>{item.attributes.postDescription}</h3>
                 {item.attributes.postImg && (
                   <>
                     <PostImage src={item.attributes.postImg} alt={item} />
-                    {/* <a
+                    <a
                       href={item.attributes.postImg}
                       alt="Link"
                       target="_blank"
                       rel="noreferrer noopener"
                     >
                       {item.attributes.postImg}
-                    </a> */}
+                    </a>
                   </>
                 )}
               </PostWrapper>
