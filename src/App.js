@@ -12,6 +12,7 @@ import Post from "./pages/Post";
 import FullPost from "./pages/FullPost";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
+import SearchProfile from "./pages/SearchProfile";
 
 const App = () => {
   const { isAuthenticated, authenticate, authError, isAuthenticating } =
@@ -43,10 +44,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/profile/:userId" element={<SearchProfile />} />
+            <Route path="/profile/edit" element={<EditProfile />} />
             <Route path="/jobforum" element={<JobForum />} />
             <Route path="/jobforum/:id" element={<FullPost />} />
-            <Route path="/myposts" element={<MyPosts />} />
+            <Route path="/profile/myposts" element={<MyPosts />} />
             <Route path="/post" element={<Post />} />
           </Routes>
         </>

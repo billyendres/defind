@@ -98,7 +98,7 @@ const JobSeeker = () => {
     }
     await newPost.save();
     // window.location.reload();
-    navigate("/myposts");
+    navigate("/profile/myposts");
   };
 
   const onImageClick = () => {

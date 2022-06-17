@@ -49,14 +49,16 @@ const JobSeekerPosts = ({ profile }) => {
           return (
             <Wrapper key={key}>
               <ProfileWrapper>
-                <ProfileImage
-                  src={
-                    item.attributes.posterProfilePic
-                      ? item.attributes.posterProfilePic
-                      : defaultProfileImage
-                  }
-                  alt="Profile pic"
-                />
+                <Link to={`/profile/${item.attributes.posterUsername}`}>
+                  <ProfileImage
+                    src={
+                      item.attributes.posterProfilePic
+                        ? item.attributes.posterProfilePic
+                        : defaultProfileImage
+                    }
+                    alt="Profile pic"
+                  />
+                </Link>
                 <div>
                   <h4>{item.attributes.posterUsername}</h4>
                   <h4>{item.attributes.posterBio}</h4>

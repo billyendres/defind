@@ -14,6 +14,6 @@ export const menuItems = [
     title: "Job Forum",
     route: "/jobforum",
   },
-  { color: "#9C1AFF", title: "My Posts", route: "/myposts" },
+  { color: "#9C1AFF", title: "My Posts", route: "/profile/myposts" },
   { color: "#9C1AFF", title: "Post", route: "/post" },
 ];

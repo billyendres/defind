@@ -5,43 +5,41 @@ import { useMoralis } from "react-moralis";
 import { useParams } from "react-router-dom";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
-const FullPost = () => {
+const SearchProfile = () => {
   const { Moralis } = useMoralis();
-  const [user, setUser] = useState();
-  const { id } = useParams();
+  const [profile, setProfile] = useState();
+  const { userId } = useParams();
 
   useEffect(() => {
-    const getPost = async () => {
+    const getProfile = async () => {
       try {
         const Post = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Post);
-        query.equalTo("objectId", id);
+        query.equalTo("posterUsername", userId);
         const results = await query.find();
-        setUser(results);
+        setProfile(results);
       } catch (error) {
         console.error(error);
       }
     };
-    getPost();
-  }, [id, Moralis.Object, Moralis.Query]);
+    getProfile();
+  }, [userId, Moralis.Object, Moralis.Query]);
 
   return (
     <div>
-      {user?.map((item, key) => {
+      <h2>{userId}</h2>
+      {profile?.map((item, key) => {
         return (
           <Wrapper key={key}>
             <ProfileWrapper>
-              <Link to={`/profile/${item.attributes.posterUsername}`}>
-                <ProfileImage
-                  src={
-                    item.attributes.posterProfilePic
-                      ? item.attributes.posterProfilePic
-                      : defaultProfileImage
-                  }
-                  alt="Profile pic"
-                />
-              </Link>
-
+              <ProfileImage
+                src={
+                  item.attributes.posterProfilePic
+                    ? item.attributes.posterProfilePic
+                    : defaultProfileImage
+                }
+                alt="Profile pic"
+              />
               <div>
                 <h4>{item.attributes.posterUsername}</h4>
                 <h4>{item.attributes.posterBio}</h4>
@@ -99,7 +97,7 @@ const FullPost = () => {
   );
 };
 
-export default FullPost;
+export default SearchProfile;
 
 const Wrapper = styled.div`
   display: flex;
