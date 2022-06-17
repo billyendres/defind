@@ -15,10 +15,13 @@ import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
 
 const App = () => {
-  const { isAuthenticated, authenticate, authError, isAuthenticating } =
-    useMoralis();
-  const { Moralis } = useMoralis();
-  const user = Moralis.User.current();
+  const {
+    isAuthenticated,
+    authenticate,
+    authError,
+    isAuthenticating,
+    Moralis,
+  } = useMoralis();
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -46,22 +49,26 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path={`/profile/${user.attributes.ethAddress}`}
+              path={`/profile/${Moralis.User.current().attributes.ethAddress}`}
               element={<Profile />}
             />
             <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route
-              path={`/profile/edit/${user.attributes.ethAddress}`}
+              path={`/profile/edit/${
+                Moralis.User.current().attributes.ethAddress
+              }`}
               element={<EditProfile />}
             />
             <Route path="/jobforum" element={<JobForum />} />
             <Route path="/jobforum/:id" element={<FullPost />} />
             <Route
-              path={`/profile/posts/${user.attributes.ethAddress}`}
+              path={`/profile/posts/${
+                Moralis.User.current().attributes.ethAddress
+              }`}
               element={<MyPosts />}
             />
             <Route
-              path={`/newpost/${user.attributes.ethAddress}`}
+              path={`/newpost/${Moralis.User.current().attributes.ethAddress}`}
               element={<Post />}
             />
           </Routes>
