@@ -7,6 +7,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const JobSeekerPosts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
+  const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
 
@@ -49,7 +50,13 @@ const JobSeekerPosts = ({ profile }) => {
           return (
             <Wrapper key={key}>
               <ProfileWrapper>
-                <Link to={`/profile/${item.attributes.posterUsername}`}>
+                <Links
+                  to={
+                    user.attributes.ethAddress === item.attributes.posterAccount
+                      ? `/profile/${user.attributes.ethAddress}`
+                      : `/profile/${item.attributes.posterUsername}`
+                  }
+                >
                   <ProfileImage
                     src={
                       item.attributes.posterProfilePic
@@ -58,14 +65,13 @@ const JobSeekerPosts = ({ profile }) => {
                     }
                     alt="Profile pic"
                   />
-                </Link>
-                <div>
                   <h4>{item.attributes.posterUsername}</h4>
-                  <h4>{item.attributes.posterBio}</h4>
-                  {`${item.attributes.posterAccount.slice(
-                    0,
-                    4
-                  )}...${item.attributes.posterAccount.slice(38)} · 
+                </Links>
+                <h4>{item.attributes.posterBio}</h4>
+                {`${item.attributes.posterAccount.slice(
+                  0,
+                  4
+                )}...${item.attributes.posterAccount.slice(38)} · 
                     ${item.attributes.createdAt.toLocaleString("en-us", {
                       month: "short",
                     })}  
@@ -73,14 +79,13 @@ const JobSeekerPosts = ({ profile }) => {
                       day: "numeric",
                     })}
                     `}
-                </div>
                 {item.attributes.personalSummary && (
                   <>
                     <h4>Personal Summary</h4>
                     <h5>{item.attributes.personalSummary}</h5>
                   </>
                 )}
-                <Link to={`/jobforum/${item.id}`}>View Post</Link>
+                <Links to={`/jobforum/${item.id}`}>View Post</Links>
               </ProfileWrapper>
             </Wrapper>
           );
@@ -111,6 +116,14 @@ const ProfileWrapper = styled.div`
 const ProfileImage = styled.img`
   width: 5rem;
   border-radius: 50%;
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const PostWrapper = styled.div`

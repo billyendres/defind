@@ -4,12 +4,39 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Logout from "../Authentication/Logout";
-import { menuItems } from "./menuItems";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
+
+  const menuItems = [
+    {
+      color: "#FF008C",
+      title: "Home",
+      route: "/",
+    },
+    {
+      color: "#D309E1",
+      title: "Profile",
+      route: `/profile/${user.attributes.ethAddress}`,
+    },
+    {
+      color: "#D309E1",
+      title: "Job Forum",
+      route: "/jobforum",
+    },
+    {
+      color: "#9C1AFF",
+      title: "My Posts",
+      route: `/profile/posts/${user.attributes.ethAddress}`,
+    },
+    {
+      color: "#9C1AFF",
+      title: "Post",
+      route: `/newpost/${user.attributes.ethAddress}`,
+    },
+  ];
 
   return (
     <>
@@ -29,22 +56,25 @@ const Nav = () => {
       <UserProfileWrapper>
         <UserTextWrapper>
           <div>
-            <ProfileImage
-              src={
-                user.attributes.profilePic
-                  ? user.attributes.profilePic
-                  : defaultProfileImage
-              }
-              alt="Profile pic"
-            />
-            <div>
+            <Links to={`/profile/${user.attributes.ethAddress}`}>
+              <ProfileImage
+                src={
+                  user.attributes.profilePic
+                    ? user.attributes.profilePic
+                    : defaultProfileImage
+                }
+                alt="Profile pic"
+              />
               <h4>{user.attributes.username}</h4>
-              <div
-                style={{ margin: " 0 2rem" }}
-              >{`${user.attributes.ethAddress.slice(0, 4)}...
+            </Links>
+            <div
+              style={{ margin: " 0 2rem" }}
+            >{`${user.attributes.ethAddress.slice(0, 4)}...
             ${user.attributes.ethAddress.slice(38)}`}</div>
-            </div>
             <div>{user.attributes.bio}</div>
+            <Links to={`/newpost/${user.attributes.ethAddress}`}>
+              New Post
+            </Links>
           </div>
           <Logout />
         </UserTextWrapper>
@@ -162,6 +192,9 @@ const Links = styled(Link)`
   color: #ffffff;
   text-decoration: none;
   padding-left: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
 
   @media screen and (max-width: 1200px) {
     font-size: 1.5rem;

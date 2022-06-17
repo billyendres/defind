@@ -32,21 +32,22 @@ const SearchProfile = () => {
         return (
           <Wrapper key={key}>
             <ProfileWrapper>
-              <ProfileImage
-                src={
-                  item.attributes.posterProfilePic
-                    ? item.attributes.posterProfilePic
-                    : defaultProfileImage
-                }
-                alt="Profile pic"
-              />
-              <div>
+              <Links to={`/profile/${item.attributes.posterUsername}`}>
+                <ProfileImage
+                  src={
+                    item.attributes.posterProfilePic
+                      ? item.attributes.posterProfilePic
+                      : defaultProfileImage
+                  }
+                  alt="Profile pic"
+                />
                 <h4>{item.attributes.posterUsername}</h4>
-                <h4>{item.attributes.posterBio}</h4>
-                {`${item.attributes.posterAccount.slice(
-                  0,
-                  4
-                )}...${item.attributes.posterAccount.slice(38)} · 
+              </Links>
+              <h4>{item.attributes.posterBio}</h4>
+              {`${item.attributes.posterAccount.slice(
+                0,
+                4
+              )}...${item.attributes.posterAccount.slice(38)} · 
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   month: "short",
                 })}  
@@ -54,7 +55,6 @@ const SearchProfile = () => {
                   day: "numeric",
                 })}
                 `}
-              </div>
             </ProfileWrapper>
             <PostWrapper>
               {item.attributes.personalSummary && (
@@ -88,7 +88,7 @@ const SearchProfile = () => {
                   </a>
                 </>
               )}
-              <Link to="/jobforum">Return to job forum</Link>
+              <Links to="/jobforum">Return to job forum</Links>
             </PostWrapper>
           </Wrapper>
         );
@@ -128,4 +128,12 @@ const PostWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

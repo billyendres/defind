@@ -98,7 +98,7 @@ const JobSeeker = () => {
     }
     await newPost.save();
     // window.location.reload();
-    navigate("/profile/myposts");
+    navigate(`/profile/myposts/${user.attributes.ethAddress}`);
   };
 
   const onImageClick = () => {

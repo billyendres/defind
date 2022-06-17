@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import styled from "styled-components";
 import Username from "../components/UserProfile/Username";
@@ -92,6 +93,11 @@ const EditUserProfle = () => {
           <Button onClick={saveBio}>Save Bio</Button>
           <Button onClick={deleteBio}>Delete Bio</Button>
         </>
+        <div>
+          <Links to={`/profile/${user.attributes.ethAddress}`}>
+            Return to profile
+          </Links>
+        </div>
       </Container>
     </Wrapper>
   );
@@ -112,4 +118,12 @@ const Container = styled.div``;
 const Button = styled.button`
   padding: 0.75rem 1rem;
   font-size: 1rem;
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

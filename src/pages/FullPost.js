@@ -7,7 +7,8 @@ import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
-  const [user, setUser] = useState();
+  const user = Moralis.User.current();
+  const [userProfile, setUserProfile] = useState();
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const FullPost = () => {
         const query = new Moralis.Query(Post);
         query.equalTo("objectId", id);
         const results = await query.find();
-        setUser(results);
+        setUserProfile(results);
       } catch (error) {
         console.error(error);
       }
@@ -25,13 +26,22 @@ const FullPost = () => {
     getPost();
   }, [id, Moralis.Object, Moralis.Query]);
 
+  console.log("user", user.attributes.ethAddress);
+
   return (
     <div>
-      {user?.map((item, key) => {
+      {userProfile?.map((item, key) => {
         return (
           <Wrapper key={key}>
+            {console.log("item", item.attributes.posterAccount)}
             <ProfileWrapper>
-              <Link to={`/profile/${item.attributes.posterUsername}`}>
+              <Links
+                to={
+                  user.attributes.ethAddress === item.attributes.posterAccount
+                    ? `/profile/${user.attributes.ethAddress}`
+                    : `/profile/${item.attributes.posterUsername}`
+                }
+              >
                 <ProfileImage
                   src={
                     item.attributes.posterProfilePic
@@ -40,15 +50,13 @@ const FullPost = () => {
                   }
                   alt="Profile pic"
                 />
-              </Link>
-
-              <div>
                 <h4>{item.attributes.posterUsername}</h4>
-                <h4>{item.attributes.posterBio}</h4>
-                {`${item.attributes.posterAccount.slice(
-                  0,
-                  4
-                )}...${item.attributes.posterAccount.slice(38)} · 
+              </Links>
+              <h4>{item.attributes.posterBio}</h4>
+              {`${item.attributes.posterAccount.slice(
+                0,
+                4
+              )}...${item.attributes.posterAccount.slice(38)} · 
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   month: "short",
                 })}  
@@ -56,7 +64,6 @@ const FullPost = () => {
                   day: "numeric",
                 })}
                 `}
-              </div>
             </ProfileWrapper>
             <PostWrapper>
               {item.attributes.personalSummary && (
@@ -90,7 +97,7 @@ const FullPost = () => {
                   </a>
                 </>
               )}
-              <Link to="/jobforum">Return to job forum</Link>
+              <Links to="/jobforum">Return to job forum</Links>
             </PostWrapper>
           </Wrapper>
         );
@@ -130,4 +137,12 @@ const PostWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

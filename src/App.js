@@ -17,6 +17,8 @@ import SearchProfile from "./pages/SearchProfile";
 const App = () => {
   const { isAuthenticated, authenticate, authError, isAuthenticating } =
     useMoralis();
+  const { Moralis } = useMoralis();
+  const user = Moralis.User.current();
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -43,13 +45,25 @@ const App = () => {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path={`/profile/${user.attributes.ethAddress}`}
+              element={<Profile />}
+            />
             <Route path="/profile/:userId" element={<SearchProfile />} />
-            <Route path="/profile/edit" element={<EditProfile />} />
+            <Route
+              path={`/profile/edit/${user.attributes.ethAddress}`}
+              element={<EditProfile />}
+            />
             <Route path="/jobforum" element={<JobForum />} />
             <Route path="/jobforum/:id" element={<FullPost />} />
-            <Route path="/profile/myposts" element={<MyPosts />} />
-            <Route path="/post" element={<Post />} />
+            <Route
+              path={`/profile/posts/${user.attributes.ethAddress}`}
+              element={<MyPosts />}
+            />
+            <Route
+              path={`/newpost/${user.attributes.ethAddress}`}
+              element={<Post />}
+            />
           </Routes>
         </>
       ) : (
