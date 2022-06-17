@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useMoralis } from "react-moralis";
 
 const Education = ({
   changeCourse,
@@ -8,9 +7,6 @@ const Education = ({
   inputValueCourse,
   inputValueInstitution,
 }) => {
-  const { Moralis } = useMoralis();
-  const user = Moralis.User.current();
-
   return (
     <>
       <div
@@ -18,13 +14,13 @@ const Education = ({
       >
         <h2>Education</h2>
         <div style={{ width: "100%" }}>
-          <label>Change Course {user.attributes.course}</label>
+          <label>Change Course</label>
         </div>
         <div style={{ width: "100%" }}>
           <input value={inputValueCourse} onChange={changeCourse} />
         </div>
         <div style={{ width: "100%" }}>
-          <label>Change Institution {user.attributes.institution}</label>
+          <label>Change Institution</label>
         </div>
         <div style={{ width: "100%" }}>
           <input value={inputValueInstitution} onChange={changeInstitution} />

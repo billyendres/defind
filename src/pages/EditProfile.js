@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useMoralis, useMoralisWeb3Api } from "react-moralis";
+import React, { useState, useRef } from "react";
+import { useMoralis } from "react-moralis";
 import styled from "styled-components";
 import Username from "../components/UserProfile/Username";
 import Bio from "../components/UserProfile/Bio";
-import Education from "../components/UserProfile/Education";
 import ProfileImage from "../components/UserProfile/ProfileImage";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 
@@ -13,13 +12,8 @@ const EditUserProfle = () => {
   const [theFile, setTheFile] = useState();
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-  const [education, setEducation] = useState({
-    course: "",
-    institution: "",
-  });
 
-  const { userError, Moralis, account } = useMoralis();
-  const Web3Api = useMoralisWeb3Api();
+  const { userError, Moralis } = useMoralis();
   const user = Moralis.User.current();
 
   const profileImageClickHandler = () => {
@@ -32,7 +26,7 @@ const EditUserProfle = () => {
     setSelectedFile(URL.createObjectURL(img));
   };
 
-  const saveEdits = async () => {
+  const saveBio = async () => {
     const User = Moralis.Object.extend("_User");
     const query = new Moralis.Query(User);
     const myDetails = await query.first();
@@ -43,14 +37,6 @@ const EditUserProfle = () => {
 
     if (bio) {
       myDetails.set("bio", bio);
-    }
-
-    if (education.course) {
-      myDetails.set("course", education.course);
-    }
-
-    if (education.institution) {
-      myDetails.set("institution", education.institution);
     }
 
     if (theFile) {
@@ -64,9 +50,18 @@ const EditUserProfle = () => {
     window.location.reload();
   };
 
-  console.log("course:", education.course);
-  console.log("BIO", bio);
-  console.log("username", username);
+  const deleteBio = async () => {
+    const User = Moralis.Object.extend("_User");
+    const query = new Moralis.Query(User);
+    const myDetails = await query.first();
+
+    myDetails.set("username", "");
+    myDetails.set("bio", "");
+    myDetails.set("profilePic", defaultProfileImage);
+
+    await myDetails.save();
+    window.location.reload();
+  };
 
   return (
     <Wrapper>
@@ -94,18 +89,8 @@ const EditUserProfle = () => {
             inputValue={bio}
             bio={bio}
           />
-          <Education
-            changeCourse={(e) =>
-              setEducation({ ...education, course: e.target.value })
-            }
-            inputValueCourse={education.course}
-            changeInstitution={(e) =>
-              setEducation({ ...education, institution: e.target.value })
-            }
-            inputValueInstitution={education.institution}
-          />
-
-          <Button onClick={saveEdits}>Save</Button>
+          <Button onClick={saveBio}>Save Bio</Button>
+          <Button onClick={deleteBio}>Delete Bio</Button>
         </>
       </Container>
     </Wrapper>

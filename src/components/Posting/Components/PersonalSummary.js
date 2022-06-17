@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const NewPost = ({ value, onChange }) => {
   const [togglePersonalSummary, setTogglePersonalSummary] = useState(false);
-  // const [personalSummary, setPersonalSummary] = useState("");
   return (
     <>
       {togglePersonalSummary ? (

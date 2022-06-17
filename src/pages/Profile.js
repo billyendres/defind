@@ -27,10 +27,6 @@ const UserProfile = () => {
         )}...
             ${user.attributes.ethAddress.slice(38)}`}</h3>
         <h4 style={{ margin: "2rem" }}>{user.attributes.bio}</h4>
-        <h4 style={{ margin: "2rem" }}>{user.attributes.course}</h4>
-        <h4 style={{ display: !user.attributes.institution && "none" }}>
-          {user.attributes.institution}
-        </h4>
         <Link to="/editprofile">
           <h2 style={{ margin: "2rem" }}>Edit Profile</h2>
         </Link>

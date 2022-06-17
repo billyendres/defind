@@ -3,8 +3,8 @@ import React from "react";
 const ProfileImage = ({ change, click, inputFile, file }) => {
   return (
     <div>
-      <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
       <div onClick={click} style={{ width: "100%" }}>
+        <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
         <input
           type="file"
           name="file"

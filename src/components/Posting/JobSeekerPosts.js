@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import defaultProfileImage from "../images/defaultProfileImage.png";
 
-const Posts = ({ profile }) => {
+const JobSeekerPosts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
@@ -33,6 +34,7 @@ const Posts = ({ profile }) => {
         placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
       />
+
       {postArray
         ?.filter(
           (item) =>
@@ -46,8 +48,6 @@ const Posts = ({ profile }) => {
         .map((item, key) => {
           return (
             <Wrapper key={key}>
-              {console.log(item.attributes.postDescription)}
-              {console.log("Summary: ", item.attributes.personalSummary)}
               <ProfileWrapper>
                 <ProfileImage
                   src={
@@ -58,7 +58,8 @@ const Posts = ({ profile }) => {
                   alt="Profile pic"
                 />
                 <div>
-                  <h4>{item.attributes.posterUsername.slice(0, 6)}</h4>
+                  <h4>{item.attributes.posterUsername}</h4>
+                  <h4>{item.attributes.posterBio}</h4>
                   {`${item.attributes.posterAccount.slice(
                     0,
                     4
@@ -71,24 +72,14 @@ const Posts = ({ profile }) => {
                     })}
                     `}
                 </div>
-              </ProfileWrapper>
-              <PostWrapper>
-                <PostHeader>{item.attributes.personalSummary}</PostHeader>
-                <h3>{item.attributes.postDescription}</h3>
-                {item.attributes.postImg && (
+                {item.attributes.personalSummary && (
                   <>
-                    <PostImage src={item.attributes.postImg} alt={item} />
-                    <a
-                      href={item.attributes.postImg}
-                      alt="Link"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {item.attributes.postImg}
-                    </a>
+                    <h4>Personal Summary</h4>
+                    <h5>{item.attributes.personalSummary}</h5>
                   </>
                 )}
-              </PostWrapper>
+                <Link to={`/jobforum/${item.id}`}>View Post</Link>
+              </ProfileWrapper>
             </Wrapper>
           );
         })
@@ -97,7 +88,7 @@ const Posts = ({ profile }) => {
   );
 };
 
-export default Posts;
+export default JobSeekerPosts;
 
 const Wrapper = styled.div`
   display: flex;
