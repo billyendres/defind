@@ -5,6 +5,7 @@ import { useMoralis } from "react-moralis";
 
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import LoadingSpinner from "../Styles/LoadingSpinner";
+import Img from "../Styles/ProfilePicture";
 
 const JobSeekerPosts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
@@ -68,7 +69,7 @@ const JobSeekerPosts = ({ profile }) => {
                           : `/profile/${item.attributes.posterUsername}`
                       }
                     >
-                      <ProfileImage
+                      <Img
                         src={
                           item.attributes.posterProfilePic
                             ? item.attributes.posterProfilePic
@@ -124,11 +125,6 @@ const ProfileWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 5rem;
-  border-radius: 50%;
 `;
 
 const PostWrapper = styled.div`

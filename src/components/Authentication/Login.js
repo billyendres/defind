@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import LoadingSpinner from "../Styles/LoadingSpinner";
+import Button from "../Styles/Button";
 
 const Login = () => {
-  const { authenticate, isAuthenticating, authError, enableWeb3 } =
-    useMoralis();
+  const { authenticate, isAuthenticating, enableWeb3 } = useMoralis();
 
   useEffect(() => {
     enableWeb3();
@@ -14,15 +14,15 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <div style={{ height: "5rem" }}>
-        {isAuthenticating && <LoadingSpinner />}
-        {authError && <p>{JSON.stringify(authError.message)}</p>}
-      </div>
-      <button onClick={() => authenticate()} disabled={isAuthenticating}>
-        <h1 style={{ fontSize: "2rem", padding: "0.75rem 1rem" }}>
-          Login With MetaMask
-        </h1>
-      </button>
+      {isAuthenticating ? (
+        <LoadingSpinner />
+      ) : (
+        <Button
+          onClick={() => authenticate()}
+          disabled={isAuthenticating}
+          text="Login with MetaMask"
+        />
+      )}
     </Wrapper>
   );
 };
@@ -34,5 +34,4 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
 `;

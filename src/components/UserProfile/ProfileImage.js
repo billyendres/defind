@@ -1,6 +1,7 @@
 import React from "react";
+import Img from "../Styles/ProfilePicture";
 
-const ProfileImage = ({ onChange, onClick, inputFile, file }) => {
+const ProfileImage = ({ onChange, onClick, inputFile, src, alt }) => {
   return (
     <div>
       <div onClick={onClick} style={{ width: "100%" }}>
@@ -11,13 +12,7 @@ const ProfileImage = ({ onChange, onClick, inputFile, file }) => {
           onChange={onChange}
           style={{ display: "none" }}
         />
-        {/* {file && ( */}
-        <img
-          style={{ width: "5rem", objectFit: "cover", borderRadius: "50%" }}
-          src={file}
-          alt={file}
-        />
-        {/* )} */}
+        {src && <Img src={src} alt={alt} />}
         <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
       </div>
     </div>

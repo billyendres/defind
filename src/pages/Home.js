@@ -17,11 +17,11 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.div`
-  display: flex;
+  overflow: hidden;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  min-height: 100vh;
+  flex-wrap: wrap; */
 `;
 
 const Container = styled.div``;

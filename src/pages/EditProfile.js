@@ -7,6 +7,7 @@ import Bio from "../components/UserProfile/Bio";
 import ProfileImage from "../components/UserProfile/ProfileImage";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
+import Button from "../components/Styles/Button";
 
 const EditUserProfle = () => {
   const { Moralis } = useMoralis();
@@ -17,7 +18,7 @@ const EditUserProfle = () => {
       ? user.attributes.profilePic
       : defaultProfileImage
   );
-  const [theFile, setTheFile] = useState(user.attributes.profilePic);
+  const [theFile, setTheFile] = useState();
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,8 +33,8 @@ const EditUserProfle = () => {
     setSelectedFile(URL.createObjectURL(img));
   };
 
-  // console.log(theFile);
-  // console.log(selectedFile);
+  console.log(theFile);
+  console.log(selectedFile);
 
   const saveBio = async () => {
     const User = Moralis.Object.extend("_User");
@@ -87,7 +88,7 @@ const EditUserProfle = () => {
             onChange={profileImageChangeHandler}
             onClick={profileImageClickHandler}
             inputFile={inputFile}
-            file={selectedFile}
+            src={selectedFile}
           />
           <>
             <Username
@@ -99,12 +100,10 @@ const EditUserProfle = () => {
               inputValue={bio}
               bio={bio}
             />
-            <Button onClick={saveBio} disabled={isLoading}>
-              Save Bio
-            </Button>
-            <Button onClick={deleteBio} disabled={isLoading}>
-              Delete Bio
-            </Button>
+            <div style={{ display: "flex" }}>
+              <Button onClick={saveBio} disabled={isLoading} text="Save" />
+              <Button onClick={deleteBio} disabled={isLoading} text="Delete" />
+            </div>
           </>
           <div>
             <Links to={`/profile/${user.attributes.ethAddress}`}>
@@ -124,12 +123,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  height: 100vh;
 `;
 
 const Container = styled.div``;
-
-const Button = styled.button`
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-`;

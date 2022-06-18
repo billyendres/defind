@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
 import { Links } from "../components/Styles/Links";
+import Img from "../components/Styles/ProfilePicture";
 
 const SearchProfile = () => {
   const { Moralis } = useMoralis();
@@ -32,7 +33,7 @@ const SearchProfile = () => {
   return (
     <div>
       {isLoading ? (
-        <Wrapper style={{ height: "100vh" }}>
+        <Wrapper>
           <LoadingSpinner />
         </Wrapper>
       ) : (
@@ -44,7 +45,7 @@ const SearchProfile = () => {
                 <Wrapper key={key}>
                   <ProfileWrapper>
                     <Links to={`/profile/${item.attributes.posterUsername}`}>
-                      <ProfileImage
+                      <Img
                         src={
                           item.attributes.posterProfilePic
                             ? item.attributes.posterProfilePic
@@ -103,11 +104,6 @@ const ProfileWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 5rem;
-  border-radius: 50%;
 `;
 
 const PostWrapper = styled.div`

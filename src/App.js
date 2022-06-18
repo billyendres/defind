@@ -13,6 +13,7 @@ import FullPost from "./pages/FullPost";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
+import Logout from "./components/Authentication/Logout";
 
 const App = () => {
   const {
@@ -72,6 +73,7 @@ const App = () => {
               element={<Post />}
             />
           </Routes>
+          <Logout />
         </>
       ) : (
         <>
@@ -104,14 +106,14 @@ const GloablStyle = createGlobalStyle`
 html, body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     max-width: 100vw;
     overflow-x: hidden;
-    color: #fff;
+    color: #ffff;
     font-family: 'Nunito', sans-serif;
     text-align: center;
-    background: black;
+    background: #100b3c;
     z-index: -1;
+    padding-top: 7rem;
 }
 
   ul,

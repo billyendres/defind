@@ -3,8 +3,8 @@ import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
-import Logout from "../Authentication/Logout";
 import defaultProfileImage from "../images/defaultProfileImage.png";
+import Img from "../Styles/ProfilePicture";
 
 const Nav = () => {
   const { Moralis } = useMoralis();
@@ -12,27 +12,22 @@ const Nav = () => {
 
   const menuItems = [
     {
-      color: "#FF008C",
       title: "Home",
       route: "/",
     },
     {
-      color: "#D309E1",
       title: "Profile",
       route: `/profile/${user.attributes.ethAddress}`,
     },
     {
-      color: "#D309E1",
       title: "Job Forum",
       route: "/jobforum",
     },
     {
-      color: "#9C1AFF",
       title: "My Posts",
       route: `/profile/posts/${user.attributes.ethAddress}`,
     },
     {
-      color: "#9C1AFF",
       title: "Post",
       route: `/newpost/${user.attributes.ethAddress}`,
     },
@@ -42,144 +37,92 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper>
-          {menuItems.map(({ color, title, route }) => {
+          {menuItems.map(({ title, route }) => {
             return (
               <div key={route}>
-                <Links style={{ color: color }} to={`${route}`}>
-                  {title}
+                <Links style={{ textDecoration: "none" }} to={`${route}`}>
+                  <LinkHeaders>{title}</LinkHeaders>
                 </Links>
               </div>
             );
           })}
         </TextWrapper>
-      </LinkWrapper>
-      <UserProfileWrapper>
         <UserTextWrapper>
-          <div>
-            <Links to={`/profile/${user.attributes.ethAddress}`}>
-              <ProfileImage
-                src={
-                  user.attributes.profilePic
-                    ? user.attributes.profilePic
-                    : defaultProfileImage
-                }
-                alt="Profile pic"
-              />
-              <h4>{user.attributes.username}</h4>
-            </Links>
-            <div
-              style={{ margin: " 0 2rem" }}
-            >{`${user.attributes.ethAddress.slice(0, 4)}...
-            ${user.attributes.ethAddress.slice(38)}`}</div>
-            <div>{user.attributes.bio}</div>
-            <Links to={`/newpost/${user.attributes.ethAddress}`}>
-              New Post
-            </Links>
-          </div>
-          <Logout />
+          <Links to={`/profile/${user.attributes.ethAddress}`}>
+            {user.attributes.username}
+          </Links>
+          <span
+            style={{ margin: " 0 2rem" }}
+          >{`${user.attributes.ethAddress.slice(0, 4)}...
+          ${user.attributes.ethAddress.slice(38)}`}</span>
+          <span>{user.attributes.bio}</span>
+          <Links to={`/newpost/${user.attributes.ethAddress}`}>New Post</Links>
+          <Links to={`/profile/${user.attributes.ethAddress}`}>
+            <Img
+              style={{ margin: "1rem" }}
+              src={
+                user.attributes.profilePic
+                  ? user.attributes.profilePic
+                  : defaultProfileImage
+              }
+              alt="Profile pic"
+            />
+          </Links>
         </UserTextWrapper>
-      </UserProfileWrapper>
+      </LinkWrapper>
     </>
   );
 };
 
 export default Nav;
 
-const ProfileImage = styled.img`
-  width: 3rem;
-  border-radius: 50%;
-`;
-
 const LinkWrapper = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  /* width: 5rem; */
-  height: 100vh;
-  background: black;
+  width: 100vw;
+  height: 7rem;
+  background: #100b3c;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-
-  @media screen and (max-width: 768px) {
-    /* display: none; */
-  }
-
-  @media screen and (max-height: 391px) {
-    /* display: none; */
-  }
-
-  @media screen and (min-width: 768px) {
-    padding: 1.5rem 0 2rem 0;
-  }
-
-  @media screen and (min-width: 1200px) {
-    padding: 2rem 0;
-  }
-`;
-
-const UserProfileWrapper = styled.div`
-  position: fixed;
-  right: 0;
-  top: 0;
-  /* width: 5rem; */
-  height: 100vh;
-  background: black;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-
-  @media screen and (max-width: 768px) {
-    /* display: none; */
-  }
-
-  @media screen and (max-height: 391px) {
-    /* display: none; */
-  }
-
-  @media screen and (min-width: 768px) {
-    padding: 1.5rem 0 2rem 0;
-  }
-
-  @media screen and (min-width: 1200px) {
-    padding: 2rem 0;
-  }
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  /* align-items: left; */
+  /* flex-direction: column; */
   justify-content: center;
   text-align: left;
-
-  @media screen and (max-width: 768px) {
-    /* display: none; */
-  }
   cursor: pointer;
+`;
 
-  @media screen and (max-height: 391px) {
-    /* display: none; */
+const LinkHeaders = styled.h2`
+  color: rgba(239, 124, 142, 1);
+  padding: 1rem;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
+// const UserProfileWrapper = styled.div`
+//   position: fixed;
+//   right: 0;
+//   top: 0;
+//   width: 10rem;
+//   height: 100vh;
+//   background: #100b3c;
+//   z-index: 1;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 1rem;
+// `;
+
 const UserTextWrapper = styled.div`
   display: flex;
-  height: 100%;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-
-  @media screen and (max-width: 768px) {
-    /* display: none; */
-  }
-  cursor: pointer;
-
-  @media screen and (max-height: 391px) {
-    /* display: none; */
-  }
 `;

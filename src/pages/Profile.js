@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
+import Img from "../components/Styles/ProfilePicture";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -13,8 +14,7 @@ const UserProfile = () => {
   return (
     <Wrapper>
       <div>
-        <img
-          style={{ width: "5rem", borderRadius: "50%" }}
+        <Img
           src={
             user.attributes.profilePic
               ? user.attributes.profilePic
@@ -50,5 +50,4 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 100vh;
 `;

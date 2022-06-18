@@ -22,11 +22,12 @@ const spinner = keyframes`
 const Spinner = styled.div`
   width: 50px;
   height: 50px;
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid #383636;
+  border: 10px solid rgba(239, 124, 142, 1);
+  border-top: 10px solid #100b3c;
+
   border-radius: 50%;
   animation-name: ${spinner};
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   animation-iteration-count: infinite;
 `;
 

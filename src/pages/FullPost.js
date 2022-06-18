@@ -5,6 +5,7 @@ import { useMoralis } from "react-moralis";
 import { useParams } from "react-router-dom";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
+import Img from "../components/Styles/ProfilePicture";
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
@@ -50,7 +51,7 @@ const FullPost = () => {
                         : `/profile/${item.attributes.posterUsername}`
                     }
                   >
-                    <ProfileImage
+                    <Img
                       src={
                         item.attributes.posterProfilePic
                           ? item.attributes.posterProfilePic
@@ -133,11 +134,6 @@ const ProfileWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 5rem;
-  border-radius: 50%;
 `;
 
 const PostWrapper = styled.div`

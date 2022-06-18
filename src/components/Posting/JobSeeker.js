@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import PersonalSummary from "./Components/PersonalSummary";
 import Education from "./Components/Education";
@@ -25,7 +27,17 @@ const JobSeeker = () => {
   });
 
   const userPost = async () => {
-    if (!personalSummary) return alert("No file detected");
+    if (!personalSummary)
+      return toast.error("Please complete all required fields", {
+        position: "top-center",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     setIsLoading(true);
 
     let img;
@@ -75,6 +87,7 @@ const JobSeeker = () => {
       },
       onError: (error) => {
         setIsLoading(false);
+        console.log(error);
       },
     });
   };
@@ -83,8 +96,17 @@ const JobSeeker = () => {
     try {
       const Posts = Moralis.Object.extend("Posts");
       const newPost = new Posts();
-
-      if (!personalSummary) return alert("No file detected");
+      if (!personalSummary)
+        return toast.error("Please complete all required fields", {
+          position: "top-center",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
       setIsLoading(true);
 
       newPost.set("personalSummary", personalSummary);
@@ -138,6 +160,7 @@ const JobSeeker = () => {
       ) : (
         <>
           <h1>Job Seeker</h1>
+
           <div>
             {console.log(user.attributes.personalSummary)}
             <PersonalSummary
@@ -179,18 +202,10 @@ const JobSeeker = () => {
               />
               <h4 style={{ cursor: "pointer" }}>Attach Cover Letter</h4>
             </div>
-            {/* <button onClick={savePost} disabled={isLoading}>
-              SAVE POST
-            </button> */}
-            <Button
-              onClick={savePost}
-              disabled={isLoading}
-              text="Motion button"
-            />
+            <Button onClick={savePost} disabled={isLoading} text="Save Post" />
+            <ToastContainer />
             <div style={{ margin: "3rem" }}></div>
-            <button onClick={userPost} disabled={isLoading}>
-              ETH POST
-            </button>
+            <Button onClick={userPost} disabled={isLoading} text="ETH Post" />
           </div>
         </>
       )}
@@ -205,5 +220,4 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  height: 100vh;
 `;
