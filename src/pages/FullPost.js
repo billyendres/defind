@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Links } from "../components/Styles/Links";
 import { useMoralis } from "react-moralis";
 import { useParams } from "react-router-dom";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
+import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [userProfile, setUserProfile] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     const getPost = async () => {
+      setIsLoading(true);
       try {
         const Post = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Post);
         query.equalTo("objectId", id);
         const results = await query.find();
         setUserProfile(results);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -26,37 +30,41 @@ const FullPost = () => {
     getPost();
   }, [id, Moralis.Object, Moralis.Query]);
 
-  console.log("user", user.attributes.ethAddress);
-
   return (
-    <div>
-      {userProfile?.map((item, key) => {
-        return (
-          <Wrapper key={key}>
-            {console.log("item", item.attributes.posterAccount)}
-            <ProfileWrapper>
-              <Links
-                to={
-                  user.attributes.ethAddress === item.attributes.posterAccount
-                    ? `/profile/${user.attributes.ethAddress}`
-                    : `/profile/${item.attributes.posterUsername}`
-                }
-              >
-                <ProfileImage
-                  src={
-                    item.attributes.posterProfilePic
-                      ? item.attributes.posterProfilePic
-                      : defaultProfileImage
-                  }
-                  alt="Profile pic"
-                />
-                <h4>{item.attributes.posterUsername}</h4>
-              </Links>
-              <h4>{item.attributes.posterBio}</h4>
-              {`${item.attributes.posterAccount.slice(
-                0,
-                4
-              )}...${item.attributes.posterAccount.slice(38)} · 
+    <>
+      {isLoading ? (
+        <Wrapper style={{ height: "100vh" }}>
+          <LoadingSpinner />
+        </Wrapper>
+      ) : (
+        <div>
+          {userProfile?.map((item, key) => {
+            return (
+              <Wrapper key={key}>
+                <ProfileWrapper>
+                  <Links
+                    to={
+                      user.attributes.ethAddress ===
+                      item.attributes.posterAccount
+                        ? `/profile/${user.attributes.ethAddress}`
+                        : `/profile/${item.attributes.posterUsername}`
+                    }
+                  >
+                    <ProfileImage
+                      src={
+                        item.attributes.posterProfilePic
+                          ? item.attributes.posterProfilePic
+                          : defaultProfileImage
+                      }
+                      alt="Profile pic"
+                    />
+                    <h4>{item.attributes.posterUsername}</h4>
+                  </Links>
+                  <h4>{item.attributes.posterBio}</h4>
+                  {`${item.attributes.posterAccount.slice(
+                    0,
+                    4
+                  )}...${item.attributes.posterAccount.slice(38)} · 
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   month: "short",
                 })}  
@@ -64,45 +72,48 @@ const FullPost = () => {
                   day: "numeric",
                 })}
                 `}
-            </ProfileWrapper>
-            <PostWrapper>
-              {item.attributes.personalSummary && (
-                <>
-                  <h4>Personal Summary</h4>
-                  <h5>{item.attributes.personalSummary}</h5>
-                </>
-              )}
-              {item.attributes.course && (
-                <>
-                  <h4>Course</h4>
-                  <h5>{item.attributes.course}</h5>
-                </>
-              )}
-              {item.attributes.institution && (
-                <>
-                  <h4>Institution</h4>
-                  <h5>{item.attributes.institution}</h5>
-                </>
-              )}
-              {item.attributes.postImg && (
-                <>
-                  {/* <PostImage src={item.attributes.postImg} alt={item} /> */}
-                  <a
-                    href={item.attributes.postImg}
-                    alt="Link"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    Resume
-                  </a>
-                </>
-              )}
-              <Links to="/jobforum">Return to job forum</Links>
-            </PostWrapper>
-          </Wrapper>
-        );
-      })}
-    </div>
+                </ProfileWrapper>
+                <PostWrapper>
+                  {item.attributes.personalSummary && (
+                    <>
+                      <h4>Personal Summary</h4>
+                      <h5>{item.attributes.personalSummary}</h5>
+                    </>
+                  )}
+                  {item.attributes.course && (
+                    <>
+                      <h4>Course</h4>
+                      <h5>{item.attributes.course}</h5>
+                    </>
+                  )}
+                  {item.attributes.institution && (
+                    <>
+                      <h4>Institution</h4>
+                      <h5>{item.attributes.institution}</h5>
+                    </>
+                  )}
+                  {item.attributes.postImg && (
+                    <>
+                      {/* <PostImage src={item.attributes.postImg} alt={item} /> */}
+                      <a
+                        style={{ textDecoration: "none", color: "yellow" }}
+                        href={item.attributes.postImg}
+                        alt="Link"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        Resume
+                      </a>
+                    </>
+                  )}
+                  <Links to="/jobforum">Return to job forum</Links>
+                </PostWrapper>
+              </Wrapper>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -137,12 +148,4 @@ const PostWrapper = styled.div`
   height: 15rem;
   width: 10rem;
   margin: 0 2rem;
-`;
-
-const Links = styled(Link)`
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-  }
 `;

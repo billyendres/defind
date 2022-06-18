@@ -1,25 +1,25 @@
 import React from "react";
 
-const ProfileImage = ({ change, click, inputFile, file }) => {
+const ProfileImage = ({ onChange, onClick, inputFile, file }) => {
   return (
     <div>
-      <div onClick={click} style={{ width: "100%" }}>
-        <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
+      <div onClick={onClick} style={{ width: "100%" }}>
         <input
           type="file"
           name="file"
           ref={inputFile}
-          onChange={change}
+          onChange={onChange}
           style={{ display: "none" }}
         />
-      </div>
-      {file && (
+        {/* {file && ( */}
         <img
           style={{ width: "5rem", objectFit: "cover", borderRadius: "50%" }}
           src={file}
           alt={file}
         />
-      )}
+        {/* )} */}
+        <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
+      </div>
     </div>
   );
 };

@@ -1,21 +1,26 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Links } from "../components/Styles/Links";
 import { useMoralis } from "react-moralis";
 import styled from "styled-components";
 import Username from "../components/UserProfile/Username";
 import Bio from "../components/UserProfile/Bio";
 import ProfileImage from "../components/UserProfile/ProfileImage";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
+import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const EditUserProfle = () => {
+  const { Moralis } = useMoralis();
+  const user = Moralis.User.current();
   const inputFile = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(defaultProfileImage);
-  const [theFile, setTheFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(
+    user.attributes.profilePic
+      ? user.attributes.profilePic
+      : defaultProfileImage
+  );
+  const [theFile, setTheFile] = useState(user.attributes.profilePic);
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-
-  const { userError, Moralis } = useMoralis();
-  const user = Moralis.User.current();
+  const [isLoading, setIsLoading] = useState(false);
 
   const profileImageClickHandler = () => {
     inputFile.current.click();
@@ -27,10 +32,14 @@ const EditUserProfle = () => {
     setSelectedFile(URL.createObjectURL(img));
   };
 
+  // console.log(theFile);
+  // console.log(selectedFile);
+
   const saveBio = async () => {
     const User = Moralis.Object.extend("_User");
     const query = new Moralis.Query(User);
     const myDetails = await query.first();
+    setIsLoading(true);
 
     if (username) {
       myDetails.set("username", username);
@@ -48,6 +57,7 @@ const EditUserProfle = () => {
     }
 
     await myDetails.save();
+    setIsLoading(false);
     window.location.reload();
   };
 
@@ -55,50 +65,54 @@ const EditUserProfle = () => {
     const User = Moralis.Object.extend("_User");
     const query = new Moralis.Query(User);
     const myDetails = await query.first();
+    setIsLoading(true);
 
     myDetails.set("username", "");
     myDetails.set("bio", "");
     myDetails.set("profilePic", defaultProfileImage);
 
     await myDetails.save();
+    setIsLoading(false);
     window.location.reload();
   };
 
   return (
     <Wrapper>
-      <Container>
-        <h1 style={{ width: "100%" }}>EditUserProfle</h1>
-        <ProfileImage
-          change={profileImageChangeHandler}
-          click={profileImageClickHandler}
-          inputFile={inputFile}
-          file={
-            user.attributes.profilePic
-              ? user.attributes.profilePic
-              : selectedFile
-          }
-        />
-        <>
-          {userError && <p>{JSON.stringify(userError.message)}</p>}
-
-          <Username
-            change={(e) => setUsername(e.currentTarget.value)}
-            inputValue={username}
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <Container>
+          <h1 style={{ width: "100%" }}>EditUserProfile</h1>
+          <ProfileImage
+            onChange={profileImageChangeHandler}
+            onClick={profileImageClickHandler}
+            inputFile={inputFile}
+            file={selectedFile}
           />
-          <Bio
-            change={(e) => setBio(e.currentTarget.value)}
-            inputValue={bio}
-            bio={bio}
-          />
-          <Button onClick={saveBio}>Save Bio</Button>
-          <Button onClick={deleteBio}>Delete Bio</Button>
-        </>
-        <div>
-          <Links to={`/profile/${user.attributes.ethAddress}`}>
-            Return to profile
-          </Links>
-        </div>
-      </Container>
+          <>
+            <Username
+              change={(e) => setUsername(e.currentTarget.value)}
+              inputValue={username}
+            />
+            <Bio
+              change={(e) => setBio(e.currentTarget.value)}
+              inputValue={bio}
+              bio={bio}
+            />
+            <Button onClick={saveBio} disabled={isLoading}>
+              Save Bio
+            </Button>
+            <Button onClick={deleteBio} disabled={isLoading}>
+              Delete Bio
+            </Button>
+          </>
+          <div>
+            <Links to={`/profile/${user.attributes.ethAddress}`}>
+              Return to profile
+            </Links>
+          </div>
+        </Container>
+      )}
     </Wrapper>
   );
 };
@@ -118,12 +132,4 @@ const Container = styled.div``;
 const Button = styled.button`
   padding: 0.75rem 1rem;
   font-size: 1rem;
-`;
-
-const Links = styled(Link)`
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-  }
 `;

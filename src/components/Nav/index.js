@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
@@ -181,24 +181,5 @@ const UserTextWrapper = styled.div`
 
   @media screen and (max-height: 391px) {
     /* display: none; */
-  }
-`;
-
-const Links = styled(Link)`
-  font-style: normal;
-  font-weight: 900;
-  font-size: 2rem;
-  line-height: 120%;
-  color: #ffffff;
-  text-decoration: none;
-  padding-left: 1rem;
-  &:hover {
-    text-decoration: underline;
-  }
-
-  @media screen and (max-width: 1200px) {
-    font-size: 1.5rem;
-    line-height: 120%;
-    padding-left: 0.6rem;
   }
 `;

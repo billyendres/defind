@@ -20,7 +20,7 @@ const Username = ({ change, inputValue }) => {
           <label>Change Username {user.attributes.username}</label>
         </div>
         <div style={{ width: "100%" }}>
-          <input value={inputValue} onChange={change} />
+          <input value={inputValue} onChange={change} placeholder="Username" />
         </div>
       </div>
     </>

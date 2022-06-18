@@ -15,7 +15,7 @@ const Bio = ({ change, inputValue, bio }) => {
           <label>Bio: {user.attributes.bio}</label>
         </div>
         <div style={{ width: "100%" }}>
-          <input value={inputValue} onChange={change} />
+          <input value={inputValue} onChange={change} placeholder="Bio" />
         </div>
       </div>
     </>

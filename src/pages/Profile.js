@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
+import { Links } from "../components/Styles/Links";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -50,12 +51,4 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 100vh;
-`;
-
-const Links = styled(Link)`
-  text-decoration: none;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-  }
 `;

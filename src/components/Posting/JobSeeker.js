@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import PersonalSummary from "./Components/PersonalSummary";
 import Education from "./Components/Education";
+import LoadingSpinner from "../Styles/LoadingSpinner";
+import Button from "../Styles/Button";
 
 const JobSeeker = () => {
   const navigate = useNavigate();
@@ -12,8 +14,9 @@ const JobSeeker = () => {
   const user = Moralis.User.current();
   const contractProcessor = useWeb3ExecuteFunction();
 
+  const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
-  const [selectedFile, setSelectedFile] = useState();
+  // const [selectedFile, setSelectedFile] = useState();
   const [postFile, setPostFile] = useState();
   const [personalSummary, setPersonalSummary] = useState("");
   const [education, setEducation] = useState({
@@ -23,6 +26,7 @@ const JobSeeker = () => {
 
   const userPost = async () => {
     if (!personalSummary) return alert("No file detected");
+    setIsLoading(true);
 
     let img;
     if (postFile) {
@@ -70,35 +74,41 @@ const JobSeeker = () => {
         savePost();
       },
       onError: (error) => {
-        console.log(error.data.message);
+        setIsLoading(false);
       },
     });
   };
 
   const savePost = async () => {
-    const Posts = Moralis.Object.extend("Posts");
-    const newPost = new Posts();
+    try {
+      const Posts = Moralis.Object.extend("Posts");
+      const newPost = new Posts();
 
-    if (!personalSummary) return alert("No file detected");
+      if (!personalSummary) return alert("No file detected");
+      setIsLoading(true);
 
-    newPost.set("personalSummary", personalSummary);
-    newPost.set("course", education.course);
-    newPost.set("institution", education.institution);
-    newPost.set("posterProfilePic", user.attributes.profilePic);
-    newPost.set("posterAccount", user.attributes.ethAddress);
-    newPost.set("posterUsername", user.attributes.username);
-    newPost.set("posterBio", user.attributes.bio);
+      newPost.set("personalSummary", personalSummary);
+      newPost.set("course", education.course);
+      newPost.set("institution", education.institution);
+      newPost.set("posterProfilePic", user.attributes.profilePic);
+      newPost.set("posterAccount", user.attributes.ethAddress);
+      newPost.set("posterUsername", user.attributes.username);
+      newPost.set("posterBio", user.attributes.bio);
 
-    if (postFile) {
-      const data = postFile;
-      const file = new Moralis.File(data.name, data);
+      if (postFile) {
+        const data = postFile;
+        const file = new Moralis.File(data.name, data);
 
-      await file.saveIPFS();
-      newPost.set("postImg", file.ipfs());
+        await file.saveIPFS();
+        newPost.set("postImg", file.ipfs());
+      }
+      await newPost.save();
+      setIsLoading(false);
+      // window.location.reload();
+      navigate(`/profile/posts/${user.attributes.ethAddress}`);
+    } catch (error) {
+      console.log(error);
     }
-    await newPost.save();
-    // window.location.reload();
-    navigate(`/profile/myposts/${user.attributes.ethAddress}`);
   };
 
   const onImageClick = () => {
@@ -116,59 +126,84 @@ const JobSeeker = () => {
       return;
     }
     setPostFile(img);
-    setSelectedFile(URL.createObjectURL(img));
+    // setSelectedFile(URL.createObjectURL(img));
   };
 
   return (
     <div>
-      <h1>Job Seeker</h1>
-      <div>
-        {console.log(user.attributes.personalSummary)}
-        <PersonalSummary
-          onChange={(e) => setPersonalSummary(e.target.value)}
-          value={personalSummary}
-        />
-        <Education
-          changeCourse={(e) =>
-            setEducation({ ...education, course: e.target.value })
-          }
-          inputValueCourse={education.course}
-          changeInstitution={(e) =>
-            setEducation({ ...education, institution: e.target.value })
-          }
-          inputValueInstitution={education.institution}
-        />
-        {selectedFile && <img src={selectedFile} alt={selectedFile} />}
-        <div onClick={onImageClick}>
-          <input
-            type="file"
-            name="file"
-            ref={inputFile}
-            onChange={changeHandler}
-            style={{ display: "none" }}
-            accept="application/pdf"
-            // accept="image/png, image/jpeg, image/jpg"
-          />
-          <h4 style={{ cursor: "pointer" }}>Attach Resume</h4>
-        </div>
-        <div onClick={onImageClick}>
-          <input
-            type="file"
-            name="file"
-            ref={inputFile}
-            onChange={changeHandler}
-            style={{ display: "none" }}
-            accept="application/pdf"
-            // accept="image/png, image/jpeg, image/jpg"
-          />
-          <h4 style={{ cursor: "pointer" }}>Attach Cover Letter</h4>
-        </div>
-        <button onClick={savePost}>SAVE POST</button>
-        <div style={{ margin: "3rem" }}></div>
-        <button onClick={userPost}>ETH POST</button>
-      </div>
+      {isLoading ? (
+        <Wrapper>
+          <LoadingSpinner />
+        </Wrapper>
+      ) : (
+        <>
+          <h1>Job Seeker</h1>
+          <div>
+            {console.log(user.attributes.personalSummary)}
+            <PersonalSummary
+              onChange={(e) => setPersonalSummary(e.target.value)}
+              value={personalSummary}
+            />
+            <Education
+              changeCourse={(e) =>
+                setEducation({ ...education, course: e.target.value })
+              }
+              inputValueCourse={education.course}
+              changeInstitution={(e) =>
+                setEducation({ ...education, institution: e.target.value })
+              }
+              inputValueInstitution={education.institution}
+            />
+            {postFile && <h2>{postFile.name}</h2>}
+            <div onClick={onImageClick}>
+              <input
+                type="file"
+                name="file"
+                ref={inputFile}
+                onChange={changeHandler}
+                style={{ display: "none" }}
+                accept="application/pdf"
+                // accept="image/png, image/jpeg, image/jpg"
+              />
+              <h4 style={{ cursor: "pointer" }}>Attach Resume</h4>
+            </div>
+            <div onClick={onImageClick}>
+              <input
+                type="file"
+                name="file"
+                ref={inputFile}
+                onChange={changeHandler}
+                style={{ display: "none" }}
+                accept="application/pdf"
+                // accept="image/png, image/jpeg, image/jpg"
+              />
+              <h4 style={{ cursor: "pointer" }}>Attach Cover Letter</h4>
+            </div>
+            {/* <button onClick={savePost} disabled={isLoading}>
+              SAVE POST
+            </button> */}
+            <Button
+              onClick={savePost}
+              disabled={isLoading}
+              text="Motion button"
+            />
+            <div style={{ margin: "3rem" }}></div>
+            <button onClick={userPost} disabled={isLoading}>
+              ETH POST
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
 export default JobSeeker;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
+`;
