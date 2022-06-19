@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Links } from "../components/Styles/Links";
+import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Links } from "../components/Styles/Links";
 import Username from "../components/UserProfile/Username";
 import Bio from "../components/UserProfile/Bio";
 import ProfileImage from "../components/UserProfile/ProfileImage";
@@ -10,8 +14,11 @@ import LoadingSpinner from "../components/Styles/LoadingSpinner";
 import Button from "../components/Styles/Button";
 
 const EditUserProfle = () => {
+  const navigate = useNavigate();
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
+
+  const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
   const [selectedFile, setSelectedFile] = useState(
     user.attributes.profilePic
@@ -21,20 +28,6 @@ const EditUserProfle = () => {
   const [theFile, setTheFile] = useState();
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const profileImageClickHandler = () => {
-    inputFile.current.click();
-  };
-
-  const profileImageChangeHandler = (e) => {
-    const img = e.target.files[0];
-    setTheFile(img);
-    setSelectedFile(URL.createObjectURL(img));
-  };
-
-  console.log(theFile);
-  console.log(selectedFile);
 
   const saveBio = async () => {
     const User = Moralis.Object.extend("_User");
@@ -58,8 +51,9 @@ const EditUserProfle = () => {
     }
 
     await myDetails.save();
-    setIsLoading(false);
     window.location.reload();
+    setIsLoading(false);
+    navigate(`/profile/${user.attributes.ethAddress}`);
   };
 
   const deleteBio = async () => {
@@ -77,6 +71,35 @@ const EditUserProfle = () => {
     window.location.reload();
   };
 
+  const imageType = /image\/(png|jpg|jpeg)/i;
+
+  const profileImageClickHandler = () => {
+    inputFile.current.click();
+  };
+
+  const profileImageChangeHandler = (e) => {
+    const img = e.target.files[0];
+    if (!img.type.match(imageType)) {
+      if (!img.type.match(imageType)) {
+        return toast.error("Image type not valid", {
+          position: "top-center",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }
+    setTheFile(img);
+    setSelectedFile(URL.createObjectURL(img));
+  };
+
+  console.log(theFile);
+  console.log(selectedFile);
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -89,7 +112,9 @@ const EditUserProfle = () => {
             onClick={profileImageClickHandler}
             inputFile={inputFile}
             src={selectedFile}
+            accept="image/png, image/jpeg, image/jpg"
           />
+          <ToastContainer />
           <>
             <Username
               change={(e) => setUsername(e.currentTarget.value)}
@@ -119,10 +144,12 @@ const EditUserProfle = () => {
 export default EditUserProfle;
 
 const Wrapper = styled.div`
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  background: #1987fe;
 `;
 
 const Container = styled.div``;

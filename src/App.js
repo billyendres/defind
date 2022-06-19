@@ -108,12 +108,13 @@ html, body {
     flex-direction: column;
     max-width: 100vw;
     overflow-x: hidden;
-    color: #ffff;
+    /* color: #080e57; */
+    color: #fff;
     font-family: 'Nunito', sans-serif;
     text-align: center;
-    background: #100b3c;
+    /* background: #a06ecc; */
     z-index: -1;
-    padding-top: 7rem;
+    /* padding-top: 7rem; */
 }
 
   ul,

@@ -33,33 +33,37 @@ const SearchProfile = () => {
   return (
     <div>
       {isLoading ? (
-        <Wrapper>
+        <>
           <LoadingSpinner />
-        </Wrapper>
+        </>
       ) : (
         <>
-          <h2>{userId}</h2>
-          {profile
-            ?.map((item, key) => {
-              return (
-                <Wrapper key={key}>
-                  <ProfileWrapper>
-                    <Links to={`/profile/${item.attributes.posterUsername}`}>
-                      <Img
-                        src={
-                          item.attributes.posterProfilePic
-                            ? item.attributes.posterProfilePic
-                            : defaultProfileImage
-                        }
-                        alt="Profile pic"
-                      />
-                      <h4>{item.attributes.posterUsername}</h4>
-                    </Links>
-                    <h4>{item.attributes.posterBio}</h4>
-                    {`${item.attributes.posterAccount.slice(
-                      0,
-                      4
-                    )}...${item.attributes.posterAccount.slice(38)} · 
+          <div style={{ paddingTop: "10rem" }}></div>
+          <h2 style={{ color: "#080e57" }}>{userId}</h2>
+          <Wrapper>
+            <Grid>
+              {profile
+                ?.map((item, key) => {
+                  return (
+                    <ProfileWrapper key={key}>
+                      <Links to={`/profile/${item.attributes.posterUsername}`}>
+                        <Img
+                          src={
+                            item.attributes.posterProfilePic
+                              ? item.attributes.posterProfilePic
+                              : defaultProfileImage
+                          }
+                          alt="Profile pic"
+                        />
+                        <h2 style={{ color: "#fff" }}>
+                          {item.attributes.posterUsername}
+                        </h2>
+                      </Links>
+                      <h4>{item.attributes.posterBio}</h4>
+                      {`${item.attributes.posterAccount.slice(
+                        0,
+                        4
+                      )}...${item.attributes.posterAccount.slice(38)} · 
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   month: "short",
                 })}  
@@ -67,21 +71,24 @@ const SearchProfile = () => {
                   day: "numeric",
                 })}
                 `}
-                  </ProfileWrapper>
-                  <PostWrapper>
-                    {item.attributes.personalSummary && (
-                      <>
-                        <h4>Personal Summary</h4>
-                        <h5>{item.attributes.personalSummary}</h5>
-                      </>
-                    )}
-                    <Links to={`/jobforum/${item.id}`}>View Post</Links>
-                    <Links to="/jobforum">Return to job forum</Links>
-                  </PostWrapper>
-                </Wrapper>
-              );
-            })
-            .reverse()}
+                      {item.attributes.personalSummary && (
+                        <>
+                          <h4>Personal Summary</h4>
+                          <h5>{item.attributes.personalSummary}</h5>
+                        </>
+                      )}
+                      <Links to={`/jobforum/${item.id}`}>
+                        <h2 style={{ color: "#fff" }}>View Post</h2>
+                      </Links>
+                      <Links to="/jobforum">
+                        <h2 style={{ color: "#fff" }}>Return to job forum</h2>
+                      </Links>
+                    </ProfileWrapper>
+                  );
+                })
+                .reverse()}
+            </Grid>
+          </Wrapper>
         </>
       )}
     </div>
@@ -94,6 +101,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const ProfileWrapper = styled.div`
@@ -101,17 +115,11 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 15rem;
-  width: 10rem;
-  margin: 0 2rem;
-`;
-
-const PostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 15rem;
-  width: 10rem;
-  margin: 0 2rem;
+  height: 25rem;
+  width: 25rem;
+  margin: 2rem;
+  border-radius: 2rem;
+  background-color: #080e57;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;

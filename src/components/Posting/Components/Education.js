@@ -10,7 +10,12 @@ const Education = ({
   return (
     <>
       <div
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          color: "#080e57",
+        }}
       >
         <h2>Education</h2>
         <div style={{ width: "100%" }}>

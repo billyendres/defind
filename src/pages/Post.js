@@ -7,14 +7,24 @@ const Post = () => {
   const [postType, setPostType] = useState(true);
 
   return (
-    <div>
-      <h2>Post</h2>
+    <Wrapper>
+      {/* <h2>Post</h2>
       <h2>I am a</h2>
       <button onClick={() => setPostType(true)}>Job Seeker</button>
       <button onClick={() => setPostType(false)}>Job Poster</button>
-      {postType ? <JobSeeker /> : <JobPoster />}
-    </div>
+      {postType ? <JobSeeker /> : <JobPoster />} */}
+      <JobSeeker />
+    </Wrapper>
   );
 };
 
 export default Post;
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #f5de78;
+`;

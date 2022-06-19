@@ -6,9 +6,7 @@ const Home = () => {
   return (
     <>
       <Wrapper>
-        <Container>
-          <Header />
-        </Container>
+        <Header />
       </Wrapper>
     </>
   );
@@ -18,10 +16,11 @@ export default Home;
 
 const Wrapper = styled.div`
   overflow: hidden;
-  /* display: flex;
+  min-height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; */
+  flex-wrap: wrap;
+  flex-direction: column;
+  background: #f7579c;
 `;
-
-const Container = styled.div``;

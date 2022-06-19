@@ -3,13 +3,22 @@ import styled, { keyframes } from "styled-components";
 
 const LoadingSpinner = () => {
   return (
-    <Spinner>
-      <Container></Container>
-    </Spinner>
+    <Wrapper>
+      <Spinner>
+        <Container></Container>
+      </Spinner>
+    </Wrapper>
   );
 };
 
 export default LoadingSpinner;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const spinner = keyframes`
     0% {

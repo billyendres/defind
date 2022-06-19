@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../Styles/Button";
 
 const NewPost = ({ value, onChange }) => {
   const [togglePersonalSummary, setTogglePersonalSummary] = useState(false);
@@ -12,7 +13,7 @@ const NewPost = ({ value, onChange }) => {
             justifyContent: "center",
           }}
         >
-          <div style={{ width: "100%" }}>
+          <div style={{ width: "100%", color: "#080e57" }}>
             <h3>Personal Summary</h3>
             <h4>Highlight your unique experiences, ambitions and strengths.</h4>
           </div>
@@ -26,21 +27,19 @@ const NewPost = ({ value, onChange }) => {
               required
             />
           </div>
-          <button
+          <Button
             onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
-          >
-            Save personal summary
-          </button>
+            text="Save"
+          />
         </div>
       ) : (
         <>
-          <h3>Personal Summary</h3>
-          <h4>{value}</h4>
-          <button
+          <h3 style={{ color: "#080e57" }}>Personal Summary</h3>
+          <h4 style={{ color: "#080e57" }}>{value}</h4>
+          <Button
             onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
-          >
-            Edit Personal Summary
-          </button>
+            text="Edit"
+          />
         </>
       )}
     </>

@@ -59,7 +59,9 @@ const FullPost = () => {
                       }
                       alt="Profile pic"
                     />
-                    <h4>{item.attributes.posterUsername}</h4>
+                    <h2 style={{ color: "#fff" }}>
+                      {item.attributes.posterUsername}
+                    </h2>
                   </Links>
                   <h4>{item.attributes.posterBio}</h4>
                   {`${item.attributes.posterAccount.slice(
@@ -73,8 +75,6 @@ const FullPost = () => {
                   day: "numeric",
                 })}
                 `}
-                </ProfileWrapper>
-                <PostWrapper>
                   {item.attributes.personalSummary && (
                     <>
                       <h4>Personal Summary</h4>
@@ -107,8 +107,10 @@ const FullPost = () => {
                       </a>
                     </>
                   )}
-                  <Links to="/jobforum">Return to job forum</Links>
-                </PostWrapper>
+                  <Links to="/jobforum">
+                    <h2 style={{ color: "#fff" }}>Return to job forum</h2>
+                  </Links>
+                </ProfileWrapper>
               </Wrapper>
             );
           })}
@@ -121,9 +123,12 @@ const FullPost = () => {
 export default FullPost;
 
 const Wrapper = styled.div`
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  background: #f57971;
 `;
 
 const ProfileWrapper = styled.div`
@@ -131,17 +136,11 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 15rem;
-  width: 10rem;
-  margin: 0 2rem;
-`;
-
-const PostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 15rem;
-  width: 10rem;
-  margin: 0 2rem;
+  height: 25rem;
+  width: 25rem;
+  margin: 2rem;
+  border-radius: 2rem;
+  background-color: #080e57;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;

@@ -133,22 +133,27 @@ const JobSeeker = () => {
     }
   };
 
+  const imageType = /application\/(pdf)/i;
+
   const onImageClick = () => {
     inputFile.current.click();
   };
 
-  // const imageType = /image\/(png|jpg|jpeg)/i;
-
-  const imageType = /application\/(pdf)/i;
-
   const changeHandler = (e) => {
     const img = e.target.files[0];
     if (!img.type.match(imageType)) {
-      alert("Image type is not valid");
-      return;
+      return toast.error("Image type not valid", {
+        position: "top-center",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     }
     setPostFile(img);
-    // setSelectedFile(URL.createObjectURL(img));
   };
 
   return (
@@ -159,10 +164,9 @@ const JobSeeker = () => {
         </Wrapper>
       ) : (
         <>
-          <h1>Job Seeker</h1>
+          <h1 style={{ color: "#080e57" }}>Job Seeker</h1>
 
           <div>
-            {console.log(user.attributes.personalSummary)}
             <PersonalSummary
               onChange={(e) => setPersonalSummary(e.target.value)}
               value={personalSummary}
@@ -177,7 +181,7 @@ const JobSeeker = () => {
               }
               inputValueInstitution={education.institution}
             />
-            {postFile && <h2>{postFile.name}</h2>}
+            {postFile && <h2 style={{ color: "#080e57" }}>{postFile.name}</h2>}
             <div onClick={onImageClick}>
               <input
                 type="file"
@@ -186,9 +190,10 @@ const JobSeeker = () => {
                 onChange={changeHandler}
                 style={{ display: "none" }}
                 accept="application/pdf"
-                // accept="image/png, image/jpeg, image/jpg"
               />
-              <h4 style={{ cursor: "pointer" }}>Attach Resume</h4>
+              <h4 style={{ color: "#080e57", cursor: "pointer" }}>
+                Attach Resume
+              </h4>
             </div>
             <div onClick={onImageClick}>
               <input
@@ -200,7 +205,9 @@ const JobSeeker = () => {
                 accept="application/pdf"
                 // accept="image/png, image/jpeg, image/jpg"
               />
-              <h4 style={{ cursor: "pointer" }}>Attach Cover Letter</h4>
+              <h4 style={{ color: "#080e57", cursor: "pointer" }}>
+                Attach Cover Letter
+              </h4>
             </div>
             <Button onClick={savePost} disabled={isLoading} text="Save Post" />
             <ToastContainer />
