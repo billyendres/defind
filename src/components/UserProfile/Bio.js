@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
+import { FaBookReader } from "react-icons/fa";
 
 const Bio = ({ onChange, value }) => {
   const { Moralis } = useMoralis();
@@ -10,11 +11,13 @@ const Bio = ({ onChange, value }) => {
     <>
       <Wrapper>
         <div style={{ width: "100%" }}>
-          <label>Bio: {user.attributes.bio}</label>
+          <Label>
+            <FaBookReader style={{ marginRight: "1rem" }} />
+            {/* {user.attributes.bio} */}
+            <input value={value} onChange={onChange} placeholder="Bio" />
+          </Label>
         </div>
-        <div style={{ width: "100%" }}>
-          <input value={value} onChange={onChange} placeholder="Bio" />
-        </div>
+        <div style={{ width: "100%" }}></div>
       </Wrapper>
     </>
   );
@@ -28,4 +31,11 @@ const Wrapper = styled.div`
   justify-content: center;
   color: ${({ theme }) => theme.textEditProfile};
   transition: all 0.5s linear;
+`;
+
+const Label = styled.h2`
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  text-transform: uppercase;
 `;

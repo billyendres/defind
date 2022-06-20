@@ -7,22 +7,22 @@ const Toggle = ({ theme, toggleTheme }) => {
     <div
       onClick={toggleTheme}
       style={{
-        color: "black",
-        paddingTop: "5rem",
         zIndex: 1000,
         position: "fixed",
-        marginTop: "-2.5rem",
-        left: "50%",
+        left: 0,
+        bottom: 0,
       }}
     >
       <>
         {theme === "light" ? (
           <Icons>
-            <FaMoon />
+            <FaMoon style={{ marginRight: "1rem" }} />
+            Dark
           </Icons>
         ) : (
           <Icons>
-            <FaSun />
+            <FaSun style={{ marginRight: "1rem" }} />
+            Light
           </Icons>
         )}
       </>
@@ -32,7 +32,14 @@ const Toggle = ({ theme, toggleTheme }) => {
 
 export default Toggle;
 
-const Icons = styled.h1`
+const Icons = styled.h2`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.icon};
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  cursor: pointer;
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { useMoralis } from "react-moralis";
@@ -22,7 +22,7 @@ const App = () => {
 
   const lightTheme = {
     icon: "#080e57",
-    backgroundHome: "#fff",
+    backgroundHome: "#03fcec",
     textHome: "#080e57",
     backgroundNav: "inherit",
     textNav: "#080e57",
@@ -31,41 +31,41 @@ const App = () => {
     backgroundPost: "#ffffba",
     textPost: "#080e57",
     backgroundJobForum: "#57f7ac",
-    textJobForum: "#fff",
+    textJobForum: "#bae1ff",
     profileWrapperJobForum: "#080e57",
     backgroundProfilePosts: "#bae1ff",
     backgroundEditProfile: "#1987fe",
     textEditProfile: "#080e57",
     backgroundUsersProfile: "#03fcec",
-    textUsersProfile: "#fff",
+    textUsersProfile: "#bae1ff",
     profileWrapperUsersProfile: "#080e57",
     backgroundFullPost: "#f57971",
-    textFullPost: "#fff",
-    profileWrapperFullPost: "#080e57",
+    textFullPost: "#f57971",
+    profileWrapperFullPost: "#1c0201",
   };
 
   const darkTheme = {
-    icon: "#fff",
+    icon: "#bae1ff",
     backgroundHome: "#080e57",
-    textHome: "#fff",
+    textHome: "#bae1ff",
     backgroundNav: "#080e57",
-    textNav: "#fff",
+    textNav: "#bae1ff",
     backgroundProfile: "#080e57",
-    textProfile: "#fff",
+    textProfile: "#bae1ff",
     backgroundPost: "#080e57",
-    textPost: "#fff",
+    textPost: "#bae1ff",
     backgroundJobForum: "#080e57",
     textJobForum: "#080e57",
-    profileWrapperJobForum: "#fff",
+    profileWrapperJobForum: "#bae1ff",
     backgroundProfilePosts: "#080e57",
     backgroundEditProfile: "#080e57",
-    textEditProfile: "#fff",
+    textEditProfile: "#bae1ff",
     backgroundUsersProfile: "#080e57",
     textUsersProfile: "#080e57",
-    profileWrapperUsersProfile: "#fff",
+    profileWrapperUsersProfile: "#bae1ff",
     backgroundFullPost: "#080e57",
     textFullPost: "#080e57",
-    profileWrapperFullPost: "#fff",
+    profileWrapperFullPost: "#bae1ff",
   };
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
@@ -162,7 +162,8 @@ html, body {
     flex-direction: column;
     max-width: 100vw;
     overflow-x: hidden;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 4px;
     text-align: center;
     z-index: -1;
 }

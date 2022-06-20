@@ -106,7 +106,6 @@ const EditUserProfle = () => {
         <LoadingSpinner />
       ) : (
         <Container>
-          <Header>EditUserProfile</Header>
           <ProfileImage
             onChange={profileImageChangeHandler}
             onClick={profileImageClickHandler}
@@ -122,13 +121,23 @@ const EditUserProfle = () => {
             />
             <Bio onChange={(e) => setBio(e.currentTarget.value)} value={bio} />
             <div style={{ display: "flex" }}>
-              <Button onClick={saveBio} disabled={isLoading} text="Save" />
-              <Button onClick={deleteBio} disabled={isLoading} text="Delete" />
+              <Subheader>
+                <Button onClick={saveBio} disabled={isLoading} text="Save" />
+              </Subheader>
+              <Subheader>
+                <Button
+                  onClick={deleteBio}
+                  disabled={isLoading}
+                  text="Delete"
+                />
+              </Subheader>
             </div>
           </>
           <div>
             <Links to={`/profile/${user.attributes.ethAddress}`}>
-              <Header>Return to profile</Header>
+              <Subheader>
+                <Button text="Return to profile" />
+              </Subheader>
             </Links>
           </div>
         </Container>
@@ -155,3 +164,11 @@ const Header = styled.h2`
 `;
 
 const Container = styled.div``;
+
+const Subheader = styled.h4`
+  color: ${({ theme }) => theme.textProfile};
+  transition: all 0.5s linear;
+  /* text-transform: uppercase; */
+  font-size: 1.5rem;
+  margin: 0.5rem;
+`;

@@ -5,6 +5,8 @@ import { useMoralis } from "react-moralis";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
 import Img from "../components/Styles/ProfilePicture";
+import Button from "../components/Styles/Button";
+import { FaWallet, FaUserEdit } from "react-icons/fa";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -15,6 +17,7 @@ const UserProfile = () => {
     <Wrapper>
       <div>
         <Img
+          style={{ width: "7rem", height: "7rem" }}
           src={
             user.attributes.profilePic
               ? user.attributes.profilePic
@@ -23,19 +26,28 @@ const UserProfile = () => {
           alt="Profile pic"
         />
         <Header>{user.attributes.username}</Header>
-        <Header>{`${user.attributes.ethAddress.slice(0, 4)}...
-            ${user.attributes.ethAddress.slice(38)}`}</Header>
-        <h4 style={{ color: "#080e57" }}>{user.attributes.bio}</h4>
+        <Subheader>
+          {/* <FaWallet /> */}
+          {`${user.attributes.ethAddress.slice(0, 4)}...
+            ${user.attributes.ethAddress.slice(38)}`}{" "}
+        </Subheader>
+
+        <Subheader>{user.attributes.bio}</Subheader>
         <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
-          <Header>Edit Profile</Header>
+          <Subheader>
+            {/* <FaUserEdit /> */}
+            <Button text="edit profile" />
+          </Subheader>
         </Links>
         {location.pathname === `/profile/${user.attributes.ethAddress}` ? (
           <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
-            <Header>View My Posts</Header>
+            {/* <Subheader>My Posts</Subheader> */}
           </Links>
         ) : (
           <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <Header>Return to profile</Header>
+            <Subheader>
+              <Button text="Return to profile" />
+            </Subheader>
           </Links>
         )}
       </div>
@@ -58,4 +70,15 @@ const Wrapper = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.textProfile};
   transition: all 0.5s linear;
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin: 1rem;
+`;
+
+const Subheader = styled.h4`
+  color: ${({ theme }) => theme.textProfile};
+  transition: all 0.5s linear;
+  /* text-transform: uppercase; */
+  font-size: 1.5rem;
+  margin: 0.5rem;
 `;

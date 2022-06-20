@@ -21,6 +21,8 @@ export default Button;
 
 const MotionButton = styled(motion.button)`
   font-size: 1.5rem;
+  font-family: "Russo One", sans-serif;
+  letter-spacing: 4px;
   text-transform: uppercase;
   font-weight: 700;
   padding: 0.5rem 1rem;
@@ -29,7 +31,7 @@ const MotionButton = styled(motion.button)`
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  color: #100b3c;
+  color: #080e57;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   background: linear-gradient(

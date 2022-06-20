@@ -2,47 +2,97 @@ import React, { useState } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-
+import {
+  FaHome,
+  FaUserAlt,
+  FaBookReader,
+  FaRegEdit,
+  FaRegIdCard,
+} from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
 
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
-  const [navColor, setNavColor] = useState(false);
 
   const menuItems = [
     {
-      title: "Home",
+      title: (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          <FaHome style={{ marginRight: "1rem" }} />
+          Home
+        </div>
+      ),
       route: "/",
     },
     {
-      title: "Profile",
+      title: (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          <FaUserAlt style={{ marginRight: "1rem" }} />
+          Profile
+        </div>
+      ),
       route: `/profile/${user.attributes.ethAddress}`,
     },
     {
-      title: "Job Forum",
+      title: (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          <FaBookReader style={{ marginRight: "1rem" }} />
+          Jobs
+        </div>
+      ),
       route: "/jobforum",
     },
     {
-      title: "My Posts",
+      title: (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          <FaRegIdCard style={{ marginRight: "1rem" }} />
+          My Posts
+        </div>
+      ),
       route: `/profile/posts/${user.attributes.ethAddress}`,
     },
     {
-      title: "Post",
+      title: (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          <FaRegEdit style={{ marginRight: "1rem" }} />
+          Post
+        </div>
+      ),
       route: `/newpost/${user.attributes.ethAddress}`,
     },
   ];
-
-  const changeNavColor = () => {
-    if (window.scrollY >= "90") {
-      setNavColor(true);
-    } else {
-      setNavColor(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeNavColor);
 
   return (
     <>
@@ -58,29 +108,27 @@ const Nav = () => {
             );
           })}
         </TextWrapper>
-        <UserTextWrapper>
-          <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <Header>{user.attributes.username}</Header>
-          </Links>
-          <Header>{`${user.attributes.ethAddress.slice(0, 4)}...
-          ${user.attributes.ethAddress.slice(38)}`}</Header>
-          <Header>{user.attributes.bio}</Header>
-          <Links to={`/newpost/${user.attributes.ethAddress}`}>
-            <Header>New Post</Header>
-          </Links>
-          <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <Img
-              style={{ margin: "1rem" }}
-              src={
-                user.attributes.profilePic
-                  ? user.attributes.profilePic
-                  : defaultProfileImage
-              }
-              alt="Profile pic"
-            />
-          </Links>
-        </UserTextWrapper>
       </LinkWrapper>
+
+      <UserTextWrapper>
+        <Links to={`/profile/${user.attributes.ethAddress}`}>
+          <Img
+            style={{ margin: "1rem" }}
+            src={
+              user.attributes.profilePic
+                ? user.attributes.profilePic
+                : defaultProfileImage
+            }
+            alt="Profile pic"
+          />
+        </Links>
+        <Links to={`/profile/${user.attributes.ethAddress}`}>
+          <Header>{user.attributes.username}</Header>
+        </Links>
+        <Subheader>{`${user.attributes.ethAddress.slice(0, 4)}...
+          ${user.attributes.ethAddress.slice(38)}`}</Subheader>
+        <Subheader>{user.attributes.bio}</Subheader>
+      </UserTextWrapper>
     </>
   );
 };
@@ -89,23 +137,15 @@ export default Nav;
 
 const LinkWrapper = styled.div`
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  /* height: 7rem; */
   background: ${({ theme }) => theme.backgroundNav};
-  /* transition: all 0.5s linear; */
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  height: 100vh;
+  justify-content: flex-start;
   text-align: left;
+  flex-direction: column;
   cursor: pointer;
 `;
 
@@ -120,11 +160,23 @@ const LinkHeaders = styled.h2`
 `;
 
 const Header = styled.h2`
+  transition: all 0.5s linear;
+  text-transform: uppercase;
+`;
+
+const Subheader = styled.h4`
   color: ${({ theme }) => theme.textNav};
   transition: all 0.5s linear;
+  font-size: 1.5rem;
+  margin: 0.5rem;
 `;
 
 const UserTextWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  padding: 1rem;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background: ${({ theme }) => theme.backgroundNav};
 `;

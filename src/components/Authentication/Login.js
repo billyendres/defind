@@ -34,4 +34,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: ${({ theme }) => theme.backgroundHome};
+  transition: all 0.5s linear;
+  min-height: 100vh;
 `;
