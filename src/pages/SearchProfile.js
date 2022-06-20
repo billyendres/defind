@@ -102,6 +102,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   flex-direction: column;
   background: ${({ theme }) => theme.backgroundUsersProfile};
+  transition: all 0.5s linear;
 `;
 
 const Grid = styled.div`
@@ -119,10 +120,12 @@ const ProfileWrapper = styled.div`
   margin: 2rem;
   border-radius: 2rem;
   background: ${({ theme }) => theme.profileWrapperUsersProfile};
+  transition: all 0.5s linear;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textUsersProfile};
+  transition: all 0.5s linear;
 `;

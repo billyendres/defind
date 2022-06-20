@@ -35,4 +35,5 @@ const Wrapper = styled.h2`
   flex-wrap: wrap;
   justify-content: center;
   color: ${({ theme }) => theme.textProfile};
+  transition: all 0.5s linear;
 `;

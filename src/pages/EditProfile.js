@@ -146,10 +146,12 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: ${({ theme }) => theme.backgroundEditProfile};
+  transition: all 0.5s linear;
 `;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textEditProfile};
+  transition: all 0.5s linear;
 `;
 
 const Container = styled.div``;

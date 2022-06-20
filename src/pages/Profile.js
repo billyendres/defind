@@ -52,8 +52,10 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   min-height: 100vh;
   background: ${({ theme }) => theme.backgroundProfile};
+  transition: all 0.5s linear;
 `;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textProfile};
+  transition: all 0.5s linear;
 `;

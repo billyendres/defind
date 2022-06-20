@@ -27,4 +27,5 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   color: ${({ theme }) => theme.textEditProfile};
+  transition: all 0.5s linear;
 `;

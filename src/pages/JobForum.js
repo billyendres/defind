@@ -26,7 +26,6 @@ const JobForum = () => {
 export default JobForum;
 
 const Wrapper = styled.div`
-  /* padding-top: 10rem; */
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -34,4 +33,5 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   background: ${({ theme }) => theme.backgroundJobForum};
+  transition: all 0.5s linear;
 `;

@@ -26,4 +26,5 @@ export default ProfileImage;
 const Header = styled.h2`
   cursor: pointer;
   color: ${({ theme }) => theme.textEditProfile};
+  transition: all 0.5s linear;
 `;

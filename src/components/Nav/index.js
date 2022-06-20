@@ -92,16 +92,14 @@ const LinkWrapper = styled.div`
   left: 0;
   top: 0;
   width: 100vw;
-  height: 7rem;
+  /* height: 7rem; */
   background: ${({ theme }) => theme.backgroundNav};
+  /* transition: all 0.5s linear; */
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  color: ${({ theme }) => theme.textNav};
-  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    rgba(0, 0, 0, 0.22) 0px 10px 10px; */
 `;
 
 const TextWrapper = styled.div`
@@ -114,6 +112,7 @@ const TextWrapper = styled.div`
 const LinkHeaders = styled.h2`
   padding: 1rem;
   color: ${({ theme }) => theme.textNav};
+  transition: all 0.5s linear;
 
   &:hover {
     text-decoration: underline;
@@ -122,6 +121,7 @@ const LinkHeaders = styled.h2`
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textNav};
+  transition: all 0.5s linear;
 `;
 
 const UserTextWrapper = styled.div`

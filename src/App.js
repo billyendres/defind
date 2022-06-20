@@ -21,6 +21,7 @@ const App = () => {
   const [theme, toggleTheme] = useDarkMode();
 
   const lightTheme = {
+    icon: "#080e57",
     backgroundHome: "#fff",
     textHome: "#080e57",
     backgroundNav: "inherit",
@@ -44,6 +45,7 @@ const App = () => {
   };
 
   const darkTheme = {
+    icon: "#fff",
     backgroundHome: "#080e57",
     textHome: "#fff",
     backgroundNav: "#080e57",
@@ -160,11 +162,9 @@ html, body {
     flex-direction: column;
     max-width: 100vw;
     overflow-x: hidden;
-    /* color: #fff; */
     font-family: 'Nunito', sans-serif;
     text-align: center;
     z-index: -1;
-    /* padding-top: 7rem; */
 }
 
   ul,

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const Toggle = ({ theme, toggleTheme }) => {
@@ -14,9 +15,24 @@ const Toggle = ({ theme, toggleTheme }) => {
         left: "50%",
       }}
     >
-      <h1>{theme === "light" ? <FaMoon /> : <FaSun />}</h1>
+      <>
+        {theme === "light" ? (
+          <Icons>
+            <FaMoon />
+          </Icons>
+        ) : (
+          <Icons>
+            <FaSun />
+          </Icons>
+        )}
+      </>
     </div>
   );
 };
 
 export default Toggle;
+
+const Icons = styled.h1`
+  transition: all 0.5s linear;
+  color: ${({ theme }) => theme.icon};
+`;

@@ -27,4 +27,5 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: ${({ theme }) => theme.backgroundPost};
+  transition: all 0.5s linear;
 `;

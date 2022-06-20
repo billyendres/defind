@@ -22,6 +22,6 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  /* background: #bebebe; */
   background: ${({ theme }) => theme.backgroundHome};
+  transition: all 0.5s linear;
 `;

@@ -129,6 +129,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: ${({ theme }) => theme.backgroundFullPost};
+  transition: all 0.5s linear;
 `;
 
 const ProfileWrapper = styled.div`
@@ -141,10 +142,12 @@ const ProfileWrapper = styled.div`
   margin: 2rem;
   border-radius: 2rem;
   background: ${({ theme }) => theme.profileWrapperFullPost};
+  transition: all 0.5s linear;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textFullPost};
+  transition: all 0.5s linear;
 `;

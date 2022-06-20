@@ -16,4 +16,5 @@ export default MyPosts;
 
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.backgroundProfilePosts};
+  transition: all 0.5s linear;
 `;

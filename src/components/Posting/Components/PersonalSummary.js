@@ -53,4 +53,5 @@ export default NewPost;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.textPost};
+  transition: all 0.5s linear;
 `;
