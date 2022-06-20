@@ -9,7 +9,6 @@ import Img from "../Styles/ProfilePicture";
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
-
   const [navColor, setNavColor] = useState(false);
 
   const menuItems = [
@@ -47,19 +46,13 @@ const Nav = () => {
 
   return (
     <>
-      <LinkWrapper
-        style={{ background: !navColor ? "transparent" : "#080e57" }}
-      >
+      <LinkWrapper>
         <TextWrapper>
           {menuItems.map(({ title, route }) => {
             return (
               <div key={route}>
                 <Links style={{ textDecoration: "none" }} to={`${route}`}>
-                  <LinkHeaders
-                    style={{ color: !navColor ? "#080e57" : "white" }}
-                  >
-                    {title}
-                  </LinkHeaders>
+                  <LinkHeaders>{title}</LinkHeaders>
                 </Links>
               </div>
             );
@@ -67,22 +60,13 @@ const Nav = () => {
         </TextWrapper>
         <UserTextWrapper>
           <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <h2 style={{ color: !navColor ? "#080e57" : "white" }}>
-              {user.attributes.username}
-            </h2>
+            <Header>{user.attributes.username}</Header>
           </Links>
-          <h2
-            style={{
-              margin: " 0 2rem",
-              color: !navColor ? "#080e57" : "white",
-            }}
-          >{`${user.attributes.ethAddress.slice(0, 4)}...
-          ${user.attributes.ethAddress.slice(38)}`}</h2>
-          <h2 style={{ color: !navColor ? "#080e57" : "white" }}>
-            {user.attributes.bio}
-          </h2>
+          <Header>{`${user.attributes.ethAddress.slice(0, 4)}...
+          ${user.attributes.ethAddress.slice(38)}`}</Header>
+          <Header>{user.attributes.bio}</Header>
           <Links to={`/newpost/${user.attributes.ethAddress}`}>
-            <h2 style={{ color: !navColor ? "#080e57" : "white" }}>New Post</h2>
+            <Header>New Post</Header>
           </Links>
           <Links to={`/profile/${user.attributes.ethAddress}`}>
             <Img
@@ -109,12 +93,13 @@ const LinkWrapper = styled.div`
   top: 0;
   width: 100vw;
   height: 7rem;
-  /* background: #100b3c; */
+  background: ${({ theme }) => theme.backgroundNav};
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  color: ${({ theme }) => theme.textNav};
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px; */
 `;
@@ -128,9 +113,15 @@ const TextWrapper = styled.div`
 
 const LinkHeaders = styled.h2`
   padding: 1rem;
+  color: ${({ theme }) => theme.textNav};
+
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textNav};
 `;
 
 const UserTextWrapper = styled.div`

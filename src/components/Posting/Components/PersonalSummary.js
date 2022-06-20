@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Button from "../../Styles/Button";
 
 const NewPost = ({ value, onChange }) => {
@@ -13,9 +14,11 @@ const NewPost = ({ value, onChange }) => {
             justifyContent: "center",
           }}
         >
-          <div style={{ width: "100%", color: "#080e57" }}>
-            <h3>Personal Summary</h3>
-            <h4>Highlight your unique experiences, ambitions and strengths.</h4>
+          <div style={{ width: "100%" }}>
+            <Header>Personal Summary</Header>
+            <Header>
+              Highlight your unique experiences, ambitions and strengths.
+            </Header>
           </div>
           <div style={{ width: "100%" }}>
             <textarea
@@ -34,8 +37,8 @@ const NewPost = ({ value, onChange }) => {
         </div>
       ) : (
         <>
-          <h3 style={{ color: "#080e57" }}>Personal Summary</h3>
-          <h4 style={{ color: "#080e57" }}>{value}</h4>
+          <Header>Personal Summary</Header>
+          <Header>{value}</Header>
           <Button
             onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
             text="Edit"
@@ -47,3 +50,7 @@ const NewPost = ({ value, onChange }) => {
 };
 
 export default NewPost;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textPost};
+`;

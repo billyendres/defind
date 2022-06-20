@@ -59,15 +59,14 @@ const FullPost = () => {
                       }
                       alt="Profile pic"
                     />
-                    <h2 style={{ color: "#fff" }}>
-                      {item.attributes.posterUsername}
-                    </h2>
+                    <Header>{item.attributes.posterUsername}</Header>
                   </Links>
-                  <h4>{item.attributes.posterBio}</h4>
-                  {`${item.attributes.posterAccount.slice(
-                    0,
-                    4
-                  )}...${item.attributes.posterAccount.slice(38)} · 
+                  <Header>{item.attributes.posterBio}</Header>
+                  <Header>
+                    {`${item.attributes.posterAccount.slice(
+                      0,
+                      4
+                    )}...${item.attributes.posterAccount.slice(38)} · 
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   month: "short",
                 })}  
@@ -75,22 +74,23 @@ const FullPost = () => {
                   day: "numeric",
                 })}
                 `}
+                  </Header>
                   {item.attributes.personalSummary && (
                     <>
-                      <h4>Personal Summary</h4>
-                      <h5>{item.attributes.personalSummary}</h5>
+                      <Header>Personal Summary</Header>
+                      <Header>{item.attributes.personalSummary}</Header>
                     </>
                   )}
                   {item.attributes.course && (
                     <>
-                      <h4>Course</h4>
-                      <h5>{item.attributes.course}</h5>
+                      <Header>Course</Header>
+                      <Header>{item.attributes.course}</Header>
                     </>
                   )}
                   {item.attributes.institution && (
                     <>
-                      <h4>Institution</h4>
-                      <h5>{item.attributes.institution}</h5>
+                      <Header>Institution</Header>
+                      <Header>{item.attributes.institution}</Header>
                     </>
                   )}
                   {item.attributes.postImg && (
@@ -108,7 +108,7 @@ const FullPost = () => {
                     </>
                   )}
                   <Links to="/jobforum">
-                    <h2 style={{ color: "#fff" }}>Return to job forum</h2>
+                    <Header>Return to job forum</Header>
                   </Links>
                 </ProfileWrapper>
               </Wrapper>
@@ -128,7 +128,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: #f57971;
+  background: ${({ theme }) => theme.backgroundFullPost};
 `;
 
 const ProfileWrapper = styled.div`
@@ -140,7 +140,11 @@ const ProfileWrapper = styled.div`
   width: 25rem;
   margin: 2rem;
   border-radius: 2rem;
-  background-color: #080e57;
+  background: ${({ theme }) => theme.profileWrapperFullPost};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textFullPost};
 `;

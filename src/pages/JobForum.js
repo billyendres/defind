@@ -33,5 +33,5 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: #57f7ac;
+  background: ${({ theme }) => theme.backgroundJobForum};
 `;

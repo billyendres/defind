@@ -22,23 +22,20 @@ const UserProfile = () => {
           }
           alt="Profile pic"
         />
-        <h1 style={{ color: "#080e57" }}>{user.attributes.username}</h1>
-        <h3 style={{ color: "#080e57" }}>{`${user.attributes.ethAddress.slice(
-          0,
-          4
-        )}...
-            ${user.attributes.ethAddress.slice(38)}`}</h3>
+        <Header>{user.attributes.username}</Header>
+        <Header>{`${user.attributes.ethAddress.slice(0, 4)}...
+            ${user.attributes.ethAddress.slice(38)}`}</Header>
         <h4 style={{ color: "#080e57" }}>{user.attributes.bio}</h4>
         <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
-          <h2 style={{ color: "#080e57" }}>Edit Profile</h2>
+          <Header>Edit Profile</Header>
         </Links>
         {location.pathname === `/profile/${user.attributes.ethAddress}` ? (
           <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
-            View My Posts
+            <Header>View My Posts</Header>
           </Links>
         ) : (
           <Links to={`/profile/${user.attributes.ethAddress}`}>
-            Return to profile
+            <Header>Return to profile</Header>
           </Links>
         )}
       </div>
@@ -54,5 +51,9 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 100vh;
-  background: #a06ecc;
+  background: ${({ theme }) => theme.backgroundProfile};
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textProfile};
 `;

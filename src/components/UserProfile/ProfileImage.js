@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import Img from "../Styles/ProfilePicture";
 
 const ProfileImage = ({ onChange, onClick, inputFile, src, alt, accept }) => {
@@ -14,10 +15,15 @@ const ProfileImage = ({ onChange, onClick, inputFile, src, alt, accept }) => {
           accept={accept}
         />
         {src && <Img src={src} alt={alt} />}
-        <h1 style={{ cursor: "pointer" }}>Change profile Image</h1>
+        <Header>Change profile Image</Header>
       </div>
     </div>
   );
 };
 
 export default ProfileImage;
+
+const Header = styled.h2`
+  cursor: pointer;
+  color: ${({ theme }) => theme.textEditProfile};
+`;

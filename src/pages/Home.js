@@ -22,5 +22,6 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: #f7579c;
+  /* background: #bebebe; */
+  background: ${({ theme }) => theme.backgroundHome};
 `;

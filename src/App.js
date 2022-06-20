@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
@@ -14,8 +14,59 @@ import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
 import Logout from "./components/Authentication/Logout";
+import useDarkMode from "./components/Styles/useDarkMode";
+import Toggle from "./components/Styles/Toggle";
 
 const App = () => {
+  const [theme, toggleTheme] = useDarkMode();
+
+  const lightTheme = {
+    backgroundHome: "#fff",
+    textHome: "#080e57",
+    backgroundNav: "inherit",
+    textNav: "#080e57",
+    backgroundProfile: "#a06ecc",
+    textProfile: "#080e57",
+    backgroundPost: "#ffffba",
+    textPost: "#080e57",
+    backgroundJobForum: "#57f7ac",
+    textJobForum: "#fff",
+    profileWrapperJobForum: "#080e57",
+    backgroundProfilePosts: "#bae1ff",
+    backgroundEditProfile: "#1987fe",
+    textEditProfile: "#080e57",
+    backgroundUsersProfile: "#03fcec",
+    textUsersProfile: "#fff",
+    profileWrapperUsersProfile: "#080e57",
+    backgroundFullPost: "#f57971",
+    textFullPost: "#fff",
+    profileWrapperFullPost: "#080e57",
+  };
+
+  const darkTheme = {
+    backgroundHome: "#080e57",
+    textHome: "#fff",
+    backgroundNav: "#080e57",
+    textNav: "#fff",
+    backgroundProfile: "#080e57",
+    textProfile: "#fff",
+    backgroundPost: "#080e57",
+    textPost: "#fff",
+    backgroundJobForum: "#080e57",
+    textJobForum: "#080e57",
+    profileWrapperJobForum: "#fff",
+    backgroundProfilePosts: "#080e57",
+    backgroundEditProfile: "#080e57",
+    textEditProfile: "#fff",
+    backgroundUsersProfile: "#080e57",
+    textUsersProfile: "#080e57",
+    profileWrapperUsersProfile: "#fff",
+    backgroundFullPost: "#080e57",
+    textFullPost: "#080e57",
+    profileWrapperFullPost: "#fff",
+  };
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
+
   const {
     isAuthenticated,
     authenticate,
@@ -42,10 +93,11 @@ const App = () => {
   const ethereum = window.ethereum;
 
   return (
-    <>
+    <ThemeProvider theme={themeMode}>
       <GloablStyle />
       {isAuthenticated ? (
         <>
+          <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -90,7 +142,7 @@ const App = () => {
           )}
         </>
       )}
-    </>
+    </ThemeProvider>
   );
 };
 
@@ -108,11 +160,9 @@ html, body {
     flex-direction: column;
     max-width: 100vw;
     overflow-x: hidden;
-    /* color: #080e57; */
-    color: #fff;
+    /* color: #fff; */
     font-family: 'Nunito', sans-serif;
     text-align: center;
-    /* background: #a06ecc; */
     z-index: -1;
     /* padding-top: 7rem; */
 }

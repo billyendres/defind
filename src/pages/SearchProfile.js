@@ -38,9 +38,9 @@ const SearchProfile = () => {
         </>
       ) : (
         <>
-          <div style={{ paddingTop: "10rem" }}></div>
-          <h2 style={{ color: "#080e57" }}>{userId}</h2>
           <Wrapper>
+            <div style={{ paddingTop: "10rem" }}></div>
+            <h2 style={{ color: "#080e57" }}>{userId}</h2>
             <Grid>
               {profile
                 ?.map((item, key) => {
@@ -55,12 +55,10 @@ const SearchProfile = () => {
                           }
                           alt="Profile pic"
                         />
-                        <h2 style={{ color: "#fff" }}>
-                          {item.attributes.posterUsername}
-                        </h2>
+                        <Header>{item.attributes.posterUsername}</Header>
                       </Links>
-                      <h4>{item.attributes.posterBio}</h4>
-                      {`${item.attributes.posterAccount.slice(
+                      <Header>{item.attributes.posterBio}</Header>
+                      <Header>{`${item.attributes.posterAccount.slice(
                         0,
                         4
                       )}...${item.attributes.posterAccount.slice(38)} · 
@@ -70,18 +68,18 @@ const SearchProfile = () => {
                 ${item.attributes.createdAt.toLocaleString("en-us", {
                   day: "numeric",
                 })}
-                `}
+                `}</Header>
                       {item.attributes.personalSummary && (
                         <>
-                          <h4>Personal Summary</h4>
-                          <h5>{item.attributes.personalSummary}</h5>
+                          <Header>Personal Summary</Header>
+                          <Header>{item.attributes.personalSummary}</Header>
                         </>
                       )}
                       <Links to={`/jobforum/${item.id}`}>
-                        <h2 style={{ color: "#fff" }}>View Post</h2>
+                        <Header>View Post</Header>
                       </Links>
                       <Links to="/jobforum">
-                        <h2 style={{ color: "#fff" }}>Return to job forum</h2>
+                        <Header>Return to job forum</Header>
                       </Links>
                     </ProfileWrapper>
                   );
@@ -103,6 +101,7 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
+  background: ${({ theme }) => theme.backgroundUsersProfile};
 `;
 
 const Grid = styled.div`
@@ -119,7 +118,11 @@ const ProfileWrapper = styled.div`
   width: 25rem;
   margin: 2rem;
   border-radius: 2rem;
-  background-color: #080e57;
+  background: ${({ theme }) => theme.profileWrapperUsersProfile};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textUsersProfile};
 `;

@@ -9,14 +9,7 @@ const Education = ({
 }) => {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          color: "#080e57",
-        }}
-      >
+      <Wrapper>
         <h2>Education</h2>
         <div style={{ width: "100%" }}>
           <label>Change Course</label>
@@ -30,9 +23,16 @@ const Education = ({
         <div style={{ width: "100%" }}>
           <input value={inputValueInstitution} onChange={changeInstitution} />
         </div>
-      </div>
+      </Wrapper>
     </>
   );
 };
 
 export default Education;
+
+const Wrapper = styled.h2`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: ${({ theme }) => theme.textProfile};
+`;

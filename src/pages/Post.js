@@ -26,5 +26,5 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: #f5de78;
+  background: ${({ theme }) => theme.backgroundPost};
 `;

@@ -164,8 +164,7 @@ const JobSeeker = () => {
         </Wrapper>
       ) : (
         <>
-          <h1 style={{ color: "#080e57" }}>Job Seeker</h1>
-
+          <Header>Job Seeker</Header>
           <div>
             <PersonalSummary
               onChange={(e) => setPersonalSummary(e.target.value)}
@@ -181,7 +180,7 @@ const JobSeeker = () => {
               }
               inputValueInstitution={education.institution}
             />
-            {postFile && <h2 style={{ color: "#080e57" }}>{postFile.name}</h2>}
+            {postFile && <Header>{postFile.name}</Header>}
             <div onClick={onImageClick}>
               <input
                 type="file"
@@ -191,9 +190,7 @@ const JobSeeker = () => {
                 style={{ display: "none" }}
                 accept="application/pdf"
               />
-              <h4 style={{ color: "#080e57", cursor: "pointer" }}>
-                Attach Resume
-              </h4>
+              <Header>Attach Resume</Header>
             </div>
             <div onClick={onImageClick}>
               <input
@@ -205,9 +202,7 @@ const JobSeeker = () => {
                 accept="application/pdf"
                 // accept="image/png, image/jpeg, image/jpg"
               />
-              <h4 style={{ color: "#080e57", cursor: "pointer" }}>
-                Attach Cover Letter
-              </h4>
+              <Header>Attach Cover Letter</Header>
             </div>
             <Button onClick={savePost} disabled={isLoading} text="Save Post" />
             <ToastContainer />
@@ -227,4 +222,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textPost};
 `;

@@ -1,14 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 import Profile from "./Profile";
 import JobSeekerPosts from "../components/Posting/JobSeekerPosts";
 
 const MyPosts = () => {
   return (
-    <div>
+    <Wrapper>
       {/* <Profile /> */}
       <JobSeekerPosts profile={true} />
-    </div>
+    </Wrapper>
   );
 };
 
 export default MyPosts;
+
+const Wrapper = styled.div`
+  background: ${({ theme }) => theme.backgroundProfilePosts};
+`;

@@ -106,7 +106,7 @@ const EditUserProfle = () => {
         <LoadingSpinner />
       ) : (
         <Container>
-          <h1 style={{ width: "100%" }}>EditUserProfile</h1>
+          <Header>EditUserProfile</Header>
           <ProfileImage
             onChange={profileImageChangeHandler}
             onClick={profileImageClickHandler}
@@ -117,14 +117,10 @@ const EditUserProfle = () => {
           <ToastContainer />
           <>
             <Username
-              change={(e) => setUsername(e.currentTarget.value)}
-              inputValue={username}
+              onChange={(e) => setUsername(e.currentTarget.value)}
+              value={username}
             />
-            <Bio
-              change={(e) => setBio(e.currentTarget.value)}
-              inputValue={bio}
-              bio={bio}
-            />
+            <Bio onChange={(e) => setBio(e.currentTarget.value)} value={bio} />
             <div style={{ display: "flex" }}>
               <Button onClick={saveBio} disabled={isLoading} text="Save" />
               <Button onClick={deleteBio} disabled={isLoading} text="Delete" />
@@ -132,7 +128,7 @@ const EditUserProfle = () => {
           </>
           <div>
             <Links to={`/profile/${user.attributes.ethAddress}`}>
-              Return to profile
+              <Header>Return to profile</Header>
             </Links>
           </div>
         </Container>
@@ -149,7 +145,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: #1987fe;
+  background: ${({ theme }) => theme.backgroundEditProfile};
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textEditProfile};
 `;
 
 const Container = styled.div``;
