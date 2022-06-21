@@ -101,7 +101,7 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
-  background: ${({ theme }) => theme.backgroundUsersProfile};
+  background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
 
@@ -119,13 +119,13 @@ const ProfileWrapper = styled.div`
   width: 25rem;
   margin: 2rem;
   border-radius: 2rem;
-  background: ${({ theme }) => theme.profileWrapperUsersProfile};
+  background: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.textUsersProfile};
+  color: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;

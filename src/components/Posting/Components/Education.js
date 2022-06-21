@@ -11,17 +11,25 @@ const Education = ({
     <>
       <Wrapper>
         <h2>Education</h2>
+        <div style={{ width: "100%" }}></div>
         <div style={{ width: "100%" }}>
-          <label>Change Course</label>
+          <Label>
+            <Input
+              placeholder="Course"
+              value={inputValueCourse}
+              onChange={changeCourse}
+            />
+          </Label>
         </div>
+        <div style={{ width: "100%" }}></div>
         <div style={{ width: "100%" }}>
-          <input value={inputValueCourse} onChange={changeCourse} />
-        </div>
-        <div style={{ width: "100%" }}>
-          <label>Change Institution</label>
-        </div>
-        <div style={{ width: "100%" }}>
-          <input value={inputValueInstitution} onChange={changeInstitution} />
+          <Label>
+            <Input
+              placeholder="Institution"
+              value={inputValueInstitution}
+              onChange={changeInstitution}
+            />
+          </Label>
         </div>
       </Wrapper>
     </>
@@ -34,6 +42,31 @@ const Wrapper = styled.h2`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  color: ${({ theme }) => theme.textProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
+`;
+
+const Label = styled.h2`
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+`;
+
+const Input = styled.input`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  color: #080e57;
+  background: #bae1ff;
+  letter-spacing: 2px;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
 `;

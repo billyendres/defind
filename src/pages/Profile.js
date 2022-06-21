@@ -29,9 +29,8 @@ const UserProfile = () => {
         <Subheader>
           {/* <FaWallet /> */}
           {`${user.attributes.ethAddress.slice(0, 4)}...
-            ${user.attributes.ethAddress.slice(38)}`}{" "}
+            ${user.attributes.ethAddress.slice(38)}`}
         </Subheader>
-
         <Subheader>{user.attributes.bio}</Subheader>
         <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
           <Subheader>
@@ -63,12 +62,12 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 100vh;
-  background: ${({ theme }) => theme.backgroundProfile};
+  background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.textProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   text-transform: uppercase;
   font-size: 3rem;
@@ -76,7 +75,7 @@ const Header = styled.h2`
 `;
 
 const Subheader = styled.h4`
-  color: ${({ theme }) => theme.textProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   /* text-transform: uppercase; */
   font-size: 1.5rem;

@@ -10,63 +10,18 @@ import JobForum from "./pages/JobForum";
 import MyPosts from "./pages/MyPosts";
 import Post from "./pages/Post";
 import FullPost from "./pages/FullPost";
+import PageNotFound from "./pages/404";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
 import Logout from "./components/Authentication/Logout";
 import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
+import { lightTheme, darkTheme } from "./components/Styles/themes";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
 
-  const lightTheme = {
-    icon: "#080e57",
-    backgroundHome: "#03fcec",
-    textHome: "#080e57",
-    backgroundNav: "inherit",
-    textNav: "#080e57",
-    backgroundProfile: "#a06ecc",
-    textProfile: "#080e57",
-    backgroundPost: "#ffffba",
-    textPost: "#080e57",
-    backgroundJobForum: "#57f7ac",
-    textJobForum: "#bae1ff",
-    profileWrapperJobForum: "#080e57",
-    backgroundProfilePosts: "#bae1ff",
-    backgroundEditProfile: "#1987fe",
-    textEditProfile: "#080e57",
-    backgroundUsersProfile: "#03fcec",
-    textUsersProfile: "#bae1ff",
-    profileWrapperUsersProfile: "#080e57",
-    backgroundFullPost: "#f57971",
-    textFullPost: "#f57971",
-    profileWrapperFullPost: "#1c0201",
-  };
-
-  const darkTheme = {
-    icon: "#bae1ff",
-    backgroundHome: "#080e57",
-    textHome: "#bae1ff",
-    backgroundNav: "#080e57",
-    textNav: "#bae1ff",
-    backgroundProfile: "#080e57",
-    textProfile: "#bae1ff",
-    backgroundPost: "#080e57",
-    textPost: "#bae1ff",
-    backgroundJobForum: "#080e57",
-    textJobForum: "#080e57",
-    profileWrapperJobForum: "#bae1ff",
-    backgroundProfilePosts: "#080e57",
-    backgroundEditProfile: "#080e57",
-    textEditProfile: "#bae1ff",
-    backgroundUsersProfile: "#080e57",
-    textUsersProfile: "#080e57",
-    profileWrapperUsersProfile: "#bae1ff",
-    backgroundFullPost: "#080e57",
-    textFullPost: "#080e57",
-    profileWrapperFullPost: "#bae1ff",
-  };
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   const {
@@ -102,7 +57,7 @@ const App = () => {
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Nav />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
             <Route
               path={`/profile/${Moralis.User.current().attributes.ethAddress}`}
               element={<Profile />}
@@ -126,6 +81,7 @@ const App = () => {
               path={`/newpost/${Moralis.User.current().attributes.ethAddress}`}
               element={<Post />}
             />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Logout />
         </>

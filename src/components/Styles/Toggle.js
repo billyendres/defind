@@ -4,15 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 
 const Toggle = ({ theme, toggleTheme }) => {
   return (
-    <div
-      onClick={toggleTheme}
-      style={{
-        zIndex: 1000,
-        position: "fixed",
-        left: 0,
-        bottom: 0,
-      }}
-    >
+    <Wrapper onClick={toggleTheme}>
       <>
         {theme === "light" ? (
           <Icons>
@@ -26,7 +18,7 @@ const Toggle = ({ theme, toggleTheme }) => {
           </Icons>
         )}
       </>
-    </div>
+    </Wrapper>
   );
 };
 
@@ -42,4 +34,11 @@ const Icons = styled.h2`
   text-transform: uppercase;
   letter-spacing: 4px;
   cursor: pointer;
+`;
+
+const Wrapper = styled.div`
+  z-index: 1000;
+  position: fixed;
+  left: 0;
+  bottom: 0;
 `;

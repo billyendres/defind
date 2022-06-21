@@ -32,6 +32,6 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: ${({ theme }) => theme.backgroundJobForum};
+  background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;

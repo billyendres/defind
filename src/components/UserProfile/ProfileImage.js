@@ -42,7 +42,7 @@ const Header = styled.h2`
   width: 100%;
   padding: 0.5rem;
   cursor: pointer;
-  color: ${({ theme }) => theme.textEditProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 1.5rem;
 `;

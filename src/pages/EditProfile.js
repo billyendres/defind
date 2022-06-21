@@ -154,19 +154,19 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: ${({ theme }) => theme.backgroundEditProfile};
+  background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.textEditProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
 `;
 
 const Container = styled.div``;
 
 const Subheader = styled.h4`
-  color: ${({ theme }) => theme.textProfile};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   /* text-transform: uppercase; */
   font-size: 1.5rem;

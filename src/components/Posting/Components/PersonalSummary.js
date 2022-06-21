@@ -52,6 +52,6 @@ const NewPost = ({ value, onChange }) => {
 export default NewPost;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.textPost};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
 `;

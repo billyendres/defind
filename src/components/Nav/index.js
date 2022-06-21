@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { useMoralis } from "react-moralis";
 import {
   FaHome,
@@ -19,76 +20,46 @@ const Nav = () => {
   const menuItems = [
     {
       title: (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textTransform: "uppercase",
-          }}
-        >
+        <IconWrapper>
           <FaHome style={{ marginRight: "1rem" }} />
           Home
-        </div>
+        </IconWrapper>
       ),
       route: "/",
     },
     {
       title: (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textTransform: "uppercase",
-          }}
-        >
+        <IconWrapper>
           <FaUserAlt style={{ marginRight: "1rem" }} />
           Profile
-        </div>
+        </IconWrapper>
       ),
       route: `/profile/${user.attributes.ethAddress}`,
     },
     {
       title: (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textTransform: "uppercase",
-          }}
-        >
+        <IconWrapper>
           <FaBookReader style={{ marginRight: "1rem" }} />
           Jobs
-        </div>
+        </IconWrapper>
       ),
       route: "/jobforum",
     },
     {
       title: (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textTransform: "uppercase",
-          }}
-        >
+        <IconWrapper>
           <FaRegIdCard style={{ marginRight: "1rem" }} />
           My Posts
-        </div>
+        </IconWrapper>
       ),
       route: `/profile/posts/${user.attributes.ethAddress}`,
     },
     {
       title: (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textTransform: "uppercase",
-          }}
-        >
+        <IconWrapper>
           <FaRegEdit style={{ marginRight: "1rem" }} />
           Post
-        </div>
+        </IconWrapper>
       ),
       route: `/newpost/${user.attributes.ethAddress}`,
     },
@@ -100,11 +71,15 @@ const Nav = () => {
         <TextWrapper>
           {menuItems.map(({ title, route }) => {
             return (
-              <div key={route}>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                key={route}
+              >
                 <Links style={{ textDecoration: "none" }} to={`${route}`}>
                   <LinkHeaders>{title}</LinkHeaders>
                 </Links>
-              </div>
+              </motion.div>
             );
           })}
         </TextWrapper>
@@ -151,21 +126,32 @@ const TextWrapper = styled.div`
 
 const LinkHeaders = styled.h2`
   padding: 1rem;
-  color: ${({ theme }) => theme.textNav};
+  margin: 1rem;
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
+  border-radius: 1rem;
 
   &:hover {
-    text-decoration: underline;
+    transition: all 0.5s linear;
+    background: linear-gradient(
+      164deg,
+      rgba(41, 243, 226, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    color: #080e57;
   }
 `;
 
 const Header = styled.h2`
   transition: all 0.5s linear;
   text-transform: uppercase;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Subheader = styled.h4`
-  color: ${({ theme }) => theme.textNav};
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 1.5rem;
   margin: 0.5rem;
@@ -179,4 +165,10 @@ const UserTextWrapper = styled.div`
   right: 0;
   height: 100vh;
   background: ${({ theme }) => theme.backgroundNav};
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
 `;
