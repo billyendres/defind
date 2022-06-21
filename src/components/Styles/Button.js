@@ -31,20 +31,12 @@ const MotionButton = styled(motion.button)`
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  color: #080e57;
+  color: ${({ theme }) => theme.textModals};
+  background: ${({ theme }) => theme.button};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  background: linear-gradient(
-    164deg,
-    rgba(1, 200, 183, 1) 0%,
-    rgba(132, 188, 255, 1) 100%
-  );
 
   &:hover {
-    background: linear-gradient(
-      164deg,
-      rgba(41, 243, 226, 1) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
+    background: ${({ theme }) => theme.buttonHover};
   }
 `;

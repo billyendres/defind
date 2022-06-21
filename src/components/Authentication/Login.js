@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import LoadingSpinner from "../Styles/LoadingSpinner";
+import { FaSignInAlt } from "react-icons/fa";
 import Button from "../Styles/Button";
 
 const Login = () => {
@@ -20,7 +21,14 @@ const Login = () => {
         <Button
           onClick={() => authenticate()}
           disabled={isAuthenticating}
-          text="Login with MetaMask"
+          text={
+            <>
+              Login with MetaMask
+              <FaSignInAlt
+                style={{ marginBottom: "-0.2rem", marginLeft: "0.5rem" }}
+              />
+            </>
+          }
         />
       )}
     </Wrapper>

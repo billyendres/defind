@@ -181,7 +181,7 @@ const JobSeeker = () => {
               inputValueInstitution={education.institution}
             />
             {postFile && <Header>{postFile.name}</Header>}
-            <div onClick={onImageClick}>
+            <div onClick={onImageClick} style={{ cursor: "pointer" }}>
               <input
                 type="file"
                 name="file"
@@ -192,7 +192,7 @@ const JobSeeker = () => {
               />
               <Header>Attach Resume</Header>
             </div>
-            <div onClick={onImageClick}>
+            <div onClick={onImageClick} style={{ cursor: "pointer" }}>
               <input
                 type="file"
                 name="file"

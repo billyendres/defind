@@ -3,6 +3,7 @@ import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 
+import { FaSearch } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Img from "../Styles/ProfilePicture";
@@ -42,11 +43,22 @@ const JobSeekerPosts = ({ profile }) => {
       ) : (
         <>
           <div style={{ paddingTop: "10rem" }}></div>
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <Label>
+            <FaSearch
+              size={30}
+              style={{
+                marginRight: "1rem",
+                marginBottom: "-0.5rem",
+                marginLeft: "-3rem",
+                marginTop: "1.5rem",
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Label>
           <Wrapper>
             <Grid>
               {postArray
@@ -126,6 +138,7 @@ const Wrapper = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 4rem;
 `;
 
 const ProfileWrapper = styled.div`
@@ -135,7 +148,6 @@ const ProfileWrapper = styled.div`
   justify-content: center;
   height: 25rem;
   width: 25rem;
-  margin: 2rem;
   border-radius: 2rem;
   background-color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
@@ -144,6 +156,34 @@ const ProfileWrapper = styled.div`
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+`;
+
+const Label = styled.h2`
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.icon};
+  margin-bottom: 2rem;
+`;
+
+const Input = styled.input`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  color: #080e57;
+  background: #bae1ff;
+  letter-spacing: 2px;
+
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
 `;

@@ -148,6 +148,6 @@ const ProfileWrapper = styled.div`
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
 `;

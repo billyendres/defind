@@ -40,7 +40,7 @@ const SearchProfile = () => {
         <>
           <Wrapper>
             <div style={{ paddingTop: "10rem" }}></div>
-            <h2 style={{ color: "#080e57" }}>{userId}</h2>
+            <PageHeader>{userId}</PageHeader>
             <Grid>
               {profile
                 ?.map((item, key) => {
@@ -108,6 +108,7 @@ const Wrapper = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 4rem;
 `;
 
 const ProfileWrapper = styled.div`
@@ -117,7 +118,6 @@ const ProfileWrapper = styled.div`
   justify-content: center;
   height: 25rem;
   width: 25rem;
-  margin: 2rem;
   border-radius: 2rem;
   background: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
@@ -126,6 +126,11 @@ const ProfileWrapper = styled.div`
 `;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+`;
+
+const PageHeader = styled.h1`
+  color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
 `;

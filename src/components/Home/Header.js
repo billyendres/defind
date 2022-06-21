@@ -59,7 +59,6 @@ const Wrapper = styled.div`
 
 const HeaderText = styled.h1`
   font-size: 3.5rem;
-  line-height: 100%;
   font-family: "Bungee", cursive;
   background: -webkit-linear-gradient(
     161deg,

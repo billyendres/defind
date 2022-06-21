@@ -125,22 +125,18 @@ const TextWrapper = styled.div`
 `;
 
 const LinkHeaders = styled.h2`
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   margin: 1rem;
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
 
   &:hover {
     transition: all 0.5s linear;
-    background: linear-gradient(
-      164deg,
-      rgba(41, 243, 226, 1) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
+    background: ${({ theme }) => theme.buttonHover};
+    color: ${({ theme }) => theme.textModals};
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    color: #080e57;
   }
 `;
 

@@ -6,7 +6,7 @@ import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
 import Img from "../components/Styles/ProfilePicture";
 import Button from "../components/Styles/Button";
-import { FaWallet, FaUserEdit } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -27,21 +27,26 @@ const UserProfile = () => {
         />
         <Header>{user.attributes.username}</Header>
         <Subheader>
-          {/* <FaWallet /> */}
           {`${user.attributes.ethAddress.slice(0, 4)}...
             ${user.attributes.ethAddress.slice(38)}`}
         </Subheader>
         <Subheader>{user.attributes.bio}</Subheader>
         <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
           <Subheader>
-            {/* <FaUserEdit /> */}
-            <Button text="edit profile" />
+            <Button
+              text={
+                <>
+                  <FaUserEdit
+                    style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                  />
+                  Edit Profile
+                </>
+              }
+            />
           </Subheader>
         </Links>
         {location.pathname === `/profile/${user.attributes.ethAddress}` ? (
-          <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
-            {/* <Subheader>My Posts</Subheader> */}
-          </Links>
+          <Links to={`/profile/posts/${user.attributes.ethAddress}`}></Links>
         ) : (
           <Links to={`/profile/${user.attributes.ethAddress}`}>
             <Subheader>

@@ -1,18 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useMoralis } from "react-moralis";
-import { FaBookReader } from "react-icons/fa";
+import { FaRegListAlt } from "react-icons/fa";
 
 const Bio = ({ onChange, value }) => {
-  const { Moralis } = useMoralis();
-  const user = Moralis.User.current();
-
   return (
     <>
       <Wrapper>
         <div style={{ width: "100%" }}>
           <Label>
-            <FaBookReader
+            <FaRegListAlt
               size={30}
               style={{
                 marginRight: "1rem",
@@ -20,7 +16,6 @@ const Bio = ({ onChange, value }) => {
                 marginLeft: "-3rem",
               }}
             />
-            {/* {user.attributes.bio} */}
             <Input value={value} onChange={onChange} placeholder="Bio" />
           </Label>
         </div>

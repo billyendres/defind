@@ -1,18 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useMoralis } from "react-moralis";
-import { FaUserEdit } from "react-icons/fa";
+import { FaGrin } from "react-icons/fa";
 
 const Username = ({ onChange, value }) => {
-  const { Moralis } = useMoralis();
-  const user = Moralis.User.current();
-
   return (
     <>
       <Wrapper>
         <div style={{ width: "100%" }}>
           <Label>
-            <FaUserEdit
+            <FaGrin
               size={30}
               style={{
                 marginRight: "1rem",
@@ -21,7 +17,6 @@ const Username = ({ onChange, value }) => {
                 marginTop: "1.5rem",
               }}
             />
-            {/* {user.attributes.username} */}
             <Input value={value} onChange={onChange} placeholder="Username" />
           </Label>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../Styles/Button";
+import { FaSignOutAlt } from "react-icons/fa";
 import { useMoralis } from "react-moralis";
 
 const Logout = () => {
@@ -14,7 +15,11 @@ const Logout = () => {
             window.location.reload();
           });
         }}
-        text="Logout"
+        text={
+          <>
+            Logout <FaSignOutAlt style={{ marginBottom: "-0.2rem" }} />
+          </>
+        }
       />
     </Wrapper>
   );

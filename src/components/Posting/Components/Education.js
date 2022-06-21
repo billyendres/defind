@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FaUniversity, FaUserGraduate } from "react-icons/fa";
 
 const Education = ({
   changeCourse,
@@ -14,6 +15,14 @@ const Education = ({
         <div style={{ width: "100%" }}></div>
         <div style={{ width: "100%" }}>
           <Label>
+            <FaUserGraduate
+              size={30}
+              style={{
+                marginRight: "1rem",
+                marginBottom: "-0.5rem",
+                marginLeft: "-3rem",
+              }}
+            />
             <Input
               placeholder="Course"
               value={inputValueCourse}
@@ -24,6 +33,14 @@ const Education = ({
         <div style={{ width: "100%" }}></div>
         <div style={{ width: "100%" }}>
           <Label>
+            <FaUniversity
+              size={30}
+              style={{
+                marginRight: "1rem",
+                marginBottom: "-0.5rem",
+                marginLeft: "-3rem",
+              }}
+            />
             <Input
               placeholder="Institution"
               value={inputValueInstitution}

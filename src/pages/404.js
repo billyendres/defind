@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { FaRegSurprise } from "react-icons/fa";
 
 const PageNotFound = () => {
   return (
     <Wrapper>
-      <Header>Page not found</Header>
+      <Header>
+        <span style={{ fontSize: "4rem" }}>
+          4<FaRegSurprise size={50} />4
+        </span>
+        <br />
+        Page not found
+      </Header>
     </Wrapper>
   );
 };
