@@ -11,8 +11,7 @@ const Education = ({
   return (
     <>
       <Wrapper>
-        <h2>Education</h2>
-        <div style={{ width: "100%" }}></div>
+        <Header>Education</Header>
         <div style={{ width: "100%" }}>
           <Label>
             <FaUserGraduate
@@ -20,7 +19,6 @@ const Education = ({
               style={{
                 marginRight: "1rem",
                 marginBottom: "-0.5rem",
-                marginLeft: "-3rem",
               }}
             />
             <Input
@@ -30,24 +28,20 @@ const Education = ({
             />
           </Label>
         </div>
-        <div style={{ width: "100%" }}></div>
-        <div style={{ width: "100%" }}>
-          <Label>
-            <FaUniversity
-              size={30}
-              style={{
-                marginRight: "1rem",
-                marginBottom: "-0.5rem",
-                marginLeft: "-3rem",
-              }}
-            />
-            <Input
-              placeholder="Institution"
-              value={inputValueInstitution}
-              onChange={changeInstitution}
-            />
-          </Label>
-        </div>
+        <Label>
+          <FaUniversity
+            size={30}
+            style={{
+              marginRight: "1rem",
+              marginBottom: "-0.5rem",
+            }}
+          />
+          <Input
+            placeholder="Institution"
+            value={inputValueInstitution}
+            onChange={changeInstitution}
+          />
+        </Label>
       </Wrapper>
     </>
   );
@@ -55,17 +49,25 @@ const Education = ({
 
 export default Education;
 
-const Wrapper = styled.h2`
+const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  color: ${({ theme }) => theme.text};
+  text-align: left;
+  justify-content: flex-start;
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
 `;
 
 const Label = styled.h2`
   padding: 0.5rem;
   font-size: 1.5rem;
+  /* text-transform: uppercase; */
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 1rem 0;
   text-transform: uppercase;
 `;
 
@@ -75,7 +77,7 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   font-family: "Russo One", sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: #080e57;
   background: #bae1ff;
   letter-spacing: 2px;

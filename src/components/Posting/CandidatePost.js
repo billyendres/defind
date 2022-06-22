@@ -157,14 +157,14 @@ const CandidatePost = () => {
   };
 
   return (
-    <div>
+    <>
       {isLoading ? (
         <Wrapper>
           <LoadingSpinner />
         </Wrapper>
       ) : (
         <Wrapper>
-          <div>
+          <Template>
             <Header>Job Seeker</Header>
             <PersonalSummary
               onChange={(e) => setPersonalSummary(e.target.value)}
@@ -204,14 +204,15 @@ const CandidatePost = () => {
               />
               <Header>Attach Cover Letter</Header>
             </div>
+            <button onClick={() => setPostFile()}>Remove file</button>
             <Button onClick={savePost} disabled={isLoading} text="Save Post" />
             <ToastContainer />
             <div style={{ margin: "3rem" }}></div>
             <Button onClick={userPost} disabled={isLoading} text="ETH Post" />
-          </div>
+          </Template>
         </Wrapper>
       )}
-    </div>
+    </>
   );
 };
 
@@ -220,14 +221,27 @@ export default CandidatePost;
 const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  text-align: left;
   align-items: center;
   flex-wrap: wrap;
+  flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
 
+const Template = styled.div`
+  background: ${({ theme }) => theme.text};
+  /* background: red; */
+  height: 100vh;
+  padding: 3rem;
+  border-radius: 2rem;
+  /* margin: 3rem 0; */
+`;
+
 const Header = styled.h2`
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
 `;

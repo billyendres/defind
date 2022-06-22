@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import CandidatePost from "../components/Posting/CandidatePost";
 
 const Post = () => {
   return (
     <Wrapper>
-      <h1>hkh</h1>
+      <CandidatePost />
     </Wrapper>
   );
 };

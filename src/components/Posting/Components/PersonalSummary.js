@@ -1,48 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Button from "../../Styles/Button";
 
 const NewPost = ({ value, onChange }) => {
-  const [togglePersonalSummary, setTogglePersonalSummary] = useState(false);
   return (
     <>
-      {/* {togglePersonalSummary ? ( */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ width: "100%" }}>
-          <Header>Personal Summary</Header>
-        </div>
-        <div style={{ width: "100%" }}>
-          <Textarea
-            style={{ padding: "1rem" }}
-            rows="10"
-            cols="70"
-            value={value}
-            onChange={onChange}
-            required
-            placeholder="Highlight your unique experiences, ambitions and strengths."
-          />
-        </div>
-        <Button
-          onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
-          text="Save"
-        />
-      </div>
-      {/* ) : (
-        <>
-          <Header>Personal Summary</Header>
-          <Header>{value}</Header>
-          <Button
-            onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
-            text="Edit"
-          />
-        </>
-      )} */}
+      <Header>Personal Summary</Header>
+      <Textarea
+        style={{ padding: "1rem" }}
+        cols="100"
+        value={value}
+        onChange={onChange}
+        required
+        placeholder="Highlight your unique experiences, ambitions and strengths."
+      />
     </>
   );
 };
@@ -50,8 +20,10 @@ const NewPost = ({ value, onChange }) => {
 export default NewPost;
 
 const Header = styled.h2`
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  padding: 1rem 0;
+  text-transform: uppercase;
 `;
 
 const Textarea = styled.textarea`
@@ -63,6 +35,8 @@ const Textarea = styled.textarea`
   color: #080e57;
   background: #bae1ff;
   letter-spacing: 2px;
+  max-width: 40rem;
+  max-height: 15rem;
 
   &:focus {
     outline: none;
