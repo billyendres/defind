@@ -2,6 +2,8 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
+import { motion } from "framer-motion";
+
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
 import Img from "../components/Styles/ProfilePicture";
@@ -15,7 +17,14 @@ const UserProfile = () => {
 
   return (
     <Wrapper>
-      <div>
+      <motion.div
+        initial={{ y: "100vh", scale: 0.5, opacity: 0 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        transition={{
+          duration: 0.7,
+          type: "spring",
+        }}
+      >
         <Img
           style={{ width: "7rem", height: "7rem" }}
           src={
@@ -54,7 +63,7 @@ const UserProfile = () => {
             </Subheader>
           </Links>
         )}
-      </div>
+      </motion.div>
     </Wrapper>
   );
 };

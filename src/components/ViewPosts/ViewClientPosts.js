@@ -1,6 +1,6 @@
 import React from "react";
 
-const JobPosterJobs = () => {
+const ViewClientPosts = () => {
   return (
     <div>
       <h1>JobPosterJob</h1>
@@ -8,4 +8,4 @@ const JobPosterJobs = () => {
   );
 };
 
-export default JobPosterJobs;
+export default ViewClientPosts;

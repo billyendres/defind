@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import defaultProfileImage from "../components/images/defaultProfileImage.png";
-import LoadingSpinner from "../components/Styles/LoadingSpinner";
-import { Links } from "../components/Styles/Links";
-import Img from "../components/Styles/ProfilePicture";
+import { FaSearch } from "react-icons/fa";
+import defaultProfileImage from "../images/defaultProfileImage.png";
+import LoadingSpinner from "../Styles/LoadingSpinner";
+import Img from "../Styles/ProfilePicture";
 
 const cardVariants = {
   offscreen: {
@@ -19,48 +19,82 @@ const cardVariants = {
     transition: {
       type: "spring",
       bounce: 0,
-      duration: 0.7,
+      duration: 0.8,
     },
   },
 };
 
-const SearchProfile = () => {
-  const { Moralis } = useMoralis();
-  const [profile, setProfile] = useState();
+const ViewCandidatePosts = ({ profile }) => {
+  const { Moralis, account } = useMoralis();
+  const user = Moralis.User.current();
+  const [postArray, setPostArray] = useState();
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { userId } = useParams();
 
   useEffect(() => {
-    const getProfile = async () => {
+    const getPosts = async () => {
       setIsLoading(true);
       try {
-        const Post = Moralis.Object.extend("Posts");
-        const query = new Moralis.Query(Post);
-        query.equalTo("posterUsername", userId);
+        const Posts = Moralis.Object.extend("Posts");
+        const query = new Moralis.Query(Posts);
+        if (profile) {
+          query.equalTo("posterAccount", account);
+        }
         const results = await query.find();
-        setProfile(results);
+        setPostArray(results);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
-    getProfile();
-  }, [userId, Moralis.Object, Moralis.Query]);
+    getPosts();
+  }, [profile, account, Moralis.Object, Moralis.Query]);
 
   return (
-    <div>
+    <Wrapper>
       {isLoading ? (
         <>
           <LoadingSpinner />
         </>
       ) : (
         <>
+          <div style={{ paddingTop: "10rem" }}></div>
+          <motion.div
+            // style={{ width: "10rem" }}
+            initial={{ y: "50%", scale: 0.5, opacity: 0 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+          >
+            <Label>
+              <FaSearch
+                size={30}
+                style={{
+                  marginRight: "1rem",
+                  marginBottom: "-0.5rem",
+                  marginLeft: "-3rem",
+                  marginTop: "1.5rem",
+                }}
+              />
+              <Input
+                type="text"
+                placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </Label>
+          </motion.div>
           <Wrapper>
-            <div style={{ paddingTop: "10rem" }}></div>
-            <PageHeader>{userId}</PageHeader>
             <Grid>
-              {profile
-                ?.map((item, key) => {
+              {postArray
+                ?.filter(
+                  (item) =>
+                    item.attributes.personalSummary
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    item.attributes.posterUsername
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                )
+                .map((item, key) => {
                   return (
                     <CardContainer
                       initial="offscreen"
@@ -69,7 +103,12 @@ const SearchProfile = () => {
                     >
                       <ProfileWrapper variants={cardVariants} key={key}>
                         <Links
-                          to={`/profile/${item.attributes.posterUsername}`}
+                          to={
+                            user.attributes.ethAddress ===
+                            item.attributes.posterAccount
+                              ? `/profile/${user.attributes.ethAddress}`
+                              : `/profile/${item.attributes.posterUsername}`
+                          }
                         >
                           <Img
                             src={
@@ -86,13 +125,13 @@ const SearchProfile = () => {
                           0,
                           4
                         )}...${item.attributes.posterAccount.slice(38)} · 
-                ${item.attributes.createdAt.toLocaleString("en-us", {
-                  month: "short",
-                })}  
-                ${item.attributes.createdAt.toLocaleString("en-us", {
-                  day: "numeric",
-                })}
-                `}</Header>
+                    ${item.attributes.createdAt.toLocaleString("en-us", {
+                      month: "short",
+                    })}  
+                    ${item.attributes.createdAt.toLocaleString("en-us", {
+                      day: "numeric",
+                    })}
+                    `}</Header>
                         {item.attributes.personalSummary && (
                           <>
                             <Header>Personal Summary</Header>
@@ -101,9 +140,6 @@ const SearchProfile = () => {
                         )}
                         <Links to={`/forum/${item.id}`}>
                           <Header>View Post</Header>
-                        </Links>
-                        <Links to="/forum">
-                          <Header>Return to job forum</Header>
                         </Links>
                       </ProfileWrapper>
                     </CardContainer>
@@ -114,11 +150,11 @@ const SearchProfile = () => {
           </Wrapper>
         </>
       )}
-    </div>
+    </Wrapper>
   );
 };
 
-export default SearchProfile;
+export default ViewCandidatePosts;
 
 const Wrapper = styled.div`
   display: flex;
@@ -126,13 +162,11 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
-  background: ${({ theme }) => theme.background};
-  transition: all 0.5s linear;
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 2rem;
 `;
 
@@ -148,7 +182,7 @@ const ProfileWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 350px;
+  width: 700px;
   height: 430px;
   border-radius: 2rem;
   background-color: ${({ theme }) => theme.text};
@@ -165,8 +199,30 @@ const Header = styled.h2`
   transition: all 0.5s linear;
 `;
 
-const PageHeader = styled.h1`
-  color: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
+const Label = styled.h2`
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.icon};
   margin-bottom: 2rem;
+`;
+
+const Input = styled.input`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  color: #080e57;
+  background: #bae1ff;
+  letter-spacing: 2px;
+
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
 `;

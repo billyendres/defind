@@ -10,7 +10,7 @@ import Education from "./Components/Education";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
 
-const JobSeeker = () => {
+const CandidatePost = () => {
   const navigate = useNavigate();
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
@@ -163,9 +163,9 @@ const JobSeeker = () => {
           <LoadingSpinner />
         </Wrapper>
       ) : (
-        <>
-          <Header>Job Seeker</Header>
+        <Wrapper>
           <div>
+            <Header>Job Seeker</Header>
             <PersonalSummary
               onChange={(e) => setPersonalSummary(e.target.value)}
               value={personalSummary}
@@ -209,19 +209,22 @@ const JobSeeker = () => {
             <div style={{ margin: "3rem" }}></div>
             <Button onClick={userPost} disabled={isLoading} text="ETH Post" />
           </div>
-        </>
+        </Wrapper>
       )}
     </div>
   );
 };
 
-export default JobSeeker;
+export default CandidatePost;
 
 const Wrapper = styled.div`
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  background: ${({ theme }) => theme.background};
+  transition: all 0.5s linear;
 `;
 
 const Header = styled.h2`

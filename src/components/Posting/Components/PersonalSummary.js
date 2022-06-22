@@ -6,37 +6,34 @@ const NewPost = ({ value, onChange }) => {
   const [togglePersonalSummary, setTogglePersonalSummary] = useState(false);
   return (
     <>
-      {togglePersonalSummary ? (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ width: "100%" }}>
-            <Header>Personal Summary</Header>
-            {/* <Header>
-              Highlight your unique experiences, ambitions and strengths.
-            </Header> */}
-          </div>
-          <div style={{ width: "100%" }}>
-            <Textarea
-              style={{ padding: "1rem" }}
-              rows="10"
-              cols="70"
-              value={value}
-              onChange={onChange}
-              required
-              placeholder="Highlight your unique experiences, ambitions and strengths."
-            />
-          </div>
-          <Button
-            onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
-            text="Save"
+      {/* {togglePersonalSummary ? ( */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ width: "100%" }}>
+          <Header>Personal Summary</Header>
+        </div>
+        <div style={{ width: "100%" }}>
+          <Textarea
+            style={{ padding: "1rem" }}
+            rows="10"
+            cols="70"
+            value={value}
+            onChange={onChange}
+            required
+            placeholder="Highlight your unique experiences, ambitions and strengths."
           />
         </div>
-      ) : (
+        <Button
+          onClick={() => setTogglePersonalSummary(!togglePersonalSummary)}
+          text="Save"
+        />
+      </div>
+      {/* ) : (
         <>
           <Header>Personal Summary</Header>
           <Header>{value}</Header>
@@ -45,7 +42,7 @@ const NewPost = ({ value, onChange }) => {
             text="Edit"
           />
         </>
-      )}
+      )} */}
     </>
   );
 };
@@ -63,7 +60,6 @@ const Textarea = styled.textarea`
   border-radius: 0.25rem;
   font-size: 1rem;
   font-family: "Russo One", sans-serif;
-  /* text-transform: uppercase; */
   color: #080e57;
   background: #bae1ff;
   letter-spacing: 2px;

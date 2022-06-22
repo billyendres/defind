@@ -107,7 +107,7 @@ const FullPost = () => {
                       </a>
                     </>
                   )}
-                  <Links to="/jobforum">
+                  <Links to="/forum">
                     <Header>Return to job forum</Header>
                   </Links>
                 </ProfileWrapper>

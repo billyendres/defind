@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import JobSeekerPosts from "../components/Posting/JobSeekerPosts";
-import JobPosterPosts from "../components/Posting/JobPosterPosts";
+import ViewCandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
+import ViewClientPosts from "../components/ViewPosts/ViewClientPosts";
 
-const JobForum = () => {
-  const [jobType, setJobType] = useState(true);
+const Forum = () => {
   return (
     <Wrapper>
-      {/* <h2>JobForum</h2>
+      {/* <h2>Forum</h2>
       <h2>I am a</h2>
       <div>
         <button onClick={() => setJobType(true)}>Job Seeker</button>
         <button onClick={() => setJobType(false)}>Employer</button>
       </div>
       {jobType ? (
-        <JobSeekerPosts profile={false} />
+        <CandidatePosts profile={false} />
       ) : (
-        <JobPosterPosts profile={false} />
+        <ClientPosts profile={false} />
       )} */}
-      <JobSeekerPosts profile={false} />
+      <ViewCandidatePosts profile={false} />
     </Wrapper>
   );
 };
 
-export default JobForum;
+export default Forum;
 
 const Wrapper = styled.div`
   min-height: 100vh;

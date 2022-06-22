@@ -7,43 +7,16 @@ const Header = () => {
     <Wrapper>
       <motion.div
         style={{ display: "flex" }}
-        initial={{ x: "-100vw" }}
-        animate={{ x: 0, scale: 1 }}
+        initial={{ y: "50%", scale: 0.5, opacity: 0 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{
           type: "spring",
-          stiffness: 60,
-          damping: 10,
+          stiffness: 100,
+          damping: 7,
+          duration: 1,
         }}
       >
-        <HeaderText>W</HeaderText>
-        <HeaderText>E</HeaderText>
-        <HeaderText>B</HeaderText>
-        <HeaderText>3</HeaderText>
-      </motion.div>
-      <motion.div
-        initial={{ scale: 0.1 }}
-        animate={{ scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 20,
-          damping: 2,
-        }}
-      >
-        <HeaderText>.</HeaderText>
-      </motion.div>
-      <motion.div
-        style={{ display: "flex" }}
-        initial={{ x: "100vw" }}
-        animate={{ x: 0, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 60,
-          damping: 10,
-        }}
-      >
-        <HeaderText>W</HeaderText>
-        <HeaderText>E</HeaderText>
-        <HeaderText>B</HeaderText>
+        <HeaderText>Web3</HeaderText>
       </motion.div>
     </Wrapper>
   );

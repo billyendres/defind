@@ -40,10 +40,10 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaBookReader style={{ marginRight: "1rem" }} />
-          Jobs
+          Forum
         </IconWrapper>
       ),
-      route: "/jobforum",
+      route: "/forum",
     },
     {
       title: (

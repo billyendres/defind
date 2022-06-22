@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Profile from "./Profile";
-import JobSeekerPosts from "../components/Posting/JobSeekerPosts";
+import CandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
 
 const MyPosts = () => {
   return (
     <Wrapper>
-      {/* <Profile /> */}
-      <JobSeekerPosts profile={true} />
+      <CandidatePosts profile={true} />
     </Wrapper>
   );
 };

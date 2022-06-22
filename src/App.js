@@ -6,7 +6,7 @@ import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-import JobForum from "./pages/JobForum";
+import Forum from "./pages/Forum";
 import MyPosts from "./pages/MyPosts";
 import Post from "./pages/Post";
 import FullPost from "./pages/FullPost";
@@ -69,8 +69,8 @@ const App = () => {
               }`}
               element={<EditProfile />}
             />
-            <Route path="/jobforum" element={<JobForum />} />
-            <Route path="/jobforum/:id" element={<FullPost />} />
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/forum/:id" element={<FullPost />} />
             <Route
               path={`/profile/posts/${
                 Moralis.User.current().attributes.ethAddress
