@@ -11,7 +11,7 @@ const Education = ({
   return (
     <>
       <Wrapper>
-        <Header>Education</Header>
+        {/* <Header>Education</Header> */}
         <div style={{ width: "100%" }}>
           <Label>
             <FaUserGraduate
@@ -25,23 +25,27 @@ const Education = ({
               placeholder="Course"
               value={inputValueCourse}
               onChange={changeCourse}
+              maxLength="50"
             />
           </Label>
         </div>
-        <Label>
-          <FaUniversity
-            size={30}
-            style={{
-              marginRight: "1rem",
-              marginBottom: "-0.5rem",
-            }}
-          />
-          <Input
-            placeholder="Institution"
-            value={inputValueInstitution}
-            onChange={changeInstitution}
-          />
-        </Label>
+        <div style={{ width: "100%" }}>
+          <Label>
+            <FaUniversity
+              size={30}
+              style={{
+                marginRight: "1rem",
+                marginBottom: "-0.5rem",
+              }}
+            />
+            <Input
+              placeholder="Institution"
+              value={inputValueInstitution}
+              onChange={changeInstitution}
+              maxLength="50"
+            />
+          </Label>
+        </div>
       </Wrapper>
     </>
   );
@@ -59,7 +63,7 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.h2`
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   font-size: 1.5rem;
   /* text-transform: uppercase; */
 `;
@@ -79,7 +83,7 @@ const Input = styled.input`
   font-family: "Russo One", sans-serif;
   /* text-transform: uppercase; */
   color: #080e57;
-  background: #bae1ff;
+  width: 40%;
   letter-spacing: 2px;
   &:focus {
     outline: none;

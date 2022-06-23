@@ -32,16 +32,17 @@ const SearchProfile = () => {
 
   useEffect(() => {
     const getProfile = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const Post = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Post);
         query.equalTo("posterUsername", userId);
         const results = await query.find();
         setProfile(results);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getProfile();

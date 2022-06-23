@@ -32,30 +32,35 @@ const EditUserProfle = () => {
   const [bio, setBio] = useState("");
 
   const saveBio = async () => {
-    const User = Moralis.Object.extend("_User");
-    const query = new Moralis.Query(User);
-    const myDetails = await query.first();
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
+      const User = Moralis.Object.extend("_User");
+      const query = new Moralis.Query(User);
+      const myDetails = await query.first();
 
-    if (username) {
-      myDetails.set("username", username);
+      if (username) {
+        myDetails.set("username", username);
+      }
+
+      if (bio) {
+        myDetails.set("bio", bio);
+      }
+
+      if (theFile) {
+        const data = theFile;
+        const file = new Moralis.File(data.name, data);
+        await file.saveIPFS();
+        myDetails.set("profilePic", file.ipfs());
+      }
+
+      await myDetails.save();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      navigate(`/profile/${user.attributes.ethAddress}`);
+      setIsLoading(false);
+      window.location.reload();
     }
-
-    if (bio) {
-      myDetails.set("bio", bio);
-    }
-
-    if (theFile) {
-      const data = theFile;
-      const file = new Moralis.File(data.name, data);
-      await file.saveIPFS();
-      myDetails.set("profilePic", file.ipfs());
-    }
-
-    await myDetails.save();
-    setIsLoading(false);
-    navigate(`/profile/${user.attributes.ethAddress}`);
-    window.location.reload();
   };
 
   const deleteBio = async () => {

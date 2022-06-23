@@ -33,8 +33,8 @@ const ViewCandidatePosts = ({ profile }) => {
 
   useEffect(() => {
     const getPosts = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const Posts = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Posts);
         if (profile) {
@@ -42,9 +42,10 @@ const ViewCandidatePosts = ({ profile }) => {
         }
         const results = await query.find();
         setPostArray(results);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getPosts();

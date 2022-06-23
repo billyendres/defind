@@ -16,16 +16,17 @@ const FullPost = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const Post = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Post);
         query.equalTo("objectId", id);
         const results = await query.find();
         setUserProfile(results);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getPost();

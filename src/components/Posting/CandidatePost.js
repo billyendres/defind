@@ -4,11 +4,14 @@ import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 import PersonalSummary from "./Components/PersonalSummary";
 import Education from "./Components/Education";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
+import Img from "../Styles/ProfilePicture";
+import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ const CandidatePost = () => {
     course: "",
     institution: "",
   });
+  const [showEducation, setShowEducation] = useState(false);
 
   const userPost = async () => {
     if (!personalSummary)
@@ -125,11 +129,12 @@ const CandidatePost = () => {
         newPost.set("postImg", file.ipfs());
       }
       await newPost.save();
-      setIsLoading(false);
       // window.location.reload();
       navigate(`/profile/posts/${user.attributes.ethAddress}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -165,21 +170,64 @@ const CandidatePost = () => {
       ) : (
         <Wrapper>
           <Template>
-            <Header>Job Seeker</Header>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginRight: "3rem",
+              }}
+            >
+              <div>
+                <Header>{user.attributes.username}</Header>
+                <Header>{user.attributes.bio}</Header>
+              </div>
+              <Img
+                style={{ width: "7rem", height: "7rem" }}
+                src={
+                  user.attributes.profilePic
+                    ? user.attributes.profilePic
+                    : defaultProfileImage
+                }
+                alt="Profile pic"
+              />
+            </div>
             <PersonalSummary
               onChange={(e) => setPersonalSummary(e.target.value)}
               value={personalSummary}
             />
-            <Education
-              changeCourse={(e) =>
-                setEducation({ ...education, course: e.target.value })
-              }
-              inputValueCourse={education.course}
-              changeInstitution={(e) =>
-                setEducation({ ...education, institution: e.target.value })
-              }
-              inputValueInstitution={education.institution}
-            />
+            <Header onClick={() => setShowEducation(!showEducation)}>
+              Education
+            </Header>
+            <AnimatePresence>
+              {showEducation && (
+                <motion.div
+                  key="box"
+                  initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  exit={{
+                    x: "100%",
+                    opacity: 0,
+                    transition: { duration: 0.2 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <Education
+                    changeCourse={(e) =>
+                      setEducation({ ...education, course: e.target.value })
+                    }
+                    inputValueCourse={education.course}
+                    changeInstitution={(e) =>
+                      setEducation({
+                        ...education,
+                        institution: e.target.value,
+                      })
+                    }
+                    inputValueInstitution={education.institution}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
             {postFile && <Header>{postFile.name}</Header>}
             <div onClick={onImageClick} style={{ cursor: "pointer" }}>
               <input
