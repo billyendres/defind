@@ -51,6 +51,34 @@ const ViewCandidatePosts = ({ profile }) => {
     getPosts();
   }, [profile, account, Moralis.Object, Moralis.Query]);
 
+  const getFilteredPosts = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const Posts = Moralis.Object.extend("Posts");
+      const query = new Moralis.Query(Posts);
+      if (profile) {
+        query.equalTo("posterAccount", account);
+      }
+      const results = await query.find();
+      setPostArray(
+        results?.filter(
+          (item) =>
+            item.attributes.personalSummary
+              .toLowerCase()
+              .includes(search.toLowerCase()) ||
+            item.attributes.posterUsername
+              .toLowerCase()
+              .includes(search.toLowerCase())
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -60,12 +88,14 @@ const ViewCandidatePosts = ({ profile }) => {
       ) : (
         <>
           <div style={{ paddingTop: "10rem" }}></div>
-          <motion.div
+          {/* <motion.div
             // style={{ width: "10rem" }}
             initial={{ y: "50%", scale: 0.5, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
-          >
+          > */}
+          {postArray && postArray.length}
+          <form onSubmit={getFilteredPosts}>
             <Label>
               <FaSearch
                 size={30}
@@ -82,27 +112,21 @@ const ViewCandidatePosts = ({ profile }) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Label>
-          </motion.div>
+            <button type="submit">Submit</button>
+          </form>
+          {/* </motion.div> */}
           <Wrapper>
             <Grid>
               {postArray
-                ?.filter(
-                  (item) =>
-                    item.attributes.personalSummary
-                      .toLowerCase()
-                      .includes(search.toLowerCase()) ||
-                    item.attributes.posterUsername
-                      .toLowerCase()
-                      .includes(search.toLowerCase())
-                )
-                .map((item, key) => {
+                ?.map((item, key) => {
                   return (
                     <CardContainer
+                      key={key}
                       initial="offscreen"
                       whileInView="onscreen"
                       viewport={{ once: true, amount: 0.8 }}
                     >
-                      <ProfileWrapper variants={cardVariants} key={key}>
+                      <ProfileWrapper variants={cardVariants}>
                         <Links
                           to={
                             user.attributes.ethAddress ===
