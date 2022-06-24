@@ -32,20 +32,11 @@ const CandidatePost = () => {
   // const [selectedFile, setSelectedFile] = useState();
   const [postFile, setPostFile] = useState();
   const [personalSummary, setPersonalSummary] = useState("");
-  const [education, setEducation] = useState([
-    {
-      course: "",
-      institution: "",
-      date: "",
-    },
-  ]);
-  const [job, setJob] = useState([
-    {
-      jobTitle: "",
-      company: "",
-      description: "",
-    },
-  ]);
+  const [education, setEducation] = useState([]);
+  const [job, setJob] = useState([]);
+
+  console.log("education", education);
+  console.log("job", job);
 
   const userPost = async () => {
     if (!personalSummary)
@@ -252,29 +243,35 @@ const CandidatePost = () => {
                 onChange={(e) => setPersonalSummary(e.target.value)}
                 value={personalSummary}
               />
-              <div style={{ display: "flex", cursor: "pointer" }}>
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                >
-                  <Subheader>
-                    <FaUserGraduate
-                      size={30}
-                      style={{
-                        marginRight: "0.5rem",
-                        marginBottom: "-0.25rem",
-                      }}
-                    />
-                    {education.length === 0 ? (
+              {education.length === 0 ? (
+                <div style={{ display: "flex", cursor: "pointer" }}>
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Subheader>
+                      <FaUserGraduate
+                        size={30}
+                        style={{
+                          marginRight: "0.5rem",
+                          marginBottom: "-0.25rem",
+                        }}
+                      />
                       <span onClick={() => handleAddEducation()}>
                         Add Education
                       </span>
-                    ) : (
-                      "Education"
-                    )}
-                  </Subheader>
-                </motion.div>
-              </div>
+                    </Subheader>
+                  </motion.div>
+                </div>
+              ) : (
+                <Subheader>
+                  <FaUserGraduate
+                    size={30}
+                    style={{
+                      marginRight: "0.5rem",
+                      marginBottom: "-0.25rem",
+                    }}
+                  />
+                  Education
+                </Subheader>
+              )}
               {education.map((study, index) => (
                 <Education
                   key={index}
@@ -285,29 +282,35 @@ const CandidatePost = () => {
                   onClickTwo={() => handleAddEducation()}
                 />
               ))}
-              <div style={{ display: "flex", cursor: "pointer" }}>
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                >
-                  <Subheader>
-                    <FaLaptopCode
-                      size={30}
-                      style={{
-                        marginRight: "0.5rem",
-                        marginBottom: "-0.25rem",
-                      }}
-                    />
-                    {job.length === 0 ? (
+              {job.length === 0 ? (
+                <div style={{ display: "flex", cursor: "pointer" }}>
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Subheader>
+                      <FaLaptopCode
+                        size={30}
+                        style={{
+                          marginRight: "0.5rem",
+                          marginBottom: "-0.25rem",
+                        }}
+                      />
                       <span onClick={() => handleAddJob()}>
                         Add Employment History
                       </span>
-                    ) : (
-                      "Employment History"
-                    )}
-                  </Subheader>
-                </motion.div>
-              </div>
+                    </Subheader>
+                  </motion.div>
+                </div>
+              ) : (
+                <Subheader>
+                  <FaLaptopCode
+                    size={30}
+                    style={{
+                      marginRight: "0.5rem",
+                      marginBottom: "-0.25rem",
+                    }}
+                  />
+                  Employment History
+                </Subheader>
+              )}
               {job.map((work, index) => (
                 <EmploymentHistory
                   key={index}
@@ -323,10 +326,7 @@ const CandidatePost = () => {
                 onClick={onImageClick}
                 style={{ display: "flex", cursor: "pointer", flexWrap: "wrap" }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }}>
                   <input
                     type="file"
                     name="file"
@@ -363,10 +363,7 @@ const CandidatePost = () => {
                 onClick={onImageClick}
                 style={{ display: "flex", cursor: "pointer" }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }}>
                   <input
                     type="file"
                     name="file"
@@ -420,15 +417,6 @@ const Wrapper = styled.div`
   transition: all 0.5s linear;
 `;
 
-const EducationWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  text-align: left;
-  justify-content: flex-start;
-  color: ${({ theme }) => theme.textModals};
-  transition: all 0.5s linear;
-`;
-
 const Template = styled.div`
   background: ${({ theme }) => theme.text};
   min-height: 80vh;
@@ -452,51 +440,5 @@ const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   font-size: 1.25rem;
-  padding: 0.5rem 0;
-`;
-
-const Label = styled.div`
-  padding: 0.5rem 0;
-  color: ${({ theme }) => theme.textModals};
-  transition: all 0.5s linear;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
-  color: #080e57;
-  width: 12rem;
-  letter-spacing: 2px;
-  margin-right: 1rem;
-  &:focus {
-    outline: none;
-  }
-  &::placeholder {
-    color: #080e57;
-    opacity: 0.5;
-  }
-`;
-
-const Textarea = styled.textarea`
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
-  color: #080e57;
-  letter-spacing: 2px;
-  max-width: 37rem;
-  min-width: 37rem;
-  max-height: 15rem;
-
-  &:focus {
-    outline: none;
-  }
-  &::placeholder {
-    color: #080e57;
-    opacity: 0.5;
-  }
+  padding: 1.5rem 0;
 `;
