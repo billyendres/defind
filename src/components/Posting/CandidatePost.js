@@ -11,7 +11,14 @@ import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
 import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
-import { FaUniversity, FaUserGraduate, FaPlus, FaMinus } from "react-icons/fa";
+import {
+  FaUserGraduate,
+  FaPlus,
+  FaMinus,
+  FaLaptopCode,
+  FaFileAlt,
+  FaRegIdBadge,
+} from "react-icons/fa";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -30,7 +37,13 @@ const CandidatePost = () => {
       institution: "",
     },
   ]);
-  const [workExperience, setWorkExperience] = useState("");
+  const [job, setJob] = useState([
+    {
+      jobTitle: "",
+      company: "",
+      description: "",
+    },
+  ]);
 
   const userPost = async () => {
     if (!personalSummary)
@@ -118,6 +131,7 @@ const CandidatePost = () => {
 
       newPost.set("personalSummary", personalSummary);
       newPost.set("usersEducation", education);
+      newPost.set("employmentHistory", job);
       newPost.set("posterProfilePic", user.attributes.profilePic);
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
@@ -162,7 +176,7 @@ const CandidatePost = () => {
     }
     setPostFile(img);
   };
-
+  // Education
   const handleChangeInputEducation = (index, event) => {
     const values = [...education];
     values[index][event.target.name] = event.target.value;
@@ -179,6 +193,22 @@ const CandidatePost = () => {
     setEducation(values);
   };
 
+  // Career history
+  const handleChangeInputJob = (index, event) => {
+    const values = [...job];
+    values[index][event.target.name] = event.target.value;
+    setJob(values);
+  };
+
+  const handleAddJob = () => {
+    setJob([...job, { jobTitle: "", company: "", description: "" }]);
+  };
+
+  const handleRemoveJob = (index) => {
+    const values = [...job];
+    values.splice(index, 1);
+    setJob(values);
+  };
   return (
     <>
       {isLoading ? (
@@ -228,60 +258,149 @@ const CandidatePost = () => {
                   whileTap={{ scale: 0.8 }}
                 >
                   <Subheader>
+                    <FaUserGraduate
+                      size={30}
+                      style={{
+                        marginRight: "0.5rem",
+                        marginBottom: "-0.25rem",
+                      }}
+                    />
                     {education.length === 0 ? "Add Education" : "Education"}
                   </Subheader>
                 </motion.div>
               </div>
               {education.map((study, index) => (
-                <EducationWrapper key={index}>
-                  <AnimatePresence>
+                <div key={index}>
+                  <EducationWrapper>
+                    <AnimatePresence>
+                      <motion.div
+                        style={{ display: "flex", flexWrap: "wrap" }}
+                        key="box"
+                        initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                        exit={{
+                          x: "100%",
+                          opacity: 0,
+                          transition: { duration: 0.2 },
+                        }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                      >
+                        <Label>
+                          <Input
+                            placeholder="Course"
+                            name="course"
+                            label="course"
+                            value={study.course}
+                            maxLength="50"
+                            onChange={(event) =>
+                              handleChangeInputEducation(index, event)
+                            }
+                          />
+                        </Label>
+                        <Label>
+                          <Input
+                            placeholder="Institution"
+                            name="institution"
+                            label="institution"
+                            value={study.institution}
+                            maxLength="50"
+                            onChange={(event) =>
+                              handleChangeInputEducation(index, event)
+                            }
+                          />
+                        </Label>
+                        <motion.div
+                          whileHover={{ scale: 1.3 }}
+                          whileTap={{ scale: 0.8 }}
+                        >
+                          <Label
+                            onClick={() => handleRemoveEducation(index)}
+                            style={{ display: "flex", cursor: "pointer" }}
+                          >
+                            <FaMinus
+                              size={20}
+                              style={{
+                                marginLeft: "0.75rem",
+                                marginRight: "0.75rem",
+                                marginTop: "0.5rem",
+                              }}
+                            />
+                          </Label>
+                        </motion.div>
+                        <motion.div
+                          whileHover={{ scale: 1.3 }}
+                          whileTap={{ scale: 0.8 }}
+                        >
+                          <Label
+                            onClick={() => handleAddEducation()}
+                            style={{ display: "flex", cursor: "pointer" }}
+                          >
+                            <FaPlus
+                              size={20}
+                              style={{
+                                marginLeft: "0.75rem",
+                                marginTop: "0.5rem",
+                              }}
+                            />
+                          </Label>
+                        </motion.div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </EducationWrapper>
+                </div>
+              ))}
+              <div
+                style={{ display: "flex", cursor: "pointer" }}
+                onClick={() => handleAddJob()}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Subheader>
+                    <FaLaptopCode
+                      size={30}
+                      style={{
+                        marginRight: "0.5rem",
+                        marginBottom: "-0.25rem",
+                      }}
+                    />
+                    {job.length === 0
+                      ? "Add Employment History"
+                      : "Employment History"}
+                  </Subheader>
+                </motion.div>
+              </div>
+              {job.map((work, index) => (
+                <div key={index}>
+                  <EducationWrapper>
                     <motion.div
-                      style={{ display: "flex" }}
+                      style={{ display: "flex", flexWrap: "wrap" }}
                       key="box"
                       initial={{ y: "50%", opacity: 0, scale: 0.5 }}
                       animate={{ y: 0, opacity: 1, scale: 1 }}
-                      exit={{
-                        x: "100%",
-                        opacity: 0,
-                        transition: { duration: 0.2 },
-                      }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
                     >
                       <Label>
-                        <FaUserGraduate
-                          size={30}
-                          style={{
-                            marginRight: "1rem",
-                            marginBottom: "-0.5rem",
-                          }}
-                        />
                         <Input
-                          placeholder="Course"
-                          name="course"
-                          label="course"
-                          value={study.course}
+                          placeholder="Job Title"
+                          name="jobTitle"
+                          label="jobTitle"
+                          value={work.jobTitle}
                           maxLength="50"
                           onChange={(event) =>
-                            handleChangeInputEducation(index, event)
+                            handleChangeInputJob(index, event)
                           }
                         />
                       </Label>
                       <Label>
-                        <FaUniversity
-                          size={30}
-                          style={{
-                            marginRight: "1rem",
-                            marginBottom: "-0.5rem",
-                          }}
-                        />
                         <Input
-                          placeholder="Institution"
-                          name="institution"
-                          label="institution"
-                          value={study.institution}
+                          placeholder="Company"
+                          name="company"
+                          label="company"
+                          value={work.company}
                           maxLength="50"
                           onChange={(event) =>
-                            handleChangeInputEducation(index, event)
+                            handleChangeInputJob(index, event)
                           }
                         />
                       </Label>
@@ -290,7 +409,7 @@ const CandidatePost = () => {
                         whileTap={{ scale: 0.8 }}
                       >
                         <Label
-                          onClick={() => handleRemoveEducation(index)}
+                          onClick={() => handleRemoveJob(index)}
                           style={{ display: "flex", cursor: "pointer" }}
                         >
                           <FaMinus
@@ -308,7 +427,7 @@ const CandidatePost = () => {
                         whileTap={{ scale: 0.8 }}
                       >
                         <Label
-                          onClick={() => handleAddEducation()}
+                          onClick={() => handleAddJob()}
                           style={{ display: "flex", cursor: "pointer" }}
                         >
                           <FaPlus
@@ -321,8 +440,23 @@ const CandidatePost = () => {
                         </Label>
                       </motion.div>
                     </motion.div>
-                  </AnimatePresence>
-                </EducationWrapper>
+                  </EducationWrapper>
+                  <motion.div
+                    style={{ display: "flex", flexWrap: "wrap" }}
+                    key="box"
+                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                    animate={{ y: 0, opacity: 1, scale: 1 }}
+                  >
+                    <Textarea
+                      placeholder="Summarise your responsibilities, skills and achievements."
+                      style={{ padding: "1rem" }}
+                      value={work.description}
+                      onChange={(event) => handleChangeInputJob(index, event)}
+                      name="description"
+                      label="description"
+                    />
+                  </motion.div>
+                </div>
               ))}
               <div
                 onClick={onImageClick}
@@ -342,6 +476,13 @@ const CandidatePost = () => {
                     // accept="image/png, image/jpeg, image/jpg"
                   />
                   <Subheader>
+                    <FaRegIdBadge
+                      size={30}
+                      style={{
+                        marginRight: "0.5rem",
+                        marginBottom: "-0.25rem",
+                      }}
+                    />
                     {!postFile ? "Attach Resume" : "Resume"}
                   </Subheader>
                 </motion.div>
@@ -373,7 +514,16 @@ const CandidatePost = () => {
                     style={{ display: "none" }}
                     accept="application/pdf"
                   />
-                  <Subheader>Attach Cover Letter</Subheader>
+                  <Subheader>
+                    <FaFileAlt
+                      size={30}
+                      style={{
+                        marginRight: "0.5rem",
+                        marginBottom: "-0.25rem",
+                      }}
+                    />
+                    Attach Cover Letter
+                  </Subheader>
                 </motion.div>
               </div>
 
@@ -460,6 +610,27 @@ const Input = styled.input`
   width: 12rem;
   letter-spacing: 2px;
   margin-right: 1rem;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
+`;
+
+const Textarea = styled.textarea`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  color: #080e57;
+  letter-spacing: 2px;
+  max-width: 37rem;
+  min-width: 37rem;
+  max-height: 15rem;
+
   &:focus {
     outline: none;
   }
