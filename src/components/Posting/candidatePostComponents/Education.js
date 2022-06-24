@@ -1,58 +1,111 @@
 import React from "react";
 import styled from "styled-components";
-import { FaUniversity, FaUserGraduate } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const Education = ({
-  changeCourse,
-  changeInstitution,
-  inputValueCourse,
-  inputValueInstitution,
+  onChange,
+  valueOne,
+  valueTwo,
+  onClickOne,
+  onClickTwo,
 }) => {
   return (
-    <>
-      <Wrapper>
-        <div style={{ width: "100%" }}>
-          <Label>
-            <FaUserGraduate
-              size={30}
-              style={{
-                marginRight: "1rem",
-                marginBottom: "-0.5rem",
+    <div>
+      <div>
+        <EducationWrapper>
+          <AnimatePresence>
+            <motion.div
+              style={{ display: "flex", flexWrap: "wrap" }}
+              key="box"
+              initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{
+                x: "100%",
+                opacity: 0,
+                transition: { duration: 0.2 },
               }}
-            />
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              <Label>
+                <Input
+                  placeholder="Course"
+                  name="course"
+                  label="course"
+                  value={valueOne}
+                  maxLength="50"
+                  onChange={onChange}
+                />
+              </Label>
+              <Label>
+                <Input
+                  placeholder="Institution"
+                  name="institution"
+                  label="institution"
+                  value={valueTwo}
+                  maxLength="50"
+                  onChange={onChange}
+                />
+              </Label>
+              <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+                <Label
+                  onClick={onClickOne}
+                  style={{ display: "flex", cursor: "pointer" }}
+                >
+                  <FaMinus
+                    size={20}
+                    style={{
+                      marginLeft: "0.75rem",
+                      marginRight: "0.75rem",
+                      marginTop: "0.5rem",
+                    }}
+                  />
+                </Label>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+                <Label
+                  onClick={onClickTwo}
+                  style={{ display: "flex", cursor: "pointer" }}
+                >
+                  <FaPlus
+                    size={20}
+                    style={{
+                      marginLeft: "0.75rem",
+                      marginTop: "0.5rem",
+                    }}
+                  />
+                </Label>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </EducationWrapper>
+        <Label>Date from - Date to</Label>
+        <div style={{ display: "flex" }}>
+          <Label>
             <Input
-              placeholder="Course"
-              value={inputValueCourse}
-              onChange={changeCourse}
-              maxLength="50"
+              type="date"
+              name="date from"
+              label="date from"
+              onChange={onChange}
+            />
+          </Label>
+          <Label>
+            <Input
+              type="date"
+              name="date to"
+              label="date to"
+              onChange={onChange}
             />
           </Label>
         </div>
-        <div style={{ width: "100%" }}>
-          <Label>
-            <FaUniversity
-              size={30}
-              style={{
-                marginRight: "1rem",
-                marginBottom: "-0.5rem",
-              }}
-            />
-            <Input
-              placeholder="Institution"
-              value={inputValueInstitution}
-              onChange={changeInstitution}
-              maxLength="50"
-            />
-          </Label>
-        </div>
-      </Wrapper>
-    </>
+      </div>
+    </div>
   );
 };
 
 export default Education;
 
-const Wrapper = styled.div`
+const EducationWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   text-align: left;
@@ -63,6 +116,8 @@ const Wrapper = styled.div`
 
 const Label = styled.div`
   padding: 0.5rem 0;
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
 `;
 
 const Input = styled.input`
@@ -72,8 +127,9 @@ const Input = styled.input`
   font-size: 1rem;
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
-  width: 40%;
+  width: 12rem;
   letter-spacing: 2px;
+  margin-right: 1rem;
   &:focus {
     outline: none;
   }

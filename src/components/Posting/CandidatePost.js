@@ -4,7 +4,9 @@ import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Education from "./candidatePostComponents/Education";
+import EmploymentHistory from "./candidatePostComponents/EmploymentHistory";
 
 import PersonalSummary from "./candidatePostComponents/PersonalSummary";
 import LoadingSpinner from "../Styles/LoadingSpinner";
@@ -13,11 +15,10 @@ import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import {
   FaUserGraduate,
-  FaPlus,
-  FaMinus,
   FaLaptopCode,
   FaFileAlt,
   FaRegIdBadge,
+  FaPlus,
 } from "react-icons/fa";
 
 const CandidatePost = () => {
@@ -35,6 +36,7 @@ const CandidatePost = () => {
     {
       course: "",
       institution: "",
+      date: "",
     },
   ]);
   const [job, setJob] = useState([
@@ -184,7 +186,7 @@ const CandidatePost = () => {
   };
 
   const handleAddEducation = () => {
-    setEducation([...education, { course: "", institution: "" }]);
+    setEducation([...education, { course: "", institution: "", date: "" }]);
   };
 
   const handleRemoveEducation = (index) => {
@@ -209,6 +211,7 @@ const CandidatePost = () => {
     values.splice(index, 1);
     setJob(values);
   };
+
   return (
     <>
       {isLoading ? (
@@ -249,10 +252,7 @@ const CandidatePost = () => {
                 onChange={(e) => setPersonalSummary(e.target.value)}
                 value={personalSummary}
               />
-              <div
-                style={{ display: "flex", cursor: "pointer" }}
-                onClick={() => handleAddEducation()}
-              >
+              <div style={{ display: "flex", cursor: "pointer" }}>
                 <motion.div
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.8 }}
@@ -265,94 +265,27 @@ const CandidatePost = () => {
                         marginBottom: "-0.25rem",
                       }}
                     />
-                    {education.length === 0 ? "Add Education" : "Education"}
+                    {education.length === 0 ? (
+                      <span onClick={() => handleAddEducation()}>
+                        Add Education
+                      </span>
+                    ) : (
+                      "Education"
+                    )}
                   </Subheader>
                 </motion.div>
               </div>
               {education.map((study, index) => (
-                <div key={index}>
-                  <EducationWrapper>
-                    <AnimatePresence>
-                      <motion.div
-                        style={{ display: "flex", flexWrap: "wrap" }}
-                        key="box"
-                        initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                        animate={{ y: 0, opacity: 1, scale: 1 }}
-                        exit={{
-                          x: "100%",
-                          opacity: 0,
-                          transition: { duration: 0.2 },
-                        }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                      >
-                        <Label>
-                          <Input
-                            placeholder="Course"
-                            name="course"
-                            label="course"
-                            value={study.course}
-                            maxLength="50"
-                            onChange={(event) =>
-                              handleChangeInputEducation(index, event)
-                            }
-                          />
-                        </Label>
-                        <Label>
-                          <Input
-                            placeholder="Institution"
-                            name="institution"
-                            label="institution"
-                            value={study.institution}
-                            maxLength="50"
-                            onChange={(event) =>
-                              handleChangeInputEducation(index, event)
-                            }
-                          />
-                        </Label>
-                        <motion.div
-                          whileHover={{ scale: 1.3 }}
-                          whileTap={{ scale: 0.8 }}
-                        >
-                          <Label
-                            onClick={() => handleRemoveEducation(index)}
-                            style={{ display: "flex", cursor: "pointer" }}
-                          >
-                            <FaMinus
-                              size={20}
-                              style={{
-                                marginLeft: "0.75rem",
-                                marginRight: "0.75rem",
-                                marginTop: "0.5rem",
-                              }}
-                            />
-                          </Label>
-                        </motion.div>
-                        <motion.div
-                          whileHover={{ scale: 1.3 }}
-                          whileTap={{ scale: 0.8 }}
-                        >
-                          <Label
-                            onClick={() => handleAddEducation()}
-                            style={{ display: "flex", cursor: "pointer" }}
-                          >
-                            <FaPlus
-                              size={20}
-                              style={{
-                                marginLeft: "0.75rem",
-                                marginTop: "0.5rem",
-                              }}
-                            />
-                          </Label>
-                        </motion.div>
-                      </motion.div>
-                    </AnimatePresence>
-                  </EducationWrapper>
-                </div>
+                <Education
+                  key={index}
+                  valueOne={study.course}
+                  onChange={(event) => handleChangeInputEducation(index, event)}
+                  valueTwo={study.institution}
+                  onClickOne={() => handleRemoveEducation(index)}
+                  onClickTwo={() => handleAddEducation()}
+                />
               ))}
-              <div
-                style={{ display: "flex", cursor: "pointer" }}
-                onClick={() => handleAddJob()}
-              >
+              <div style={{ display: "flex", cursor: "pointer" }}>
                 <motion.div
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.8 }}
@@ -365,98 +298,26 @@ const CandidatePost = () => {
                         marginBottom: "-0.25rem",
                       }}
                     />
-                    {job.length === 0
-                      ? "Add Employment History"
-                      : "Employment History"}
+                    {job.length === 0 ? (
+                      <span onClick={() => handleAddJob()}>
+                        Add Employment History
+                      </span>
+                    ) : (
+                      "Employment History"
+                    )}
                   </Subheader>
                 </motion.div>
               </div>
               {job.map((work, index) => (
-                <div key={index}>
-                  <EducationWrapper>
-                    <motion.div
-                      style={{ display: "flex", flexWrap: "wrap" }}
-                      key="box"
-                      initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                      animate={{ y: 0, opacity: 1, scale: 1 }}
-                    >
-                      <Label>
-                        <Input
-                          placeholder="Job Title"
-                          name="jobTitle"
-                          label="jobTitle"
-                          value={work.jobTitle}
-                          maxLength="50"
-                          onChange={(event) =>
-                            handleChangeInputJob(index, event)
-                          }
-                        />
-                      </Label>
-                      <Label>
-                        <Input
-                          placeholder="Company"
-                          name="company"
-                          label="company"
-                          value={work.company}
-                          maxLength="50"
-                          onChange={(event) =>
-                            handleChangeInputJob(index, event)
-                          }
-                        />
-                      </Label>
-                      <motion.div
-                        whileHover={{ scale: 1.3 }}
-                        whileTap={{ scale: 0.8 }}
-                      >
-                        <Label
-                          onClick={() => handleRemoveJob(index)}
-                          style={{ display: "flex", cursor: "pointer" }}
-                        >
-                          <FaMinus
-                            size={20}
-                            style={{
-                              marginLeft: "0.75rem",
-                              marginRight: "0.75rem",
-                              marginTop: "0.5rem",
-                            }}
-                          />
-                        </Label>
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.3 }}
-                        whileTap={{ scale: 0.8 }}
-                      >
-                        <Label
-                          onClick={() => handleAddJob()}
-                          style={{ display: "flex", cursor: "pointer" }}
-                        >
-                          <FaPlus
-                            size={20}
-                            style={{
-                              marginLeft: "0.75rem",
-                              marginTop: "0.5rem",
-                            }}
-                          />
-                        </Label>
-                      </motion.div>
-                    </motion.div>
-                  </EducationWrapper>
-                  <motion.div
-                    style={{ display: "flex", flexWrap: "wrap" }}
-                    key="box"
-                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                    animate={{ y: 0, opacity: 1, scale: 1 }}
-                  >
-                    <Textarea
-                      placeholder="Summarise your responsibilities, skills and achievements."
-                      style={{ padding: "1rem" }}
-                      value={work.description}
-                      onChange={(event) => handleChangeInputJob(index, event)}
-                      name="description"
-                      label="description"
-                    />
-                  </motion.div>
-                </div>
+                <EmploymentHistory
+                  key={index}
+                  valueOne={work.jobTitle}
+                  onChange={(event) => handleChangeInputJob(index, event)}
+                  valueTwo={work.company}
+                  valueThree={work.description}
+                  onClickOne={() => handleRemoveJob(index)}
+                  onClickTwo={() => handleAddJob()}
+                />
               ))}
               <div
                 onClick={onImageClick}
