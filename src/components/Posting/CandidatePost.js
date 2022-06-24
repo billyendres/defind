@@ -7,12 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 import PersonalSummary from "./candidatePostComponents/PersonalSummary";
-import Education from "./candidatePostComponents/Education";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
 import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
-import { FaUniversity, FaUserGraduate } from "react-icons/fa";
+import { FaUniversity, FaUserGraduate, FaPlus, FaMinus } from "react-icons/fa";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -31,7 +30,6 @@ const CandidatePost = () => {
       institution: "",
     },
   ]);
-  const [showEducation, setShowEducation] = useState(false);
   const [workExperience, setWorkExperience] = useState("");
 
   const userPost = async () => {
@@ -221,97 +219,164 @@ const CandidatePost = () => {
                 onChange={(e) => setPersonalSummary(e.target.value)}
                 value={personalSummary}
               />
-              <Subheader onClick={() => setShowEducation(!showEducation)}>
-                Education
-              </Subheader>
-              <button onClick={() => handleAddEducation()}>Add</button>
-
-              <AnimatePresence>
-                {showEducation && (
-                  <motion.div
-                    key="box"
-                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                    animate={{ y: 0, opacity: 1, scale: 1 }}
-                    exit={{
-                      x: "100%",
-                      opacity: 0,
-                      transition: { duration: 0.2 },
-                    }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                  >
-                    {education.map((study, index) => (
-                      <EducationWrapper key={index}>
-                        <Label>
-                          <FaUserGraduate
-                            size={30}
+              <div
+                style={{ display: "flex", cursor: "pointer" }}
+                onClick={() => handleAddEducation()}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Subheader>
+                    {education.length === 0 ? "Add Education" : "Education"}
+                  </Subheader>
+                </motion.div>
+              </div>
+              {education.map((study, index) => (
+                <EducationWrapper key={index}>
+                  <AnimatePresence>
+                    <motion.div
+                      style={{ display: "flex" }}
+                      key="box"
+                      initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                      exit={{
+                        x: "100%",
+                        opacity: 0,
+                        transition: { duration: 0.2 },
+                      }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <Label>
+                        <FaUserGraduate
+                          size={30}
+                          style={{
+                            marginRight: "1rem",
+                            marginBottom: "-0.5rem",
+                          }}
+                        />
+                        <Input
+                          placeholder="Course"
+                          name="course"
+                          label="course"
+                          value={study.course}
+                          maxLength="50"
+                          onChange={(event) =>
+                            handleChangeInputEducation(index, event)
+                          }
+                        />
+                      </Label>
+                      <Label>
+                        <FaUniversity
+                          size={30}
+                          style={{
+                            marginRight: "1rem",
+                            marginBottom: "-0.5rem",
+                          }}
+                        />
+                        <Input
+                          placeholder="Institution"
+                          name="institution"
+                          label="institution"
+                          value={study.institution}
+                          maxLength="50"
+                          onChange={(event) =>
+                            handleChangeInputEducation(index, event)
+                          }
+                        />
+                      </Label>
+                      <motion.div
+                        whileHover={{ scale: 1.3 }}
+                        whileTap={{ scale: 0.8 }}
+                      >
+                        <Label
+                          onClick={() => handleRemoveEducation(index)}
+                          style={{ display: "flex", cursor: "pointer" }}
+                        >
+                          <FaMinus
+                            size={20}
                             style={{
-                              marginRight: "1rem",
-                              marginBottom: "-0.5rem",
+                              marginLeft: "0.75rem",
+                              marginRight: "0.75rem",
+                              marginTop: "0.5rem",
                             }}
                           />
-                          <Input
-                            placeholder="Course"
-                            name="course"
-                            label="course"
-                            value={study.course}
-                            maxLength="50"
-                            onChange={(event) =>
-                              handleChangeInputEducation(index, event)
-                            }
-                          />
                         </Label>
-                        <Label>
-                          <FaUniversity
-                            size={30}
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.3 }}
+                        whileTap={{ scale: 0.8 }}
+                      >
+                        <Label
+                          onClick={() => handleAddEducation()}
+                          style={{ display: "flex", cursor: "pointer" }}
+                        >
+                          <FaPlus
+                            size={20}
                             style={{
-                              marginRight: "1rem",
-                              marginBottom: "-0.5rem",
+                              marginLeft: "0.75rem",
+                              marginTop: "0.5rem",
                             }}
                           />
-                          <Input
-                            placeholder="Institution"
-                            name="institution"
-                            label="institution"
-                            value={study.institution}
-                            maxLength="50"
-                            onChange={(event) =>
-                              handleChangeInputEducation(index, event)
-                            }
-                          />
                         </Label>
-                        <button onClick={() => handleRemoveEducation(index)}>
-                          remove
-                        </button>
-                      </EducationWrapper>
-                    ))}
-                  </motion.div>
+                      </motion.div>
+                    </motion.div>
+                  </AnimatePresence>
+                </EducationWrapper>
+              ))}
+              <div
+                onClick={onImageClick}
+                style={{ display: "flex", cursor: "pointer", flexWrap: "wrap" }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <input
+                    type="file"
+                    name="file"
+                    ref={inputFile}
+                    onChange={changeHandler}
+                    style={{ display: "none" }}
+                    accept="application/pdf"
+                    // accept="image/png, image/jpeg, image/jpg"
+                  />
+                  <Subheader>
+                    {!postFile ? "Attach Resume" : "Resume"}
+                  </Subheader>
+                </motion.div>
+                {postFile && (
+                  <Text style={{ width: "100%", padding: 0 }}>
+                    {`> `}
+                    {postFile.name}
+                  </Text>
                 )}
-              </AnimatePresence>
-              {postFile && <Text>{postFile.name}</Text>}
-              <div onClick={onImageClick} style={{ cursor: "pointer" }}>
-                <input
-                  type="file"
-                  name="file"
-                  ref={inputFile}
-                  onChange={changeHandler}
-                  style={{ display: "none" }}
-                  accept="application/pdf"
-                />
-                <Subheader>Attach Resume</Subheader>
               </div>
-              <div onClick={onImageClick} style={{ cursor: "pointer" }}>
-                <input
-                  type="file"
-                  name="file"
-                  ref={inputFile}
-                  onChange={changeHandler}
-                  style={{ display: "none" }}
-                  accept="application/pdf"
-                  // accept="image/png, image/jpeg, image/jpg"
-                />
-                <Subheader>Attach Cover Letter</Subheader>
+              <div>
+                {postFile && (
+                  <button onClick={() => setPostFile()}>Remove file</button>
+                )}
               </div>
-              <button onClick={() => setPostFile()}>Remove file</button>
+              <div
+                onClick={onImageClick}
+                style={{ display: "flex", cursor: "pointer" }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <input
+                    type="file"
+                    name="file"
+                    ref={inputFile}
+                    onChange={changeHandler}
+                    style={{ display: "none" }}
+                    accept="application/pdf"
+                  />
+                  <Subheader>Attach Cover Letter</Subheader>
+                </motion.div>
+              </div>
+
               <Button
                 onClick={savePost}
                 disabled={isLoading}
@@ -381,6 +446,8 @@ const Subheader = styled.div`
 
 const Label = styled.div`
   padding: 0.5rem 0;
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
 `;
 
 const Input = styled.input`
@@ -390,8 +457,9 @@ const Input = styled.input`
   font-size: 1rem;
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
-  width: 40%;
+  width: 12rem;
   letter-spacing: 2px;
+  margin-right: 1rem;
   &:focus {
     outline: none;
   }
