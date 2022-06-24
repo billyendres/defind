@@ -46,8 +46,7 @@ const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Russo One", sans-serif;
-  text-transform: uppercase;
+  font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   background: #bae1ff;
   letter-spacing: 2px;

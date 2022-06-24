@@ -19,7 +19,7 @@ const cardVariants = {
     transition: {
       type: "spring",
       bounce: 0,
-      duration: 0.7,
+      duration: 0.4,
     },
   },
 };
@@ -64,11 +64,12 @@ const SearchProfile = () => {
                 ?.map((item, key) => {
                   return (
                     <CardContainer
+                      key={key}
                       initial="offscreen"
                       whileInView="onscreen"
                       viewport={{ once: true, amount: 0.8 }}
                     >
-                      <ProfileWrapper variants={cardVariants} key={key}>
+                      <ProfileWrapper variants={cardVariants}>
                         <Links
                           to={`/profile/${item.attributes.posterUsername}`}
                         >
@@ -123,7 +124,7 @@ export default SearchProfile;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   min-height: 100vh;
   flex-direction: column;

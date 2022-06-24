@@ -11,7 +11,6 @@ const Education = ({
   return (
     <>
       <Wrapper>
-        {/* <Header>Education</Header> */}
         <div style={{ width: "100%" }}>
           <Label>
             <FaUserGraduate
@@ -62,17 +61,8 @@ const Wrapper = styled.div`
   transition: all 0.5s linear;
 `;
 
-const Label = styled.h2`
+const Label = styled.div`
   padding: 0.5rem 0;
-  font-size: 1.5rem;
-  /* text-transform: uppercase; */
-`;
-
-const Header = styled.h2`
-  color: ${({ theme }) => theme.textModals};
-  transition: all 0.5s linear;
-  padding: 1rem 0;
-  text-transform: uppercase;
 `;
 
 const Input = styled.input`
@@ -80,8 +70,7 @@ const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Russo One", sans-serif;
-  /* text-transform: uppercase; */
+  font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   width: 40%;
   letter-spacing: 2px;

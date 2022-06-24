@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import { FaSearch } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
+import Button from "../Styles/Button";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Img from "../Styles/ProfilePicture";
 
@@ -19,7 +20,7 @@ const cardVariants = {
     transition: {
       type: "spring",
       bounce: 0,
-      duration: 0.8,
+      duration: 0.4,
     },
   },
 };
@@ -76,6 +77,7 @@ const ViewCandidatePosts = ({ profile }) => {
       console.error(error);
     } finally {
       setIsLoading(false);
+      // setSearch("");
     }
   };
 
@@ -88,14 +90,7 @@ const ViewCandidatePosts = ({ profile }) => {
       ) : (
         <>
           <div style={{ paddingTop: "10rem" }}></div>
-          {/* <motion.div
-            // style={{ width: "10rem" }}
-            initial={{ y: "50%", scale: 0.5, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-          > */}
-          {postArray && postArray.length}
-          <form onSubmit={getFilteredPosts}>
+          <form style={{ display: "flex" }} onSubmit={getFilteredPosts}>
             <Label>
               <FaSearch
                 size={30}
@@ -112,9 +107,15 @@ const ViewCandidatePosts = ({ profile }) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Label>
-            <button type="submit">Submit</button>
+            <span style={{ marginTop: "0.5rem" }}>
+              <Button type="submit" text="Go" />
+            </span>
           </form>
-          {/* </motion.div> */}
+          <ResultsText>
+            {postArray?.length === 1
+              ? `${postArray.length} result found`
+              : `${postArray?.length} results found`}
+          </ResultsText>
           <Wrapper>
             <Grid>
               {postArray
@@ -143,10 +144,10 @@ const ViewCandidatePosts = ({ profile }) => {
                             }
                             alt="Profile pic"
                           />
-                          <Header>{item.attributes.posterUsername}</Header>
+                          <Text>{item.attributes.posterUsername}</Text>
                         </Links>
-                        <Header>{item.attributes.posterBio}</Header>
-                        <Header>{`${item.attributes.posterAccount.slice(
+                        <Text>{item.attributes.posterBio}</Text>
+                        <Text>{`${item.attributes.posterAccount.slice(
                           0,
                           4
                         )}...${item.attributes.posterAccount.slice(38)} · 
@@ -156,15 +157,15 @@ const ViewCandidatePosts = ({ profile }) => {
                     ${item.attributes.createdAt.toLocaleString("en-us", {
                       day: "numeric",
                     })}
-                    `}</Header>
+                    `}</Text>
                         {item.attributes.personalSummary && (
                           <>
-                            <Header>Personal Summary</Header>
-                            <Header>{item.attributes.personalSummary}</Header>
+                            <Text>Personal Summary</Text>
+                            <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
                         <Links to={`/forum/${item.id}`}>
-                          <Header>View Post</Header>
+                          <Text>View Post</Text>
                         </Links>
                       </ProfileWrapper>
                     </CardContainer>
@@ -182,8 +183,10 @@ const ViewCandidatePosts = ({ profile }) => {
 export default ViewCandidatePosts;
 
 const Wrapper = styled.div`
+  font-family: "Kdam Thmor Pro", sans-serif;
+  letter-spacing: 2px;
   display: flex;
-  justify-content: center;
+  font-size: 1.25rem;
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
@@ -209,7 +212,7 @@ const ProfileWrapper = styled(motion.div)`
   justify-content: center;
   width: 700px;
   height: 430px;
-  border-radius: 2rem;
+  border-radius: 1rem;
   background-color: ${({ theme }) => theme.text};
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px; */
@@ -219,14 +222,20 @@ const ProfileWrapper = styled(motion.div)`
   transform-origin: 10% 60%;
 `;
 
-const Header = styled.h2`
+const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
 `;
 
-const Label = styled.h2`
+const ResultsText = styled.div`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  margin-bottom: 1rem;
+`;
+
+const Label = styled.div`
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   text-transform: uppercase;
   color: ${({ theme }) => theme.icon};
   margin-bottom: 2rem;
@@ -237,11 +246,10 @@ const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Russo One", sans-serif;
-  text-transform: uppercase;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  letter-spacing: 2px;
   color: #080e57;
   background: #bae1ff;
-  letter-spacing: 2px;
 
   &:focus {
     outline: none;
