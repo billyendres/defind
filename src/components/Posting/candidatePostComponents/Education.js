@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaUserGraduate } from "react-icons/fa";
 
-const Education = ({
+export const Education = ({
   onChange,
   valueOne,
   valueTwo,
@@ -116,7 +116,39 @@ const Education = ({
   );
 };
 
-export default Education;
+export const AddEducation = ({ onClick }) => {
+  return (
+    <div style={{ display: "flex", cursor: "pointer" }}>
+      <motion.div whileHover={{ scale: 1.05 }}>
+        <Subheader>
+          <FaUserGraduate
+            size={30}
+            style={{
+              marginRight: "0.5rem",
+              marginBottom: "-0.25rem",
+            }}
+          />
+          <span onClick={onClick}>Add Education</span>
+        </Subheader>
+      </motion.div>
+    </div>
+  );
+};
+
+export const EducationAdded = () => {
+  return (
+    <Subheader style={{ paddingBottom: "0.5rem" }}>
+      <FaUserGraduate
+        size={30}
+        style={{
+          marginRight: "0.5rem",
+          marginBottom: "-0.25rem",
+        }}
+      />
+      Education
+    </Subheader>
+  );
+};
 
 const EducationWrapper = styled.div`
   display: flex;
@@ -155,4 +187,11 @@ const Input = styled.input`
 const MotionDiv = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const Subheader = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  font-size: 1.25rem;
+  padding: 1.25rem 0;
 `;

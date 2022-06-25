@@ -5,8 +5,16 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import Education from "./candidatePostComponents/Education";
-import EmploymentHistory from "./candidatePostComponents/EmploymentHistory";
+import {
+  Education,
+  AddEducation,
+  EducationAdded,
+} from "./candidatePostComponents/Education";
+import {
+  EmploymentHistory,
+  AddEmploymentHistory,
+  EmploymentHistoryAdded,
+} from "./candidatePostComponents/EmploymentHistory";
 
 import PersonalSummary from "./candidatePostComponents/PersonalSummary";
 import LoadingSpinner from "../Styles/LoadingSpinner";
@@ -14,12 +22,15 @@ import Button from "../Styles/Button";
 import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import {
-  FaUserGraduate,
-  FaLaptopCode,
-  FaFileAlt,
-  FaRegIdBadge,
-  FaPlus,
-} from "react-icons/fa";
+  Resume,
+  ResumeHeader,
+  RemoveResume,
+} from "./candidatePostComponents/Resume";
+import {
+  CoverLetter,
+  CoverLetterHeader,
+  RemoveCoverLetter,
+} from "./candidatePostComponents/CoverLetter";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -244,33 +255,9 @@ const CandidatePost = () => {
                 value={personalSummary}
               />
               {education.length === 0 ? (
-                <div style={{ display: "flex", cursor: "pointer" }}>
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Subheader>
-                      <FaUserGraduate
-                        size={30}
-                        style={{
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.25rem",
-                        }}
-                      />
-                      <span onClick={() => handleAddEducation()}>
-                        Add Education
-                      </span>
-                    </Subheader>
-                  </motion.div>
-                </div>
+                <AddEducation onClick={() => handleAddEducation()} />
               ) : (
-                <Subheader>
-                  <FaUserGraduate
-                    size={30}
-                    style={{
-                      marginRight: "0.5rem",
-                      marginBottom: "-0.25rem",
-                    }}
-                  />
-                  Education
-                </Subheader>
+                <EducationAdded />
               )}
               {education.map((study, index) => (
                 <Education
@@ -283,33 +270,9 @@ const CandidatePost = () => {
                 />
               ))}
               {job.length === 0 ? (
-                <div style={{ display: "flex", cursor: "pointer" }}>
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Subheader>
-                      <FaLaptopCode
-                        size={30}
-                        style={{
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.25rem",
-                        }}
-                      />
-                      <span onClick={() => handleAddJob()}>
-                        Add Employment History
-                      </span>
-                    </Subheader>
-                  </motion.div>
-                </div>
+                <AddEmploymentHistory onClick={() => handleAddJob()} />
               ) : (
-                <Subheader>
-                  <FaLaptopCode
-                    size={30}
-                    style={{
-                      marginRight: "0.5rem",
-                      marginBottom: "-0.25rem",
-                    }}
-                  />
-                  Employment History
-                </Subheader>
+                <EmploymentHistoryAdded />
               )}
               {job.map((work, index) => (
                 <EmploymentHistory
@@ -322,69 +285,54 @@ const CandidatePost = () => {
                   onClickTwo={() => handleAddJob()}
                 />
               ))}
-              <div
-                onClick={onImageClick}
-                style={{ display: "flex", cursor: "pointer", flexWrap: "wrap" }}
-              >
-                <motion.div whileHover={{ scale: 1.05 }}>
-                  <input
-                    type="file"
-                    name="file"
-                    ref={inputFile}
-                    onChange={changeHandler}
-                    style={{ display: "none" }}
-                    accept="application/pdf"
-                    // accept="image/png, image/jpeg, image/jpg"
-                  />
-                  <Subheader>
-                    <FaRegIdBadge
-                      size={30}
-                      style={{
-                        marginRight: "0.5rem",
-                        marginBottom: "-0.25rem",
-                      }}
-                    />
-                    {!postFile ? "Attach Resume" : "Resume"}
-                  </Subheader>
-                </motion.div>
-                {postFile && (
-                  <Text style={{ width: "100%", padding: 0 }}>
-                    {`> `}
-                    {postFile.name}
-                  </Text>
-                )}
-              </div>
-              <div>
-                {postFile && (
-                  <button onClick={() => setPostFile()}>Remove file</button>
-                )}
-              </div>
-              <div
-                onClick={onImageClick}
-                style={{ display: "flex", cursor: "pointer" }}
-              >
-                <motion.div whileHover={{ scale: 1.05 }}>
-                  <input
-                    type="file"
-                    name="file"
-                    ref={inputFile}
-                    onChange={changeHandler}
-                    style={{ display: "none" }}
-                    accept="application/pdf"
-                  />
-                  <Subheader>
-                    <FaFileAlt
-                      size={30}
-                      style={{
-                        marginRight: "0.5rem",
-                        marginBottom: "-0.25rem",
-                      }}
-                    />
-                    Attach Cover Letter
-                  </Subheader>
-                </motion.div>
-              </div>
-
+              {!postFile ? (
+                <Resume
+                  onImageClick={onImageClick}
+                  inputFile={inputFile}
+                  changeHandler={changeHandler}
+                />
+              ) : (
+                <>
+                  <ResumeHeader />
+                  <div style={{ display: "flex" }}>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      {postFile && (
+                        <RemoveResume onClick={() => setPostFile()} />
+                      )}
+                    </motion.div>
+                  </div>
+                  {postFile && (
+                    <Text style={{ width: "100%", padding: 0 }}>
+                      {`> `}
+                      {postFile.name}
+                    </Text>
+                  )}
+                </>
+              )}
+              {!postFile ? (
+                <CoverLetter
+                  onImageClick={onImageClick}
+                  inputFile={inputFile}
+                  changeHandler={changeHandler}
+                />
+              ) : (
+                <>
+                  <CoverLetterHeader />
+                  <div style={{ display: "flex" }}>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      {postFile && (
+                        <RemoveCoverLetter onClick={() => setPostFile()} />
+                      )}
+                    </motion.div>
+                  </div>
+                  {postFile && (
+                    <Text style={{ width: "100%", padding: 0 }}>
+                      {`> `}
+                      {postFile.name}
+                    </Text>
+                  )}
+                </>
+              )}
               <Button
                 onClick={savePost}
                 disabled={isLoading}
@@ -440,5 +388,11 @@ const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   font-size: 1.25rem;
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
+`;
+
+const Label = styled.div`
+  padding: 0.5rem 0;
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
 `;

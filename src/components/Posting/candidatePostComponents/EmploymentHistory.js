@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaLaptopCode } from "react-icons/fa";
 
-const EmploymentHistory = ({
+export const EmploymentHistory = ({
   onChange,
   valueOne,
   valueTwo,
@@ -131,7 +131,39 @@ const EmploymentHistory = ({
   );
 };
 
-export default EmploymentHistory;
+export const AddEmploymentHistory = ({ onClick }) => {
+  return (
+    <div style={{ display: "flex", cursor: "pointer" }}>
+      <motion.div whileHover={{ scale: 1.05 }}>
+        <Subheader>
+          <FaLaptopCode
+            size={30}
+            style={{
+              marginRight: "0.5rem",
+              marginBottom: "-0.25rem",
+            }}
+          />
+          <span onClick={onClick}>Add Employment History</span>
+        </Subheader>
+      </motion.div>
+    </div>
+  );
+};
+
+export const EmploymentHistoryAdded = () => {
+  return (
+    <Subheader style={{ paddingBottom: "0.5rem" }}>
+      <FaLaptopCode
+        size={30}
+        style={{
+          marginRight: "0.5rem",
+          marginBottom: "-0.25rem",
+        }}
+      />
+      Employment History
+    </Subheader>
+  );
+};
 
 const EmploymentWrapper = styled.div`
   display: flex;
@@ -191,4 +223,11 @@ const Input = styled.input`
 const MotionDiv = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const Subheader = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  font-size: 1.25rem;
+  padding: 1.25rem 0;
 `;
