@@ -231,7 +231,17 @@ const CandidatePost = () => {
   };
 
   const handleAddContact = () => {
-    setContact([...contact, { phone: "", email: "", twitter: "" }]);
+    setContact([
+      ...contact,
+      {
+        email: "",
+        phone: "",
+        twitter: "",
+        github: "",
+        telegram: "",
+        website: "",
+      },
+    ]);
   };
 
   const handleRemoveContact = (index) => {
