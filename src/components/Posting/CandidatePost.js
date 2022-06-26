@@ -197,7 +197,10 @@ const CandidatePost = () => {
   };
 
   const handleAddEducation = () => {
-    setEducation([...education, { course: "", institution: "", date: "" }]);
+    setEducation([
+      ...education,
+      { course: "", institution: "", dateFrom: "", dateTo: "" },
+    ]);
   };
 
   const handleRemoveEducation = (index) => {
@@ -425,8 +428,11 @@ const Wrapper = styled.div`
 const Template = styled.div`
   background: ${({ theme }) => theme.text};
   min-height: 80vh;
+  width: 43rem;
   padding: 3rem;
   border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const Text = styled.div`

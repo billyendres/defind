@@ -116,7 +116,7 @@ const ViewCandidatePosts = ({ profile }) => {
               ? `${postArray.length} result found`
               : `${postArray?.length} results found`}
           </ResultsText>
-          <Wrapper>
+          <>
             <Grid>
               {postArray
                 ?.map((item, key) => {
@@ -128,15 +128,33 @@ const ViewCandidatePosts = ({ profile }) => {
                       viewport={{ once: true, amount: 0.8 }}
                     >
                       <ProfileWrapper variants={cardVariants}>
-                        <Links
-                          to={
-                            user.attributes.ethAddress ===
-                            item.attributes.posterAccount
-                              ? `/profile/${user.attributes.ethAddress}`
-                              : `/profile/${item.attributes.posterUsername}`
-                          }
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginRight: "3rem",
+                          }}
                         >
+                          <div>
+                            <motion.div whileHover={{ scale: 1.05 }}>
+                              <Links
+                                to={
+                                  user.attributes.ethAddress ===
+                                  item.attributes.posterAccount
+                                    ? `/profile/${user.attributes.ethAddress}`
+                                    : `/profile/${item.attributes.posterUsername}`
+                                }
+                              >
+                                <Header>
+                                  {item.attributes.posterUsername}
+                                </Header>
+                              </Links>
+                            </motion.div>
+                            <Subheader>{item.attributes.posterBio}</Subheader>
+                          </div>
                           <Img
+                            style={{ width: "7rem", height: "7rem" }}
                             src={
                               item.attributes.posterProfilePic
                                 ? item.attributes.posterProfilePic
@@ -144,36 +162,37 @@ const ViewCandidatePosts = ({ profile }) => {
                             }
                             alt="Profile pic"
                           />
-                          <Text>{item.attributes.posterUsername}</Text>
-                        </Links>
-                        <Text>{item.attributes.posterBio}</Text>
-                        <Text>{`${item.attributes.posterAccount.slice(
-                          0,
-                          4
-                        )}...${item.attributes.posterAccount.slice(38)} · 
-                    ${item.attributes.createdAt.toLocaleString("en-us", {
-                      month: "short",
-                    })}  
+                        </div>
+                        <Text>{`${item.attributes.createdAt.toLocaleString(
+                          "en-us",
+                          {
+                            month: "short",
+                          }
+                        )}  
                     ${item.attributes.createdAt.toLocaleString("en-us", {
                       day: "numeric",
                     })}
                     `}</Text>
                         {item.attributes.personalSummary && (
                           <>
-                            <Text>Personal Summary</Text>
+                            <Subheader>Personal Summary</Subheader>
                             <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
-                        <Links to={`/forum/${item.id}`}>
-                          <Text>View Post</Text>
-                        </Links>
+                        <div style={{ display: "flex" }}>
+                          <motion.div whileHover={{ scale: 1.05 }}>
+                            <Links to={`/forum/${item.id}`}>
+                              <Text>View Post</Text>
+                            </Links>
+                          </motion.div>
+                        </div>
                       </ProfileWrapper>
                     </CardContainer>
                   );
                 })
                 .reverse()}
             </Grid>
-          </Wrapper>
+          </>
         </>
       )}
     </Wrapper>
@@ -190,6 +209,7 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const Grid = styled.div`
@@ -206,12 +226,10 @@ const CardContainer = styled(motion.div)`
 `;
 
 const ProfileWrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 700px;
-  height: 430px;
+  text-align: left;
+  min-height: 30vh;
+  width: 43rem;
+  padding: 3rem;
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.text};
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -220,11 +238,6 @@ const ProfileWrapper = styled(motion.div)`
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
     0 0 16px hsl(0deg 0% 0% / 0.075);
   transform-origin: 10% 60%;
-`;
-
-const Text = styled.div`
-  color: ${({ theme }) => theme.textModals};
-  transition: all 0.5s linear;
 `;
 
 const ResultsText = styled.div`
@@ -258,4 +271,22 @@ const Input = styled.input`
     color: #080e57;
     opacity: 0.5;
   }
+`;
+
+const Header = styled.h2`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.5rem 0;
+`;
+
+const Subheader = styled.h3`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.5rem 0;
+`;
+
+const Text = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.25rem 0;
 `;
