@@ -15,12 +15,6 @@ import {
   AddEmploymentHistory,
   EmploymentHistoryAdded,
 } from "./candidatePostComponents/EmploymentHistory";
-
-import PersonalSummary from "./candidatePostComponents/PersonalSummary";
-import LoadingSpinner from "../Styles/LoadingSpinner";
-import Button from "../Styles/Button";
-import Img from "../Styles/ProfilePicture";
-import defaultProfileImage from "../images/defaultProfileImage.png";
 import {
   Resume,
   ResumeHeader,
@@ -31,6 +25,18 @@ import {
   CoverLetterHeader,
   RemoveCoverLetter,
 } from "./candidatePostComponents/CoverLetter";
+
+import {
+  Contact,
+  AddContact,
+  ContactAdded,
+} from "./candidatePostComponents/Contact";
+
+import PersonalSummary from "./candidatePostComponents/PersonalSummary";
+import LoadingSpinner from "../Styles/LoadingSpinner";
+import Button from "../Styles/Button";
+import Img from "../Styles/ProfilePicture";
+import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -45,9 +51,11 @@ const CandidatePost = () => {
   const [personalSummary, setPersonalSummary] = useState("");
   const [education, setEducation] = useState([]);
   const [job, setJob] = useState([]);
+  const [contact, setContact] = useState([]);
 
   console.log("education", education);
   console.log("job", job);
+  console.log("Contact:", contact);
 
   const userPost = async () => {
     if (!personalSummary)
@@ -136,6 +144,7 @@ const CandidatePost = () => {
       newPost.set("personalSummary", personalSummary);
       newPost.set("usersEducation", education);
       newPost.set("employmentHistory", job);
+      newPost.set("contactInformation", contact);
       newPost.set("posterProfilePic", user.attributes.profilePic);
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
@@ -212,6 +221,23 @@ const CandidatePost = () => {
     const values = [...job];
     values.splice(index, 1);
     setJob(values);
+  };
+
+  // Contact
+  const handleChangeInputContact = (index, event) => {
+    const values = [...contact];
+    values[index][event.target.name] = event.target.value;
+    setContact(values);
+  };
+
+  const handleAddContact = () => {
+    setContact([...contact, { phone: "", email: "", twitter: "" }]);
+  };
+
+  const handleRemoveContact = (index) => {
+    const values = [...contact];
+    values.splice(index, 1);
+    setContact(values);
   };
 
   return (
@@ -333,6 +359,24 @@ const CandidatePost = () => {
                   )}
                 </>
               )}
+              {contact.length === 0 ? (
+                <AddContact onClick={() => handleAddContact()} />
+              ) : (
+                <ContactAdded />
+              )}
+              {contact.map((info, index) => (
+                <Contact
+                  key={index}
+                  onChange={(event) => handleChangeInputContact(index, event)}
+                  valueOne={info.email}
+                  valueTwo={info.phone}
+                  valueThree={info.twitter}
+                  valueFour={info.github}
+                  valueFive={info.telegram}
+                  valueSix={info.website}
+                  onClick={() => handleRemoveContact(index)}
+                />
+              ))}
               <Button
                 onClick={savePost}
                 disabled={isLoading}
