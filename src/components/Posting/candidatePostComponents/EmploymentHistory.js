@@ -113,18 +113,13 @@ export const EmploymentHistory = ({
         <Label>
           <Input
             type="date"
-            name="date from"
-            label="date from"
+            name="dateFrom"
+            label="dateFrom"
             onChange={onChange}
           />
         </Label>
         <Label>
-          <Input
-            type="date"
-            name="date to"
-            label="date to"
-            onChange={onChange}
-          />
+          <Input type="date" name="dateTo" label="dateTo" onChange={onChange} />
         </Label>
       </MotionDiv>
     </div>

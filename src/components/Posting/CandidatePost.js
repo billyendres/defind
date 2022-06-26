@@ -214,7 +214,10 @@ const CandidatePost = () => {
   };
 
   const handleAddJob = () => {
-    setJob([...job, { jobTitle: "", company: "", description: "" }]);
+    setJob([
+      ...job,
+      { jobTitle: "", company: "", description: "", dateFrom: "", dateTo: "" },
+    ]);
   };
 
   const handleRemoveJob = (index) => {
