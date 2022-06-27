@@ -35,11 +35,11 @@ const UserProfile = () => {
           alt="Profile pic"
         />
         <Header>{user.attributes.username}</Header>
+        <Subheader>{user.attributes.bio}</Subheader>
         <Subheader>
           {`${user.attributes.ethAddress.slice(0, 4)}...
             ${user.attributes.ethAddress.slice(38)}`}
         </Subheader>
-        <Subheader>{user.attributes.bio}</Subheader>
         <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
           <Subheader>
             <Button
@@ -71,6 +71,7 @@ const UserProfile = () => {
 export default UserProfile;
 
 const Wrapper = styled.div`
+  font-family: "Kdam Thmor Pro", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,9 +84,9 @@ const Wrapper = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 3rem;
-  margin: 1rem;
+  margin: 0.5rem;
 `;
 
 const Subheader = styled.h4`

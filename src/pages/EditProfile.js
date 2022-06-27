@@ -55,11 +55,25 @@ const EditUserProfle = () => {
 
       await myDetails.save();
     } catch (error) {
-      console.error(error);
+      if (error) {
+        return toast.error("Account already exists for this username", {
+          position: "top-center",
+          toastId: "custom-id",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      // setIsLoading(true);
     } finally {
-      navigate(`/profile/${user.attributes.ethAddress}`);
-      setIsLoading(false);
-      window.location.reload();
+      setTimeout(() => {
+        navigate(`/profile/${user.attributes.ethAddress}`);
+        setIsLoading(false);
+        window.location.reload();
+      }, 4000);
     }
   };
 
@@ -198,6 +212,7 @@ const EditUserProfle = () => {
           </motion.div>
         </Container>
       )}
+      <ToastContainer />
     </Wrapper>
   );
 };
@@ -224,7 +239,6 @@ const Container = styled.div``;
 const Subheader = styled.h4`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  /* text-transform: uppercase; */
   font-size: 1.5rem;
   margin: 0.5rem;
 `;

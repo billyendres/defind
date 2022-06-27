@@ -50,7 +50,7 @@ const Input = styled.input`
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   background: #bae1ff;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
 
   &:focus {
     outline: none;

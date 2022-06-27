@@ -131,7 +131,6 @@ const ViewCandidatePosts = ({ profile }) => {
                         <div
                           style={{
                             display: "flex",
-                            alignItems: "center",
                             justifyContent: "space-between",
                             marginRight: "3rem",
                           }}
@@ -152,6 +151,26 @@ const ViewCandidatePosts = ({ profile }) => {
                               </Links>
                             </motion.div>
                             <Subheader>{item.attributes.posterBio}</Subheader>
+                            <Text>
+                              {"> "}
+                              {`${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  month: "short",
+                                }
+                              )}${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  day: "numeric",
+                                }
+                              )}, ${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  year: "numeric",
+                                }
+                              )}`}
+                              <div style={{ marginBottom: "1.5rem" }}></div>
+                            </Text>
                           </div>
                           <Img
                             style={{ width: "7rem", height: "7rem" }}
@@ -163,16 +182,7 @@ const ViewCandidatePosts = ({ profile }) => {
                             alt="Profile pic"
                           />
                         </div>
-                        <Text>{`${item.attributes.createdAt.toLocaleString(
-                          "en-us",
-                          {
-                            month: "short",
-                          }
-                        )}  
-                    ${item.attributes.createdAt.toLocaleString("en-us", {
-                      day: "numeric",
-                    })}
-                    `}</Text>
+
                         {item.attributes.personalSummary && (
                           <>
                             <Subheader>Personal Summary</Subheader>
@@ -203,9 +213,8 @@ export default ViewCandidatePosts;
 
 const Wrapper = styled.div`
   font-family: "Kdam Thmor Pro", sans-serif;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   display: flex;
-  font-size: 1.25rem;
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
@@ -260,7 +269,7 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   font-family: "Kdam Thmor Pro", sans-serif;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   color: #080e57;
   background: #bae1ff;
 
@@ -276,17 +285,20 @@ const Input = styled.input`
 const Header = styled.h2`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
+  font-size: 1.5rem;
 `;
 
-const Subheader = styled.h3`
+const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.5rem 0;
+  font-size: 1.25rem;
+  padding: 0.25rem 0;
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
+  font-size: 1rem;
 `;

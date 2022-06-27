@@ -97,12 +97,14 @@ const Nav = () => {
             alt="Profile pic"
           />
         </Links>
-        <Links to={`/profile/${user.attributes.ethAddress}`}>
-          <Header>{user.attributes.username}</Header>
-        </Links>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Links to={`/profile/${user.attributes.ethAddress}`}>
+            <Header>{user.attributes.username}</Header>
+          </Links>
+        </motion.div>
+        <Subheader>{user.attributes.bio}</Subheader>
         <Subheader>{`${user.attributes.ethAddress.slice(0, 4)}...
           ${user.attributes.ethAddress.slice(38)}`}</Subheader>
-        <Subheader>{user.attributes.bio}</Subheader>
       </UserTextWrapper>
     </>
   );
@@ -113,6 +115,7 @@ export default Nav;
 const LinkWrapper = styled.div`
   position: fixed;
   background: ${({ theme }) => theme.backgroundNav};
+  padding: 1rem;
 `;
 
 const TextWrapper = styled.div`
@@ -124,12 +127,14 @@ const TextWrapper = styled.div`
   cursor: pointer;
 `;
 
-const LinkHeaders = styled.h2`
+const LinkHeaders = styled.div`
   padding: 0.5rem 1rem;
-  margin: 1rem;
+  margin: 0.5rem;
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   border-radius: 0.25rem;
+  letter-spacing: 5px;
+  font-size: 1.25rem;
 
   &:hover {
     transition: all 0.5s linear;
@@ -142,15 +147,17 @@ const LinkHeaders = styled.h2`
 
 const Header = styled.h2`
   transition: all 0.5s linear;
-  text-transform: uppercase;
   color: ${({ theme }) => theme.text};
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-size: 1.25rem;
 `;
 
 const Subheader = styled.h4`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  font-size: 1.5rem;
-  margin: 0.5rem;
+  font-size: 1rem;
+  margin: 0.25rem;
+  font-family: "Kdam Thmor Pro", sans-serif;
 `;
 
 const UserTextWrapper = styled.div`

@@ -53,10 +53,6 @@ const CandidatePost = () => {
   const [job, setJob] = useState([]);
   const [contact, setContact] = useState([]);
 
-  console.log("education", education);
-  console.log("job", job);
-  console.log("Contact:", contact);
-
   const userPost = async () => {
     if (!personalSummary)
       return toast.error("Please complete all required fields", {
@@ -415,7 +411,7 @@ const Wrapper = styled.div`
   min-height: 80vh;
   padding: 2rem 0;
   font-family: "Kdam Thmor Pro", sans-serif;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   display: flex;
   justify-content: left;
   text-align: left;

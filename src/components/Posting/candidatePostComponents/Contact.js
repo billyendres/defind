@@ -188,7 +188,7 @@ const Input = styled.input`
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   width: 12rem;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   margin-right: 1rem;
   &:focus {
     outline: none;

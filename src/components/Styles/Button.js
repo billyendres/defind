@@ -22,7 +22,7 @@ export default Button;
 const MotionButton = styled(motion.button)`
   font-size: 1.5rem;
   font-family: "Russo One", sans-serif;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   font-weight: 700;
   padding: 0.5rem 1rem;

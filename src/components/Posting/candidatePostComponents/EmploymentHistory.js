@@ -176,7 +176,7 @@ const Textarea = styled.textarea`
   font-size: 1rem;
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   max-width: 37rem;
   min-width: 37rem;
   max-height: 15rem;
@@ -204,7 +204,7 @@ const Input = styled.input`
   font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   width: 12rem;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   margin-right: 1rem;
   &:focus {
     outline: none;

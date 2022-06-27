@@ -119,7 +119,9 @@ html, body {
     max-width: 100vw;
     overflow-x: hidden;
     font-family: 'Russo One', sans-serif;
-    letter-spacing: 4px;
+    /* font-family: "Kdam Thmor Pro", sans-serif; */
+
+    letter-spacing: 1.25px;
     text-align: center;
     z-index: -1;
 }

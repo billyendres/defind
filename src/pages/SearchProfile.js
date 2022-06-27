@@ -70,10 +70,41 @@ const SearchProfile = () => {
                       viewport={{ once: true, amount: 0.8 }}
                     >
                       <ProfileWrapper variants={cardVariants}>
-                        <Links
-                          to={`/profile/${item.attributes.posterUsername}`}
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginRight: "3rem",
+                          }}
                         >
+                          <div>
+                            <motion.div whileHover={{ scale: 1.05 }}>
+                              <Header>{item.attributes.posterUsername}</Header>
+                            </motion.div>
+                            <Subheader>{item.attributes.posterBio}</Subheader>
+                            <Text>
+                              {"> "}
+                              {`${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  month: "short",
+                                }
+                              )}${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  day: "numeric",
+                                }
+                              )}, ${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  year: "numeric",
+                                }
+                              )}`}
+                              <div style={{ marginBottom: "1.5rem" }}></div>
+                            </Text>
+                          </div>
                           <Img
+                            style={{ width: "7rem", height: "7rem" }}
                             src={
                               item.attributes.posterProfilePic
                                 ? item.attributes.posterProfilePic
@@ -81,32 +112,27 @@ const SearchProfile = () => {
                             }
                             alt="Profile pic"
                           />
-                          <Header>{item.attributes.posterUsername}</Header>
-                        </Links>
-                        <Header>{item.attributes.posterBio}</Header>
-                        <Header>{`${item.attributes.posterAccount.slice(
-                          0,
-                          4
-                        )}...${item.attributes.posterAccount.slice(38)} · 
-                ${item.attributes.createdAt.toLocaleString("en-us", {
-                  month: "short",
-                })}  
-                ${item.attributes.createdAt.toLocaleString("en-us", {
-                  day: "numeric",
-                })}
-                `}</Header>
+                        </div>
                         {item.attributes.personalSummary && (
                           <>
-                            <Header>Personal Summary</Header>
-                            <Header>{item.attributes.personalSummary}</Header>
+                            <Subheader>Personal Summary</Subheader>
+                            <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
-                        <Links to={`/forum/${item.id}`}>
-                          <Header>View Post</Header>
-                        </Links>
-                        <Links to="/forum">
-                          <Header>Return to job forum</Header>
-                        </Links>
+                        <div style={{ display: "flex", flexWrap: "wrap" }}>
+                          <motion.div whileHover={{ scale: 1.05 }}>
+                            <Links to={`/forum/${item.id}`}>
+                              <Text>View Post</Text>
+                            </Links>
+                          </motion.div>
+                          <div style={{ width: "100%", display: "flex" }}>
+                            <motion.div whileHover={{ scale: 1.05 }}>
+                              <Links to="/forum">
+                                <Text>Return to job forum</Text>
+                              </Links>
+                            </motion.div>
+                          </div>
+                        </div>
                       </ProfileWrapper>
                     </CardContainer>
                   );
@@ -123,8 +149,9 @@ const SearchProfile = () => {
 export default SearchProfile;
 
 const Wrapper = styled.div`
+  font-family: "Kdam Thmor Pro", sans-serif;
+  /* letter-spacing: 2px; */
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
@@ -134,7 +161,7 @@ const Wrapper = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 2rem;
 `;
 
@@ -146,13 +173,11 @@ const CardContainer = styled(motion.div)`
 `;
 
 const ProfileWrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 350px;
-  height: 430px;
-  border-radius: 2rem;
+  text-align: left;
+  min-height: 30vh;
+  width: 43rem;
+  padding: 3rem;
+  border-radius: 1rem;
   background-color: ${({ theme }) => theme.text};
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px; */
@@ -165,6 +190,22 @@ const ProfileWrapper = styled(motion.div)`
 const Header = styled.h2`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1.5rem;
+`;
+
+const Subheader = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  font-size: 1.25rem;
+  padding: 0.25rem 0;
+`;
+
+const Text = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1rem;
 `;
 
 const PageHeader = styled.h1`

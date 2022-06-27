@@ -7,6 +7,12 @@ import { motion } from "framer-motion";
 import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
 import Img from "../components/Styles/ProfilePicture";
+import {
+  FaUserGraduate,
+  FaLaptopCode,
+  FaPhone,
+  FaRegIdBadge,
+} from "react-icons/fa";
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
@@ -41,15 +47,14 @@ const FullPost = () => {
         </Wrapper>
       ) : (
         <div>
-          {userProfile?.map((item, key) => {
+          {userProfile?.map(({ attributes }, key) => {
             return (
               <Wrapper key={key}>
-                {console.log(item.attributes.usersEducation[0].course)}
+                {console.log(attributes)}
                 <ProfileWrapper>
                   <div
                     style={{
                       display: "flex",
-                      alignItems: "center",
                       justifyContent: "space-between",
                       marginRight: "3rem",
                     }}
@@ -59,91 +64,207 @@ const FullPost = () => {
                         <Links
                           to={
                             user.attributes.ethAddress ===
-                            item.attributes.posterAccount
+                            attributes.posterAccount
                               ? `/profile/${user.attributes.ethAddress}`
-                              : `/profile/${item.attributes.posterUsername}`
+                              : `/profile/${attributes.posterUsername}`
                           }
                         >
-                          <Header>{item.attributes.posterUsername}</Header>
+                          <Header>{attributes.posterUsername}</Header>
                         </Links>
                       </motion.div>
-                      <Subheader>{item.attributes.posterBio}</Subheader>
+                      <Subheader>{attributes.posterBio}</Subheader>
+                      <Text>
+                        {"> "}
+                        {`${attributes.createdAt.toLocaleString("en-us", {
+                          month: "short",
+                        })}${attributes.createdAt.toLocaleString("en-us", {
+                          day: "numeric",
+                        })}, ${attributes.createdAt.toLocaleString("en-us", {
+                          year: "numeric",
+                        })}`}
+                        <div style={{ marginBottom: "1.5rem" }}></div>
+                      </Text>
                     </div>
                     <Img
                       style={{ width: "7rem", height: "7rem" }}
                       src={
-                        item.attributes.posterProfilePic
-                          ? item.attributes.posterProfilePic
+                        attributes.posterProfilePic
+                          ? attributes.posterProfilePic
                           : defaultProfileImage
                       }
                       alt="Profile pic"
                     />
                   </div>
-                  <Text>
-                    {`${item.attributes.createdAt.toLocaleString("en-us", {
-                      month: "short",
-                    })}  
-                ${item.attributes.createdAt.toLocaleString("en-us", {
-                  day: "numeric",
-                })}
-                `}
-                  </Text>
-                  {item.attributes.personalSummary && (
+
+                  {attributes.personalSummary && (
                     <>
                       <Subheader>Personal Summary</Subheader>
-                      <Text>{item.attributes.personalSummary}</Text>
+                      <Text>{attributes.personalSummary}</Text>
+                      <div style={{ marginBottom: "1.5rem" }}></div>
                     </>
                   )}
-                  {item.attributes.usersEducation && (
+                  {attributes.usersEducation.length > 0 && (
                     <>
-                      <Subheader>Education</Subheader>
-                      <Text>{item.attributes.usersEducation[0].course}</Text>
-                      <Text>
-                        {item.attributes.usersEducation[0].institution}
-                      </Text>
-                      <Text>{item.attributes.usersEducation[0].dateFrom}</Text>
-                      <Text>{item.attributes.usersEducation[0].dateTo}</Text>
+                      <Subheader>
+                        <FaUserGraduate
+                          size={30}
+                          style={{
+                            marginRight: "0.5rem",
+                            marginBottom: "-0.25rem",
+                          }}
+                        />
+                        Education
+                      </Subheader>
+                      {attributes.usersEducation.map(
+                        ({ course, institution, dateFrom, dateTo }, key) => (
+                          <span key={key}>
+                            {course && (
+                              <Text>
+                                <Titles>Course:</Titles> {course}
+                              </Text>
+                            )}
+                            {institution && (
+                              <Text>
+                                <Titles>Institution:</Titles> {institution}
+                              </Text>
+                            )}
+                            {dateFrom && (
+                              <Text>
+                                <Titles>Date From:</Titles> {dateFrom}
+                              </Text>
+                            )}
+                            {dateTo && (
+                              <Text>
+                                <Titles>Date To:</Titles> {dateTo}
+                              </Text>
+                            )}
+                            <div style={{ marginBottom: "1.5rem" }}></div>
+                          </span>
+                        )
+                      )}
                     </>
                   )}
-                  {item.attributes.employmentHistory && (
+                  {attributes.employmentHistory.length > 0 && (
                     <>
-                      <Subheader>Employment History</Subheader>
-                      <Text>
-                        {item.attributes.employmentHistory[0].jobTitle}
-                        {item.attributes.employmentHistory[0].company}
-                        {item.attributes.employmentHistory[0].description}
-                        {item.attributes.employmentHistory[0].dateFrom}
-                        {item.attributes.employmentHistory[0].dateTo}
-                      </Text>
+                      <Subheader>
+                        <FaLaptopCode
+                          size={30}
+                          style={{
+                            marginRight: "0.5rem",
+                            marginBottom: "-0.25rem",
+                          }}
+                        />
+                        Employment History
+                      </Subheader>
+                      {attributes.employmentHistory.map(
+                        (
+                          { jobTitle, company, description, dateFrom, dateTo },
+                          key
+                        ) => (
+                          <span key={key}>
+                            {jobTitle && (
+                              <Text>
+                                <Titles>Job Title:</Titles>
+                                {jobTitle}
+                              </Text>
+                            )}
+                            {company && (
+                              <Text>
+                                <Titles>Company:</Titles> {company}
+                              </Text>
+                            )}
+                            {description && (
+                              <Text>
+                                <Titles>Job Description:</Titles> {description}
+                              </Text>
+                            )}
+                            {dateFrom && (
+                              <Text>
+                                <Titles>Date From:</Titles> {dateFrom}
+                              </Text>
+                            )}
+                            {dateTo && (
+                              <Text>
+                                <Titles>Date To:</Titles> {dateTo}
+                              </Text>
+                            )}
+                            <div style={{ marginBottom: "1.5rem" }}></div>
+                          </span>
+                        )
+                      )}
                     </>
                   )}
-                  {item.attributes.contactInformation.length > 0 && (
+                  {attributes.contactInformation.length > 0 && (
                     <>
-                      <Subheader>Contact Information</Subheader>
-                      <Text>{item.attributes.contactInformation[0].email}</Text>
-                      <Text>{item.attributes.contactInformation[0].phone}</Text>
-                      <Text>
-                        {item.attributes.contactInformation[0].twitter}
-                      </Text>
-                      <Text>
-                        {item.attributes.contactInformation[0].github}
-                      </Text>
-                      <Text>
-                        {item.attributes.contactInformation[0].telegram}
-                      </Text>
-                      <Text>
-                        {item.attributes.contactInformation[0].website}
-                      </Text>
+                      <Subheader>
+                        <FaPhone
+                          size={30}
+                          style={{
+                            marginRight: "0.5rem",
+                            marginBottom: "-0.25rem",
+                          }}
+                        />
+                        Contact Information
+                      </Subheader>
+                      {attributes.contactInformation.map(
+                        (
+                          { email, phone, twitter, github, telegram, website },
+                          key
+                        ) => (
+                          <span key={key}>
+                            {email && (
+                              <Text>
+                                <Titles>Email:</Titles> {email}
+                              </Text>
+                            )}
+                            {phone && (
+                              <Text>
+                                <Titles>Phone:</Titles> {phone}
+                              </Text>
+                            )}
+                            {twitter && (
+                              <Text>
+                                <Titles>Twitter:</Titles> {twitter}
+                              </Text>
+                            )}
+                            {github && (
+                              <Text>
+                                <Titles>Github:</Titles> {github}
+                              </Text>
+                            )}
+                            {telegram && (
+                              <Text>
+                                <Titles>Telegram:</Titles> {telegram}
+                              </Text>
+                            )}
+                            {website && (
+                              <Text>
+                                <Titles>Website:</Titles> {website}
+                              </Text>
+                            )}
+                            <div style={{ marginBottom: "1.5rem" }}></div>
+                          </span>
+                        )
+                      )}
                     </>
                   )}
-                  {item.attributes.postImg && (
+                  {attributes.postImg && (
                     <>
-                      <Subheader>Resume</Subheader>
+                      <Subheader>
+                        <FaRegIdBadge
+                          size={30}
+                          style={{
+                            marginRight: "0.5rem",
+                            marginBottom: "-0.25rem",
+                          }}
+                        />
+                        Resume
+                      </Subheader>
 
-                      {/* <PostImage src={item.attributes.postImg} alt={item} /> */}
+                      {/* <PostImage src={attributes.postImg} alt={ /> */}
                       <a
                         style={{ textDecoration: "none", color: "yellow" }}
-                        href={item.attributes.postImg}
+                        href={attributes.postImg}
                         alt="Link"
                         target="_blank"
                         rel="noreferrer noopener"
@@ -197,17 +318,25 @@ const ProfileWrapper = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
+  font-size: 1.5rem;
 `;
 
-const Subheader = styled.h3`
+const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.5rem 0;
+  font-size: 1.25rem;
+  padding: 0.25rem 0;
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
+  font-size: 1rem;
+`;
+
+const Titles = styled.span`
+  margin-right: 0.5rem;
+  border-bottom: 1px solid ${({ theme }) => theme.textModals};
 `;
