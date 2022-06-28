@@ -54,69 +54,85 @@ const CandidatePost = () => {
   const [contact, setContact] = useState([]);
 
   const userPost = async () => {
-    if (!personalSummary)
-      return toast.error("Please complete all required fields", {
-        position: "top-center",
-        toastId: "custom-id",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
-    setIsLoading(true);
+    try {
+      if (!personalSummary)
+        return toast.error("Please complete all required fields", {
+          position: "top-center",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      setIsLoading(true);
 
-    let img;
-    if (postFile) {
-      const data = postFile;
-      const file = new Moralis.File(data.name, data);
-      await file.saveIPFS();
-      img = file.ipfs();
-    } else {
-      img = "noimg";
-    }
+      let img;
+      if (postFile) {
+        const data = postFile;
+        const file = new Moralis.File(data.name, data);
+        await file.saveIPFS();
+        img = file.ipfs();
+      } else {
+        img = "noimg";
+      }
 
-    let options = {
-      contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
-      functionName: "addPost",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "personalSummary",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "postImg",
-              type: "string",
-            },
-          ],
-          name: "addPost",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
+      let options = {
+        contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
+        functionName: "addPost",
+        abi: [
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "personalSummary",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "postImg",
+                type: "string",
+              },
+            ],
+            name: "addPost",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+        ],
+        params: {
+          personalSummary: personalSummary,
+          postImg: img,
         },
-      ],
-      params: {
-        personalSummary: personalSummary,
-        postImg: img,
-      },
-      msgValue: Moralis.Units.Token(0.01),
-    };
+        msgValue: Moralis.Units.Token(0.01),
+      };
 
-    await contractProcessor.fetch({
-      params: options,
-      onSuccess: () => {
-        savePost();
-      },
-      onError: (error) => {
-        setIsLoading(false);
-        console.log(error);
-      },
-    });
+      await contractProcessor.fetch({
+        params: options,
+        onSuccess: () => {
+          savePost();
+        },
+        onError: (err) =>
+          toast.error(
+            "Transaction declined, please check balance and try again",
+            {
+              position: "top-center",
+              toastId: "custom-id",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+            }
+          ),
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const savePost = async () => {
