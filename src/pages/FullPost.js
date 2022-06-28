@@ -77,7 +77,7 @@ const FullPost = () => {
                         {"> "}
                         {`${attributes.createdAt.toLocaleString("en-us", {
                           month: "short",
-                        })}${attributes.createdAt.toLocaleString("en-us", {
+                        })} ${attributes.createdAt.toLocaleString("en-us", {
                           day: "numeric",
                         })}, ${attributes.createdAt.toLocaleString("en-us", {
                           year: "numeric",
@@ -85,15 +85,37 @@ const FullPost = () => {
                         <div style={{ marginBottom: "1.5rem" }}></div>
                       </Text>
                     </div>
-                    <Img
-                      style={{ width: "7rem", height: "7rem" }}
-                      src={
-                        attributes.posterProfilePic
-                          ? attributes.posterProfilePic
-                          : defaultProfileImage
-                      }
-                      alt="Profile pic"
-                    />
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Img
+                          style={{ width: "7rem", height: "7rem" }}
+                          src={
+                            attributes.posterProfilePic
+                              ? attributes.posterProfilePic
+                              : defaultProfileImage
+                          }
+                          alt="Profile pic"
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          padding: "0.75rem",
+                        }}
+                      >
+                        <motion.div whileHover={{ scale: 1.05 }}>
+                          <Links to="/forum">
+                            <Text>{"<"} Return to forum</Text>
+                          </Links>
+                        </motion.div>
+                      </div>
+                    </div>
                   </div>
 
                   {attributes.personalSummary && (
@@ -208,7 +230,15 @@ const FullPost = () => {
                       </Subheader>
                       {attributes.contactInformation.map(
                         (
-                          { email, phone, twitter, github, telegram, website },
+                          {
+                            email,
+                            phone,
+                            twitter,
+                            github,
+                            telegram,
+                            website,
+                            location,
+                          },
                           key
                         ) => (
                           <span key={key}>
@@ -242,6 +272,11 @@ const FullPost = () => {
                                 <Titles>Website:</Titles> {website}
                               </Text>
                             )}
+                            {location && (
+                              <Text>
+                                <Titles>Location:</Titles> {location}
+                              </Text>
+                            )}
                             <div style={{ marginBottom: "1.5rem" }}></div>
                           </span>
                         )
@@ -273,13 +308,13 @@ const FullPost = () => {
                       </a>
                     </>
                   )}
-                  <div style={{ display: "flex" }}>
+                  {/* <div style={{ display: "flex" }}>
                     <motion.div whileHover={{ scale: 1.05 }}>
                       <Links to="/forum">
                         <Text>Return to job forum</Text>
                       </Links>
                     </motion.div>
-                  </div>
+                  </div> */}
                 </ProfileWrapper>
               </Wrapper>
             );

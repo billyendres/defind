@@ -242,6 +242,7 @@ const CandidatePost = () => {
         github: "",
         telegram: "",
         website: "",
+        location: "",
       },
     ]);
   };
@@ -386,6 +387,7 @@ const CandidatePost = () => {
                   valueFour={info.github}
                   valueFive={info.telegram}
                   valueSix={info.website}
+                  valueSeven={info.location}
                   onClick={() => handleRemoveContact(index)}
                 />
               ))}

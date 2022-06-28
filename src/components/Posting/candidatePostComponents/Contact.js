@@ -11,6 +11,7 @@ export const Contact = ({
   valueFour,
   valueFive,
   valueSix,
+  valueSeven,
   onClick,
 }) => {
   return (
@@ -121,6 +122,17 @@ export const Contact = ({
               name="website"
               label="website"
               value={valueSix}
+              maxLength="50"
+              onChange={onChange}
+            />
+          </Label>
+          <Label>
+            <Input
+              type="text"
+              placeholder="Location"
+              name="location"
+              label="location"
+              value={valueSeven}
               maxLength="50"
               onChange={onChange}
             />

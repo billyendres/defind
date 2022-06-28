@@ -89,7 +89,7 @@ const SearchProfile = () => {
                                 {
                                   month: "short",
                                 }
-                              )}${item.attributes.createdAt.toLocaleString(
+                              )} ${item.attributes.createdAt.toLocaleString(
                                 "en-us",
                                 {
                                   day: "numeric",
@@ -103,15 +103,48 @@ const SearchProfile = () => {
                               <div style={{ marginBottom: "1.5rem" }}></div>
                             </Text>
                           </div>
-                          <Img
-                            style={{ width: "7rem", height: "7rem" }}
-                            src={
-                              item.attributes.posterProfilePic
-                                ? item.attributes.posterProfilePic
-                                : defaultProfileImage
-                            }
-                            alt="Profile pic"
-                          />
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Img
+                                style={{ width: "7rem", height: "7rem" }}
+                                src={
+                                  item.attributes.posterProfilePic
+                                    ? item.attributes.posterProfilePic
+                                    : defaultProfileImage
+                                }
+                                alt="Profile pic"
+                              />
+                            </div>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                                padding: "0.75rem",
+                              }}
+                            >
+                              <motion.div whileHover={{ scale: 1.05 }}>
+                                <Links to={`/forum/${item.id}`}>
+                                  <Text>View post {">"}</Text>
+                                </Links>
+                              </motion.div>
+                              <div
+                                style={{ width: "100%", textAlign: "center" }}
+                              >
+                                <motion.div whileHover={{ scale: 1.05 }}>
+                                  <Links to="/forum">
+                                    <Text>{"<"} Return to forum</Text>
+                                  </Links>
+                                </motion.div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         {item.attributes.personalSummary && (
                           <>
@@ -119,7 +152,7 @@ const SearchProfile = () => {
                             <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
-                        <div style={{ display: "flex", flexWrap: "wrap" }}>
+                        {/* <div style={{ display: "flex", flexWrap: "wrap" }}>
                           <motion.div whileHover={{ scale: 1.05 }}>
                             <Links to={`/forum/${item.id}`}>
                               <Text>View Post</Text>
@@ -132,7 +165,7 @@ const SearchProfile = () => {
                               </Links>
                             </motion.div>
                           </div>
-                        </div>
+                        </div> */}
                       </ProfileWrapper>
                     </CardContainer>
                   );
