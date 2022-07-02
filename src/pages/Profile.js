@@ -15,6 +15,8 @@ const UserProfile = () => {
   const user = Moralis.User.current();
   const location = useLocation();
 
+  console.log(user.attributes.ethAddress);
+
   return (
     <Wrapper>
       <motion.div

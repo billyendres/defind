@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import CandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
+import ViewCandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
 
 const MyPosts = () => {
   return (
     <Wrapper>
-      <CandidatePosts profile={true} />
+      <ViewCandidatePosts profile={true} />;
     </Wrapper>
   );
 };

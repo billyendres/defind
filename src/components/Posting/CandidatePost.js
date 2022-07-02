@@ -113,7 +113,7 @@ const CandidatePost = () => {
         onSuccess: () => {
           savePost();
         },
-        onError: (err) =>
+        onError: () =>
           toast.error(
             "Transaction declined, please check balance and try again",
             {

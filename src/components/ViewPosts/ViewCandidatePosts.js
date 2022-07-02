@@ -39,7 +39,7 @@ const ViewCandidatePosts = ({ profile }) => {
         const Posts = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Posts);
         if (profile) {
-          query.equalTo("posterAccount", account);
+          query.equalTo("posterAccount", user.attributes.ethAddress);
         }
         const results = await query.find();
         setPostArray(results);
@@ -50,7 +50,7 @@ const ViewCandidatePosts = ({ profile }) => {
       }
     };
     getPosts();
-  }, [profile, account, Moralis.Object, Moralis.Query]);
+  }, [profile, account, Moralis.Object, Moralis.Query, user]);
 
   const getFilteredPosts = async (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ const ViewCandidatePosts = ({ profile }) => {
       const Posts = Moralis.Object.extend("Posts");
       const query = new Moralis.Query(Posts);
       if (profile) {
-        query.equalTo("posterAccount", account);
+        query.equalTo("posterAccount", user.attributes.ethAddress);
       }
       const results = await query.find();
       setPostArray(

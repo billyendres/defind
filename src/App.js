@@ -32,22 +32,22 @@ const App = () => {
     Moralis,
   } = useMoralis();
 
-  const login = async () => {
-    if (!isAuthenticated) {
-      await authenticate({
-        provider: "walletconnect",
-        mobileLinks: ["metamask", "trust", "rainbow"],
-      })
-        .then(function (user) {
-          console.log(user.get("ethAddress"));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
+  // const login = async () => {
+  //   if (!isAuthenticated) {
+  //     await authenticate({
+  //       provider: "walletconnect",
+  //       mobileLinks: ["metamask", "trust", "rainbow"],
+  //     })
+  //       .then(function (user) {
+  //         console.log(user.get("ethAddress"));
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   }
+  // };
 
-  const ethereum = window.ethereum;
+  // const ethereum = window.ethereum;
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -55,6 +55,7 @@ const App = () => {
       {isAuthenticated ? (
         <>
           <Toggle theme={theme} toggleTheme={toggleTheme} />
+          <div style={{ background: "black" }}></div>
           <Nav />
           <Routes>
             <Route exact path="/" element={<Home />} />
@@ -87,9 +88,9 @@ const App = () => {
         </>
       ) : (
         <>
-          {ethereum ? (
-            <Login />
-          ) : (
+          {/* {ethereum ? ( */}
+          <Login />
+          {/* ) : (
             <div>
               {isAuthenticating && <p>Authenticating</p>}
               {authError && <p>{JSON.stringify(authError.message)}</p>}
@@ -97,7 +98,7 @@ const App = () => {
                 Wallet Connect
               </button>
             </div>
-          )}
+          )} */}
         </>
       )}
     </ThemeProvider>
