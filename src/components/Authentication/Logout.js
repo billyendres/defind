@@ -11,29 +11,33 @@ const Logout = () => {
   const ethereum = window.ethereum;
 
   const unlockMetaMask = async () => {
-    const result = await ethereum._metamask.isUnlocked();
-    if (!result) {
-      try {
-        await authenticate({
-          provider: "web3Auth",
-          clientId:
-            "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
-          chainId: Moralis.Chains.ETH_ROPSTEN,
-          loginMethodsOrder: [
-            "facebook",
-            "google",
-            "github",
-            "twitter",
-            "apple",
-            "reddit",
-            "discord",
-            "email_passwordless",
-          ],
-        });
-        navigate("/");
-      } catch (error) {
-        console.log(error);
+    if (ethereum) {
+      const result = await ethereum._metamask.isUnlocked();
+      if (!result) {
+        try {
+          await authenticate({
+            provider: "web3Auth",
+            clientId:
+              "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
+            chainId: Moralis.Chains.ETH_ROPSTEN,
+            loginMethodsOrder: [
+              "facebook",
+              "google",
+              "github",
+              "twitter",
+              "apple",
+              "reddit",
+              "discord",
+              "email_passwordless",
+            ],
+          });
+          navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
       }
+    } else {
+      console.log("Eth browser not connected");
     }
   };
   unlockMetaMask();

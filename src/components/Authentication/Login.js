@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import { FaSignInAlt } from "react-icons/fa";
 import Button from "../Styles/Button";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +54,6 @@ const Login = () => {
         <LoadingSpinner />
       ) : (
         <>
-          {authError && <p>{JSON.stringify(authError.message)}</p>}
           <Button
             onClick={login}
             disabled={isAuthenticating}
