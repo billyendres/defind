@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { ethers } from "ethers";
 import {
   Education,
   AddEducation,
@@ -53,7 +54,57 @@ const CandidatePost = () => {
   const [job, setJob] = useState([]);
   const [contact, setContact] = useState([]);
 
-  const userPost = async () => {
+  // const userPost = async () => {
+  //   try {
+  //     if (!personalSummary)
+  //       return toast.error("Please complete all required fields", {
+  //         position: "top-center",
+  //         toastId: "custom-id",
+  //         autoClose: 3000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: false,
+  //         draggable: true,
+  //         progress: undefined,
+  //       });
+  //     let options = {
+  //       contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
+  //       functionName: "addPost",
+  //       abi: [
+  //         {
+  //           inputs: [],
+  //           name: "addPost",
+  //           outputs: [],
+  //           stateMutability: "payable",
+  //           type: "function",
+  //         },
+  //       ],
+  //       msgValue: Moralis.Units.Token(0.1),
+  //     };
+
+  //     await contractProcessor.fetch({
+  //       params: options,
+  //       onSuccess: () => {
+  //         savePost();
+  //       },
+  //       onError: () =>
+  //         toast.error("Transaction declined, please check  and try again", {
+  //           position: "top-center",
+  //           toastId: "custom-id",
+  //           autoClose: 4000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: false,
+  //           draggable: true,
+  //           progress: undefined,
+  //         }),
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const userPost = async ({ setError, setTxs, ether, addr }) => {
     try {
       if (!personalSummary)
         return toast.error("Please complete all required fields", {
@@ -66,43 +117,31 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
-      let options = {
-        contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
-        functionName: "addPost",
-        abi: [
-          {
-            inputs: [],
-            name: "addPost",
-            outputs: [],
-            stateMutability: "payable",
-            type: "function",
-          },
-        ],
-        msgValue: Moralis.Units.Token(0.1),
-      };
-
-      await contractProcessor.fetch({
-        params: options,
-        onSuccess: () => {
-          savePost();
-        },
-        onError: () =>
-          toast.error(
-            "Transaction declined, please check balance and try again",
-            {
-              position: "top-center",
-              toastId: "custom-id",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: true,
-              progress: undefined,
-            }
-          ),
+      await window.ethereum.send("eth_requestAccounts");
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      ethers.utils.getAddress("0x00C6339a82204FD018cECd209d2Acc592917128c");
+      const tx = await signer.sendTransaction({
+        to: "0x00C6339a82204FD018cECd209d2Acc592917128c",
+        value: ethers.utils.parseEther("0.01"),
       });
-    } catch (error) {
-      console.log(error);
+      console.log({ ether, addr });
+      console.log(tx);
+      savePost();
+    } catch (err) {
+      return toast.error(
+        "Transaction declined, please check account balance and try again",
+        {
+          position: "top-center",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
 
