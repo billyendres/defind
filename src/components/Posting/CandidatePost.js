@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   useMoralis,
@@ -58,8 +58,16 @@ const CandidatePost = () => {
   const [job, setJob] = useState([]);
   const [contact, setContact] = useState([]);
 
+  const { fetch, isFetching } = useWeb3Transfer({
+    type: "erc20",
+    amount: Moralis.Units.Token("1", "6"),
+    receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
+    contractAddress: "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83",
+  });
+
   const userPost = async () => {
     try {
+      await Moralis.enableWeb3();
       if (!personalSummary)
         return toast.error("Please complete all required fields", {
           position: "top-center",
@@ -71,35 +79,46 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
-      let options = {
-        type: "erc20",
-        amount: Moralis.Units.Token("1", "6"),
-        receiver: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
-        contractAddress: "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83",
-        functionName: "addPost",
-        awaitReceipt: false,
-      };
-      await Moralis.transfer(options);
-      savePost();
-      // await contractProcessor.fetch({
-      //   params: options,
-      //   onSuccess: () => {
-      //     savePost();
-      //   },
-      //   onError: (err) =>
-      //     toast.error(err.message, {
-      //       position: "top-center",
-      //       toastId: "custom-id",
-      //       autoClose: 4000,
-      //       hideProgressBar: false,
-      //       closeOnClick: true,
-      //       pauseOnHover: false,
-      //       draggable: true,
-      //       progress: undefined,
-      //     }),
-      // });
+      // let options = {
+      //   type: "erc20",
+      //   amount: Moralis.Units.Token("1", "6"),
+      //   receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
+      //   contractAddress: "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83",
+      //   functionName: "addPost",
+      //   awaitReceipt: true,
+      // };
+
+      // const tx = await Moralis.transfer(options);
+      // console.log(tx);
+      fetch({
+        onSuccess: (tx) =>
+          tx.wait().then(() => {
+            savePost();
+          }),
+        onError: (e) => {
+          return toast.error(e.message, {
+            position: "top-center",
+            toastId: "custom-id",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        },
+      });
     } catch (error) {
-      console.log(error);
+      toast.error(error.message, {
+        position: "top-center",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -143,9 +162,6 @@ const CandidatePost = () => {
   // };
 
   const savePost = async () => {
-    error && <p>{JSON.stringify(error.message)}</p>;
-    authError && <p>{JSON.stringify(authError.message)}</p>;
-
     try {
       const Posts = Moralis.Object.extend("Posts");
       const newPost = new Posts();
@@ -280,7 +296,7 @@ const CandidatePost = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Wrapper>
           <LoadingSpinner />
         </Wrapper>
