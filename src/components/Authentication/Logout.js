@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Button from "../Styles/Button";
-import LoadingSpinner from "../Styles/LoadingSpinner";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
+  const navigate = useNavigate();
   const { Moralis, authenticate } = useMoralis();
   const ethereum = window.ethereum;
-  const [isLoading, setIsLoading] = useState(false);
 
   const unlockMetaMask = async () => {
     const result = await ethereum._metamask.isUnlocked();
@@ -18,7 +18,7 @@ const Logout = () => {
           provider: "web3Auth",
           clientId:
             "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
-          chainId: Moralis.Chains.ETH_RINKBEY,
+          chainId: Moralis.Chains.ETH_ROPSTEN,
           loginMethodsOrder: [
             "facebook",
             "google",
@@ -30,11 +30,9 @@ const Logout = () => {
             "email_passwordless",
           ],
         });
-        setIsLoading(true);
+        navigate("/");
       } catch (error) {
-        alert(error);
-      } finally {
-        setIsLoading(false);
+        console.log(error);
       }
     }
   };
@@ -49,7 +47,7 @@ const Logout = () => {
               provider: "web3Auth",
               clientId:
                 "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
-              chainId: Moralis.Chains.ETH_RINKBEY,
+              chainId: Moralis.Chains.ETH_ROPSTEN,
               loginMethodsOrder: [
                 "facebook",
                 "google",
@@ -61,26 +59,44 @@ const Logout = () => {
                 "email_passwordless",
               ],
             });
-            setIsLoading(true);
+            navigate("/");
           } catch (error) {
-            alert(error);
-          } finally {
-            setIsLoading(false);
+            console.log(error);
           }
         };
         changeAccount();
       }
     });
 
+  const logout = async () => {
+    try {
+      await authenticate({
+        provider: "web3Auth",
+        clientId:
+          "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
+        chainId: Moralis.Chains.ETH_ROPSTEN,
+        loginMethodsOrder: [
+          "facebook",
+          "google",
+          "github",
+          "twitter",
+          "apple",
+          "reddit",
+          "discord",
+          "email_passwordless",
+        ],
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Wrapper>
         <Button
-          onClick={() => {
-            Moralis.User.logOut().then(() => {
-              window.location.reload();
-            });
-          }}
+          onClick={logout}
           text={
             <>
               Logout <FaSignOutAlt style={{ marginBottom: "-0.2rem" }} />

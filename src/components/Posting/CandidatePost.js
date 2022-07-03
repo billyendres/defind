@@ -40,7 +40,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
-  const { Moralis } = useMoralis();
+  const { Moralis, authError, error } = useMoralis();
   const user = Moralis.User.current();
   const contractProcessor = useWeb3ExecuteFunction();
 
@@ -66,46 +66,19 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
-      setIsLoading(true);
-
-      let img;
-      if (postFile) {
-        const data = postFile;
-        const file = new Moralis.File(data.name, data);
-        await file.saveIPFS();
-        img = file.ipfs();
-      } else {
-        img = "noimg";
-      }
-
       let options = {
         contractAddress: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
         functionName: "addPost",
         abi: [
           {
-            inputs: [
-              {
-                internalType: "string",
-                name: "personalSummary",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "postImg",
-                type: "string",
-              },
-            ],
+            inputs: [],
             name: "addPost",
             outputs: [],
             stateMutability: "payable",
             type: "function",
           },
         ],
-        params: {
-          personalSummary: personalSummary,
-          postImg: img,
-        },
-        msgValue: Moralis.Units.Token(0.01),
+        msgValue: Moralis.Units.Token(0.1),
       };
 
       await contractProcessor.fetch({
@@ -130,12 +103,13 @@ const CandidatePost = () => {
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const savePost = async () => {
+    error && <p>{JSON.stringify(error.message)}</p>;
+    authError && <p>{JSON.stringify(authError.message)}</p>;
+
     try {
       const Posts = Moralis.Object.extend("Posts");
       const newPost = new Posts();
@@ -170,7 +144,6 @@ const CandidatePost = () => {
         newPost.set("postImg", file.ipfs());
       }
       await newPost.save();
-      // window.location.reload();
       navigate(`/profile/posts/${user.attributes.ethAddress}`);
     } catch (error) {
       console.log(error);

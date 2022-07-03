@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import { FaSignInAlt } from "react-icons/fa";
@@ -8,12 +9,14 @@ import Button from "../Styles/Button";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { authenticate, isAuthenticating, isAuthenticated, Moralis } =
-    useMoralis();
-
-  // useEffect(() => {
-  //   enableWeb3();
-  // }, [enableWeb3]);
+  const {
+    authenticate,
+    isAuthenticating,
+    isAuthenticated,
+    Moralis,
+    authError,
+  } = useMoralis();
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -22,7 +25,7 @@ const Login = () => {
           provider: "web3Auth",
           clientId:
             "BFNj6-GO2sCnBHQRLzxhr37jeUt0SavOaDxIf8opr7hDFxsypg1TJQX2_vMjlZ11tk7pQ2nDmWbq8Wq13sBVeDA",
-          chainId: Moralis.Chains.ETH_RINKBEY,
+          chainId: Moralis.Chains.ETH_ROPSTEN,
           loginMethodsOrder: [
             "facebook",
             "google",
@@ -36,6 +39,7 @@ const Login = () => {
         });
       }
       setIsLoading(true);
+      navigate("/");
     } catch (error) {
       alert(error);
     } finally {
@@ -49,6 +53,7 @@ const Login = () => {
         <LoadingSpinner />
       ) : (
         <>
+          {authError && <p>{JSON.stringify(authError.message)}</p>}
           <Button
             onClick={login}
             disabled={isAuthenticating}
