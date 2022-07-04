@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   FaBookReader,
   FaRegEdit,
   FaRegIdCard,
+  FaAngleDoubleUp,
 } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
@@ -16,7 +17,25 @@ import Img from "../Styles/ProfilePicture";
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
+  const [scrollTop, setScrollTop] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY !== 0) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
+      console.log(window.scrollY);
+    });
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   const menuItems = [
     {
       title: (
@@ -105,6 +124,17 @@ const Nav = () => {
         <Subheader>{user.attributes.bio}</Subheader>
         <Subheader>{`${user.attributes.ethAddress.slice(0, 4)}...
           ${user.attributes.ethAddress.slice(38)}`}</Subheader>
+        <ScrollButton>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+            {scrollTop && (
+              <div>
+                <Icons onClick={scrollToTop}>
+                  <FaAngleDoubleUp />
+                </Icons>
+              </div>
+            )}
+          </motion.div>
+        </ScrollButton>
       </UserTextWrapper>
     </>
   );
@@ -174,4 +204,23 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   text-transform: uppercase;
+`;
+
+const ScrollButton = styled.div`
+  z-index: 1000;
+  position: fixed;
+  right: 4rem;
+  bottom: 5rem;
+`;
+
+const Icons = styled.h2`
+  transition: all 0.5s linear;
+  color: ${({ theme }) => theme.icon};
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  border: 3px solid ${({ theme }) => theme.icon};
+  border-radius: 50%;
+  text-transform: uppercase;
+  cursor: pointer;
 `;

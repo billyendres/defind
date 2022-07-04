@@ -89,7 +89,18 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
-          <div style={{ paddingTop: "10rem" }}></div>
+          {/* <div style={{ width: "100%", textAlign: "left" }}> */}
+          <h1 style={{ marginTop: "5rem" }}>Candidate posts</h1>
+          {/* </div> */}
+          {/* <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "left",
+              textAlign: "left",
+            }}
+          > */}
           <form style={{ display: "flex" }} onSubmit={getFilteredPosts}>
             <Label>
               <FaSearch
@@ -111,11 +122,14 @@ const ViewCandidatePosts = ({ profile }) => {
               <Button type="submit" text="Go" />
             </span>
           </form>
+          {/* <div style={{ width: "100%", textAlign: "left" }}> */}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
               : `${postArray?.length} results found`}
           </ResultsText>
+          {/* </div> */}
+          {/* </div> */}
           <>
             <Grid>
               {postArray

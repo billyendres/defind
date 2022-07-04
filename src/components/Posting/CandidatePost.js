@@ -47,8 +47,6 @@ const CandidatePost = () => {
   const navigate = useNavigate();
   const { Moralis, authError, error, authenticate } = useMoralis();
   const user = Moralis.User.current();
-  const contractProcessor = useWeb3ExecuteFunction();
-
   const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
   // const [selectedFile, setSelectedFile] = useState();
@@ -95,8 +93,8 @@ const CandidatePost = () => {
           tx.wait().then(() => {
             savePost();
           }),
-        onError: (e) => {
-          return toast.error(e.message, {
+        onError: (error) => {
+          return toast.error(error.message, {
             position: "top-center",
             toastId: "custom-id",
             autoClose: 3000,
