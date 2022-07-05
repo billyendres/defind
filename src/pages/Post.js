@@ -69,12 +69,12 @@ const Post = () => {
       <div style={{ minHeight: "100vh" }} ref={scrollDown}>
         {type === "client" ? (
           <>
-            <Header style={{ marginTop: "5rem" }}>Job Post</Header>
+            <Header style={{ marginTop: "10rem" }}>Job Post</Header>
             <ClientPost profile={false} />
           </>
         ) : (
           <>
-            <Header style={{ marginTop: "5rem" }}>Profile Post</Header>
+            <Header style={{ marginTop: "10rem" }}>Profile Post</Header>
             <CandidatePost profile={false} />
           </>
         )}

@@ -69,12 +69,12 @@ const Forum = () => {
         <div style={{ minHeight: "100vh" }} ref={scrollDown}>
           {type === "client" ? (
             <>
-              <Header style={{ marginTop: "5rem" }}>Job Posts</Header>
+              <Header style={{ marginTop: "10rem" }}>Job Posts</Header>
               <ViewClientPosts profile={false} />
             </>
           ) : (
             <>
-              <Header style={{ marginTop: "5rem" }}>Candidate Posts</Header>
+              <Header style={{ marginTop: "10rem" }}>Candidate Posts</Header>
               <ViewCandidatePosts profile={false} />
             </>
           )}

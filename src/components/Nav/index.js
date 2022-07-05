@@ -18,6 +18,7 @@ const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [scrollTop, setScrollTop] = useState(false);
+  const [navColor, setNavColor] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -29,6 +30,16 @@ const Nav = () => {
       console.log(window.scrollY);
     });
   }, []);
+
+  const changeColor = () => {
+    if (window.scrollY >= 90) {
+      setNavColor(true);
+    } else {
+      setNavColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor);
+  console.log(scrollTop);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -87,7 +98,7 @@ const Nav = () => {
   return (
     <>
       <LinkWrapper>
-        <TextWrapper>
+        <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
           {menuItems.map(({ title, route }) => {
             return (
               <motion.div
@@ -96,7 +107,9 @@ const Nav = () => {
                 key={route}
               >
                 <Links style={{ textDecoration: "none" }} to={`${route}`}>
-                  <LinkHeaders>{title}</LinkHeaders>
+                  <LinkHeaders className={navColor ? "navTop" : "navScrolled"}>
+                    {title}
+                  </LinkHeaders>
                 </Links>
               </motion.div>
             );
@@ -145,7 +158,6 @@ export default Nav;
 const LinkWrapper = styled.div`
   position: fixed;
   background: ${({ theme }) => theme.backgroundNav};
-  /* padding: 1rem; */
   z-index: 100000;
 `;
 
@@ -155,24 +167,47 @@ const TextWrapper = styled.div`
   justify-content: center;
   text-align: left;
   width: 100vw;
-  background: white;
-  /* flex-direction: column; */
   cursor: pointer;
+  transition: 0.2s linear;
+
+  &.navTop {
+    background: ${({ theme }) => theme.nav};
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  }
+  &.navScrolled {
+    background: ${({ theme }) => theme.backgroundNav};
+  }
 `;
 
 const LinkHeaders = styled.div`
   padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  color: ${({ theme }) => theme.text};
+  margin: 1rem;
   transition: all 0.5s linear;
   border-radius: 0.25rem;
   letter-spacing: 5px;
   font-size: 1.25rem;
 
+  &.navTop {
+    color: ${({ theme }) => theme.textModals};
+  }
+
+  &.navScrolled {
+    color: ${({ theme }) => theme.text};
+  }
+
+  &.navTop:hover {
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+  }
+
+  &.navScrolled:hover {
+    background: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.textModals};
+  }
+
   &:hover {
     transition: all 0.5s linear;
-    background: ${({ theme }) => theme.buttonHover};
-    color: ${({ theme }) => theme.textModals};
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }

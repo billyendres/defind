@@ -9,7 +9,7 @@ const MyPosts = () => {
 
   return (
     <Wrapper>
-      <Header style={{ paddingTop: "5rem" }}>My Posts</Header>
+      <Header style={{ paddingTop: "10rem" }}>My Posts</Header>
       <ViewCandidatePosts profile={true} />;
     </Wrapper>
   );
