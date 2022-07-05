@@ -90,7 +90,7 @@ const ViewCandidatePosts = ({ profile }) => {
       ) : (
         <>
           {/* <div style={{ width: "100%", textAlign: "left" }}> */}
-          <h1 style={{ marginTop: "5rem" }}>Candidate posts</h1>
+          {/* <h1 style={{ marginTop: "5rem" }}>Candidate posts</h1> */}
           {/* </div> */}
           {/* <div
             style={{

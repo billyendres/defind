@@ -58,8 +58,6 @@ const Forum = () => {
               <Button onClick={clickEventCandidates} text="Candidates" />
             </div>
           </motion.div>
-
-          {/* </div> */}
           <motion.div
             initial={{ x: "200%", scale: 0.5, opacity: 0 }}
             animate={{ x: 0, scale: 1, opacity: 1 }}
@@ -68,20 +66,19 @@ const Forum = () => {
             <Img src={softwareDev} alt={softwareDev} />
           </motion.div>
         </Grid>
-      </Wrapper>
-      <div
-        style={{
-          height: "2px",
-          width: "100vw",
-          background: "black",
-        }}
-      ></div>
-      <Wrapper ref={scrollDown}>
-        {type === "client" ? (
-          <ViewClientPosts profile={false} />
-        ) : (
-          <ViewCandidatePosts profile={false} />
-        )}
+        <div style={{ minHeight: "100vh" }} ref={scrollDown}>
+          {type === "client" ? (
+            <>
+              <Header style={{ marginTop: "5rem" }}>Job Posts</Header>
+              <ViewClientPosts profile={false} />
+            </>
+          ) : (
+            <>
+              <Header style={{ marginTop: "5rem" }}>Candidate Posts</Header>
+              <ViewCandidatePosts profile={false} />
+            </>
+          )}
+        </div>
       </Wrapper>
     </>
   );
@@ -94,6 +91,7 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   width: 60%;
   align-items: center;
+  min-height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -105,13 +103,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
+  font-family: "Kdam Thmor Pro", sans-serif;
 `;
 
 const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
-  /* max-width: 43rem; */
-  /* margin-bottom: -6rem; */
 `;
 
 const Text = styled.div`
@@ -124,8 +121,9 @@ const Text = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  padding: 0.25rem 0;
-  font-size: 1.5rem;
+  /* text-transform: uppercase; */
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Img = styled.img`
