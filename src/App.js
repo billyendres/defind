@@ -30,6 +30,7 @@ const App = () => {
     authError,
     isAuthenticating,
     Moralis,
+    user,
   } = useMoralis();
 
   // const login = async () => {
@@ -90,6 +91,8 @@ const App = () => {
         <>
           {/* {ethereum ? ( */}
           <Login />
+          <Toggle theme={theme} toggleTheme={toggleTheme} />
+
           {/* ) : (
             <div>
               {isAuthenticating && <p>Authenticating</p>}

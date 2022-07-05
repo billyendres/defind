@@ -40,8 +40,8 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaHome style={{ marginRight: "1rem" }} />
-          Home
+          <FaHome />
+          <Hide>Home</Hide>
         </IconWrapper>
       ),
       route: "/",
@@ -49,8 +49,8 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaUserAlt style={{ marginRight: "1rem" }} />
-          Profile
+          <FaUserAlt />
+          <Hide>Profile</Hide>
         </IconWrapper>
       ),
       route: `/profile/${user.attributes.ethAddress}`,
@@ -58,8 +58,8 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaBookReader style={{ marginRight: "1rem" }} />
-          Forum
+          <FaBookReader />
+          <Hide>Forum</Hide>
         </IconWrapper>
       ),
       route: "/forum",
@@ -67,8 +67,8 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaRegIdCard style={{ marginRight: "1rem" }} />
-          My Posts
+          <FaRegIdCard />
+          <Hide>My Posts</Hide>
         </IconWrapper>
       ),
       route: `/profile/posts/${user.attributes.ethAddress}`,
@@ -76,8 +76,8 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaRegEdit style={{ marginRight: "1rem" }} />
-          Post
+          <FaRegEdit />
+          <Hide>Post</Hide>
         </IconWrapper>
       ),
       route: `/newpost/${user.attributes.ethAddress}`,
@@ -145,15 +145,18 @@ export default Nav;
 const LinkWrapper = styled.div`
   position: fixed;
   background: ${({ theme }) => theme.backgroundNav};
-  padding: 1rem;
+  /* padding: 1rem; */
+  z-index: 100000;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
-  height: 100vh;
-  justify-content: flex-start;
+  /* height: 100vh; */
+  justify-content: center;
   text-align: left;
-  flex-direction: column;
+  width: 100vw;
+  background: white;
+  /* flex-direction: column; */
   cursor: pointer;
 `;
 
@@ -223,4 +226,12 @@ const Icons = styled.h2`
   border-radius: 50%;
   text-transform: uppercase;
   cursor: pointer;
+`;
+
+const Hide = styled.span`
+  margin-left: 1rem;
+  @media screen and (max-width: 1024px) {
+    display: none;
+    margin-left: none;
+  }
 `;
