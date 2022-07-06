@@ -39,11 +39,19 @@ const MotionButton = styled(motion.button)`
     background: ${({ theme }) => theme.buttonHover};
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.35rem 0.5rem;
     letter-spacing: 2px;
     min-width: 7rem;
     margin: 0.5rem;
+  }
+
+  @media screen and (max-width: 481px) {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.4rem;
+    letter-spacing: 2px;
+    min-width: 6rem;
+    margin: 0.4rem;
   }
 `;

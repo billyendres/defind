@@ -69,15 +69,15 @@ const Forum = () => {
         </Grid>
         <div style={{ minHeight: "100vh" }} ref={scrollDown}>
           {type === "client" ? (
-            <>
-              <Header style={{ marginTop: "10rem" }}>Job Posts</Header>
+            <PostHeaderWrapper>
+              <Header>Job Posts</Header>
               <ViewClientPosts profile={false} />
-            </>
+            </PostHeaderWrapper>
           ) : (
-            <>
-              <Header style={{ marginTop: "10rem" }}>Candidate Posts</Header>
+            <PostHeaderWrapper>
+              <Header>Candidate Posts</Header>
               <ViewCandidatePosts profile={false} />
-            </>
+            </PostHeaderWrapper>
           )}
         </div>
       </Wrapper>
@@ -95,7 +95,7 @@ const Grid = styled.div`
   width: 60%;
   align-items: center;
   min-height: 100vh;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     grid-template-columns: 1fr;
     width: 100%;
     min-height: 70vh;
@@ -117,9 +117,12 @@ const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
   width: 30rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     text-align: center;
     margin-top: 8rem;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 20rem;
   }
 `;
 
@@ -128,8 +131,11 @@ const Text = styled.div`
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.25rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 1rem;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
   }
 `;
 
@@ -138,22 +144,39 @@ const Header = styled.h2`
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 2rem;
+  }
+  @media screen and (max-width: 481px) {
+    font-size: 1.75rem;
+  }
+`;
+
+const PostHeaderWrapper = styled.div`
+  margin-top: 8rem;
+  @media screen and (max-width: 1023px) {
+    margin-top: 7rem;
+  }
+  @media screen and (max-width: 481px) {
+    margin-top: 6rem;
   }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   width: 32rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     justify-content: center;
   }
 `;
 
 const Img = styled.img`
   height: 25rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     height: 18rem;
+    margin-bottom: -4rem;
+  }
+  @media screen and (max-width: 481px) {
+    height: 14rem;
   }
 `;

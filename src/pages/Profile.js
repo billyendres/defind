@@ -87,7 +87,7 @@ const Header = styled.h2`
   font-size: 3rem;
   margin: 0.5rem;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 2rem;
   }
 `;
@@ -98,7 +98,7 @@ const Subheader = styled.h4`
   font-size: 1.5rem;
   margin: 0.5rem;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 1rem;
   }
 `;

@@ -39,7 +39,7 @@ const Label = styled.h2`
   padding: 0.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     padding: 0;
     margin-bottom: 0.5rem;
   }
@@ -62,7 +62,7 @@ const Input = styled.input`
     opacity: 0.5;
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
     padding: 0.25rem;
   }

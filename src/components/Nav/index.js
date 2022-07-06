@@ -261,7 +261,7 @@ const Icons = styled.h2`
 
 const Hide = styled.span`
   margin-left: 1rem;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     display: none;
     margin-left: none;
   }

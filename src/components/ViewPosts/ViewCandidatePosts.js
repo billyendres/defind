@@ -88,10 +88,17 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
-          <form style={{ display: "flex" }} onSubmit={getFilteredPosts}>
+          <form
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onSubmit={getFilteredPosts}
+          >
             <Label>
               <FaSearch
-                size={30}
+                // size={30}
                 style={{
                   marginRight: "1rem",
                   marginBottom: "-0.5rem",
@@ -270,7 +277,11 @@ const Label = styled.div`
   font-size: 1.25rem;
   text-transform: uppercase;
   color: ${({ theme }) => theme.icon};
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Input = styled.input`
@@ -280,13 +291,17 @@ const Input = styled.input`
   font-size: 1rem;
   color: #080e57;
   background: #bae1ff;
-
+  font-family: "Kdam Thmor Pro", sans-serif;
   &:focus {
     outline: none;
   }
   &::placeholder {
     color: #080e57;
     opacity: 0.5;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    padding: 0.25rem;
   }
 `;
 
