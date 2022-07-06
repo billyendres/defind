@@ -41,21 +41,22 @@ const Forum = () => {
             initial={{ x: "-200%", scale: 0.5, opacity: 0 }}
             animate={{ x: 0, scale: 1, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            style={{ width: "80%" }}
           >
-            <HeaderWrapper>
-              <Header>Find Your Match</Header>
-              <Text>{text}</Text>
-            </HeaderWrapper>
             <div
               style={{
                 display: "flex",
-                justifyContent: "left",
-                marginLeft: "-1rem",
+                justifyContent: "center",
+                flexWrap: "wrap",
               }}
             >
-              <Button onClick={clickEventClients} text="Jobs" />
-              <Button onClick={clickEventCandidates} text="Candidates" />
+              <HeaderWrapper>
+                <Header>Find Your Match</Header>
+                <Text>{text}</Text>
+              </HeaderWrapper>
+              <ButtonWrapper>
+                <Button onClick={clickEventClients} text="Jobs" />
+                <Button onClick={clickEventCandidates} text="Candidates" />
+              </ButtonWrapper>
             </div>
           </motion.div>
           <motion.div
@@ -88,10 +89,17 @@ export default Forum;
 
 const Grid = styled.div`
   display: grid;
+  justify-content: center;
+
   grid-template-columns: 1fr 1fr;
   width: 60%;
   align-items: center;
   min-height: 100vh;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 70vh;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -103,29 +111,49 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
-  font-family: "Kdam Thmor Pro", sans-serif;
 `;
 
 const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
+  width: 30rem;
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+    margin-top: 8rem;
+  }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
+  }
 `;
 
 const Header = styled.h2`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  /* text-transform: uppercase; */
   font-size: 3rem;
   margin-bottom: 0.5rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 2rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 32rem;
+  @media screen and (max-width: 1024px) {
+    justify-content: center;
+  }
 `;
 
 const Img = styled.img`
-  height: 30rem;
+  height: 25rem;
+  @media screen and (max-width: 1024px) {
+    height: 18rem;
+  }
 `;

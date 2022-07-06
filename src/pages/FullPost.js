@@ -328,7 +328,6 @@ const FullPost = () => {
 export default FullPost;
 
 const Wrapper = styled.div`
-  font-family: "Kdam Thmor Pro", sans-serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;

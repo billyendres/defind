@@ -38,4 +38,12 @@ const MotionButton = styled(motion.button)`
   &:hover {
     background: ${({ theme }) => theme.buttonHover};
   }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    letter-spacing: 2px;
+    min-width: 7rem;
+    margin: 0.5rem;
+  }
 `;

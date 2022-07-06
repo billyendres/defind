@@ -9,7 +9,7 @@ const Username = ({ onChange, value }) => {
         <div style={{ width: "100%" }}>
           <Label>
             <FaGrin
-              size={30}
+              // size={30}
               style={{
                 marginRight: "1rem",
                 marginBottom: "-0.5rem",
@@ -40,6 +40,10 @@ const Label = styled.h2`
   padding: 0.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
+  @media screen and (max-width: 1024px) {
+    padding: 0;
+    margin-top: -0.5rem;
+  }
 `;
 
 const Input = styled.input`
@@ -47,10 +51,9 @@ const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   background: #bae1ff;
-  /* letter-spacing: 2px; */
+  font-family: "Kdam Thmor Pro", sans-serif;
 
   &:focus {
     outline: none;
@@ -58,5 +61,10 @@ const Input = styled.input`
   &::placeholder {
     color: #080e57;
     opacity: 0.5;
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 0.75rem;
+    padding: 0.25rem;
   }
 `;

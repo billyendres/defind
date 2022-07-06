@@ -30,7 +30,6 @@ const Textarea = styled.textarea`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
   color: #080e57;
   /* letter-spacing: 2px; */
   max-width: 37rem;

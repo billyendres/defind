@@ -1,15 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  useMoralis,
-  useWeb3ExecuteFunction,
-  useWeb3Transfer,
-} from "react-moralis";
+import { useMoralis, useWeb3Transfer } from "react-moralis";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { ethers } from "ethers";
 import {
   Education,
   AddEducation,
@@ -55,12 +50,17 @@ const CandidatePost = () => {
   const [education, setEducation] = useState([]);
   const [job, setJob] = useState([]);
   const [contact, setContact] = useState([]);
+  const [currency, setCurrency] = useState(false);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
-    amount: Moralis.Units.Token("1", "6"),
+    amount: currency
+      ? `${Moralis.Units.Token("1", "6")}`
+      : `${Moralis.Units.Token("0.2", "18")}`,
     receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
-    contractAddress: "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83",
+    contractAddress: currency
+      ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
+      : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
   });
 
   const userPost = async () => {
@@ -77,17 +77,6 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
-      // let options = {
-      //   type: "erc20",
-      //   amount: Moralis.Units.Token("1", "6"),
-      //   receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
-      //   contractAddress: "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83",
-      //   functionName: "addPost",
-      //   awaitReceipt: true,
-      // };
-
-      // const tx = await Moralis.transfer(options);
-      // console.log(tx);
       fetch({
         onSuccess: (tx) =>
           tx.wait().then(() => {
@@ -107,57 +96,9 @@ const CandidatePost = () => {
         },
       });
     } catch (error) {
-      toast.error(error.message, {
-        position: "top-center",
-        toastId: "custom-id",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
+      console.log(error);
     }
   };
-
-  // const userPost = async ({ setError, setTxs, ether }) => {
-  //   const addr = "0x00C6339a82204FD018cECd209d2Acc592917128c";
-  //   try {
-  //     if (!personalSummary)
-  //       return toast.error("Please complete all required fields", {
-  //         position: "top-center",
-  //         toastId: "custom-id",
-  //         autoClose: 3000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: false,
-  //         draggable: true,
-  //         progress: undefined,
-  //       });
-  //     await window.ethereum.send("eth_requestAccounts");
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const signer = provider.getSigner();
-  //     ethers.utils.getAddress(addr);
-  //     const tx = await signer.sendTransaction({
-  //       to: addr,
-  //       value: ethers.utils.parseEther("0.01"),
-  //     });
-  //     console.log({ ether }, addr);
-  //     console.log(tx);
-  //     savePost();
-  //   } catch (err) {
-  //     return toast.error(err.message, {
-  //       position: "top-center",
-  //       toastId: "custom-id",
-  //       autoClose: 3000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: false,
-  //       draggable: true,
-  //       progress: undefined,
-  //     });
-  //   }
-  // };
 
   const savePost = async () => {
     try {
@@ -438,6 +379,8 @@ const CandidatePost = () => {
               <ToastContainer />
               <div style={{ margin: "3rem" }}></div>
               <Button onClick={userPost} disabled={isLoading} text="ETH Post" />
+              <Button onClick={() => setCurrency(!currency)} text="currency" />
+              {console.log(currency)}
             </Template>
           </motion.div>
         </Wrapper>
@@ -451,7 +394,6 @@ export default CandidatePost;
 const Wrapper = styled.div`
   min-height: 80vh;
   padding: 2rem 0;
-  font-family: "Kdam Thmor Pro", sans-serif;
   /* letter-spacing: 2px; */
   display: flex;
   justify-content: left;

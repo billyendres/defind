@@ -27,7 +27,6 @@ const Nav = () => {
       } else {
         setScrollTop(false);
       }
-      console.log(window.scrollY);
     });
   }, []);
 
@@ -39,7 +38,6 @@ const Nav = () => {
     }
   };
   window.addEventListener("scroll", changeColor);
-  console.log(scrollTop);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -163,7 +161,6 @@ const LinkWrapper = styled.div`
 
 const TextWrapper = styled.div`
   display: flex;
-  /* height: 100vh; */
   justify-content: center;
   text-align: left;
   width: 100vw;
@@ -187,6 +184,7 @@ const LinkHeaders = styled.div`
   border-radius: 0.25rem;
   letter-spacing: 5px;
   font-size: 1.25rem;
+  font-family: "Russo One", sans-serif;
 
   &.navTop {
     color: ${({ theme }) => theme.textModals};
@@ -202,7 +200,7 @@ const LinkHeaders = styled.div`
   }
 
   &.navScrolled:hover {
-    background: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.button};
     color: ${({ theme }) => theme.textModals};
   }
 
@@ -216,7 +214,6 @@ const LinkHeaders = styled.div`
 const Header = styled.h2`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.text};
-  font-family: "Kdam Thmor Pro", sans-serif;
   font-size: 1.25rem;
 `;
 
@@ -225,7 +222,6 @@ const Subheader = styled.h4`
   transition: all 0.5s linear;
   font-size: 1rem;
   margin: 0.25rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
 `;
 
 const UserTextWrapper = styled.div`

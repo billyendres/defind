@@ -77,7 +77,6 @@ const ViewCandidatePosts = ({ profile }) => {
       console.error(error);
     } finally {
       setIsLoading(false);
-      // setSearch("");
     }
   };
 
@@ -89,18 +88,6 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
-          {/* <div style={{ width: "100%", textAlign: "left" }}> */}
-          {/* <h1 style={{ marginTop: "5rem" }}>Candidate posts</h1> */}
-          {/* </div> */}
-          {/* <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              justifyContent: "left",
-              textAlign: "left",
-            }}
-          > */}
           <form style={{ display: "flex" }} onSubmit={getFilteredPosts}>
             <Label>
               <FaSearch
@@ -122,14 +109,11 @@ const ViewCandidatePosts = ({ profile }) => {
               <Button type="submit" text="Go" />
             </span>
           </form>
-          {/* <div style={{ width: "100%", textAlign: "left" }}> */}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
               : `${postArray?.length} results found`}
           </ResultsText>
-          {/* </div> */}
-          {/* </div> */}
           <>
             <Grid>
               {postArray
@@ -225,13 +209,6 @@ const ViewCandidatePosts = ({ profile }) => {
                             <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
-                        {/* <div style={{ display: "flex" }}>
-                          <motion.div whileHover={{ scale: 1.05 }}>
-                            <Links to={`/forum/${item.id}`}>
-                              <Text>View Post</Text>
-                            </Links>
-                          </motion.div>
-                        </div> */}
                       </ProfileWrapper>
                     </CardContainer>
                   );
@@ -248,8 +225,6 @@ const ViewCandidatePosts = ({ profile }) => {
 export default ViewCandidatePosts;
 
 const Wrapper = styled.div`
-  font-family: "Kdam Thmor Pro", sans-serif;
-  /* letter-spacing: 2px; */
   display: flex;
   align-items: center;
   min-height: 100vh;
@@ -272,7 +247,6 @@ const CardContainer = styled(motion.div)`
 
 const ProfileWrapper = styled(motion.div)`
   text-align: left;
-  /* min-height: 30vh; */
   width: 43rem;
   padding: 3rem;
   border-radius: 1rem;
@@ -304,8 +278,6 @@ const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
-  /* letter-spacing: 2px; */
   color: #080e57;
   background: #bae1ff;
 

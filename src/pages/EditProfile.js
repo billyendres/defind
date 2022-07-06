@@ -67,7 +67,6 @@ const EditUserProfle = () => {
           progress: undefined,
         });
       }
-      // setIsLoading(true);
     } finally {
       setTimeout(() => {
         navigate(`/profile/${user.attributes.ethAddress}`);
@@ -119,98 +118,85 @@ const EditUserProfle = () => {
     setSelectedFile(URL.createObjectURL(img));
   };
 
-  console.log(theFile);
-  console.log(selectedFile);
-
   return (
     <Wrapper>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <Container>
-          <motion.div
-            initial={{ y: "-100vh", scale: 0.5, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            transition={{
-              duration: 0.7,
-              type: "spring",
-            }}
-          >
-            <ProfileImage
-              onChange={profileImageChangeHandler}
-              onClick={profileImageClickHandler}
-              inputFile={inputFile}
-              src={selectedFile}
-              accept="image/png, image/jpeg, image/jpg"
+        <motion.div
+          initial={{ y: "-100vh", scale: 0.5, opacity: 0 }}
+          animate={{ y: 0, scale: 1, opacity: 1 }}
+          transition={{
+            duration: 0.7,
+            type: "spring",
+          }}
+        >
+          <ProfileImage
+            syle={{ cursor: "pointer" }}
+            onChange={profileImageChangeHandler}
+            onClick={profileImageClickHandler}
+            inputFile={inputFile}
+            src={selectedFile}
+            accept="image/png, image/jpeg, image/jpg"
+          />
+          <ToastContainer />
+          <>
+            <Username
+              onChange={(e) => setUsername(e.currentTarget.value)}
+              value={username}
             />
-            <ToastContainer />
-            <>
-              <Username
-                onChange={(e) => setUsername(e.currentTarget.value)}
-                value={username}
+            <Bio onChange={(e) => setBio(e.currentTarget.value)} value={bio} />
+            <div style={{ display: "flex" }}>
+              <Button
+                onClick={saveBio}
+                disabled={isLoading}
+                text={
+                  <>
+                    <FaCheck
+                      style={{
+                        marginBottom: "-0.2rem",
+                        marginRight: "0.5rem",
+                      }}
+                    />
+                    Save
+                  </>
+                }
               />
-              <Bio
-                onChange={(e) => setBio(e.currentTarget.value)}
-                value={bio}
+              <Button
+                onClick={deleteBio}
+                disabled={isLoading}
+                text={
+                  <>
+                    <FaTimesCircle
+                      style={{
+                        marginBottom: "-0.2rem",
+                        marginRight: "0.5rem",
+                      }}
+                    />
+                    Delete
+                  </>
+                }
               />
-              <div style={{ display: "flex" }}>
-                <Subheader>
-                  <Button
-                    onClick={saveBio}
-                    disabled={isLoading}
-                    text={
-                      <>
-                        <FaCheck
-                          style={{
-                            marginBottom: "-0.2rem",
-                            marginRight: "0.5rem",
-                          }}
-                        />
-                        Save
-                      </>
-                    }
-                  />
-                </Subheader>
-                <Subheader>
-                  <Button
-                    onClick={deleteBio}
-                    disabled={isLoading}
-                    text={
-                      <>
-                        <FaTimesCircle
-                          style={{
-                            marginBottom: "-0.2rem",
-                            marginRight: "0.5rem",
-                          }}
-                        />
-                        Delete
-                      </>
-                    }
-                  />
-                </Subheader>
-              </div>
-            </>
-            <div>
-              <Links to={`/profile/${user.attributes.ethAddress}`}>
-                <Subheader>
-                  <Button
-                    text={
-                      <>
-                        <FaChevronLeft
-                          style={{
-                            marginBottom: "-0.2rem",
-                            marginRight: "0.5rem",
-                          }}
-                        />
-                        Back to profile
-                      </>
-                    }
-                  />
-                </Subheader>
-              </Links>
             </div>
-          </motion.div>
-        </Container>
+          </>
+          <div>
+            <Links to={`/profile/${user.attributes.ethAddress}`}>
+              <Button
+                text={
+                  <>
+                    <FaChevronLeft
+                      style={{
+                        marginBottom: "-0.2rem",
+                        marginRight: "0.5rem",
+                      }}
+                    />
+                    Back to profile
+                  </>
+                }
+              />
+            </Links>
+          </div>
+        </motion.div>
       )}
       <ToastContainer />
     </Wrapper>
@@ -227,18 +213,4 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
-`;
-
-const Header = styled.h2`
-  color: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
-`;
-
-const Container = styled.div``;
-
-const Subheader = styled.h4`
-  color: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
-  font-size: 1.5rem;
-  margin: 0.5rem;
 `;

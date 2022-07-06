@@ -102,7 +102,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
-  font-family: "Kdam Thmor Pro", sans-serif;
 `;
 
 const HeaderWrapper = styled.div`
@@ -120,7 +119,6 @@ const Text = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  /* text-transform: uppercase; */
   font-size: 3rem;
   margin-bottom: 0.5rem;
 `;

@@ -28,7 +28,6 @@ const UserProfile = () => {
         }}
       >
         <Img
-          style={{ width: "7rem", height: "7rem" }}
           src={
             user.attributes.profilePic
               ? user.attributes.profilePic
@@ -73,7 +72,6 @@ const UserProfile = () => {
 export default UserProfile;
 
 const Wrapper = styled.div`
-  font-family: "Kdam Thmor Pro", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,15 +84,21 @@ const Wrapper = styled.div`
 const Header = styled.h2`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  /* text-transform: uppercase; */
   font-size: 3rem;
   margin: 0.5rem;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 2rem;
+  }
 `;
 
 const Subheader = styled.h4`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  /* text-transform: uppercase; */
   font-size: 1.5rem;
   margin: 0.5rem;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
+  }
 `;

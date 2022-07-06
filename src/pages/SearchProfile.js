@@ -182,8 +182,6 @@ const SearchProfile = () => {
 export default SearchProfile;
 
 const Wrapper = styled.div`
-  font-family: "Kdam Thmor Pro", sans-serif;
-  /* letter-spacing: 2px; */
   display: flex;
   align-items: center;
   min-height: 100vh;
