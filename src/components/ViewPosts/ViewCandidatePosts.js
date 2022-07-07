@@ -29,8 +29,9 @@ const ViewCandidatePosts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
   const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -42,7 +43,15 @@ const ViewCandidatePosts = ({ profile }) => {
           query.equalTo("posterAccount", user.attributes.ethAddress);
         }
         const results = await query.find();
-        setPostArray(results);
+        if (sortByPaymentAmount) {
+          const payment = [...results].sort(
+            (a, b) => a.attributes.paymentAmount - b.attributes.paymentAmount
+          );
+          setPostArray(payment);
+        } else {
+          setPostArray(results);
+        }
+        window.localStorage.setItem("filteredBy", sortByPaymentAmount);
       } catch (error) {
         console.error(error);
       } finally {
@@ -50,7 +59,17 @@ const ViewCandidatePosts = ({ profile }) => {
       }
     };
     getPosts();
-  }, [profile, account, Moralis.Object, Moralis.Query, user]);
+  }, [
+    profile,
+    account,
+    Moralis.Object,
+    Moralis.Query,
+    user,
+    sortByPaymentAmount,
+  ]);
+  window.localStorage.setItem("searchResult", search);
+
+  console.log(search);
 
   const getFilteredPosts = async (e) => {
     e.preventDefault();
@@ -62,6 +81,7 @@ const ViewCandidatePosts = ({ profile }) => {
         query.equalTo("posterAccount", user.attributes.ethAddress);
       }
       const results = await query.find();
+      // setSearch(window.localStorage.getItem("searchResult"));
       setPostArray(
         results?.filter(
           (item) =>
@@ -116,6 +136,10 @@ const ViewCandidatePosts = ({ profile }) => {
               <Button type="submit" text="Go" />
             </span>
           </form>
+          <Button
+            onClick={() => setSortByPaymentAmount(!sortByPaymentAmount)}
+            text={sortByPaymentAmount ? "Sort by Date" : "Sort By Points"}
+          />
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
@@ -207,6 +231,10 @@ const ViewCandidatePosts = ({ profile }) => {
                                 </Links>
                               </motion.div>
                             </div>
+                            <Text>
+                              Featured points{" "}
+                              {item.attributes.paymentAmount * 10}
+                            </Text>
                           </div>
                         </div>
 

@@ -50,17 +50,20 @@ const CandidatePost = () => {
   const [education, setEducation] = useState([]);
   const [job, setJob] = useState([]);
   const [contact, setContact] = useState([]);
-  const [currency, setCurrency] = useState(false);
+  const [currency, setCurrency] = useState("usdt");
+  const [paymentAmount, setPaymentAmount] = useState(1);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
-    amount: currency
-      ? `${Moralis.Units.Token("1", "6")}`
-      : `${Moralis.Units.Token("0.2", "18")}`,
+    amount:
+      currency === "usdt"
+        ? `${Moralis.Units.Token(paymentAmount, 6)}`
+        : `${Moralis.Units.Token(0.2, 18)}`,
     receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
-    contractAddress: currency
-      ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
-      : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+    contractAddress:
+      currency === "usdt"
+        ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
+        : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
   });
 
   const userPost = async () => {
@@ -77,12 +80,14 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
+      setIsLoading(true);
       fetch({
         onSuccess: (tx) =>
           tx.wait().then(() => {
             savePost();
           }),
         onError: (error) => {
+          setIsLoading(false);
           return toast.error(error.message, {
             position: "top-center",
             toastId: "custom-id",
@@ -118,6 +123,7 @@ const CandidatePost = () => {
         });
       setIsLoading(true);
 
+      newPost.set("paymentAmount", paymentAmount);
       newPost.set("personalSummary", personalSummary);
       newPost.set("usersEducation", education);
       newPost.set("employmentHistory", job);
@@ -378,8 +384,15 @@ const CandidatePost = () => {
               />
               <ToastContainer />
               <div style={{ margin: "3rem" }}></div>
-              <Button onClick={userPost} disabled={isLoading} text="ETH Post" />
-              <Button onClick={() => setCurrency(!currency)} text="currency" />
+              <Button onClick={userPost} disabled={isLoading} text="Post" />
+              <h1>Payment amount {paymentAmount}</h1>
+              <Button
+                onClick={() => setPaymentAmount(paymentAmount + 1)}
+                text="+ $1"
+              />
+              {console.log(paymentAmount)}
+              <Button onClick={() => setCurrency("usdt")} text="USDT" />
+              <Button onClick={() => setCurrency("uni")} text="UNI" />
               {console.log(currency)}
             </Template>
           </motion.div>
