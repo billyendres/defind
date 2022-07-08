@@ -29,50 +29,12 @@ const ViewCandidatePosts = ({ profile }) => {
   const { Moralis, account } = useMoralis();
   const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
 
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        setIsLoading(true);
-        const Posts = Moralis.Object.extend("Posts");
-        const query = new Moralis.Query(Posts);
-        if (profile) {
-          query.equalTo("posterAccount", user.attributes.ethAddress);
-        }
-        const results = await query.find();
-        if (sortByPaymentAmount) {
-          const payment = [...results].sort(
-            (a, b) => a.attributes.paymentAmount - b.attributes.paymentAmount
-          );
-          setPostArray(payment);
-        } else {
-          setPostArray(results);
-        }
-        window.localStorage.setItem("filteredBy", sortByPaymentAmount);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getPosts();
-  }, [
-    profile,
-    account,
-    Moralis.Object,
-    Moralis.Query,
-    user,
-    sortByPaymentAmount,
-  ]);
-  window.localStorage.setItem("searchResult", search);
-
-  console.log(search);
-
-  const getFilteredPosts = async (e) => {
-    e.preventDefault();
+  // useEffect(() => {
+  const getPosts = async () => {
     try {
       setIsLoading(true);
       const Posts = Moralis.Object.extend("Posts");
@@ -81,24 +43,56 @@ const ViewCandidatePosts = ({ profile }) => {
         query.equalTo("posterAccount", user.attributes.ethAddress);
       }
       const results = await query.find();
-      // setSearch(window.localStorage.getItem("searchResult"));
-      setPostArray(
-        results?.filter(
-          (item) =>
-            item.attributes.personalSummary
-              .toLowerCase()
-              .includes(search.toLowerCase()) ||
-            item.attributes.posterUsername
-              .toLowerCase()
-              .includes(search.toLowerCase())
-        )
-      );
+
+      if (sortByPaymentAmount === true) {
+        const payment = [...results].sort(
+          (a, b) => a.attributes.paymentAmount - b.attributes.paymentAmount
+        );
+        setPostArray(
+          payment?.filter(
+            (item) =>
+              item.attributes.personalSummary
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              item.attributes.posterUsername
+                .toLowerCase()
+                .includes(search.toLowerCase())
+          )
+        );
+      } else {
+        setPostArray(
+          results?.filter(
+            (item) =>
+              item.attributes.personalSummary
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              item.attributes.posterUsername
+                .toLowerCase()
+                .includes(search.toLowerCase())
+          )
+        );
+      }
+      window.localStorage.setItem("filteredBy", sortByPaymentAmount);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  window.localStorage.setItem("searchResults", search);
+
+  const sortDate = () => {
+    setSortByPaymentAmount(false);
+  };
+
+  const sortPrice = () => {
+    setSortByPaymentAmount(true);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, [sortByPaymentAmount]);
 
   return (
     <Wrapper>
@@ -108,38 +102,38 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
-          <form
+          {/* <form
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
-            onSubmit={getFilteredPosts}
-          >
-            <Label>
-              <FaSearch
-                // size={30}
-                style={{
-                  marginRight: "1rem",
-                  marginBottom: "-0.5rem",
-                  marginLeft: "-3rem",
-                  marginTop: "1.5rem",
-                }}
-              />
-              <Input
-                type="text"
-                placeholder="Search"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Label>
-            <span style={{ marginTop: "0.5rem" }}>
-              <Button type="submit" text="Go" />
-            </span>
-          </form>
-          <Button
-            onClick={() => setSortByPaymentAmount(!sortByPaymentAmount)}
-            text={sortByPaymentAmount ? "Sort by Date" : "Sort By Points"}
-          />
+            // onSubmit={getFilteredPosts}
+          > */}
+          <Label>
+            <FaSearch
+              // size={30}
+              style={{
+                marginRight: "1rem",
+                marginBottom: "-0.5rem",
+                marginLeft: "-3rem",
+                marginTop: "1.5rem",
+              }}
+            />
+            <Input
+              type="text"
+              placeholder={window.localStorage.getItem("searchResults")}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Button onClick={getPosts} text="Go" />
+          </Label>
+          <span style={{ marginTop: "0.5rem" }}>
+            {/* <Button onClick={getPosts} type="submit" text="Go" /> */}
+          </span>
+          {/* </form> */}
+          <Button onClick={sortPrice} text="Sort By Points" />
+          <Button onClick={sortDate} text="Sort by Date" />
+          {console.log(sortByPaymentAmount)}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
