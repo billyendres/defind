@@ -32,17 +32,6 @@ const ViewCandidatePosts = ({ profile }) => {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-  const [highlighted, setHighlighted] = useState(false);
-
-  // console.log(selected);
-
-  const options = [
-    { names: "software dev", s: false, id: 1 },
-    { names: "customer service", s: false, id: 2 },
-    { names: "Finance", s: false, id: 3 },
-  ];
-  const [selected, setSelected] = useState(options);
 
   const getPosts = async () => {
     try {
@@ -104,10 +93,8 @@ const ViewCandidatePosts = ({ profile }) => {
     getPosts();
   }, [sortByPaymentAmount]);
 
-  const onOptionClicked = (index) => {
-    const values = [...selected];
-    values[index]["s"] = !values[index]["s"];
-    setSelected(values);
+  const clearLocalStorage = () => {
+    window.location.reload();
   };
 
   return (
@@ -143,21 +130,17 @@ const ViewCandidatePosts = ({ profile }) => {
             </Label>
             <Button onClick={getPosts} text="Go" />
           </div>
-          <Button onClick={sortPrice} text="Sort By Points" />
-          <Button onClick={sortDate} text="Sort by Date" />
-          <h2 onClick={() => setIsOpen(!isOpen)}>Open</h2>
-          {isOpen && (
-            <ul>
-              {options.map((option, index) => (
-                <div key={option.id}>
-                  <ul onClick={() => onOptionClicked(index)}>
-                    {option.names}
-                    {console.log(selected)}
-                  </ul>
-                </div>
-              ))}
-            </ul>
-          )}
+          <div style={{ display: "flex" }}>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <HeaderSearch onClick={sortPrice}>Sort By Points</HeaderSearch>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <HeaderSearch onClick={sortDate}>Sort by Date</HeaderSearch>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <HeaderSearch onClick={clearLocalStorage}>Clear</HeaderSearch>
+            </motion.div>
+          </div>
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
@@ -356,6 +339,15 @@ const Header = styled.h2`
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;
+`;
+
+const HeaderSearch = styled.h2`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 `;
 
 const Subheader = styled.div`
