@@ -26,14 +26,24 @@ const cardVariants = {
 };
 
 const ViewCandidatePosts = ({ profile }) => {
-  const { Moralis, account } = useMoralis();
+  const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [highlighted, setHighlighted] = useState(false);
 
-  // useEffect(() => {
+  // console.log(selected);
+
+  const options = [
+    { names: "software dev", s: false, id: 1 },
+    { names: "customer service", s: false, id: 2 },
+    { names: "Finance", s: false, id: 3 },
+  ];
+  const [selected, setSelected] = useState(options);
+
   const getPosts = async () => {
     try {
       setIsLoading(true);
@@ -94,6 +104,12 @@ const ViewCandidatePosts = ({ profile }) => {
     getPosts();
   }, [sortByPaymentAmount]);
 
+  const onOptionClicked = (index) => {
+    const values = [...selected];
+    values[index]["s"] = !values[index]["s"];
+    setSelected(values);
+  };
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -102,38 +118,46 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
-          {/* <form
+          <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
-            // onSubmit={getFilteredPosts}
-          > */}
-          <Label>
-            <FaSearch
-              // size={30}
-              style={{
-                marginRight: "1rem",
-                marginBottom: "-0.5rem",
-                marginLeft: "-3rem",
-                marginTop: "1.5rem",
-              }}
-            />
-            <Input
-              type="text"
-              placeholder={window.localStorage.getItem("searchResults")}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+          >
+            <Label>
+              <FaSearch
+                // size={30}
+                style={{
+                  marginRight: "1rem",
+                  marginBottom: "-0.5rem",
+                  marginLeft: "-3rem",
+                  marginTop: "1.5rem",
+                }}
+              />
+              <Input
+                type="text"
+                placeholder={window.localStorage.getItem("searchResults")}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </Label>
             <Button onClick={getPosts} text="Go" />
-          </Label>
-          <span style={{ marginTop: "0.5rem" }}>
-            {/* <Button onClick={getPosts} type="submit" text="Go" /> */}
-          </span>
-          {/* </form> */}
+          </div>
           <Button onClick={sortPrice} text="Sort By Points" />
           <Button onClick={sortDate} text="Sort by Date" />
-          {console.log(sortByPaymentAmount)}
+          <h2 onClick={() => setIsOpen(!isOpen)}>Open</h2>
+          {isOpen && (
+            <ul>
+              {options.map((option, index) => (
+                <div key={option.id}>
+                  <ul onClick={() => onOptionClicked(index)}>
+                    {option.names}
+                    {console.log(selected)}
+                  </ul>
+                </div>
+              ))}
+            </ul>
+          )}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
@@ -299,10 +323,10 @@ const Label = styled.div`
   font-size: 1.25rem;
   text-transform: uppercase;
   color: ${({ theme }) => theme.icon};
-  /* margin-bottom: 2rem; */
+  margin-bottom: 0.5rem;
   @media screen and (max-width: 1023px) {
     padding: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
