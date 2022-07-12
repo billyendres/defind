@@ -44,33 +44,40 @@ const ViewCandidatePosts = ({ profile }) => {
       const results = await query.find();
 
       if (sortByPaymentAmount === true) {
-        const payment = [...results].sort(
+        let x = [...results].sort(
           (a, b) => a.attributes.paymentAmount - b.attributes.paymentAmount
         );
-        setPostArray(
-          payment?.filter(
-            (item) =>
-              item.attributes.personalSummary
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
-              item.attributes.posterUsername
-                .toLowerCase()
-                .includes(search.toLowerCase())
-          )
-        );
-      } else {
-        setPostArray(
-          results?.filter(
-            (item) =>
-              item.attributes.personalSummary
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
-              item.attributes.posterUsername
-                .toLowerCase()
-                .includes(search.toLowerCase())
-          )
-        );
+
+        const filteredArray = x?.filter((i) => {
+          if (i.attributes.personalSummary.includes(search)) {
+            return true;
+          }
+          if (i.attributes.posterUsername.includes(search)) {
+            return true;
+          }
+          if (i.attributes.searchCategorySoftware?.includes(search)) {
+            return true;
+          }
+        });
+        setPostArray(filteredArray);
       }
+
+      if (sortByPaymentAmount === false) {
+        let x = results;
+        const filteredArray = x?.filter((i) => {
+          if (i.attributes.personalSummary.includes(search)) {
+            return true;
+          }
+          if (i.attributes.posterUsername.includes(search)) {
+            return true;
+          }
+          if (i.attributes.searchCategorySoftware?.includes(search)) {
+            return true;
+          }
+        });
+        setPostArray(filteredArray);
+      }
+
       window.localStorage.setItem("filteredBy", sortByPaymentAmount);
     } catch (error) {
       console.error(error);
@@ -227,7 +234,11 @@ const ViewCandidatePosts = ({ profile }) => {
                               }}
                             >
                               <motion.div whileHover={{ scale: 1.05 }}>
-                                <Links to={`/forum/${item.id}`}>
+                                <Links
+                                  to={`/forum/${item.id}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <Text>View post {">"}</Text>
                                 </Links>
                               </motion.div>
@@ -243,6 +254,14 @@ const ViewCandidatePosts = ({ profile }) => {
                           <>
                             <Subheader>Personal Summary</Subheader>
                             <Text>{item.attributes.personalSummary}</Text>
+                          </>
+                        )}
+                        {item.attributes.searchCategorySoftware && (
+                          <>
+                            <Subheader>Category</Subheader>
+                            <Text>
+                              {item.attributes.searchCategorySoftware}
+                            </Text>
                           </>
                         )}
                       </ProfileWrapper>
@@ -299,6 +318,7 @@ const ResultsText = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   margin-bottom: 1rem;
+  font-size: 1rem;
 `;
 
 const Label = styled.div`
@@ -341,12 +361,12 @@ const Header = styled.h2`
   font-size: 1.5rem;
 `;
 
-const HeaderSearch = styled.h2`
+const HeaderSearch = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   padding: 0.5rem 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
 `;
 
