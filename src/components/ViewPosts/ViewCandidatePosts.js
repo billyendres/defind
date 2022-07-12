@@ -30,8 +30,18 @@ const ViewCandidatePosts = ({ profile }) => {
   const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const description = [
+    "Software Developer",
+    "Finance",
+    "Customer Service",
+    "Management",
+    "Writing",
+  ];
 
   const getPosts = async () => {
     try {
@@ -59,7 +69,13 @@ const ViewCandidatePosts = ({ profile }) => {
             return true;
           }
         });
-        setPostArray(filteredArray);
+        const filteredSearchTwo = filteredArray?.filter((i) => {
+          if (i.attributes.searchCategorySoftware.includes(searchCategory)) {
+            return true;
+          }
+        });
+        console.log(filteredSearchTwo);
+        setPostArray(filteredSearchTwo);
       }
 
       if (sortByPaymentAmount === false) {
@@ -87,6 +103,7 @@ const ViewCandidatePosts = ({ profile }) => {
   };
 
   window.localStorage.setItem("searchResults", search);
+  window.localStorage.setItem("searchResultsCategory", searchCategory);
 
   const sortDate = () => {
     setSortByPaymentAmount(false);
@@ -98,7 +115,7 @@ const ViewCandidatePosts = ({ profile }) => {
 
   useEffect(() => {
     getPosts();
-  }, [sortByPaymentAmount]);
+  }, [sortByPaymentAmount, searchCategory]);
 
   const clearLocalStorage = () => {
     window.location.reload();
@@ -148,6 +165,20 @@ const ViewCandidatePosts = ({ profile }) => {
               <HeaderSearch onClick={clearLocalStorage}>Clear</HeaderSearch>
             </motion.div>
           </div>
+
+          <HeaderSearch onClick={() => setOpen(!open)}>
+            Job Description
+          </HeaderSearch>
+          {open && (
+            <>
+              {description.map((i, key) => (
+                <HeaderSearch onClick={() => setSearchCategory(i)}>
+                  <span key={key}>{i}</span>
+                </HeaderSearch>
+              ))}
+            </>
+          )}
+          {searchCategory === "" ? "" : searchCategory}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
