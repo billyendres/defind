@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { FaSearch } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
@@ -34,6 +34,7 @@ const ViewCandidatePosts = ({ profile }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef();
 
   const description = [
     "Software Developer",
@@ -117,6 +118,16 @@ const ViewCandidatePosts = ({ profile }) => {
     getPosts();
   }, [sortByPaymentAmount, searchCategory]);
 
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      if (e.path[0] !== buttonRef.current) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener("click", closeDropdown);
+    return () => document.body.removeEventListener("click", closeDropdown);
+  }, []);
+
   const clearLocalStorage = () => {
     window.location.reload();
   };
@@ -165,19 +176,38 @@ const ViewCandidatePosts = ({ profile }) => {
               <HeaderSearch onClick={clearLocalStorage}>Clear</HeaderSearch>
             </motion.div>
           </div>
-
-          <HeaderSearch onClick={() => setOpen(!open)}>
+          <DropdownSearch ref={buttonRef} onClick={() => setOpen(!open)}>
             Job Description
-          </HeaderSearch>
-          {open && (
-            <>
-              {description.map((i, key) => (
-                <HeaderSearch onClick={() => setSearchCategory(i)}>
-                  <span key={key}>{i}</span>
-                </HeaderSearch>
-              ))}
-            </>
-          )}
+          </DropdownSearch>
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0, y: "-5%" }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: "-5%" }}
+                transition={{
+                  type: "spring",
+                  stiffness: "100",
+                }}
+                style={{ height: "12rem", marginBottom: "-12rem" }}
+              >
+                <div style={{ background: "red" }}>
+                  {description.map((i, key) => (
+                    <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                      <DropdownSearch
+                        onClick={() => {
+                          setSearchCategory(i);
+                          setOpen(false);
+                        }}
+                      >
+                        {i}
+                      </DropdownSearch>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           {searchCategory === "" ? "" : searchCategory}
           <ResultsText>
             {postArray?.length === 1
@@ -397,6 +427,15 @@ const HeaderSearch = styled.div`
   transition: all 0.5s linear;
   padding: 0.5rem 1rem;
   margin-bottom: 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+`;
+
+const DropdownSearch = styled.div`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  padding: 0.5rem 1rem;
+  /* margin-bottom: 1.25rem; */
   font-size: 1rem;
   cursor: pointer;
 `;
