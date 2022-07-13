@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaPlus, FaMinus, FaUserGraduate } from "react-icons/fa";
 
 export const Education = ({
@@ -11,110 +11,98 @@ export const Education = ({
   onClickTwo,
 }) => {
   return (
-    <div>
-      <AnimatePresence>
-        <EducationWrapper>
-          <MotionDiv
-            whileHover={{ scale: 1.05 }}
-            key="box"
-            initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-          >
-            <Label
-              onClick={onClickOne}
-              style={{ display: "flex", cursor: "pointer" }}
-            >
-              <FaMinus
-                size={17}
-                style={{
-                  marginRight: "0.75rem",
-                  marginTop: "0.2rem",
-                }}
-              />
-              Remove
-            </Label>
-          </MotionDiv>
-          <MotionDiv
-            whileHover={{ scale: 1.05 }}
-            key="box 1"
-            initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-          >
-            <Label
-              onClick={onClickTwo}
-              style={{ display: "flex", cursor: "pointer" }}
-            >
-              <FaPlus
-                size={17}
-                style={{
-                  marginLeft: "1.25rem",
-                  marginRight: "0.75rem",
-                  marginTop: "0.1rem",
-                }}
-              />
-              Add More
-            </Label>
-          </MotionDiv>
-        </EducationWrapper>
-        <EducationWrapper>
-          <MotionDiv
-            key="box 2"
-            initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-          >
-            <Label>
-              <Input
-                placeholder="Course"
-                name="course"
-                label="course"
-                value={valueOne}
-                maxLength="50"
-                onChange={onChange}
-              />
-            </Label>
-            <Label>
-              <Input
-                placeholder="Institution"
-                name="institution"
-                label="institution"
-                value={valueTwo}
-                maxLength="50"
-                onChange={onChange}
-              />
-            </Label>
-          </MotionDiv>
-        </EducationWrapper>
+    <>
+      <EducationWrapper>
         <MotionDiv
-          key="box 3"
+          whileHover={{ scale: 1.05 }}
           initial={{ y: "50%", opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
         >
-          <Label>Date from - Date to</Label>
+          <Label
+            onClick={onClickOne}
+            style={{ display: "flex", cursor: "pointer" }}
+          >
+            <FaMinus
+              size={17}
+              style={{
+                marginRight: "0.75rem",
+                marginTop: "0.2rem",
+              }}
+            />
+            Remove
+          </Label>
         </MotionDiv>
         <MotionDiv
-          key="box 4"
+          whileHover={{ scale: 1.05 }}
+          initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+        >
+          <Label
+            onClick={onClickTwo}
+            style={{ display: "flex", cursor: "pointer" }}
+          >
+            <FaPlus
+              size={17}
+              style={{
+                marginLeft: "1.25rem",
+                marginRight: "0.75rem",
+                marginTop: "0.1rem",
+              }}
+            />
+            Add More
+          </Label>
+        </MotionDiv>
+      </EducationWrapper>
+      <EducationWrapper>
+        <MotionDiv
           initial={{ y: "50%", opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
         >
           <Label>
             <Input
-              type="date"
-              name="dateFrom"
-              label="dateFrom"
+              placeholder="Course"
+              name="course"
+              label="course"
+              value={valueOne}
+              maxLength="50"
               onChange={onChange}
             />
           </Label>
           <Label>
             <Input
-              type="date"
-              name="dateTo"
-              label="dateTo"
+              placeholder="Institution"
+              name="institution"
+              label="institution"
+              value={valueTwo}
+              maxLength="50"
               onChange={onChange}
             />
           </Label>
         </MotionDiv>
-      </AnimatePresence>
-    </div>
+      </EducationWrapper>
+      <MotionDiv
+        initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+      >
+        <Label>Date from - Date to</Label>
+      </MotionDiv>
+      <MotionDiv
+        initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+      >
+        <Label>
+          <Input
+            type="date"
+            name="dateFrom"
+            label="dateFrom"
+            onChange={onChange}
+          />
+        </Label>
+        <Label>
+          <Input type="date" name="dateTo" label="dateTo" onChange={onChange} />
+        </Label>
+      </MotionDiv>
+    </>
   );
 };
 

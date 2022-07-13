@@ -4,7 +4,7 @@ import { useMoralis, useWeb3Transfer } from "react-moralis";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Education,
   AddEducation,
@@ -37,6 +37,10 @@ import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
 import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
+import {
+  CategoryDropdown,
+  CategoryHeader,
+} from "./candidatePostComponents/Category";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -49,6 +53,8 @@ const CandidatePost = () => {
   const [personalSummary, setPersonalSummary] = useState("");
   const [education, setEducation] = useState([]);
   const [job, setJob] = useState([]);
+  const [category, setCategory] = useState("");
+  const [open, setOpen] = useState(false);
   const [contact, setContact] = useState([]);
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
@@ -65,11 +71,11 @@ const CandidatePost = () => {
         ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
         : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
   });
-
+  console.log(category);
   const userPost = async () => {
     try {
       await Moralis.enableWeb3();
-      if (!personalSummary)
+      if (!personalSummary || !category)
         return toast.error("Please complete all required fields", {
           position: "top-center",
           toastId: "custom-id",
@@ -110,7 +116,7 @@ const CandidatePost = () => {
       const Posts = Moralis.Object.extend("Posts");
       const newPost = new Posts();
 
-      if (!personalSummary)
+      if (!personalSummary || !category)
         return toast.error("Please complete all required fields", {
           position: "top-center",
           toastId: "custom-id",
@@ -128,6 +134,7 @@ const CandidatePost = () => {
       newPost.set("usersEducation", education);
       newPost.set("employmentHistory", job);
       newPost.set("contactInformation", contact);
+      newPost.set("searchCategory", category);
       newPost.set("posterProfilePic", user.attributes.profilePic);
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
@@ -239,6 +246,15 @@ const CandidatePost = () => {
     setContact(values);
   };
 
+  const description = [
+    "Software Developer",
+    "Finance",
+    "Customer Service",
+    "Management",
+    "Writing",
+    "Other",
+  ];
+
   return (
     <>
       {isLoading || isFetching ? (
@@ -279,6 +295,29 @@ const CandidatePost = () => {
                 onChange={(e) => setPersonalSummary(e.target.value)}
                 value={personalSummary}
               />
+              <CategoryHeader onClick={() => setOpen(!open)} />
+              <AnimatePresence>
+                {open && (
+                  <motion.div
+                    key="box 1"
+                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                    animate={{ y: 0, opacity: 1, scale: 1 }}
+                  >
+                    <DropdownMenu>
+                      {description.map((i, key) => (
+                        <CategoryDropdown
+                          key={key}
+                          i={i}
+                          category={category}
+                          onClick={() => {
+                            setCategory(i);
+                          }}
+                        />
+                      ))}
+                    </DropdownMenu>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               {education.length === 0 ? (
                 <AddEducation onClick={() => handleAddEducation()} />
               ) : (
@@ -393,7 +432,6 @@ const CandidatePost = () => {
               {console.log(paymentAmount)}
               <Button onClick={() => setCurrency("usdt")} text="USDT" />
               <Button onClick={() => setCurrency("uni")} text="UNI" />
-              {console.log(currency)}
             </Template>
           </motion.div>
         </Wrapper>
@@ -450,4 +488,10 @@ const Label = styled.div`
   padding: 0.5rem 0;
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+`;
+
+const DropdownMenu = styled.div`
+  background: ${({ theme }) => theme.text};
+  border-radius: 0.5rem;
+  padding: 0 1.5rem;
 `;

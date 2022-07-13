@@ -16,7 +16,6 @@ export const EmploymentHistory = ({
       <EmploymentWrapper>
         <MotionDiv
           whileHover={{ scale: 1.05 }}
-          key="box"
           initial={{ y: "50%", opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
         >
@@ -36,7 +35,6 @@ export const EmploymentHistory = ({
         </MotionDiv>
         <MotionDiv
           whileHover={{ scale: 1.05 }}
-          key="box 1"
           initial={{ y: "50%", opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
         >
@@ -58,7 +56,6 @@ export const EmploymentHistory = ({
       </EmploymentWrapper>
       <EmploymentWrapper>
         <MotionDiv
-          key="box 2"
           initial={{ y: "50%", opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
         >
@@ -85,7 +82,6 @@ export const EmploymentHistory = ({
         </MotionDiv>
       </EmploymentWrapper>
       <MotionDiv
-        key="box 3"
         initial={{ y: "50%", opacity: 0, scale: 0.5 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
       >
@@ -96,17 +92,16 @@ export const EmploymentHistory = ({
           onChange={onChange}
           name="description"
           label="description"
+          maxLength="1000"
         />
       </MotionDiv>
       <MotionDiv
-        key="box 4"
         initial={{ y: "50%", opacity: 0, scale: 0.5 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
       >
         <Label>Date from - Date to</Label>
       </MotionDiv>
       <MotionDiv
-        key="box 5"
         initial={{ y: "50%", opacity: 0, scale: 0.5 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
       >

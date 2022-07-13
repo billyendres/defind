@@ -46,6 +46,15 @@ const ViewCandidatePosts = ({ profile }) => {
     "Customer Service",
     "Management",
     "Writing",
+    "Other",
+  ];
+
+  const Location = [
+    "Software Developer",
+    "Finance",
+    "Customer Service",
+    "Management",
+    "Writing",
   ];
 
   const getPosts = async () => {
@@ -70,12 +79,12 @@ const ViewCandidatePosts = ({ profile }) => {
           if (i.attributes.posterUsername.includes(search)) {
             return true;
           }
-          if (i.attributes.searchCategorySoftware?.includes(search)) {
+          if (i.attributes.searchCategory.includes(search)) {
             return true;
           }
         });
         const filteredSearchTwo = filteredArray?.filter((i) => {
-          if (i.attributes.searchCategorySoftware.includes(searchCategory)) {
+          if (i.attributes.searchCategory.includes(searchCategory)) {
             return true;
           }
         });
@@ -92,7 +101,7 @@ const ViewCandidatePosts = ({ profile }) => {
           if (i.attributes.posterUsername.includes(search)) {
             return true;
           }
-          if (i.attributes.searchCategorySoftware?.includes(search)) {
+          if (i.attributes.searchCategory.includes(search)) {
             return true;
           }
         });
@@ -325,25 +334,23 @@ const ViewCandidatePosts = ({ profile }) => {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
-                                  <Text>View post {">"}</Text>
+                                  <Text>View Post {">"}</Text>
                                 </Links>
                               </motion.div>
                             </div>
                             <Text>
-                              Featured points{" "}
+                              Featured Points -{" "}
                               {item.attributes.paymentAmount * 10}
                             </Text>
-                            <a
-                              class="btn-floating btn btn-tw"
-                              type="button"
-                              role="button"
-                              title="Share on twitter"
-                              href={`https://twitter.com/intent/tweet?url=${`http://localhost:3000/forum/${item.id}+JObs in crypto`}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i class="fab fa-2x fa-twitter">share</i>
-                            </a>
+                            {item.attributes.searchCategory && (
+                              <>
+                                <>
+                                  <Text>
+                                    Category - {item.attributes.searchCategory}
+                                  </Text>
+                                </>
+                              </>
+                            )}
                           </div>
                         </div>
 
@@ -351,14 +358,6 @@ const ViewCandidatePosts = ({ profile }) => {
                           <>
                             <Subheader>Personal Summary</Subheader>
                             <Text>{item.attributes.personalSummary}</Text>
-                          </>
-                        )}
-                        {item.attributes.searchCategorySoftware && (
-                          <>
-                            <Subheader>Category</Subheader>
-                            <Text>
-                              {item.attributes.searchCategorySoftware}
-                            </Text>
                           </>
                         )}
                       </ProfileWrapper>
@@ -400,7 +399,7 @@ const CardContainer = styled(motion.div)`
 const ProfileWrapper = styled(motion.div)`
   text-align: left;
   width: 43rem;
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.text};
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -503,5 +502,6 @@ const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  line-height: 180%;
 `;

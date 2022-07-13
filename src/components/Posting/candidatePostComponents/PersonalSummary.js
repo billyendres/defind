@@ -11,6 +11,7 @@ const NewPost = ({ value, onChange }) => {
         onChange={onChange}
         required
         placeholder="Highlight your unique experiences, ambitions and strengths."
+        maxLength="450"
       />
     </>
   );
