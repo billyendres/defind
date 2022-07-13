@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { FaSearch } from "react-icons/fa";
+import {
+  FaSearch,
+  FaChevronCircleUp,
+  FaChevronCircleDown,
+} from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Button from "../Styles/Button";
 import LoadingSpinner from "../Styles/LoadingSpinner";
@@ -165,20 +169,38 @@ const ViewCandidatePosts = ({ profile }) => {
             </Label>
             <Button onClick={getPosts} text="Go" />
           </div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch onClick={sortPrice}>Sort By Points</HeaderSearch>
+              <HeaderSearch
+                style={{
+                  border: sortByPaymentAmount && "2px solid",
+                  borderRadius: "0.25rem",
+                }}
+                onClick={sortPrice}
+              >
+                Sort By Points
+              </HeaderSearch>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch onClick={sortDate}>Sort by Date</HeaderSearch>
+              <HeaderSearch
+                onClick={sortDate}
+                style={{
+                  border: !sortByPaymentAmount && "2px solid",
+                  borderRadius: "0.25rem",
+                }}
+              >
+                Sort by Date
+              </HeaderSearch>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch onClick={clearLocalStorage}>Clear</HeaderSearch>
+              <HeaderSearch onClick={clearLocalStorage}>View All</HeaderSearch>
             </motion.div>
           </div>
-          <DropdownSearch ref={buttonRef} onClick={() => setOpen(!open)}>
-            Job Description
-          </DropdownSearch>
+          <motion.div whileHover={{ scale: 1.05 }}>
+            <DropdownHeader ref={buttonRef} onClick={() => setOpen(!open)}>
+              Select Category
+            </DropdownHeader>
+          </motion.div>
           <AnimatePresence>
             {open && (
               <motion.div
@@ -191,10 +213,14 @@ const ViewCandidatePosts = ({ profile }) => {
                 }}
                 style={{ height: "12rem", marginBottom: "-12rem" }}
               >
-                <div style={{ background: "red" }}>
+                <DropdownMenu>
                   {description.map((i, key) => (
                     <motion.div key={key} whileHover={{ scale: 1.05 }}>
                       <DropdownSearch
+                        style={{
+                          border: i === searchCategory && "2px solid",
+                          borderRadius: "0.25rem",
+                        }}
                         onClick={() => {
                           setSearchCategory(i);
                           setOpen(false);
@@ -204,11 +230,10 @@ const ViewCandidatePosts = ({ profile }) => {
                       </DropdownSearch>
                     </motion.div>
                   ))}
-                </div>
+                </DropdownMenu>
               </motion.div>
             )}
           </AnimatePresence>
-          {searchCategory === "" ? "" : searchCategory}
           <ResultsText>
             {postArray?.length === 1
               ? `${postArray.length} result found`
@@ -308,6 +333,17 @@ const ViewCandidatePosts = ({ profile }) => {
                               Featured points{" "}
                               {item.attributes.paymentAmount * 10}
                             </Text>
+                            <a
+                              class="btn-floating btn btn-tw"
+                              type="button"
+                              role="button"
+                              title="Share on twitter"
+                              href={`https://twitter.com/intent/tweet?url=${`http://localhost:3000/forum/${item.id}+JObs in crypto`}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <i class="fab fa-2x fa-twitter">share</i>
+                            </a>
                           </div>
                         </div>
 
@@ -378,8 +414,8 @@ const ProfileWrapper = styled(motion.div)`
 const ResultsText = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  margin-bottom: 1rem;
   font-size: 1rem;
+  margin: 1.25rem 0.5rem;
 `;
 
 const Label = styled.div`
@@ -425,17 +461,33 @@ const Header = styled.h2`
 const HeaderSearch = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1.25rem;
+  padding: 0.25rem 1rem;
   font-size: 1rem;
+  margin-bottom: 1rem;
   cursor: pointer;
+  font-weight: bold;
 `;
 
-const DropdownSearch = styled.div`
+const DropdownMenu = styled.div`
+  background: ${({ theme }) => theme.text};
+  border: 2px solid ${({ theme }) => theme.textModals};
+  border-radius: 0.5rem;
+  padding: 1rem;
+`;
+
+const DropdownHeader = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   padding: 0.5rem 1rem;
-  /* margin-bottom: 1.25rem; */
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
+const DropdownSearch = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
 `;
