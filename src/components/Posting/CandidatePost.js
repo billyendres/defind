@@ -80,7 +80,7 @@ const CandidatePost = () => {
   const userPost = async () => {
     try {
       await Moralis.enableWeb3();
-      if (!personalSummary || !category)
+      if (!personalSummary || !category || !location)
         return toast.error("Please complete all required fields", {
           position: "top-center",
           toastId: "custom-id",
@@ -121,7 +121,7 @@ const CandidatePost = () => {
       const Posts = Moralis.Object.extend("Posts");
       const newPost = new Posts();
 
-      if (!personalSummary || !category)
+      if (!personalSummary || !category || !location)
         return toast.error("Please complete all required fields", {
           position: "bottom-left",
           toastId: "custom-id",

@@ -81,13 +81,25 @@ const ViewCandidatePosts = ({ profile }) => {
         );
 
         const filteredArray = x?.filter((i) => {
-          if (i.attributes.personalSummary.includes(search)) {
+          if (
+            i.attributes.personalSummary
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
-          if (i.attributes.posterUsername.includes(search)) {
+          if (
+            i.attributes.posterUsername
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
-          if (i.attributes.searchCategory.includes(search)) {
+          if (
+            i.attributes.searchCategory
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
         });
@@ -96,24 +108,50 @@ const ViewCandidatePosts = ({ profile }) => {
             return true;
           }
         });
-        console.log(filteredSearchTwo);
-        setPostArray(filteredSearchTwo);
+        const filteredSearchThree = filteredSearchTwo?.filter((i) => {
+          if (i.attributes.searchLocation.includes(searchLocation)) {
+            return true;
+          }
+        });
+        setPostArray(filteredSearchThree);
       }
 
       if (sortByPaymentAmount === false) {
         let x = results;
         const filteredArray = x?.filter((i) => {
-          if (i.attributes.personalSummary.includes(search)) {
+          if (
+            i.attributes.personalSummary
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
-          if (i.attributes.posterUsername.includes(search)) {
+          if (
+            i.attributes.posterUsername
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
-          if (i.attributes.searchCategory.includes(search)) {
+          if (
+            i.attributes.searchCategory
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
             return true;
           }
         });
-        setPostArray(filteredArray);
+        const filteredSearchTwo = filteredArray?.filter((i) => {
+          if (i.attributes.searchCategory.includes(searchCategory)) {
+            return true;
+          }
+        });
+        const filteredSearchThree = filteredSearchTwo?.filter((i) => {
+          if (i.attributes.searchLocation.includes(searchLocation)) {
+            return true;
+          }
+        });
+        setPostArray(filteredSearchThree);
       }
 
       window.localStorage.setItem("filteredBy", sortByPaymentAmount);
@@ -142,7 +180,6 @@ const ViewCandidatePosts = ({ profile }) => {
 
   useEffect(() => {
     const closeDropdown = (e) => {
-      console.log(e.path[0]);
       if (e.path[0] !== buttonRef.current) {
         setOpenCategory(false);
       }
@@ -153,7 +190,6 @@ const ViewCandidatePosts = ({ profile }) => {
 
   useEffect(() => {
     const closeDropdownLocation = (e) => {
-      console.log(e.path);
       if (e.path[0] !== buttonRefLocation.current) {
         setOpenLocation(false);
       }
@@ -414,13 +450,14 @@ const ViewCandidatePosts = ({ profile }) => {
                               {item.attributes.paymentAmount * 10}
                             </Text>
                             {item.attributes.searchCategory && (
-                              <>
-                                <>
-                                  <Text>
-                                    Category - {item.attributes.searchCategory}
-                                  </Text>
-                                </>
-                              </>
+                              <Text>
+                                Category - {item.attributes.searchCategory}
+                              </Text>
+                            )}
+                            {item.attributes.searchLocation && (
+                              <Text>
+                                Location - {item.attributes.searchLocation}
+                              </Text>
                             )}
                           </div>
                         </div>
@@ -473,8 +510,6 @@ const ProfileWrapper = styled(motion.div)`
   padding: 2.5rem;
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.text};
-  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
     0 0 16px hsl(0deg 0% 0% / 0.075);

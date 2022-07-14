@@ -32,7 +32,7 @@ export const LocationHeader = ({ onClick }) => {
               marginBottom: "-0.5rem",
             }}
           />
-          <span onClick={onClick}>Select Location</span>
+          <span onClick={onClick}>Select Location*</span>
         </Subheader>
       </motion.div>
     </div>
