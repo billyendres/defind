@@ -95,7 +95,7 @@ const CandidatePost = () => {
         onError: (error) => {
           setIsLoading(false);
           return toast.error(error.message, {
-            position: "top-center",
+            position: "bottom-left",
             toastId: "custom-id",
             autoClose: 3000,
             hideProgressBar: false,
@@ -118,7 +118,7 @@ const CandidatePost = () => {
 
       if (!personalSummary || !category)
         return toast.error("Please complete all required fields", {
-          position: "top-center",
+          position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
           hideProgressBar: false,
@@ -263,6 +263,8 @@ const CandidatePost = () => {
         </Wrapper>
       ) : (
         <Wrapper>
+          <ToastContainer />
+
           <motion.div
             initial={{ y: "50%", scale: 0.5, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
@@ -421,7 +423,7 @@ const CandidatePost = () => {
                 disabled={isLoading}
                 text="Save Post"
               />
-              <ToastContainer />
+              {/* <ToastContainer /> */}
               <div style={{ margin: "3rem" }}></div>
               <Button onClick={userPost} disabled={isLoading} text="Post" />
               <h1>Payment amount {paymentAmount}</h1>

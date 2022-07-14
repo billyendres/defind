@@ -35,26 +35,34 @@ const ViewCandidatePosts = ({ profile }) => {
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sortByPaymentAmount, setSortByPaymentAmount] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
+  const [openLocation, setOpenLocation] = useState(false);
   const buttonRef = useRef();
+  const buttonRefLocation = useRef();
 
-  const description = [
+  const category = [
     "Software Developer",
-    "Finance",
     "Customer Service",
     "Management",
+    "Finance",
     "Writing",
     "Other",
   ];
 
-  const Location = [
-    "Software Developer",
-    "Finance",
-    "Customer Service",
-    "Management",
-    "Writing",
+  const location = [
+    "Remote",
+    "America",
+    "Australia",
+    "Canada",
+    "Europe",
+    "United Kingdom",
+    "Asia",
+    "New Zealand",
+    "South America",
+    "Other",
   ];
 
   const getPosts = async () => {
@@ -118,6 +126,7 @@ const ViewCandidatePosts = ({ profile }) => {
 
   window.localStorage.setItem("searchResults", search);
   window.localStorage.setItem("searchResultsCategory", searchCategory);
+  window.localStorage.setItem("searchResultsLocation", searchLocation);
 
   const sortDate = () => {
     setSortByPaymentAmount(false);
@@ -129,16 +138,29 @@ const ViewCandidatePosts = ({ profile }) => {
 
   useEffect(() => {
     getPosts();
-  }, [sortByPaymentAmount, searchCategory]);
+  }, [sortByPaymentAmount, searchCategory, searchLocation]);
 
   useEffect(() => {
     const closeDropdown = (e) => {
+      console.log(e.path[0]);
       if (e.path[0] !== buttonRef.current) {
-        setOpen(false);
+        setOpenCategory(false);
       }
     };
     document.body.addEventListener("click", closeDropdown);
     return () => document.body.removeEventListener("click", closeDropdown);
+  }, []);
+
+  useEffect(() => {
+    const closeDropdownLocation = (e) => {
+      console.log(e.path);
+      if (e.path[0] !== buttonRefLocation.current) {
+        setOpenLocation(false);
+      }
+    };
+    document.body.addEventListener("click", closeDropdownLocation);
+    return () =>
+      document.body.removeEventListener("click", closeDropdownLocation);
   }, []);
 
   const clearLocalStorage = () => {
@@ -205,13 +227,61 @@ const ViewCandidatePosts = ({ profile }) => {
               <HeaderSearch onClick={clearLocalStorage}>View All</HeaderSearch>
             </motion.div>
           </div>
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <DropdownHeader ref={buttonRef} onClick={() => setOpen(!open)}>
-              Select Category
-            </DropdownHeader>
-          </motion.div>
+          <div style={{ display: "flex" }}>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <DropdownHeader
+                ref={buttonRef}
+                onClick={() => setOpenCategory(!openCategory)}
+              >
+                Select Category
+              </DropdownHeader>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <DropdownHeader
+                ref={buttonRefLocation}
+                onClick={() => setOpenLocation(!openLocation)}
+              >
+                Select Location
+              </DropdownHeader>
+            </motion.div>
+          </div>
           <AnimatePresence>
-            {open && (
+            {openCategory && (
+              <motion.div
+                initial={{ opacity: 0, y: "-5%" }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: "-5%" }}
+                key="box"
+                transition={{
+                  type: "spring",
+                  stiffness: "100",
+                }}
+                style={{ height: "12rem", marginBottom: "-12rem" }}
+              >
+                <DropdownMenu>
+                  {category.map((i, key) => (
+                    <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                      <DropdownSearch
+                        style={{
+                          border: i === searchCategory && "2px solid",
+                          borderRadius: "0.25rem",
+                        }}
+                        onClick={() => {
+                          setSearchCategory(i);
+                          setOpenCategory(false);
+                        }}
+                      >
+                        {i}
+                      </DropdownSearch>
+                    </motion.div>
+                  ))}
+                </DropdownMenu>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {openLocation && (
               <motion.div
                 initial={{ opacity: 0, y: "-5%" }}
                 animate={{ opacity: 1, y: 0 }}
@@ -221,18 +291,19 @@ const ViewCandidatePosts = ({ profile }) => {
                   stiffness: "100",
                 }}
                 style={{ height: "12rem", marginBottom: "-12rem" }}
+                key="box 1"
               >
                 <DropdownMenu>
-                  {description.map((i, key) => (
+                  {location.map((i, key) => (
                     <motion.div key={key} whileHover={{ scale: 1.05 }}>
                       <DropdownSearch
                         style={{
-                          border: i === searchCategory && "2px solid",
+                          border: i === searchLocation && "2px solid",
                           borderRadius: "0.25rem",
                         }}
                         onClick={() => {
-                          setSearchCategory(i);
-                          setOpen(false);
+                          setSearchLocation(i);
+                          setOpenLocation(false);
                         }}
                       >
                         {i}
@@ -472,6 +543,7 @@ const DropdownMenu = styled.div`
   border: 2px solid ${({ theme }) => theme.textModals};
   border-radius: 0.5rem;
   padding: 1rem;
+  width: 15rem;
 `;
 
 const DropdownHeader = styled.div`
