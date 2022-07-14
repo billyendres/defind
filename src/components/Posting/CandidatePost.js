@@ -41,6 +41,10 @@ import {
   CategoryDropdown,
   CategoryHeader,
 } from "./candidatePostComponents/Category";
+import {
+  LocationDropdown,
+  LocationHeader,
+} from "./candidatePostComponents/Location";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
@@ -54,7 +58,9 @@ const CandidatePost = () => {
   const [education, setEducation] = useState([]);
   const [job, setJob] = useState([]);
   const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
   const [open, setOpen] = useState(false);
+  const [openLocation, setOpenLocation] = useState(false);
   const [contact, setContact] = useState([]);
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
@@ -71,7 +77,6 @@ const CandidatePost = () => {
         ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
         : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
   });
-  console.log(category);
   const userPost = async () => {
     try {
       await Moralis.enableWeb3();
@@ -135,6 +140,7 @@ const CandidatePost = () => {
       newPost.set("employmentHistory", job);
       newPost.set("contactInformation", contact);
       newPost.set("searchCategory", category);
+      newPost.set("searchLocation", location);
       newPost.set("posterProfilePic", user.attributes.profilePic);
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
@@ -255,6 +261,19 @@ const CandidatePost = () => {
     "Other",
   ];
 
+  const locationArray = [
+    "Remote",
+    "America",
+    "Australia",
+    "Canada",
+    "Europe",
+    "United Kingdom",
+    "Asia",
+    "New Zealand",
+    "South America",
+    "Other",
+  ];
+
   return (
     <>
       {isLoading || isFetching ? (
@@ -313,6 +332,29 @@ const CandidatePost = () => {
                           category={category}
                           onClick={() => {
                             setCategory(i);
+                          }}
+                        />
+                      ))}
+                    </DropdownMenu>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <LocationHeader onClick={() => setOpenLocation(!openLocation)} />
+              <AnimatePresence>
+                {openLocation && (
+                  <motion.div
+                    key="box 1"
+                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                    animate={{ y: 0, opacity: 1, scale: 1 }}
+                  >
+                    <DropdownMenu>
+                      {locationArray.map((i, key) => (
+                        <LocationDropdown
+                          key={key}
+                          i={i}
+                          location={location}
+                          onClick={() => {
+                            setLocation(i);
                           }}
                         />
                       ))}
