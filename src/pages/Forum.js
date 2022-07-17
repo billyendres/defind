@@ -137,6 +137,9 @@ const Text = styled.div`
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
   }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+  }
 `;
 
 const Header = styled.h2`
@@ -146,9 +149,10 @@ const Header = styled.h2`
   margin-bottom: 0.5rem;
   @media screen and (max-width: 1023px) {
     font-size: 2rem;
+    margin-bottom: 0;
   }
-  @media screen and (max-width: 481px) {
-    font-size: 1.75rem;
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -157,7 +161,7 @@ const PostHeaderWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin-top: 7rem;
   }
-  @media screen and (max-width: 481px) {
+  @media screen and (max-width: 600px) {
     margin-top: 6rem;
   }
 `;

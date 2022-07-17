@@ -47,11 +47,11 @@ const MotionButton = styled(motion.button)`
     margin: 0.5rem;
   }
 
-  @media screen and (max-width: 481px) {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.4rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    padding: 0.3rem 0.3rem;
     letter-spacing: 2px;
-    min-width: 6rem;
-    margin: 0.4rem;
+    min-width: 5rem;
+    margin: 0.25rem;
   }
 `;

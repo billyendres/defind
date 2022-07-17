@@ -17,7 +17,12 @@ const Username = ({ onChange, value }) => {
                 marginTop: "1.5rem",
               }}
             />
-            <Input value={value} onChange={onChange} placeholder="Username" />
+            <Input
+              value={value}
+              onChange={onChange}
+              placeholder="Username"
+              maxLength="20"
+            />
           </Label>
         </div>
         <div style={{ width: "100%" }}></div>

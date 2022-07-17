@@ -209,6 +209,9 @@ const LinkHeaders = styled.div`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
+  @media screen and (max-width: 600px) {
+    margin: 0.5rem;
+  }
 `;
 
 const Header = styled.h2`

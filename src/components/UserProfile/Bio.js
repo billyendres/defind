@@ -16,7 +16,12 @@ const Bio = ({ onChange, value }) => {
                 marginLeft: "-3rem",
               }}
             />
-            <Input value={value} onChange={onChange} placeholder="Bio" />
+            <Input
+              value={value}
+              onChange={onChange}
+              placeholder="Bio"
+              maxLength="50"
+            />
           </Label>
         </div>
         <div style={{ width: "100%" }}></div>

@@ -18,4 +18,8 @@ const Img = styled.img`
     width: 5rem;
     height: 5rem;
   }
+  @media screen and (max-width: 600px) {
+    width: 4rem;
+    height: 4rem;
+  }
 `;

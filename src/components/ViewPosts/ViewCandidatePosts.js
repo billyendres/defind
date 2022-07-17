@@ -240,7 +240,7 @@ const ViewCandidatePosts = ({ profile }) => {
             <motion.div whileHover={{ scale: 1.05 }}>
               <HeaderSearch
                 style={{
-                  border: sortByPaymentAmount && "2px solid",
+                  border: sortByPaymentAmount && "1px solid",
                   borderRadius: "0.25rem",
                 }}
                 onClick={sortPrice}
@@ -252,7 +252,7 @@ const ViewCandidatePosts = ({ profile }) => {
               <HeaderSearch
                 onClick={sortDate}
                 style={{
-                  border: !sortByPaymentAmount && "2px solid",
+                  border: !sortByPaymentAmount && "1px solid",
                   borderRadius: "0.25rem",
                 }}
               >
@@ -299,7 +299,7 @@ const ViewCandidatePosts = ({ profile }) => {
                     <motion.div key={key} whileHover={{ scale: 1.05 }}>
                       <DropdownSearch
                         style={{
-                          border: i === searchCategory && "2px solid",
+                          border: i === searchCategory && "1px solid",
                           borderRadius: "0.25rem",
                         }}
                         onClick={() => {
@@ -315,7 +315,6 @@ const ViewCandidatePosts = ({ profile }) => {
               </motion.div>
             )}
           </AnimatePresence>
-
           <AnimatePresence>
             {openLocation && (
               <motion.div
@@ -334,7 +333,7 @@ const ViewCandidatePosts = ({ profile }) => {
                     <motion.div key={key} whileHover={{ scale: 1.05 }}>
                       <DropdownSearch
                         style={{
-                          border: i === searchLocation && "2px solid",
+                          border: i === searchLocation && "1px solid",
                           borderRadius: "0.25rem",
                         }}
                         onClick={() => {
@@ -371,7 +370,6 @@ const ViewCandidatePosts = ({ profile }) => {
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
-                            marginRight: "3rem",
                           }}
                         >
                           <div>
@@ -419,7 +417,7 @@ const ViewCandidatePosts = ({ profile }) => {
                               }}
                             >
                               <Img
-                                style={{ width: "7rem", height: "7rem" }}
+                                // style={{ width: "7rem", height: "7rem" }}
                                 src={
                                   item.attributes.posterProfilePic
                                     ? item.attributes.posterProfilePic
@@ -446,25 +444,22 @@ const ViewCandidatePosts = ({ profile }) => {
                               </motion.div>
                             </div>
                             <Text>
-                              Featured Points -{" "}
-                              {item.attributes.paymentAmount * 10}
+                              Points - {item.attributes.paymentAmount * 10}
                             </Text>
                             {item.attributes.searchCategory && (
-                              <Text>
-                                Category - {item.attributes.searchCategory}
-                              </Text>
+                              <Text>{item.attributes.searchCategory}</Text>
                             )}
                             {item.attributes.searchLocation && (
-                              <Text>
-                                Location - {item.attributes.searchLocation}
-                              </Text>
+                              <Text>{item.attributes.searchLocation}</Text>
                             )}
                           </div>
                         </div>
 
                         {item.attributes.personalSummary && (
                           <>
-                            <Subheader>Personal Summary</Subheader>
+                            <Subheader style={{ marginBottom: "0.25rem" }}>
+                              Personal Summary
+                            </Subheader>
                             <Text>{item.attributes.personalSummary}</Text>
                           </>
                         )}
@@ -495,6 +490,9 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2rem;
+  @media screen and (max-width: 600px) {
+    grid-gap: 1.5rem;
+  }
 `;
 
 const CardContainer = styled(motion.div)`
@@ -514,13 +512,29 @@ const ProfileWrapper = styled(motion.div)`
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
     0 0 16px hsl(0deg 0% 0% / 0.075);
   transform-origin: 10% 60%;
+  @media screen and (max-width: 1023px) {
+    width: 33rem;
+    padding: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 20rem;
+    padding: 1.5rem;
+  }
 `;
 
 const ResultsText = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 1rem;
-  margin: 1.25rem 0.5rem;
+  margin: 1rem 0.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    margin: 0.5rem 0.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    margin: 0.3rem 0.25rem;
+  }
 `;
 
 const Label = styled.div`
@@ -532,6 +546,7 @@ const Label = styled.div`
   @media screen and (max-width: 1023px) {
     padding: 0;
     margin-bottom: 1rem;
+    font-size: 1rem;
   }
 `;
 
@@ -556,11 +571,18 @@ const Input = styled.input`
   }
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.9rem;
+    padding: 0.1rem 0;
+  }
 `;
 
 const HeaderSearch = styled.div`
@@ -571,6 +593,15 @@ const HeaderSearch = styled.div`
   margin-bottom: 1rem;
   cursor: pointer;
   font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-weight: 300;
+    font-size: 0.55rem;
+    margin-bottom: 0.25rem;
+  }
 `;
 
 const DropdownMenu = styled.div`
@@ -579,6 +610,12 @@ const DropdownMenu = styled.div`
   border-radius: 0.5rem;
   padding: 1rem;
   width: 15rem;
+  @media screen and (max-width: 600px) {
+    width: 12rem;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid ${({ theme }) => theme.textModals};
+  }
 `;
 
 const DropdownHeader = styled.div`
@@ -588,6 +625,15 @@ const DropdownHeader = styled.div`
   font-size: 1rem;
   cursor: pointer;
   font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    font-weight: 300;
+  }
 `;
 
 const DropdownSearch = styled.div`
@@ -596,19 +642,37 @@ const DropdownSearch = styled.div`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
 `;
 
 const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   padding: 0.25rem 0;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.7rem;
+    padding: 0.15rem;
+  }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.25rem 0;
+  padding: 0;
   font-size: 0.85rem;
   line-height: 180%;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.55rem;
+    line-height: 170%;
+  }
 `;
