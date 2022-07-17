@@ -10,15 +10,18 @@ import {
   FaRegEdit,
   FaRegIdCard,
   FaAngleDoubleUp,
+  FaBars,
 } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
+import Logout from "../Authentication/Logout";
 
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [scrollTop, setScrollTop] = useState(false);
   const [navColor, setNavColor] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -50,7 +53,7 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaHome />
-          <Hide>Home</Hide>
+          <>Home</>
         </IconWrapper>
       ),
       route: "/",
@@ -59,7 +62,7 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaUserAlt />
-          <Hide>Profile</Hide>
+          <>Profile</>
         </IconWrapper>
       ),
       route: `/profile/${user.attributes.ethAddress}`,
@@ -68,7 +71,7 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaBookReader />
-          <Hide>Forum</Hide>
+          <>Forum</>
         </IconWrapper>
       ),
       route: "/forum",
@@ -77,7 +80,7 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaRegIdCard />
-          <Hide>My Posts</Hide>
+          <>My Posts</>
         </IconWrapper>
       ),
       route: `/profile/posts/${user.attributes.ethAddress}`,
@@ -86,7 +89,7 @@ const Nav = () => {
       title: (
         <IconWrapper>
           <FaRegEdit />
-          <Hide>Post</Hide>
+          <>Post</>
         </IconWrapper>
       ),
       route: `/newpost/${user.attributes.ethAddress}`,
@@ -97,6 +100,41 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
+          <LinkHeaders
+            onClick={() => setOpen(!open)}
+            className={navColor ? "navTop" : "navScrolled"}
+          >
+            <FaBars style={{ marginBottom: "-0.25rem" }} size={25} />
+          </LinkHeaders>
+          <div style={{ display: "flex" }}>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Links to={`/profile/${user.attributes.ethAddress}`}>
+                <LinkHeaders className={navColor ? "navTop" : "navScrolled"}>
+                  {user.attributes.username.toUpperCase()}
+                  <Hide>
+                    {"- "}
+                    {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
+                    ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
+                  </Hide>
+                </LinkHeaders>
+              </Links>
+            </motion.div>
+          </div>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+            {/* {scrollTop && ( */}
+
+            <LinkHeaders
+              className={navColor ? "navTop" : "navScrolled"}
+              onClick={scrollToTop}
+            >
+              <FaAngleDoubleUp style={{ marginBottom: "-0.25rem" }} size={30} />
+            </LinkHeaders>
+            {/* )} */}
+          </motion.div>
+        </TextWrapper>
+      </LinkWrapper>
+      {open && (
+        <NavWrapper>
           {menuItems.map(({ title, route }) => {
             return (
               <motion.div
@@ -105,53 +143,41 @@ const Nav = () => {
                 key={route}
               >
                 <Links style={{ textDecoration: "none" }} to={`${route}`}>
-                  <LinkHeaders className={navColor ? "navTop" : "navScrolled"}>
-                    {title}
-                  </LinkHeaders>
+                  <Header>{title}</Header>
                 </Links>
               </motion.div>
             );
           })}
-        </TextWrapper>
-      </LinkWrapper>
-
-      <UserTextWrapper>
-        <Links to={`/profile/${user.attributes.ethAddress}`}>
-          <Img
-            style={{ margin: "1rem" }}
-            src={
-              user.attributes.profilePic
-                ? user.attributes.profilePic
-                : defaultProfileImage
-            }
-            alt="Profile pic"
-          />
-        </Links>
-        <motion.div whileHover={{ scale: 1.05 }}>
-          <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <Header>{user.attributes.username}</Header>
-          </Links>
-        </motion.div>
-        <Subheader>{user.attributes.bio}</Subheader>
-        <Subheader>{`${user.attributes.ethAddress.slice(0, 4)}...
-          ${user.attributes.ethAddress.slice(38)}`}</Subheader>
-        <ScrollButton>
-          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-            {scrollTop && (
-              <div>
-                <Icons onClick={scrollToTop}>
-                  <FaAngleDoubleUp />
-                </Icons>
-              </div>
-            )}
-          </motion.div>
-        </ScrollButton>
-      </UserTextWrapper>
+          <Logout />
+        </NavWrapper>
+      )}
     </>
   );
 };
 
 export default Nav;
+
+const NavWrapper = styled.div`
+  position: fixed;
+  width: 25vw;
+  height: 100vh;
+  background: ${({ theme }) => theme.textModals};
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10rem;
+  padding-left: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 50vw;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100vw;
+    /* justify-content: center; */
+    align-items: center;
+  }
+`;
 
 const LinkWrapper = styled.div`
   position: fixed;
@@ -161,7 +187,7 @@ const LinkWrapper = styled.div`
 
 const TextWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   text-align: left;
   width: 100vw;
   cursor: pointer;
@@ -183,7 +209,7 @@ const LinkHeaders = styled.div`
   transition: all 0.5s linear;
   border-radius: 0.25rem;
   letter-spacing: 5px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-family: "Russo One", sans-serif;
 
   &.navTop {
@@ -234,6 +260,7 @@ const UserTextWrapper = styled.div`
   top: 0;
   right: 0;
   height: 100vh;
+  width: 100vw;
   background: ${({ theme }) => theme.backgroundNav};
 `;
 
@@ -243,20 +270,13 @@ const IconWrapper = styled.div`
   text-transform: uppercase;
 `;
 
-const ScrollButton = styled.div`
-  z-index: 1000;
-  position: fixed;
-  right: 4rem;
-  bottom: 5rem;
-`;
-
 const Icons = styled.h2`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.icon};
   padding: 0.75rem;
   display: flex;
   align-items: center;
-  border: 3px solid ${({ theme }) => theme.icon};
+  /* border: 3px solid ${({ theme }) => theme.icon}; */
   border-radius: 50%;
   text-transform: uppercase;
   cursor: pointer;
@@ -268,4 +288,8 @@ const Hide = styled.span`
     display: none;
     margin-left: none;
   }
+`;
+
+const ImageWrapper = styled.div`
+  margin-top: 5rem;
 `;

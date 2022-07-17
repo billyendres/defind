@@ -19,7 +19,7 @@ const Img = styled.img`
     height: 5rem;
   }
   @media screen and (max-width: 600px) {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
 `;

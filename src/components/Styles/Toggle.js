@@ -11,10 +11,7 @@ const Toggle = ({ theme, toggleTheme }) => {
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Icons>
               <LinkHeaders>
-                <FaMoon
-                  style={{ marginRight: "1rem", marginBottom: "-0.2rem" }}
-                />
-                Dark
+                <FaMoon style={{ marginBottom: "-0.25rem" }} size={25} />
               </LinkHeaders>
             </Icons>
           </motion.div>
@@ -22,10 +19,7 @@ const Toggle = ({ theme, toggleTheme }) => {
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Icons>
               <LinkHeaders>
-                <FaSun
-                  style={{ marginRight: "1rem", marginBottom: "-0.2rem" }}
-                />
-                Light
+                <FaSun style={{ marginBottom: "-0.25rem" }} size={25} />
               </LinkHeaders>
             </Icons>
           </motion.div>
@@ -40,10 +34,10 @@ export default Toggle;
 const Icons = styled.h2`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.icon};
-  padding: 1rem;
+  /* padding: 1rem; */
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   text-transform: uppercase;
   /* letter-spacing: 4px; */
   cursor: pointer;
@@ -52,8 +46,11 @@ const Icons = styled.h2`
 const Wrapper = styled.div`
   z-index: 1000;
   position: fixed;
-  left: 0;
+  right: 0;
   bottom: 0;
+  @media screen and (max-width: 481px) {
+    display: none;
+  }
 `;
 
 const LinkHeaders = styled.div`
