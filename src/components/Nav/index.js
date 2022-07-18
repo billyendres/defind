@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useMoralis } from "react-moralis";
 import {
   FaHome,
@@ -10,7 +10,7 @@ import {
   FaRegEdit,
   FaRegIdCard,
   FaAngleDoubleUp,
-  FaBars,
+  FaChevronUp,
 } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
@@ -22,6 +22,7 @@ const Nav = () => {
   const [scrollTop, setScrollTop] = useState(false);
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -41,6 +42,21 @@ const Nav = () => {
     }
   };
   window.addEventListener("scroll", changeColor);
+  console.log(open);
+  useEffect(() => {
+    const closeNav = (e) => {
+      console.log(e.path);
+      if (
+        e.path[2] !== buttonRef.current ||
+        e.path[3] !== buttonRef.current ||
+        e.path[4] !== buttonRef.current
+      ) {
+        // setOpen(false);
+      }
+    };
+    document.body.addEventListener("click", closeNav);
+    return () => document.body.removeEventListener("click", closeNav);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -48,6 +64,7 @@ const Nav = () => {
       behavior: "smooth",
     });
   };
+
   const menuItems = [
     {
       title: (
@@ -100,16 +117,33 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className="navTop">
-          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-            <LinkHeaders onClick={() => setOpen(!open)} className="navTop">
-              <IconWrapper>
-                <FaBars />
-              </IconWrapper>
-            </LinkHeaders>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            // ref={buttonRef}
+            onClick={() => setOpen(!open)}
+          >
+            <div
+              style={{
+                width: "3rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <LinkHeaders className="navTop">
+                <IconWrapper>
+                  <FaChevronUp
+                    style={{
+                      transform: open ? "rotate(270deg)" : "rotate(-270deg)",
+                      transition: "0.5s linear",
+                    }}
+                  />
+                </IconWrapper>
+              </LinkHeaders>
+            </div>
           </motion.div>
           {!scrollTop && (
-            // <div style={{ display: "flex", marginLeft: "-4rem" }}>
-            <motion.div whileHover={{ scale: 1.05 }}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Links to={`/profile/${user.attributes.ethAddress}`}>
                 <Header className="navTop">
                   {user.attributes.username.toUpperCase()}
@@ -121,46 +155,59 @@ const Nav = () => {
                 </Header>
               </Links>
             </motion.div>
-            // </div>
           )}
-          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-            {/* {scrollTop && ( */}
-            <LinkHeaders className="navTop" onClick={scrollToTop}>
-              <IconWrapper>
-                <FaAngleDoubleUp />
-              </IconWrapper>
-            </LinkHeaders>
-            {/* )} */}
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <div
+              style={{
+                width: "3rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {scrollTop && (
+                <LinkHeaders className="navTop" onClick={scrollToTop}>
+                  <IconWrapper>
+                    <FaAngleDoubleUp />
+                  </IconWrapper>
+                </LinkHeaders>
+              )}
+            </div>
           </motion.div>
         </TextWrapper>
       </LinkWrapper>
-      {open && (
-        <NavWrapper>
-          {menuItems.map(({ title, route }) => {
-            return (
-              <div style={{ display: "flex" }}>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  key={route}
-                >
-                  <Links style={{ textDecoration: "none" }} to={`${route}`}>
-                    <Header>{title}</Header>
-                  </Links>
+      <AnimatePresence>
+        {open && (
+          <NavWrapper
+            initial={{ opacity: 0, x: "-20%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "-20%" }}
+            style={{ display: "flex" }}
+          >
+            {menuItems.map(({ title, route }) => {
+              return (
+                <motion.div key={route} style={{ display: "flex" }}>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Links style={{ textDecoration: "none" }} to={`${route}`}>
+                      <Header>{title}</Header>
+                    </Links>
+                  </motion.div>
                 </motion.div>
-              </div>
-            );
-          })}
-          <Logout />
-        </NavWrapper>
-      )}
+              );
+            })}
+            <Logout />
+          </NavWrapper>
+        )}
+      </AnimatePresence>
     </>
   );
 };
 
 export default Nav;
 
-const NavWrapper = styled.div`
+const NavWrapper = styled(motion.div)`
   position: fixed;
   width: 25vw;
   height: 100vh;
@@ -186,15 +233,20 @@ const LinkWrapper = styled.div`
   position: fixed;
   background: ${({ theme }) => theme.backgroundNav};
   z-index: 100000;
+  padding: 0 0.25rem;
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  text-align: left;
-  width: 100vw;
+  align-items: center;
+  width: 98.5vw;
   cursor: pointer;
   transition: 0.2s linear;
+  /* margin-top: 0.5rem; */
 
   &.navTop {
     background: ${({ theme }) => theme.backgroundNav};
@@ -207,56 +259,38 @@ const TextWrapper = styled.div`
 `;
 
 const LinkHeaders = styled.div`
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem;
   margin: 1rem;
   transition: all 0.5s linear;
-  border-radius: 0.25rem;
-  /* letter-spacing: 5px; */
+  border-radius: 50%;
   font-size: 1.5rem;
-  /* font-family: "Russo One", sans-serif; */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   &.navTop {
     color: ${({ theme }) => theme.textModals};
     background: ${({ theme }) => theme.button};
   }
-
-  &.navScrolled {
-    color: ${({ theme }) => theme.textModals};
-  }
-
-  &.navTop:hover {
-    color: ${({ theme }) => theme.textModals};
-  }
-
-  &.navScrolled:hover {
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.text};
-  }
-
   &:hover {
-    transition: all 0.5s linear;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    background: ${({ theme }) => theme.buttonHover};
   }
+
   @media screen and (max-width: 600px) {
     margin: 0.5rem;
     font-size: 1rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem;
   }
 `;
 
-const Header = styled.div`
+const Header = styled.h3`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.text};
-  /* font-size: 1.25rem; */
   font-family: "Russo One", sans-serif;
 
   letter-spacing: 5px;
   font-size: 1.5rem;
-  padding: 1rem 0;
   @media screen and (max-width: 600px) {
     font-size: 1.25rem;
-    padding: 0.75rem 0;
   }
 `;
 

@@ -8,18 +8,18 @@ const Toggle = ({ theme, toggleTheme }) => {
     <Wrapper onClick={toggleTheme}>
       <>
         {theme === "light" ? (
-          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Icons>
               <LinkHeaders>
-                <FaMoon style={{ marginTop: "0.5rem" }} />
+                <FaMoon style={{ marginBottom: "-0.15rem" }} />
               </LinkHeaders>
             </Icons>
           </motion.div>
         ) : (
-          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Icons>
               <LinkHeaders>
-                <FaSun style={{ marginTop: "0.5rem" }} />
+                <FaSun style={{ marginBottom: "-0.15rem" }} />
               </LinkHeaders>
             </Icons>
           </motion.div>
@@ -34,12 +34,9 @@ export default Toggle;
 const Icons = styled.h2`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.icon};
-  /* padding: 1rem; */
   display: flex;
   align-items: center;
-  /* margin-right: 1rem; */
   text-transform: uppercase;
-  /* letter-spacing: 4px; */
   cursor: pointer;
 `;
 
@@ -54,19 +51,22 @@ const Wrapper = styled.div`
 `;
 
 const LinkHeaders = styled.div`
-  padding: 0.25rem 0.75rem;
-  margin: 1rem;
-  border-radius: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  margin: 0.75rem;
+  border-radius: 50%;
   font-size: 1.5rem;
   transition: all 0.5s linear;
-  background: ${({ theme }) => theme.buttonHover};
   color: ${({ theme }) => theme.textModals};
+  background: ${({ theme }) => theme.button};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  &:hover {
+    background: ${({ theme }) => theme.buttonHover};
+  }
 
   @media screen and (max-width: 600px) {
     margin: 0.5rem;
     font-size: 1rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem;
   }
 `;
