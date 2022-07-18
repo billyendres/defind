@@ -52,7 +52,7 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaHome />
+          <FaHome style={{ marginRight: "1rem" }} />
           <>Home</>
         </IconWrapper>
       ),
@@ -61,7 +61,7 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaUserAlt />
+          <FaUserAlt style={{ marginRight: "1rem" }} />
           <>Profile</>
         </IconWrapper>
       ),
@@ -70,7 +70,7 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaBookReader />
+          <FaBookReader style={{ marginRight: "1rem" }} />
           <>Forum</>
         </IconWrapper>
       ),
@@ -79,7 +79,7 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaRegIdCard />
+          <FaRegIdCard style={{ marginRight: "1rem" }} />
           <>My Posts</>
         </IconWrapper>
       ),
@@ -88,7 +88,7 @@ const Nav = () => {
     {
       title: (
         <IconWrapper>
-          <FaRegEdit />
+          <FaRegEdit style={{ marginRight: "1rem" }} />
           <>Post</>
         </IconWrapper>
       ),
@@ -99,35 +99,36 @@ const Nav = () => {
   return (
     <>
       <LinkWrapper>
-        <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
-          <LinkHeaders
-            onClick={() => setOpen(!open)}
-            className={navColor ? "navTop" : "navScrolled"}
-          >
-            <FaBars style={{ marginBottom: "-0.25rem" }} size={25} />
-          </LinkHeaders>
-          <div style={{ display: "flex" }}>
+        <TextWrapper className="navTop">
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+            <LinkHeaders onClick={() => setOpen(!open)} className="navTop">
+              <IconWrapper>
+                <FaBars />
+              </IconWrapper>
+            </LinkHeaders>
+          </motion.div>
+          {!scrollTop && (
+            // <div style={{ display: "flex", marginLeft: "-4rem" }}>
             <motion.div whileHover={{ scale: 1.05 }}>
               <Links to={`/profile/${user.attributes.ethAddress}`}>
-                <LinkHeaders className={navColor ? "navTop" : "navScrolled"}>
+                <Header className="navTop">
                   {user.attributes.username.toUpperCase()}
                   <Hide>
                     {"- "}
                     {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
                     ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
                   </Hide>
-                </LinkHeaders>
+                </Header>
               </Links>
             </motion.div>
-          </div>
+            // </div>
+          )}
           <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
             {/* {scrollTop && ( */}
-
-            <LinkHeaders
-              className={navColor ? "navTop" : "navScrolled"}
-              onClick={scrollToTop}
-            >
-              <FaAngleDoubleUp style={{ marginBottom: "-0.25rem" }} size={30} />
+            <LinkHeaders className="navTop" onClick={scrollToTop}>
+              <IconWrapper>
+                <FaAngleDoubleUp />
+              </IconWrapper>
             </LinkHeaders>
             {/* )} */}
           </motion.div>
@@ -137,15 +138,17 @@ const Nav = () => {
         <NavWrapper>
           {menuItems.map(({ title, route }) => {
             return (
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                key={route}
-              >
-                <Links style={{ textDecoration: "none" }} to={`${route}`}>
-                  <Header>{title}</Header>
-                </Links>
-              </motion.div>
+              <div style={{ display: "flex" }}>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  key={route}
+                >
+                  <Links style={{ textDecoration: "none" }} to={`${route}`}>
+                    <Header>{title}</Header>
+                  </Links>
+                </motion.div>
+              </div>
             );
           })}
           <Logout />
@@ -165,7 +168,7 @@ const NavWrapper = styled.div`
   z-index: 10000;
   display: flex;
   flex-direction: column;
-  padding-top: 10rem;
+  padding-top: 7.5rem;
   padding-left: 2rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -174,7 +177,7 @@ const NavWrapper = styled.div`
   }
   @media screen and (max-width: 600px) {
     width: 100vw;
-    /* justify-content: center; */
+    padding-left: 0;
     align-items: center;
   }
 `;
@@ -194,40 +197,40 @@ const TextWrapper = styled.div`
   transition: 0.2s linear;
 
   &.navTop {
+    background: ${({ theme }) => theme.backgroundNav};
+  }
+  &.navScrolled {
     background: ${({ theme }) => theme.nav};
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
-  &.navScrolled {
-    background: ${({ theme }) => theme.backgroundNav};
-  }
 `;
 
 const LinkHeaders = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   margin: 1rem;
   transition: all 0.5s linear;
   border-radius: 0.25rem;
-  letter-spacing: 5px;
+  /* letter-spacing: 5px; */
   font-size: 1.5rem;
-  font-family: "Russo One", sans-serif;
+  /* font-family: "Russo One", sans-serif; */
 
   &.navTop {
     color: ${({ theme }) => theme.textModals};
+    background: ${({ theme }) => theme.button};
   }
 
   &.navScrolled {
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.textModals};
   }
 
   &.navTop:hover {
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.textModals};
   }
 
   &.navScrolled:hover {
-    background: ${({ theme }) => theme.button};
-    color: ${({ theme }) => theme.textModals};
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
   }
 
   &:hover {
@@ -237,13 +240,24 @@ const LinkHeaders = styled.div`
   }
   @media screen and (max-width: 600px) {
     margin: 0.5rem;
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
   }
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.text};
-  font-size: 1.25rem;
+  /* font-size: 1.25rem; */
+  font-family: "Russo One", sans-serif;
+
+  letter-spacing: 5px;
+  font-size: 1.5rem;
+  padding: 1rem 0;
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
+    padding: 0.75rem 0;
+  }
 `;
 
 const Subheader = styled.h4`

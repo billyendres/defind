@@ -8,18 +8,18 @@ const Toggle = ({ theme, toggleTheme }) => {
     <Wrapper onClick={toggleTheme}>
       <>
         {theme === "light" ? (
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
             <Icons>
               <LinkHeaders>
-                <FaMoon style={{ marginBottom: "-0.25rem" }} size={25} />
+                <FaMoon style={{ marginTop: "0.5rem" }} />
               </LinkHeaders>
             </Icons>
           </motion.div>
         ) : (
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
             <Icons>
               <LinkHeaders>
-                <FaSun style={{ marginBottom: "-0.25rem" }} size={25} />
+                <FaSun style={{ marginTop: "0.5rem" }} />
               </LinkHeaders>
             </Icons>
           </motion.div>
@@ -48,25 +48,25 @@ const Wrapper = styled.div`
   position: fixed;
   right: 0;
   bottom: 0;
-  @media screen and (max-width: 481px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
 
 const LinkHeaders = styled.div`
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  color: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
+  padding: 0.25rem 0.75rem;
+  margin: 1rem;
   border-radius: 0.25rem;
-  letter-spacing: 5px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  transition: all 0.5s linear;
+  background: ${({ theme }) => theme.buttonHover};
+  color: ${({ theme }) => theme.textModals};
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
-  &:hover {
-    transition: all 0.5s linear;
-    background: ${({ theme }) => theme.buttonHover};
-    color: ${({ theme }) => theme.textModals};
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 600px) {
+    margin: 0.5rem;
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
   }
 `;

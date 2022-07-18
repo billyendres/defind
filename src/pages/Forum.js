@@ -119,7 +119,7 @@ const HeaderWrapper = styled.div`
   width: 30rem;
   @media screen and (max-width: 1023px) {
     text-align: center;
-    margin-top: 8rem;
+    margin-top: 5rem;
   }
   @media screen and (max-width: 1023px) {
     width: 20rem;
@@ -157,12 +157,12 @@ const Header = styled.h2`
 `;
 
 const PostHeaderWrapper = styled.div`
-  margin-top: 8rem;
+  margin-top: 3rem;
   @media screen and (max-width: 1023px) {
-    margin-top: 7rem;
+    margin-top: 4rem;
   }
   @media screen and (max-width: 600px) {
-    margin-top: 6rem;
+    margin-top: 3rem;
   }
 `;
 
@@ -178,9 +178,8 @@ const Img = styled.img`
   height: 25rem;
   @media screen and (max-width: 1023px) {
     height: 18rem;
-    margin-bottom: -4rem;
   }
-  @media screen and (max-width: 481px) {
+  @media screen and (max-width: 600px) {
     height: 14rem;
   }
 `;
