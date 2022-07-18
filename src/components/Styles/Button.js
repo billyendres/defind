@@ -24,6 +24,7 @@ const MotionButton = styled(motion.button)`
   font-family: "Russo One", sans-serif;
   letter-spacing: 3px;
   text-transform: uppercase;
+  transition: 0.5s linear;
   padding: 0.5rem 1rem;
   margin: 1rem;
   min-width: 10rem;
@@ -48,10 +49,10 @@ const MotionButton = styled(motion.button)`
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 0.6rem;
-    padding: 0.3rem 0.3rem;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.5rem;
     letter-spacing: 2px;
     min-width: 5rem;
-    margin: 0.25rem;
+    margin: 0.35rem;
   }
 `;

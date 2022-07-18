@@ -434,11 +434,7 @@ const ViewCandidatePosts = ({ profile }) => {
                               }}
                             >
                               <motion.div whileHover={{ scale: 1.05 }}>
-                                <Links
-                                  to={`/forum/${item.id}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
+                                <Links to={`/forum/${item.id}`}>
                                   <Text>View Post {">"}</Text>
                                 </Links>
                               </motion.div>

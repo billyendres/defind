@@ -19,20 +19,9 @@ import Logout from "../Authentication/Logout";
 const Nav = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
-  const [scrollTop, setScrollTop] = useState(false);
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
   const buttonRef = useRef();
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY !== 0) {
-        setScrollTop(true);
-      } else {
-        setScrollTop(false);
-      }
-    });
-  }, []);
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -46,11 +35,7 @@ const Nav = () => {
   useEffect(() => {
     const closeNav = (e) => {
       console.log(e.path);
-      if (
-        e.path[2] !== buttonRef.current ||
-        e.path[3] !== buttonRef.current ||
-        e.path[4] !== buttonRef.current
-      ) {
+      if (e.path[2] !== buttonRef.current) {
         // setOpen(false);
       }
     };
@@ -135,27 +120,31 @@ const Nav = () => {
                   <FaChevronUp
                     style={{
                       transform: open ? "rotate(270deg)" : "rotate(-270deg)",
-                      transition: "0.5s linear",
+                      transition: "0.25s linear",
                     }}
                   />
                 </IconWrapper>
               </LinkHeaders>
             </div>
           </motion.div>
-          {!scrollTop && (
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Links to={`/profile/${user.attributes.ethAddress}`}>
-                <Header className="navTop">
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Links to={`/profile/${user.attributes.ethAddress}`}>
+              <Hide>
+                <Header
+                  style={{
+                    opacity: navColor ? 0 : 1,
+                    transition: "0.5s linear",
+                  }}
+                  className="navTop"
+                >
                   {user.attributes.username.toUpperCase()}
-                  <Hide>
-                    {"- "}
-                    {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
+                  {"- "}
+                  {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
                     ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
-                  </Hide>
                 </Header>
-              </Links>
-            </motion.div>
-          )}
+              </Hide>
+            </Links>
+          </motion.div>
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <div
               style={{
@@ -164,13 +153,18 @@ const Nav = () => {
                 justifyContent: "center",
               }}
             >
-              {scrollTop && (
-                <LinkHeaders className="navTop" onClick={scrollToTop}>
-                  <IconWrapper>
-                    <FaAngleDoubleUp />
-                  </IconWrapper>
-                </LinkHeaders>
-              )}
+              <LinkHeaders
+                className="navTop"
+                onClick={scrollToTop}
+                style={{
+                  opacity: !navColor ? 0 : 1,
+                  transition: "0.5s linear",
+                }}
+              >
+                <IconWrapper>
+                  <FaAngleDoubleUp />
+                </IconWrapper>
+              </LinkHeaders>
             </div>
           </motion.div>
         </TextWrapper>
@@ -286,11 +280,12 @@ const Header = styled.h3`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.text};
   font-family: "Russo One", sans-serif;
-
+  padding: 1rem 0;
   letter-spacing: 5px;
   font-size: 1.5rem;
   @media screen and (max-width: 600px) {
     font-size: 1.25rem;
+    padding: 0.75rem 0;
   }
 `;
 
@@ -334,7 +329,7 @@ const Hide = styled.span`
   margin-left: 1rem;
   @media screen and (max-width: 1023px) {
     display: none;
-    margin-left: none;
+    /* margin-left: none; */
   }
 `;
 

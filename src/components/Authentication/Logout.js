@@ -62,6 +62,6 @@ export default Logout;
 
 const Wrapper = styled.div`
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 1rem;
+  left: 1rem;
 `;
