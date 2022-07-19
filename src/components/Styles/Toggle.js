@@ -43,7 +43,6 @@ const Icons = styled.h2`
 const Wrapper = styled.div`
   z-index: 1000;
   position: fixed;
-
   right: 0;
   bottom: 0;
   @media screen and (max-width: 600px) {

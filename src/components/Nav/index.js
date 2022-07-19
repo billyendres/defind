@@ -21,7 +21,7 @@ const Nav = () => {
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
-  const buttonRef = useRef();
+  const buttonRef = useRef(null);
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -32,15 +32,29 @@ const Nav = () => {
   };
   window.addEventListener("scroll", changeColor);
   console.log(open);
+  // useEffect(() => {
+  //   const closeNav = (e) => {
+  //     console.log(e.path);
+  //     if (e.path[2] !== buttonRef.current) {
+  //       setOpen(false);
+  //     }
+  //   };
+  //   document.body.addEventListener("click", closeNav);
+  //   return () => document.body.removeEventListener("click", closeNav);
+  // }, []);
+
   useEffect(() => {
-    const closeNav = (e) => {
-      console.log(e.path);
-      if (e.path[2] !== buttonRef.current) {
-        // setOpen(false);
+    let handler = (e) => {
+      if (buttonRef.current) {
+        if (!buttonRef.current.contains(e.target)) {
+          setOpen(false);
+        }
       }
     };
-    document.body.addEventListener("click", closeNav);
-    return () => document.body.removeEventListener("click", closeNav);
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -105,7 +119,6 @@ const Nav = () => {
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            // ref={buttonRef}
             onClick={() => setOpen(!open)}
           >
             <div
@@ -172,6 +185,7 @@ const Nav = () => {
       <AnimatePresence>
         {open && (
           <NavWrapper
+            ref={buttonRef}
             initial={{ opacity: 0, x: "-20%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "-20%" }}
@@ -217,9 +231,9 @@ const NavWrapper = styled(motion.div)`
     width: 50vw;
   }
   @media screen and (max-width: 600px) {
-    width: 100vw;
-    padding-left: 0;
-    align-items: center;
+    /* width: 100vw; */
+    padding-left: 1rem;
+    /* align-items: center; */
   }
 `;
 
@@ -284,7 +298,7 @@ const Header = styled.h3`
   letter-spacing: 5px;
   font-size: 1.5rem;
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.75rem 0;
   }
 `;
