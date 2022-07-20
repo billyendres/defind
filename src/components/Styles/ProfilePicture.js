@@ -13,6 +13,7 @@ const Img = styled.img`
   width: 7rem;
   height: 7rem;
   border-radius: 50%;
+  cursor: pointer;
 
   @media screen and (max-width: 1023px) {
     width: 5rem;

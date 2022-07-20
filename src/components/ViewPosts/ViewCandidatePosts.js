@@ -513,8 +513,8 @@ const ProfileWrapper = styled(motion.div)`
     padding: 2rem;
   }
   @media screen and (max-width: 600px) {
-    width: 20rem;
-    padding: 1.5rem;
+    width: 18.5rem;
+    padding: 1.25rem;
   }
 `;
 

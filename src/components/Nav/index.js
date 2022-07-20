@@ -233,7 +233,6 @@ const NavWrapper = styled(motion.div)`
   @media screen and (max-width: 600px) {
     /* width: 100vw; */
     padding-left: 1rem;
-    /* align-items: center; */
   }
 `;
 
@@ -263,6 +262,9 @@ const TextWrapper = styled.div`
     background: ${({ theme }) => theme.nav};
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100vw;
   }
 `;
 

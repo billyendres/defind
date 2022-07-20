@@ -156,6 +156,7 @@ const Label = styled.div`
 `;
 
 const Input = styled.input`
+  font-family: "Kdam Thmor Pro", sans-serif;
   padding: 0.5rem;
   border: none;
   border-radius: 0.25rem;

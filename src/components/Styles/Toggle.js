@@ -45,14 +45,11 @@ const Wrapper = styled.div`
   position: fixed;
   right: 0;
   bottom: 0;
-  @media screen and (max-width: 600px) {
-    display: none;
-  }
 `;
 
 const LinkHeaders = styled.div`
   padding: 0.2rem 0.5rem;
-  margin: 0.75rem;
+  margin: 1rem 0.5rem;
   border-radius: 50%;
   font-size: 1.5rem;
   transition: all 0.5s linear;
@@ -67,6 +64,6 @@ const LinkHeaders = styled.div`
   @media screen and (max-width: 600px) {
     margin: 0.5rem;
     font-size: 1rem;
-    padding: 0.3rem;
+    padding: 0.2rem 0.4rem;
   }
 `;
