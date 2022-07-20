@@ -283,7 +283,6 @@ const CandidatePost = () => {
       ) : (
         <Wrapper>
           <ToastContainer />
-
           <motion.div
             initial={{ y: "50%", scale: 0.5, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
@@ -295,15 +294,14 @@ const CandidatePost = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  marginRight: "3rem",
+                  // marginRight: "3rem",
                 }}
               >
                 <div>
                   <Header>{user.attributes.username}</Header>
-                  <Header>{user.attributes.bio}</Header>
+                  <SubHeader>{user.attributes.bio}</SubHeader>
                 </div>
                 <Img
-                  style={{ width: "7rem", height: "7rem" }}
                   src={
                     user.attributes.profilePic
                       ? user.attributes.profilePic
@@ -456,7 +454,6 @@ const CandidatePost = () => {
                   valueFour={info.github}
                   valueFive={info.telegram}
                   valueSix={info.website}
-                  valueSeven={info.location}
                   onClick={() => handleRemoveContact(index)}
                 />
               ))}
@@ -507,25 +504,57 @@ const Template = styled.div`
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 33rem;
+    padding: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+    padding: 1.25rem;
+  }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.5rem 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
+  font-size: 2rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
+    padding: 0.1rem 0;
+  }
 `;
 
-const Subheader = styled.div`
+const SubHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  padding: 0 0 0.5rem 0;
   font-size: 1.25rem;
-  padding: 1.25rem 0;
+  line-height: 180%;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    line-height: 150%;
+  }
 `;
 
 const Label = styled.div`

@@ -21,13 +21,11 @@ export const EmploymentHistory = ({
         >
           <Label
             onClick={onClickOne}
-            style={{ display: "flex", cursor: "pointer" }}
+            style={{ display: "flex", cursor: "pointer", alignItems: "center" }}
           >
             <FaMinus
-              size={17}
               style={{
-                marginRight: "0.75rem",
-                marginTop: "0.2rem",
+                marginRight: "0.5rem",
               }}
             />
             Remove
@@ -40,14 +38,12 @@ export const EmploymentHistory = ({
         >
           <Label
             onClick={onClickTwo}
-            style={{ display: "flex", cursor: "pointer" }}
+            style={{ display: "flex", cursor: "pointer", alignItems: "center" }}
           >
             <FaPlus
-              size={17}
               style={{
-                marginLeft: "1.25rem",
-                marginRight: "0.75rem",
-                marginTop: "0.1rem",
+                marginLeft: "1rem",
+                marginRight: "0.5rem",
               }}
             />
             Add More
@@ -87,7 +83,6 @@ export const EmploymentHistory = ({
       >
         <Textarea
           placeholder="Summarise your responsibilities, skills and achievements."
-          style={{ padding: "1rem" }}
           value={valueThree}
           onChange={onChange}
           name="description"
@@ -123,18 +118,16 @@ export const EmploymentHistory = ({
 
 export const AddEmploymentHistory = ({ onClick }) => {
   return (
-    <div style={{ display: "flex", cursor: "pointer" }}>
+    <div style={{ display: "flex", cursor: "pointer", alignItems: "center" }}>
       <motion.div whileHover={{ scale: 1.05 }}>
-        <Subheader>
+        <SubHeader>
           <FaLaptopCode
-            size={30}
             style={{
               marginRight: "0.5rem",
-              marginBottom: "-0.25rem",
             }}
           />
           <span onClick={onClick}>Add Employment History</span>
-        </Subheader>
+        </SubHeader>
       </motion.div>
     </div>
   );
@@ -142,16 +135,14 @@ export const AddEmploymentHistory = ({ onClick }) => {
 
 export const EmploymentHistoryAdded = () => {
   return (
-    <Subheader style={{ paddingBottom: "0.5rem" }}>
+    <SubHeader style={{ paddingBottom: "0.5rem" }}>
       <FaLaptopCode
-        size={30}
         style={{
           marginRight: "0.5rem",
-          marginBottom: "-0.25rem",
         }}
       />
       Employment History
-    </Subheader>
+    </SubHeader>
   );
 };
 
@@ -173,7 +164,8 @@ const Textarea = styled.textarea`
   font-family: "Kdam Thmor Pro", sans-serif;
   max-width: 37rem;
   min-width: 37rem;
-  max-height: 15rem;
+  max-height: 12rem;
+  margin-top: 1rem;
 
   &:focus {
     outline: none;
@@ -182,12 +174,32 @@ const Textarea = styled.textarea`
     color: #080e57;
     opacity: 0.5;
   }
+  @media screen and (max-width: 1023px) {
+    max-width: 29rem;
+    min-width: 29rem;
+    max-height: 9rem;
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    max-width: 16rem;
+    min-width: 16rem;
+    max-height: 5rem;
+    font-size: 0.75rem;
+    margin-top: 0.75rem;
+  }
 `;
 
 const Label = styled.div`
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0 0;
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Input = styled.input`
@@ -198,7 +210,6 @@ const Input = styled.input`
   font-size: 1rem;
   color: #080e57;
   width: 12rem;
-  /* letter-spacing: 2px; */
   margin-right: 1rem;
   &:focus {
     outline: none;
@@ -207,6 +218,12 @@ const Input = styled.input`
     color: #080e57;
     opacity: 0.5;
   }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -214,9 +231,16 @@ const MotionDiv = styled(motion.div)`
   flex-wrap: wrap;
 `;
 
-const Subheader = styled.div`
+const SubHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  font-size: 1.25rem;
-  padding: 1.25rem 0;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
 `;

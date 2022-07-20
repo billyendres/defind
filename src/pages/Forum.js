@@ -90,12 +90,11 @@ export default Forum;
 const Grid = styled.div`
   display: grid;
   justify-content: center;
-
   grid-template-columns: 1fr 1fr;
   width: 60%;
   align-items: center;
   min-height: 100vh;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 975px) {
     grid-template-columns: 1fr;
     width: 100%;
     min-height: 70vh;
@@ -117,12 +116,12 @@ const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
   width: 30rem;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 975px) {
     text-align: center;
     margin-top: 5rem;
   }
-  @media screen and (max-width: 1023px) {
-    width: 20rem;
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
   }
 `;
 
@@ -131,9 +130,6 @@ const Text = styled.div`
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.25rem;
-  @media screen and (max-width: 1023px) {
-    font-size: 1rem;
-  }
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
   }
@@ -169,7 +165,7 @@ const PostHeaderWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   width: 32rem;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 975px) {
     justify-content: center;
   }
 `;
@@ -181,5 +177,6 @@ const Img = styled.img`
   }
   @media screen and (max-width: 600px) {
     height: 14rem;
+    margin-top: 2rem;
   }
 `;

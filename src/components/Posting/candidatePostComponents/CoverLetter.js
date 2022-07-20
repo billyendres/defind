@@ -23,16 +23,14 @@ export const CoverLetter = ({ onImageClick, inputFile, changeHandler }) => {
           accept="application/pdf"
           // accept="image/png, image/jpeg, image/jpg"
         />
-        <Subheader>
+        <SubHeader>
           <FaFileAlt
-            size={30}
             style={{
               marginRight: "0.5rem",
-              marginBottom: "-0.25rem",
             }}
           />
           Attach Cover Letter
-        </Subheader>
+        </SubHeader>
       </motion.div>
     </div>
   );
@@ -40,27 +38,26 @@ export const CoverLetter = ({ onImageClick, inputFile, changeHandler }) => {
 
 export const CoverLetterHeader = () => {
   return (
-    <Subheader style={{ paddingBottom: "0.5rem" }}>
+    <SubHeader style={{ paddingBottom: "0.5rem" }}>
       <FaFileAlt
-        size={30}
         style={{
           marginRight: "0.5rem",
-          marginBottom: "-0.25rem",
         }}
       />
       Cover Letter
-    </Subheader>
+    </SubHeader>
   );
 };
 
 export const RemoveCoverLetter = ({ onClick }) => {
   return (
-    <Label onClick={onClick} style={{ display: "flex", cursor: "pointer" }}>
+    <Label
+      onClick={onClick}
+      style={{ display: "flex", cursor: "pointer", alignItems: "center" }}
+    >
       <FaMinus
-        size={17}
         style={{
-          marginRight: "0.75rem",
-          marginTop: "0.2rem",
+          marginRight: "0.5rem",
         }}
       />
       Remove
@@ -68,15 +65,29 @@ export const RemoveCoverLetter = ({ onClick }) => {
   );
 };
 
-const Subheader = styled.div`
+const SubHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  font-size: 1.25rem;
-  padding: 1.25rem 0;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
 `;
 
 const Label = styled.div`
-  padding: 0.5rem 0;
+  padding: 0 0 0.5rem 0;
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;

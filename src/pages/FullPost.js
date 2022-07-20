@@ -230,15 +230,7 @@ const FullPost = () => {
                       </Subheader>
                       {attributes.contactInformation.map(
                         (
-                          {
-                            email,
-                            phone,
-                            twitter,
-                            github,
-                            telegram,
-                            website,
-                            location,
-                          },
+                          { email, phone, twitter, github, telegram, website },
                           key
                         ) => (
                           <span key={key}>
@@ -270,11 +262,6 @@ const FullPost = () => {
                             {website && (
                               <Text>
                                 <Titles>Website:</Titles> {website}
-                              </Text>
-                            )}
-                            {location && (
-                              <Text>
-                                <Titles>Location:</Titles> {location}
                               </Text>
                             )}
                             <div style={{ marginBottom: "1.5rem" }}></div>

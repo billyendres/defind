@@ -41,21 +41,22 @@ const Post = () => {
           initial={{ x: "-200%", scale: 0.5, opacity: 0 }}
           animate={{ x: 0, scale: 1, opacity: 1 }}
           transition={{ duration: 0.6 }}
-          style={{ width: "80%" }}
         >
-          <HeaderWrapper>
-            <Header>Share Your Story</Header>
-            <Text>{text}</Text>
-          </HeaderWrapper>
           <div
             style={{
               display: "flex",
-              justifyContent: "left",
-              marginLeft: "-1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
             }}
           >
-            <Button onClick={clickEventClients} text="Job Post" />
-            <Button onClick={clickEventCandidates} text="Profile Post" />
+            <HeaderWrapper>
+              <Header>Share Your Story</Header>
+              <Text>{text}</Text>
+            </HeaderWrapper>
+            <ButtonWrapper>
+              <Button onClick={clickEventClients} text="Job Post" />
+              <Button onClick={clickEventCandidates} text="Profile Post" />
+            </ButtonWrapper>
           </div>
         </motion.div>
         <motion.div
@@ -69,12 +70,12 @@ const Post = () => {
       <div style={{ minHeight: "100vh" }} ref={scrollDown}>
         {type === "client" ? (
           <>
-            <Header style={{ marginTop: "10rem" }}>Job Post</Header>
+            <Header>Job Post</Header>
             <ClientPost profile={false} />
           </>
         ) : (
           <>
-            <Header style={{ marginTop: "10rem" }}>Profile Post</Header>
+            <Header>Profile Post</Header>
             <CandidatePost profile={false} />
           </>
         )}
@@ -87,10 +88,19 @@ export default Post;
 
 const Grid = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: 1fr 1fr;
   width: 60%;
   align-items: center;
   min-height: 100vh;
+  @media screen and (max-width: 975px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 65vh;
+  }
+  @media screen and (max-width: 600px) {
+    min-height: 55vh;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -107,13 +117,34 @@ const Wrapper = styled.div`
 const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
+  width: 30rem;
+  @media screen and (max-width: 975px) {
+    text-align: center;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 32rem;
+  @media screen and (max-width: 975px) {
+    justify-content: center;
+  }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+  }
 `;
 
 const Header = styled.h2`
@@ -121,9 +152,23 @@ const Header = styled.h2`
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2rem;
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+  }
 `;
 
 const Img = styled.img`
   height: 20rem;
-  border-radius: 1rem;
+  @media screen and (max-width: 1023px) {
+    height: 15rem;
+  }
+  @media screen and (max-width: 600px) {
+    height: 10rem;
+  }
 `;

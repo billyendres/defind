@@ -11,7 +11,6 @@ export const Contact = ({
   valueFour,
   valueFive,
   valueSix,
-  valueSeven,
   onClick,
 }) => {
   return (
@@ -25,13 +24,11 @@ export const Contact = ({
         >
           <Label
             onClick={onClick}
-            style={{ display: "flex", cursor: "pointer" }}
+            style={{ display: "flex", cursor: "pointer", alignItems: "center" }}
           >
             <FaMinus
-              size={17}
               style={{
-                marginRight: "0.75rem",
-                marginTop: "0.2rem",
+                marginRight: "0.5rem",
               }}
             />
             Remove
@@ -126,17 +123,6 @@ export const Contact = ({
               onChange={onChange}
             />
           </Label>
-          <Label>
-            <Input
-              type="text"
-              placeholder="Location"
-              name="location"
-              label="location"
-              value={valueSeven}
-              maxLength="50"
-              onChange={onChange}
-            />
-          </Label>
         </MotionDiv>
       </ContactWrapper>
     </div>
@@ -145,18 +131,16 @@ export const Contact = ({
 
 export const AddContact = ({ onClick }) => {
   return (
-    <div style={{ display: "flex", cursor: "pointer" }}>
+    <div style={{ display: "flex", cursor: "pointer", alignItems: "center" }}>
       <motion.div whileHover={{ scale: 1.05 }}>
-        <Subheader>
+        <SubHeader>
           <FaPhone
-            size={30}
             style={{
               marginRight: "0.5rem",
-              marginBottom: "-0.25rem",
             }}
           />
           <span onClick={onClick}>Add Contact Information</span>
-        </Subheader>
+        </SubHeader>
       </motion.div>
     </div>
   );
@@ -164,16 +148,14 @@ export const AddContact = ({ onClick }) => {
 
 export const ContactAdded = () => {
   return (
-    <Subheader style={{ paddingBottom: "0.5rem" }}>
+    <SubHeader style={{ paddingBottom: "0.5rem" }}>
       <FaPhone
-        size={30}
         style={{
           marginRight: "0.5rem",
-          marginBottom: "-0.25rem",
         }}
       />
       Contact Information
-    </Subheader>
+    </SubHeader>
   );
 };
 
@@ -187,19 +169,26 @@ const ContactWrapper = styled.div`
 `;
 
 const Label = styled.div`
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0 0;
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Input = styled.input`
+  font-family: "Kdam Thmor Pro", sans-serif;
   padding: 0.5rem;
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #080e57;
   width: 12rem;
-  font-family: "Kdam Thmor Pro", sans-serif;
   margin-right: 1rem;
   &:focus {
     outline: none;
@@ -208,6 +197,12 @@ const Input = styled.input`
     color: #080e57;
     opacity: 0.5;
   }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -215,9 +210,16 @@ const MotionDiv = styled(motion.div)`
   flex-wrap: wrap;
 `;
 
-const Subheader = styled.div`
+const SubHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  font-size: 1.25rem;
-  padding: 1.25rem 0;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
 `;

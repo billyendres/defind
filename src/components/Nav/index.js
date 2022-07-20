@@ -151,7 +151,7 @@ const Nav = () => {
                   className="navTop"
                 >
                   {user.attributes.username.toUpperCase()}
-                  {"- "}
+                  {" - "}
                   {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
                     ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
                 </Header>
