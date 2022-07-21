@@ -116,11 +116,7 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className="navTop">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setOpen(!open)}
-          >
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <div
               style={{
                 width: "3rem",
@@ -128,21 +124,42 @@ const Nav = () => {
                 justifyContent: "center",
               }}
             >
-              <LinkHeaders className="navTop">
-                <IconWrapper>
-                  <FaChevronUp
-                    style={{
-                      transform: open ? "rotate(270deg)" : "rotate(-270deg)",
-                      transition: "0.25s linear",
-                    }}
-                  />
-                </IconWrapper>
-              </LinkHeaders>
+              {!open && (
+                <LinkHeaders className="navTop" onClick={() => setOpen(true)}>
+                  <IconWrapper>
+                    <FaChevronUp
+                      style={{
+                        transform: !open && "rotate(-270deg)",
+                        transition: "0.25s linear",
+                      }}
+                    />
+                  </IconWrapper>
+                </LinkHeaders>
+              )}
+              {open && (
+                <LinkHeaders className="navTop" onClick={() => setOpen(false)}>
+                  <IconWrapper>
+                    <FaChevronUp
+                      onClick={() => setOpen(false)}
+                      style={{
+                        transform: open && "rotate(270deg)",
+                        transition: "0.25s linear",
+                      }}
+                    />
+                  </IconWrapper>
+                </LinkHeaders>
+              )}
             </div>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <Links to={`/profile/${user.attributes.ethAddress}`}>
-              <Hide>
+          <Hide
+            style={{
+              display: "flex",
+              alignItems: "center",
+              paddingTop: "1rem",
+            }}
+          >
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <Links to={`/profile/${user.attributes.ethAddress}`}>
                 <Header
                   style={{
                     opacity: navColor ? 0 : 1,
@@ -155,9 +172,9 @@ const Nav = () => {
                   {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
                     ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
                 </Header>
-              </Hide>
-            </Links>
-          </motion.div>
+              </Links>
+            </motion.div>
+          </Hide>
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <div
               style={{
@@ -343,9 +360,8 @@ const Icons = styled.h2`
 
 const Hide = styled.span`
   margin-left: 1rem;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 600px) {
     display: none;
-    /* margin-left: none; */
   }
 `;
 
