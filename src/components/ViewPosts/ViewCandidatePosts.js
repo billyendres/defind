@@ -417,7 +417,7 @@ const ViewCandidatePosts = ({ profile }) => {
                               }}
                             >
                               <Img
-                                // style={{ width: "7rem", height: "7rem" }}
+                                style={{ marginBottom: "0.25rem" }}
                                 src={
                                   item.attributes.posterProfilePic
                                     ? item.attributes.posterProfilePic
@@ -430,24 +430,32 @@ const ViewCandidatePosts = ({ profile }) => {
                               style={{
                                 display: "flex",
                                 justifyContent: "center",
-                                padding: "0.75rem",
+                                flexDirection: "column",
+                                textAlign: "center",
                               }}
                             >
                               <motion.div whileHover={{ scale: 1.05 }}>
                                 <Links to={`/forum/${item.id}`}>
-                                  <Text>View Post {">"}</Text>
+                                  <Text
+                                    style={{
+                                      fontWeight: "bold",
+                                      padding: "0.5rem 0",
+                                    }}
+                                  >
+                                    View Post {">"}
+                                  </Text>
                                 </Links>
                               </motion.div>
+                              <Text>
+                                Points - {item.attributes.paymentAmount * 10}
+                              </Text>
+                              {item.attributes.searchCategory && (
+                                <Text>{item.attributes.searchCategory}</Text>
+                              )}
+                              {item.attributes.searchLocation && (
+                                <Text>{item.attributes.searchLocation}</Text>
+                              )}
                             </div>
-                            <Text>
-                              Points - {item.attributes.paymentAmount * 10}
-                            </Text>
-                            {item.attributes.searchCategory && (
-                              <Text>{item.attributes.searchCategory}</Text>
-                            )}
-                            {item.attributes.searchLocation && (
-                              <Text>{item.attributes.searchLocation}</Text>
-                            )}
                           </div>
                         </div>
 

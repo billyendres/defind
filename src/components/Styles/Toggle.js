@@ -8,21 +8,21 @@ const Toggle = ({ theme, toggleTheme }) => {
     <Wrapper onClick={toggleTheme}>
       <>
         {theme === "light" ? (
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <div>
             <Icons>
               <LinkHeaders>
                 <FaMoon style={{ marginBottom: "-0.15rem" }} />
               </LinkHeaders>
             </Icons>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <div>
             <Icons>
               <LinkHeaders>
                 <FaSun style={{ marginBottom: "-0.15rem" }} />
               </LinkHeaders>
             </Icons>
-          </motion.div>
+          </div>
         )}
       </>
     </Wrapper>

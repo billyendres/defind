@@ -8,8 +8,8 @@ const Button = ({ text, onClick, disabled }) => {
       <MotionButton
         onClick={onClick}
         disabled={disabled}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        // whileHover={{ scale: 1.05 }}
+        // whileTap={{ scale: 0.95 }}
       >
         {text}
       </MotionButton>
@@ -24,7 +24,6 @@ const MotionButton = styled(motion.button)`
   font-family: "Russo One", sans-serif;
   letter-spacing: 3px;
   text-transform: uppercase;
-  transition: 0.5s linear;
   padding: 0.5rem 1rem;
   margin: 1rem;
   min-width: 10rem;

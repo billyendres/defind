@@ -116,7 +116,7 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className="navTop">
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <div>
             <div
               style={{
                 width: "3rem",
@@ -150,7 +150,7 @@ const Nav = () => {
                 </LinkHeaders>
               )}
             </div>
-          </motion.div>
+          </div>
           <Hide
             style={{
               display: "flex",
@@ -158,9 +158,9 @@ const Nav = () => {
               paddingTop: "1rem",
             }}
           >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <div>
               <Links to={`/profile/${user.attributes.ethAddress}`}>
-                <Header
+                <h3
                   style={{
                     opacity: navColor ? 0 : 1,
                     transition: "0.5s linear",
@@ -171,11 +171,11 @@ const Nav = () => {
                   {" - "}
                   {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
                     ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
-                </Header>
+                </h3>
               </Links>
-            </motion.div>
+            </div>
           </Hide>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <div>
             <div
               style={{
                 width: "3rem",
@@ -196,24 +196,24 @@ const Nav = () => {
                 </IconWrapper>
               </LinkHeaders>
             </div>
-          </motion.div>
+          </div>
         </TextWrapper>
       </LinkWrapper>
       <AnimatePresence>
         {open && (
           <NavWrapper
             ref={buttonRef}
-            initial={{ opacity: 0, x: "-20%" }}
+            initial={{ opacity: 0, x: "-5%" }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "-20%" }}
+            exit={{ opacity: 0, x: "-100%" }}
             style={{ display: "flex" }}
           >
             {menuItems.map(({ title, route }) => {
               return (
                 <motion.div key={route} style={{ display: "flex" }}>
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <Links style={{ textDecoration: "none" }} to={`${route}`}>
                       <Header>{title}</Header>
@@ -236,7 +236,7 @@ const NavWrapper = styled(motion.div)`
   position: fixed;
   width: 25vw;
   height: 100vh;
-  background: ${({ theme }) => theme.textModals};
+  background: #bae1ff;
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -311,7 +311,7 @@ const LinkHeaders = styled.div`
 
 const Header = styled.h3`
   transition: all 0.5s linear;
-  color: ${({ theme }) => theme.text};
+  color: #080e57;
   font-family: "Russo One", sans-serif;
   padding: 1rem 0;
   letter-spacing: 5px;
