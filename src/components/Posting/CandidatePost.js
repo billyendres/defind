@@ -294,7 +294,6 @@ const CandidatePost = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  // marginRight: "3rem",
                 }}
               >
                 <div>
@@ -486,7 +485,6 @@ export default CandidatePost;
 const Wrapper = styled.div`
   min-height: 80vh;
   padding: 2rem 0;
-  /* letter-spacing: 2px; */
   display: flex;
   justify-content: left;
   text-align: left;

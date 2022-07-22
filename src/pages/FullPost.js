@@ -56,7 +56,6 @@ const FullPost = () => {
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                      marginRight: "3rem",
                     }}
                   >
                     <div>
@@ -82,7 +81,7 @@ const FullPost = () => {
                         })}, ${attributes.createdAt.toLocaleString("en-us", {
                           year: "numeric",
                         })}`}
-                        <div style={{ marginBottom: "1.5rem" }}></div>
+                        <div style={{ marginBottom: "0.5rem" }}></div>
                       </Text>
                     </div>
                     <div>
@@ -93,7 +92,6 @@ const FullPost = () => {
                         }}
                       >
                         <Img
-                          style={{ width: "7rem", height: "7rem" }}
                           src={
                             attributes.posterProfilePic
                               ? attributes.posterProfilePic
@@ -111,7 +109,9 @@ const FullPost = () => {
                       >
                         <motion.div whileHover={{ scale: 1.05 }}>
                           <Links to="/forum">
-                            <Text>{"<"} Return to forum</Text>
+                            <Text style={{ fontWeight: "bold" }}>
+                              {"<"} Return to forum
+                            </Text>
                           </Links>
                         </motion.div>
                       </div>
@@ -129,10 +129,8 @@ const FullPost = () => {
                     <>
                       <Subheader>
                         <FaUserGraduate
-                          size={30}
                           style={{
                             marginRight: "0.5rem",
-                            marginBottom: "-0.25rem",
                           }}
                         />
                         Education
@@ -170,10 +168,8 @@ const FullPost = () => {
                     <>
                       <Subheader>
                         <FaLaptopCode
-                          size={30}
                           style={{
                             marginRight: "0.5rem",
-                            marginBottom: "-0.25rem",
                           }}
                         />
                         Employment History
@@ -210,7 +206,7 @@ const FullPost = () => {
                                 <Titles>Date To:</Titles> {dateTo}
                               </Text>
                             )}
-                            <div style={{ marginBottom: "1.5rem" }}></div>
+                            <div style={{ marginBottom: "0.5rem" }}></div>
                           </span>
                         )
                       )}
@@ -220,10 +216,8 @@ const FullPost = () => {
                     <>
                       <Subheader>
                         <FaPhone
-                          size={30}
                           style={{
                             marginRight: "0.5rem",
-                            marginBottom: "-0.25rem",
                           }}
                         />
                         Contact Information
@@ -295,13 +289,6 @@ const FullPost = () => {
                       </a>
                     </>
                   )}
-                  {/* <div style={{ display: "flex" }}>
-                    <motion.div whileHover={{ scale: 1.05 }}>
-                      <Links to="/forum">
-                        <Text>Return to job forum</Text>
-                      </Links>
-                    </motion.div>
-                  </div> */}
                 </ProfileWrapper>
               </Wrapper>
             );
@@ -316,38 +303,63 @@ export default FullPost;
 
 const Wrapper = styled.div`
   min-height: 100vh;
+  padding: 2rem 0;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  text-align: left;
   align-items: center;
   flex-wrap: wrap;
-  background: ${({ theme }) => theme.background};
+  flex-direction: column;
   transition: all 0.5s linear;
+  background: ${({ theme }) => theme.background};
 `;
 
 const ProfileWrapper = styled.div`
-  text-align: left;
-  min-height: 30vh;
+  background: ${({ theme }) => theme.text};
   width: 43rem;
   padding: 3rem;
+  margin-top: 5rem;
   border-radius: 1rem;
-  background: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 33rem;
+    padding: 2rem;
+    margin-top: 4rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+    padding: 1.25rem;
+    margin-top: 2.5rem;
+  }
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
+    padding: 0.1rem 0;
+  }
 `;
 
 const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  font-size: 1.25rem;
   padding: 0.25rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.25rem 0;
+  }
 `;
 
 const Text = styled.div`
@@ -355,6 +367,13 @@ const Text = styled.div`
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1rem;
+  /* margin-bottom: 1rem; */
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Titles = styled.span`

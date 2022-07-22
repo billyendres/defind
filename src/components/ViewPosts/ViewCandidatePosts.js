@@ -662,7 +662,7 @@ const Subheader = styled.div`
   }
   @media screen and (max-width: 600px) {
     font-size: 0.7rem;
-    padding: 0.15rem;
+    padding: 0.15rem 0;
   }
 `;
 

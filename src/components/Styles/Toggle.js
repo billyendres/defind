@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { motion } from "framer-motion";
 
 const Toggle = ({ theme, toggleTheme }) => {
   return (
