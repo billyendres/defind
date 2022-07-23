@@ -52,7 +52,8 @@ const CandidatePost = () => {
   const user = Moralis.User.current();
   const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
-  // const [selectedFile, setSelectedFile] = useState();
+  const inputFileCoverLetter = useRef(null);
+  const [postFileCoverLetter, setPostFileCoverLetter] = useState();
   const [postFile, setPostFile] = useState();
   const [personalSummary, setPersonalSummary] = useState("");
   const [education, setEducation] = useState([]);
@@ -64,6 +65,8 @@ const CandidatePost = () => {
   const [contact, setContact] = useState([]);
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
+
+  console.log("Resume", postFile, "cover letter:", postFileCoverLetter);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
@@ -82,7 +85,7 @@ const CandidatePost = () => {
       await Moralis.enableWeb3();
       if (!personalSummary || !category || !location)
         return toast.error("Please complete all required fields", {
-          position: "top-center",
+          position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
           hideProgressBar: false,
@@ -145,13 +148,21 @@ const CandidatePost = () => {
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
       newPost.set("posterBio", user.attributes.bio);
-
+      //resume
       if (postFile) {
         const data = postFile;
         const file = new Moralis.File(data.name, data);
 
         await file.saveIPFS();
         newPost.set("postImg", file.ipfs());
+      }
+      //cover letter
+      if (postFileCoverLetter) {
+        const data = postFileCoverLetter;
+        const file = new Moralis.File(data.name, data);
+
+        await file.saveIPFS();
+        newPost.set("postImgCoverLetter", file.ipfs());
       }
       await newPost.save();
       navigate(`/profile/posts/${user.attributes.ethAddress}`);
@@ -166,6 +177,10 @@ const CandidatePost = () => {
 
   const onImageClick = () => {
     inputFile.current.click();
+  };
+
+  const onImageClickCoverLetter = () => {
+    inputFileCoverLetter.current.click();
   };
 
   const changeHandler = (e) => {
@@ -183,6 +198,22 @@ const CandidatePost = () => {
       });
     }
     setPostFile(img);
+  };
+  const changeHandlerCoverLetter = (e) => {
+    const img = e.target.files[0];
+    if (!img.type.match(imageType)) {
+      return toast.error("Image type not valid", {
+        position: "top-center",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    setPostFileCoverLetter(img);
   };
   // Education
   const handleChangeInputEducation = (index, event) => {
@@ -414,26 +445,28 @@ const CandidatePost = () => {
                   )}
                 </>
               )}
-              {!postFile ? (
+              {!postFileCoverLetter ? (
                 <CoverLetter
-                  onImageClick={onImageClick}
-                  inputFile={inputFile}
-                  changeHandler={changeHandler}
+                  onImageClick={onImageClickCoverLetter}
+                  inputFile={inputFileCoverLetter}
+                  changeHandler={changeHandlerCoverLetter}
                 />
               ) : (
                 <>
                   <CoverLetterHeader />
                   <div style={{ display: "flex" }}>
                     <motion.div whileHover={{ scale: 1.05 }}>
-                      {postFile && (
-                        <RemoveCoverLetter onClick={() => setPostFile()} />
+                      {postFileCoverLetter && (
+                        <RemoveCoverLetter
+                          onClick={() => setPostFileCoverLetter()}
+                        />
                       )}
                     </motion.div>
                   </div>
-                  {postFile && (
+                  {postFileCoverLetter && (
                     <Text style={{ width: "100%", padding: 0 }}>
                       {`> `}
-                      {postFile.name}
+                      {postFileCoverLetter.name}
                     </Text>
                   )}
                 </>

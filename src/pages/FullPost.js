@@ -12,6 +12,7 @@ import {
   FaLaptopCode,
   FaPhone,
   FaRegIdBadge,
+  FaFileAlt,
 } from "react-icons/fa";
 
 const FullPost = () => {
@@ -104,16 +105,29 @@ const FullPost = () => {
                         style={{
                           display: "flex",
                           justifyContent: "center",
-                          padding: "0.75rem",
+                          flexDirection: "column",
+                          textAlign: "center",
                         }}
                       >
                         <motion.div whileHover={{ scale: 1.05 }}>
                           <Links to="/forum">
-                            <Text style={{ fontWeight: "bold" }}>
+                            <Text
+                              style={{
+                                fontWeight: "bold",
+                                padding: "0.5rem 0",
+                              }}
+                            >
                               {"<"} Return to forum
                             </Text>
                           </Links>
                         </motion.div>
+                        <Text>Points - {attributes.paymentAmount * 10}</Text>
+                        {attributes.searchCategory && (
+                          <Text>{attributes.searchCategory}</Text>
+                        )}
+                        {attributes.searchLocation && (
+                          <Text>{attributes.searchLocation}</Text>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -268,10 +282,8 @@ const FullPost = () => {
                     <>
                       <Subheader>
                         <FaRegIdBadge
-                          size={30}
                           style={{
-                            marginRight: "0.5rem",
-                            marginBottom: "-0.25rem",
+                            marginRight: "0.25rem",
                           }}
                         />
                         Resume
@@ -286,6 +298,29 @@ const FullPost = () => {
                         rel="noreferrer noopener"
                       >
                         Resume
+                      </a>
+                    </>
+                  )}
+                  {attributes.postImgCoverLetter && (
+                    <>
+                      <Subheader>
+                        <FaFileAlt
+                          style={{
+                            marginRight: "0.25rem",
+                          }}
+                        />
+                        Cover Letter
+                      </Subheader>
+
+                      {/* <PostImage src={attributes.postImg} alt={ /> */}
+                      <a
+                        style={{ textDecoration: "none", color: "yellow" }}
+                        href={attributes.postImgCoverLetter}
+                        alt="Link"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        Cover Letter
                       </a>
                     </>
                   )}
@@ -338,12 +373,12 @@ const Header = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   @media screen and (max-width: 1023px) {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
     padding: 0.1rem 0;
   }
 `;
@@ -351,28 +386,29 @@ const Header = styled.div`
 const Subheader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
+  font-size: 1.2rem;
   padding: 0.25rem 0;
-  font-size: 1.5rem;
   @media screen and (max-width: 1023px) {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
-    padding: 0.25rem 0;
+    font-size: 0.7rem;
+    padding: 0.15rem 0;
   }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
-  padding: 0.25rem 0;
-  font-size: 1rem;
-  /* margin-bottom: 1rem; */
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 180%;
   @media screen and (max-width: 1023px) {
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
+    font-size: 0.55rem;
+    line-height: 170%;
   }
 `;
 

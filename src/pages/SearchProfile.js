@@ -176,6 +176,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
+  padding-top: 4rem;
+  @media screen and (max-width: 1023px) {
+    padding-top: 3rem;
+  }
+  @media screen and (max-width: 600px) {
+    padding-top: 2rem;
+  }
 `;
 
 const Grid = styled.div`
