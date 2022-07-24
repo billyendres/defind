@@ -17,11 +17,13 @@ import Img from "../Styles/ProfilePicture";
 import Logout from "../Authentication/Logout";
 
 const Nav = () => {
-  const { Moralis } = useMoralis();
+  const { Moralis, isAuthenticated } = useMoralis();
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
+  const [ethAddress, setEthAddress] = useState();
+  const [menuItems, setMenuItems] = useState();
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -63,93 +65,133 @@ const Nav = () => {
       behavior: "smooth",
     });
   };
+  console.log(ethAddress);
 
-  const menuItems = [
-    {
-      title: (
-        <IconWrapper>
-          <FaHome style={{ marginRight: "1rem" }} />
-          <>Home</>
-        </IconWrapper>
-      ),
-      route: "/",
-    },
-    {
-      title: (
-        <IconWrapper>
-          <FaUserAlt style={{ marginRight: "1rem" }} />
-          <>Profile</>
-        </IconWrapper>
-      ),
-      route: `/profile/${user.attributes.ethAddress}`,
-    },
-    {
-      title: (
-        <IconWrapper>
-          <FaBookReader style={{ marginRight: "1rem" }} />
-          <>Forum</>
-        </IconWrapper>
-      ),
-      route: "/forum",
-    },
-    {
-      title: (
-        <IconWrapper>
-          <FaRegIdCard style={{ marginRight: "1rem" }} />
-          <>My Posts</>
-        </IconWrapper>
-      ),
-      route: `/profile/posts/${user.attributes.ethAddress}`,
-    },
-    {
-      title: (
-        <IconWrapper>
-          <FaRegEdit style={{ marginRight: "1rem" }} />
-          <>Post</>
-        </IconWrapper>
-      ),
-      route: `/newpost/${user.attributes.ethAddress}`,
-    },
-  ];
+  useEffect(() => {
+    const userCheck = async () => {
+      const u = await user;
+      if (!u) return null;
+      setEthAddress(user.get("ethAddress"));
+    };
+    userCheck();
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      setMenuItems([
+        {
+          title: (
+            <IconWrapper>
+              <FaHome style={{ marginRight: "1rem" }} />
+              <>Home</>
+            </IconWrapper>
+          ),
+          route: "/",
+          key: 1,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaUserAlt style={{ marginRight: "1rem" }} />
+              <>Profile</>
+            </IconWrapper>
+          ),
+          route: `/profile/${ethAddress}`,
+          key: 2,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaBookReader style={{ marginRight: "1rem" }} />
+              <>Forum</>
+            </IconWrapper>
+          ),
+          route: "/forum",
+          key: 3,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaRegIdCard style={{ marginRight: "1rem" }} />
+              <>My Posts</>
+            </IconWrapper>
+          ),
+          route: `/profile/posts/${ethAddress}`,
+          key: 4,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaRegEdit style={{ marginRight: "1rem" }} />
+              <>Post</>
+            </IconWrapper>
+          ),
+          route: `/newpost/${ethAddress}`,
+          key: 5,
+        },
+      ]);
+    } else {
+      setMenuItems([
+        {
+          title: (
+            <IconWrapper>
+              <FaHome style={{ marginRight: "1rem" }} />
+              <>Home</>
+            </IconWrapper>
+          ),
+          route: "/",
+          key: 6,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaBookReader style={{ marginRight: "1rem" }} />
+              <>Forum</>
+            </IconWrapper>
+          ),
+          route: "/forum",
+          key: 7,
+        },
+      ]);
+    }
+  }, [user, ethAddress]);
 
   return (
     <>
       <LinkWrapper>
         <TextWrapper className="navTop">
-          <div>
-            <div
-              style={{
-                width: "3rem",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              {!open && (
-                <LinkHeaders className="navTop" onClick={() => setOpen(true)}>
-                  <IconWrapper>
-                    <FaChevronUp
-                      style={{
-                        transform: !open && "rotate(-270deg)",
-                        transition: "0.25s linear",
-                      }}
-                    />
-                  </IconWrapper>
-                </LinkHeaders>
-              )}
-              {open && (
-                <LinkHeaders className="navTop" onClick={() => setOpen(false)}>
-                  <IconWrapper>
-                    <FaChevronUp
-                      onClick={() => setOpen(false)}
-                      style={{
-                        transform: open && "rotate(270deg)",
-                        transition: "0.25s linear",
-                      }}
-                    />
-                  </IconWrapper>
-                </LinkHeaders>
-              )}
-            </div>
+          <div
+            style={{
+              width: "3rem",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {!open && (
+              <LinkHeaders className="navTop" onClick={() => setOpen(true)}>
+                <IconWrapper>
+                  <FaChevronUp
+                    style={{
+                      transform: !open && "rotate(-270deg)",
+                      transition: "0.25s linear",
+                    }}
+                  />
+                </IconWrapper>
+              </LinkHeaders>
+            )}
+            {open && (
+              <LinkHeaders className="navTop" onClick={() => setOpen(false)}>
+                <IconWrapper>
+                  <FaChevronUp
+                    onClick={() => setOpen(false)}
+                    style={{
+                      transform: open && "rotate(270deg)",
+                      transition: "0.25s linear",
+                    }}
+                  />
+                </IconWrapper>
+              </LinkHeaders>
+            )}
           </div>
           <Hide
             style={{
@@ -159,8 +201,8 @@ const Nav = () => {
             }}
           >
             <div>
-              <Links to={`/profile/${user.attributes.ethAddress}`}>
-                <h3
+              <Links to={`/profile/${ethAddress}`}>
+                {/* <h3
                   style={{
                     opacity: navColor ? 0 : 1,
                     transition: "0.5s linear",
@@ -169,9 +211,9 @@ const Nav = () => {
                 >
                   {user.attributes.username.toUpperCase()}
                   {" - "}
-                  {`${user.attributes.ethAddress.slice(0, 4).toUpperCase()}...
-                    ${user.attributes.ethAddress.slice(38).toUpperCase()}`}
-                </h3>
+                  {`${ethAddress.slice(0, 4).toUpperCase()}...
+                    ${ethAddress.slice(38).toUpperCase()}`}
+                </h3> */}
               </Links>
             </div>
           </Hide>
@@ -208,9 +250,9 @@ const Nav = () => {
             exit={{ opacity: 0, x: "-100%" }}
             style={{ display: "flex" }}
           >
-            {menuItems.map(({ title, route }) => {
+            {menuItems.map(({ title, route, key }) => {
               return (
-                <motion.div key={route} style={{ display: "flex" }}>
+                <motion.div key={key} style={{ display: "flex" }}>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -222,7 +264,7 @@ const Nav = () => {
                 </motion.div>
               );
             })}
-            <Logout />
+            {user && <Logout />}
           </NavWrapper>
         )}
       </AnimatePresence>

@@ -220,7 +220,6 @@ const ViewCandidatePosts = ({ profile }) => {
           >
             <Label>
               <FaSearch
-                // size={30}
                 style={{
                   marginRight: "1rem",
                   marginBottom: "-0.5rem",
@@ -374,18 +373,20 @@ const ViewCandidatePosts = ({ profile }) => {
                         >
                           <div>
                             <motion.div whileHover={{ scale: 1.05 }}>
-                              <Links
-                                to={
-                                  user.attributes.ethAddress ===
-                                  item.attributes.posterAccount
-                                    ? `/profile/${user.attributes.ethAddress}`
-                                    : `/profile/${item.attributes.posterUsername}`
-                                }
-                              >
-                                <Header>
-                                  {item.attributes.posterUsername}
-                                </Header>
-                              </Links>
+                              {user && (
+                                <Links
+                                  to={
+                                    user.attributes.ethAddress ===
+                                    item.attributes.posterAccount
+                                      ? `/profile/${user.attributes.ethAddress}`
+                                      : `/profile/${item.attributes.posterUsername}`
+                                  }
+                                >
+                                  <Header>
+                                    {item.attributes.posterUsername}
+                                  </Header>
+                                </Links>
+                              )}
                             </motion.div>
                             <Subheader>{item.attributes.posterBio}</Subheader>
                             <Text>

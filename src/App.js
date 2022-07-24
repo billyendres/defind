@@ -33,6 +33,10 @@ const App = () => {
     user,
   } = useMoralis();
 
+  const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+  const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+  Moralis.start({ serverUrl, appId });
+
   // const login = async () => {
   //   if (!isAuthenticated) {
   //     await authenticate({
@@ -53,11 +57,11 @@ const App = () => {
   return (
     <ThemeProvider theme={themeMode}>
       <GloablStyle />
+      <Nav />
       {isAuthenticated ? (
         <>
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <div style={{ background: "black" }}></div>
-          <Nav />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route
@@ -85,23 +89,18 @@ const App = () => {
             />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-          {/* <Logout /> */}
         </>
       ) : (
         <>
-          {/* {ethereum ? ( */}
           <Login />
           <Toggle theme={theme} toggleTheme={toggleTheme} />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
 
-          {/* ) : (
-            <div>
-              {isAuthenticating && <p>Authenticating</p>}
-              {authError && <p>{JSON.stringify(authError.message)}</p>}
-              <button style={{ padding: "2rem" }} onClick={login}>
-                Wallet Connect
-              </button>
-            </div>
-          )} */}
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/forum/:id" element={<FullPost />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
         </>
       )}
     </ThemeProvider>

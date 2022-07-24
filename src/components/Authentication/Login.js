@@ -30,5 +30,5 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
-  min-height: 100vh;
+  min-height: 50vh;
 `;
