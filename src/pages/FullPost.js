@@ -51,7 +51,6 @@ const FullPost = () => {
           {userProfile?.map(({ attributes }, key) => {
             return (
               <Wrapper key={key}>
-                {console.log(attributes)}
                 <ProfileWrapper>
                   <div
                     style={{
@@ -61,18 +60,9 @@ const FullPost = () => {
                   >
                     <div>
                       <motion.div whileHover={{ scale: 1.05 }}>
-                        {user && (
-                          <Links
-                            to={
-                              user.attributes.ethAddress ===
-                              attributes.posterAccount
-                                ? `/profile/${user.attributes.ethAddress}`
-                                : `/profile/${attributes.posterUsername}`
-                            }
-                          >
-                            <Header>{attributes.posterUsername}</Header>
-                          </Links>
-                        )}
+                        <Links to={`/profile/${attributes.posterUsername}`}>
+                          <Header>{attributes.posterUsername}</Header>
+                        </Links>
                       </motion.div>
                       <Subheader>{attributes.posterBio}</Subheader>
                       <Text>

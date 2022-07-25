@@ -33,17 +33,6 @@ const Nav = () => {
     }
   };
   window.addEventListener("scroll", changeColor);
-  console.log(open);
-  // useEffect(() => {
-  //   const closeNav = (e) => {
-  //     console.log(e.path);
-  //     if (e.path[2] !== buttonRef.current) {
-  //       setOpen(false);
-  //     }
-  //   };
-  //   document.body.addEventListener("click", closeNav);
-  //   return () => document.body.removeEventListener("click", closeNav);
-  // }, []);
 
   useEffect(() => {
     let handler = (e) => {
@@ -65,7 +54,6 @@ const Nav = () => {
       behavior: "smooth",
     });
   };
-  console.log(ethAddress);
 
   useEffect(() => {
     const userCheck = async () => {

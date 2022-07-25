@@ -99,6 +99,7 @@ const App = () => {
 
             <Route path="/forum" element={<Forum />} />
             <Route path="/forum/:id" element={<FullPost />} />
+            <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>

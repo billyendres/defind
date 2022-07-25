@@ -113,7 +113,12 @@ const ViewCandidatePosts = ({ profile }) => {
             return true;
           }
         });
-        setPostArray(filteredSearchThree);
+        const filterVerifiedPosts = filteredSearchThree?.filter((i) => {
+          if (i.attributes.verifiedPost) {
+            return true;
+          }
+        });
+        setPostArray(filterVerifiedPosts);
       }
 
       if (sortByPaymentAmount === false) {
@@ -151,7 +156,12 @@ const ViewCandidatePosts = ({ profile }) => {
             return true;
           }
         });
-        setPostArray(filteredSearchThree);
+        const filterVerifiedPosts = filteredSearchThree?.filter((i) => {
+          if (i.attributes.verifiedPost) {
+            return true;
+          }
+        });
+        setPostArray(filterVerifiedPosts);
       }
 
       window.localStorage.setItem("filteredBy", sortByPaymentAmount);
@@ -373,20 +383,13 @@ const ViewCandidatePosts = ({ profile }) => {
                         >
                           <div>
                             <motion.div whileHover={{ scale: 1.05 }}>
-                              {user && (
-                                <Links
-                                  to={
-                                    user.attributes.ethAddress ===
-                                    item.attributes.posterAccount
-                                      ? `/profile/${user.attributes.ethAddress}`
-                                      : `/profile/${item.attributes.posterUsername}`
-                                  }
-                                >
-                                  <Header>
-                                    {item.attributes.posterUsername}
-                                  </Header>
-                                </Links>
-                              )}
+                              <Links
+                                to={`/profile/${item.attributes.posterUsername}`}
+                              >
+                                <Header>
+                                  {item.attributes.posterUsername}
+                                </Header>
+                              </Links>
                             </motion.div>
                             <Subheader>{item.attributes.posterBio}</Subheader>
                             <Text>

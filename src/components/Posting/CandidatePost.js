@@ -66,8 +66,6 @@ const CandidatePost = () => {
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
 
-  console.log("Resume", postFile, "cover letter:", postFileCoverLetter);
-
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
     amount:
@@ -502,7 +500,6 @@ const CandidatePost = () => {
                 onClick={() => setPaymentAmount(paymentAmount + 1)}
                 text="+ $1"
               />
-              {console.log(paymentAmount)}
               <Button onClick={() => setCurrency("usdt")} text="USDT" />
               <Button onClick={() => setCurrency("uni")} text="UNI" />
             </Template>
