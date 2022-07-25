@@ -18,6 +18,7 @@ import Logout from "./components/Authentication/Logout";
 import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
 import { lightTheme, darkTheme } from "./components/Styles/themes";
+import PostSuccess from "./pages/PostSuccess";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -87,6 +88,7 @@ const App = () => {
               path={`/newpost/${Moralis.User.current().attributes.ethAddress}`}
               element={<Post />}
             />
+            <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>
@@ -96,7 +98,6 @@ const App = () => {
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route exact path="/" element={<Home />} />
-
             <Route path="/forum" element={<Forum />} />
             <Route path="/forum/:id" element={<FullPost />} />
             <Route path="/profile/:userId" element={<SearchProfile />} />

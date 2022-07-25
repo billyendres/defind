@@ -163,7 +163,7 @@ const CandidatePost = () => {
         newPost.set("postImgCoverLetter", file.ipfs());
       }
       await newPost.save();
-      navigate(`/profile/posts/${user.attributes.ethAddress}`);
+      navigate(`/postsuccess`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -492,7 +492,6 @@ const CandidatePost = () => {
                 disabled={isLoading}
                 text="Save Post"
               />
-              {/* <ToastContainer /> */}
               <div style={{ margin: "3rem" }}></div>
               <Button onClick={userPost} disabled={isLoading} text="Post" />
               <h1>Payment amount {paymentAmount}</h1>
