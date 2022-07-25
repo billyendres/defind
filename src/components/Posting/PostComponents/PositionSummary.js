@@ -1,22 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-const NewPost = ({ value, onChange }) => {
+const PositionSummary = ({ value, onChange }) => {
   return (
     <>
-      <SubHeader>Personal Summary*</SubHeader>
+      <SubHeader>Position Summary*</SubHeader>
       <Textarea
         value={value}
         onChange={onChange}
         required
-        placeholder="Highlight your unique experiences, ambitions and strengths."
+        placeholder="Job Description."
         maxLength="450"
       />
     </>
   );
 };
 
-export default NewPost;
+export default PositionSummary;
 
 const SubHeader = styled.div`
   color: ${({ theme }) => theme.textModals};

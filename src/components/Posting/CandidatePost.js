@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMoralis, useWeb3Transfer } from "react-moralis";
 import styled from "styled-components";
@@ -9,46 +9,32 @@ import {
   Education,
   AddEducation,
   EducationAdded,
-} from "./candidatePostComponents/Education";
+} from "./PostComponents/Education";
 import {
   EmploymentHistory,
   AddEmploymentHistory,
   EmploymentHistoryAdded,
-} from "./candidatePostComponents/EmploymentHistory";
-import {
-  Resume,
-  ResumeHeader,
-  RemoveResume,
-} from "./candidatePostComponents/Resume";
+} from "./PostComponents/EmploymentHistory";
+import { Resume, ResumeHeader, RemoveResume } from "./PostComponents/Resume";
 import {
   CoverLetter,
   CoverLetterHeader,
   RemoveCoverLetter,
-} from "./candidatePostComponents/CoverLetter";
+} from "./PostComponents/CoverLetter";
 
-import {
-  Contact,
-  AddContact,
-  ContactAdded,
-} from "./candidatePostComponents/Contact";
+import { Contact, AddContact, ContactAdded } from "./PostComponents/Contact";
 
-import PersonalSummary from "./candidatePostComponents/PersonalSummary";
+import PersonalSummary from "./PostComponents/PersonalSummary";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Button from "../Styles/Button";
 import Img from "../Styles/ProfilePicture";
 import defaultProfileImage from "../images/defaultProfileImage.png";
-import {
-  CategoryDropdown,
-  CategoryHeader,
-} from "./candidatePostComponents/Category";
-import {
-  LocationDropdown,
-  LocationHeader,
-} from "./candidatePostComponents/Location";
+import { CategoryDropdown, CategoryHeader } from "./PostComponents/Category";
+import { LocationDropdown, LocationHeader } from "./PostComponents/Location";
 
 const CandidatePost = () => {
   const navigate = useNavigate();
-  const { Moralis, authError, error, authenticate } = useMoralis();
+  const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
@@ -65,6 +51,7 @@ const CandidatePost = () => {
   const [contact, setContact] = useState([]);
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
+  const [post, setPost] = useState(false);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
@@ -119,7 +106,7 @@ const CandidatePost = () => {
 
   const savePost = async () => {
     try {
-      const Posts = Moralis.Object.extend("Posts");
+      const Posts = Moralis.Object.extend("Candidate_Posts");
       const newPost = new Posts();
 
       if (!personalSummary || !category || !location)
@@ -169,6 +156,21 @@ const CandidatePost = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const redirectSave = () => {
+    if (!personalSummary || !category || !location)
+      return toast.error("Please complete all required fields", {
+        position: "bottom-left",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    setPost(true);
   };
 
   const imageType = /application\/(pdf)/i;
@@ -487,29 +489,41 @@ const CandidatePost = () => {
                   onClick={() => handleRemoveContact(index)}
                 />
               ))}
-              <Button
-                onClick={savePost}
-                disabled={isLoading}
-                text="Save Post"
-              />
-              <div style={{ margin: "3rem" }}></div>
-              <Button onClick={userPost} disabled={isLoading} text="Post" />
-              <h1>Payment amount {paymentAmount}</h1>
-              <Button
-                onClick={() => setPaymentAmount(paymentAmount + 1)}
-                text="+ $1"
-              />
-              <Button onClick={() => setCurrency("usdt")} text="USDT" />
-              <Button onClick={() => setCurrency("uni")} text="UNI" />
             </Template>
           </motion.div>
         </Wrapper>
+      )}
+      <Button onClick={redirectSave} text="Post" />
+      {post && (
+        <PostWrapper>
+          <div style={{ marginTop: "4rem" }}></div>
+          <Button onClick={() => setPost(false)} text="Close" />
+          <Button onClick={savePost} disabled={isLoading} text="Save Post" />
+          <div style={{ margin: "3rem" }}></div>
+          <Button onClick={userPost} disabled={isLoading} text="Post pay" />
+          <h1>Payment amount {paymentAmount}</h1>
+          <Button
+            onClick={() => setPaymentAmount(paymentAmount + 1)}
+            text="+ $1"
+          />
+          <Button onClick={() => setCurrency("usdt")} text="USDT" />
+          <Button onClick={() => setCurrency("uni")} text="UNI" />
+        </PostWrapper>
       )}
     </>
   );
 };
 
 export default CandidatePost;
+
+const PostWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: red;
+  height: 100vh;
+  width: 100vw;
+`;
 
 const Wrapper = styled.div`
   min-height: 80vh;

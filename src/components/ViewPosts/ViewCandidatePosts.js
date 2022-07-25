@@ -4,11 +4,7 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import { motion, AnimatePresence } from "framer-motion";
 
-import {
-  FaSearch,
-  FaChevronCircleUp,
-  FaChevronCircleDown,
-} from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Button from "../Styles/Button";
 import LoadingSpinner from "../Styles/LoadingSpinner";
