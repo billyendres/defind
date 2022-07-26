@@ -554,7 +554,7 @@ const CandidatePost = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0 }}
                   >
-                    <PaymentText>
+                    <ModalText>
                       <p>
                         <br />
                         While all posts are visible on the forum, they are by
@@ -589,11 +589,11 @@ const CandidatePost = () => {
                         or delete a post during this time, please contact our
                         support team.
                       </p>
-                      <Button
-                        onClick={() => setReadMore(!readMore)}
-                        text="close"
-                      />
-                    </PaymentText>
+                    </ModalText>
+                    <Button
+                      onClick={() => setReadMore(!readMore)}
+                      text="close"
+                    />
                   </Modal>
                 )}
               </AnimatePresence>
@@ -648,9 +648,8 @@ const PaymentText = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1rem;
   text-align: left;
-  /* font-size: 1.25rem; */
+  font-size: 1.25rem;
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
     text-align: center;
@@ -660,13 +659,35 @@ const PaymentText = styled.div`
   }
 `;
 
+const ModalText = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1rem;
+  text-align: left;
+  /* font-size: 1.25rem; */
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+  }
+`;
+
 const Modal = styled(motion.div)`
-  width: 50vw;
-  height: 50vh;
+  width: 40rem;
   position: absolute;
   border-radius: 1rem;
-  padding: 1rem;
-  background-color: #fff;
+  padding: 1rem 2rem;
+  background: ${({ theme }) => theme.text};
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 34rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+  }
 `;
 
 const PaymentHeader = styled.h2`
