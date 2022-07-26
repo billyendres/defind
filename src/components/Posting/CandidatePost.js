@@ -52,6 +52,7 @@ const CandidatePost = () => {
   const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
   const [post, setPost] = useState(false);
+  const [readMore, setReadMore] = useState(false);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
@@ -494,35 +495,170 @@ const CandidatePost = () => {
         </Wrapper>
       )}
       <Button onClick={redirectSave} text="Post" />
-      {post && (
-        <PostWrapper>
-          <div style={{ marginTop: "4rem" }}></div>
-          <Button onClick={() => setPost(false)} text="Close" />
-          <Button onClick={savePost} disabled={isLoading} text="Save Post" />
-          <div style={{ margin: "3rem" }}></div>
-          <Button onClick={userPost} disabled={isLoading} text="Post pay" />
-          <h1>Payment amount {paymentAmount}</h1>
-          <Button
-            onClick={() => setPaymentAmount(paymentAmount + 1)}
-            text="+ $1"
-          />
-          <Button onClick={() => setCurrency("usdt")} text="USDT" />
-          <Button onClick={() => setCurrency("uni")} text="UNI" />
-        </PostWrapper>
-      )}
+      <AnimatePresence>
+        {post && (
+          <PaymentWrapper
+            initial={{ opacity: 0, y: "0%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+          >
+            <PaymentGrid>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <HeaderWrapper>
+                  <PaymentHeader>Publish Your Post</PaymentHeader>
+                  <PaymentText>
+                    <p>
+                      We offer basic and featured posts. Basic posts and free to
+                      publish, while featured posts incur a USDT charge. A
+                      charge that is decided by you.
+                      <br />
+                      <b onClick={() => setReadMore(!readMore)}>
+                        <span style={{ pointer: "cursor" }}>
+                          {!readMore ? "Read more." : "Read less."}
+                        </span>
+                      </b>
+                    </p>
+                    {readMore && (
+                      <>
+                        <p>
+                          <br />
+                          While all posts are visible on the forum, they are by
+                          default filtered by 'Featured Points'. <br />
+                          <p>
+                            <br />
+                            <i>Featured Points = USDT charge * 10</i>
+                          </p>
+                        </p>
+                        <br />
+                        <p>
+                          Posts with the highest number of Featured Points are
+                          displayed at the top of the forum, while basic posts
+                          are displayed last.
+                        </p>
+                        <br />
+                        <p>
+                          In order for your post to be viewed by the most eyes,
+                          it is recommended to utilise the Featured Points
+                          bidding system to secure a top rank.
+                        </p>
+                        <br />
+                        <p>
+                          Payments are accepted in USDT via the Binance Smart
+                          Chain, or Ethereum mainnet blockchains.
+                        </p>
+                        <br />
+                        <p>
+                          Please note, all posts will be screened for compliance
+                          within 24 hours. Once approved, they will be published
+                          to the forum and active for 30 days. If you wish to
+                          edit or delete a post during this time, please contact
+                          our support team.
+                        </p>
+                      </>
+                    )}
+                  </PaymentText>
+                </HeaderWrapper>
+                <ButtonWrapper>
+                  <Button onClick={() => setPost(false)} text="Close" />
+                  <Button
+                    onClick={savePost}
+                    disabled={isLoading}
+                    text="Basic Post"
+                  />
+                  {/* <Button
+                    onClick={userPost}
+                    disabled={isLoading}
+                    text="Featured Post"
+                  /> */}
+                </ButtonWrapper>
+              </div>
+              {/* <h1>Payment amount {paymentAmount}</h1>
+              <Button
+                onClick={() => setPaymentAmount(paymentAmount + 1)}
+                text="+ $1"
+              />
+              <Button onClick={() => setCurrency("usdt")} text="USDT" />
+              <Button onClick={() => setCurrency("uni")} text="UNI" /> */}
+            </PaymentGrid>
+          </PaymentWrapper>
+        )}
+      </AnimatePresence>
     </>
   );
 };
 
 export default CandidatePost;
 
-const PostWrapper = styled.div`
+const PaymentWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  background: red;
+  background: ${({ theme }) => theme.background};
   height: 100vh;
   width: 100vw;
+`;
+
+const PaymentGrid = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const HeaderWrapper = styled.div`
+  text-align: left;
+  margin-top: 2rem;
+  width: 32rem;
+  @media screen and (max-width: 975px) {
+    text-align: center;
+    margin-top: 5rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 34rem;
+  @media screen and (max-width: 975px) {
+    justify-content: center;
+  }
+`;
+
+const PaymentText = styled.div`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+  }
+`;
+
+const PaymentHeader = styled.h2`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Wrapper = styled.div`
