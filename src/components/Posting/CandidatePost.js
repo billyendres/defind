@@ -519,60 +519,20 @@ const CandidatePost = () => {
                       We offer basic and featured posts. Basic posts and free to
                       publish, while featured posts incur a USDT charge. A
                       charge that is decided by you.
-                      <br />
-                      <b onClick={() => setReadMore(!readMore)}>
-                        <span style={{ pointer: "cursor" }}>
-                          {!readMore ? "Read more." : "Read less."}
-                        </span>
-                      </b>
                     </p>
-                    {readMore && (
-                      <>
-                        <p>
-                          <br />
-                          While all posts are visible on the forum, they are by
-                          default filtered by 'Featured Points'. <br />
-                          <p>
-                            <br />
-                            <i>Featured Points = USDT charge * 10</i>
-                          </p>
-                        </p>
-                        <br />
-                        <p>
-                          Posts with the highest number of Featured Points are
-                          displayed at the top of the forum, while basic posts
-                          are displayed last.
-                        </p>
-                        <br />
-                        <p>
-                          In order for your post to be viewed by the most eyes,
-                          it is recommended to utilise the Featured Points
-                          bidding system to secure a top rank.
-                        </p>
-                        <br />
-                        <p>
-                          Payments are accepted in USDT via the Binance Smart
-                          Chain, or Ethereum mainnet blockchains.
-                        </p>
-                        <br />
-                        <p>
-                          Please note, all posts will be screened for compliance
-                          within 24 hours. Once approved, they will be published
-                          to the forum and active for 30 days. If you wish to
-                          edit or delete a post during this time, please contact
-                          our support team.
-                        </p>
-                      </>
-                    )}
                   </PaymentText>
                 </HeaderWrapper>
                 <ButtonWrapper>
-                  <Button onClick={() => setPost(false)} text="Close" />
                   <Button
+                    onClick={() => setReadMore(!readMore)}
+                    text="Read More"
+                  />
+                  <Button onClick={() => setPost(false)} text="Return" />
+                  {/* <Button
                     onClick={savePost}
                     disabled={isLoading}
                     text="Basic Post"
-                  />
+                  /> */}
                   {/* <Button
                     onClick={userPost}
                     disabled={isLoading}
@@ -587,6 +547,56 @@ const CandidatePost = () => {
               />
               <Button onClick={() => setCurrency("usdt")} text="USDT" />
               <Button onClick={() => setCurrency("uni")} text="UNI" /> */}
+              <AnimatePresence>
+                {readMore && (
+                  <Modal
+                    initial={{ opacity: 0, scale: 0.75 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                  >
+                    <PaymentText>
+                      <p>
+                        <br />
+                        While all posts are visible on the forum, they are by
+                        default filtered by 'Featured Points'. <br />
+                        <p>
+                          <br />
+                          <i>Featured Points = USDT charge * 10</i>
+                        </p>
+                      </p>
+                      <br />
+                      <p>
+                        Posts with the highest number of Featured Points are
+                        displayed at the top of the forum, while basic posts are
+                        displayed last.
+                      </p>
+                      <br />
+                      <p>
+                        In order for your post to be viewed by the most eyes, it
+                        is recommended to utilise the Featured Points bidding
+                        system to secure a top rank.
+                      </p>
+                      <br />
+                      <p>
+                        Payments are accepted in USDT via the Binance Smart
+                        Chain, or Ethereum mainnet blockchains.
+                      </p>
+                      <br />
+                      <p>
+                        Please note, all posts will be screened for compliance
+                        within 24 hours. Once approved, they will be published
+                        to the forum and active for 30 days. If you wish to edit
+                        or delete a post during this time, please contact our
+                        support team.
+                      </p>
+                      <Button
+                        onClick={() => setReadMore(!readMore)}
+                        text="close"
+                      />
+                    </PaymentText>
+                  </Modal>
+                )}
+              </AnimatePresence>
             </PaymentGrid>
           </PaymentWrapper>
         )}
@@ -639,12 +649,24 @@ const PaymentText = styled.div`
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1rem;
+  text-align: left;
+  /* font-size: 1.25rem; */
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
+    text-align: center;
   }
   @media screen and (max-width: 600px) {
     font-size: 0.65rem;
   }
+`;
+
+const Modal = styled(motion.div)`
+  width: 50vw;
+  height: 50vh;
+  position: absolute;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #fff;
 `;
 
 const PaymentHeader = styled.h2`

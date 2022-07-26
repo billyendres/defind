@@ -3,12 +3,14 @@ import { useMoralis } from "react-moralis";
 import styled from "styled-components";
 import Button from "../components/Styles/Button";
 import { Links } from "../components/Styles/Links";
+import Confetti from "react-confetti";
 
 const PostSuccess = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   return (
     <Wrapper>
+      <Confetti />
       <Grid>
         <div
           style={{
