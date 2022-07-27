@@ -102,7 +102,7 @@ const FullPost = () => {
                         }}
                       >
                         <motion.div whileHover={{ scale: 1.05 }}>
-                          <Links to="/forum">
+                          <Links to="/forum/candidates">
                             <Text
                               style={{
                                 fontWeight: "bold",

@@ -33,10 +33,14 @@ const Post = () => {
             <HeaderWrapper>
               <Header>Share Your Story</Header>
               <Text>
-                {text}
-                <span onClick={() => setReadMore(!readMore)}>
-                  . <b>Read more.</b>
-                </span>
+                {text}.
+                <motion.div
+                  onClick={() => setReadMore(!readMore)}
+                  whileHover={{ scale: 1.05 }}
+                  style={{ display: "inline", cursor: "pointer" }}
+                >
+                  <b> Read more.</b>
+                </motion.div>
               </Text>
             </HeaderWrapper>
             {user && (
@@ -86,10 +90,8 @@ const Post = () => {
                     <br />
                     While all posts are visible on the forum, they are by
                     default filtered by 'Featured Points'. <br />
-                    <p>
-                      <br />
-                      <i>Featured Points = USDT charge * 10</i>
-                    </p>
+                    <br />
+                    <i>Featured Points = USDT charge * 10</i>
                   </p>
                   <br />
                   <p>

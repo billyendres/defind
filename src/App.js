@@ -21,6 +21,8 @@ import { lightTheme, darkTheme } from "./components/Styles/themes";
 import PostSuccess from "./pages/PostSuccess";
 import CandidatePost from "./components/Posting/CandidatePost";
 import ClientPost from "./components/Posting/ClientPost";
+import ViewClientPosts from "./components/ViewPosts/ViewClientPosts";
+import ViewCandidatePosts from "./components/ViewPosts/ViewCandidatePosts";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -68,17 +70,27 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route
-              path={`/profile/${Moralis.User.current().attributes.ethAddress}`}
+              path={`/myprofile/${
+                Moralis.User.current().attributes.ethAddress
+              }`}
               element={<Profile />}
             />
             <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route
-              path={`/profile/edit/${
+              path={`/myprofile/edit/${
                 Moralis.User.current().attributes.ethAddress
               }`}
               element={<EditProfile />}
             />
             <Route path="/forum" element={<Forum />} />
+            <Route
+              path="/forum/jobs"
+              element={<ViewClientPosts profile={false} />}
+            />
+            <Route
+              path="/forum/candidates"
+              element={<ViewCandidatePosts profile={false} />}
+            />
             <Route path="/forum/:id" element={<FullPost />} />
             <Route
               path={`/profile/posts/${
@@ -108,6 +120,14 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/forum" element={<Forum />} />
+            <Route
+              path="/forum/jobs"
+              element={<ViewClientPosts profile={false} />}
+            />
+            <Route
+              path="/forum/candidates"
+              element={<ViewCandidatePosts profile={false} />}
+            />
             <Route path="/forum/:id" element={<FullPost />} />
             <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route path={`/post`} element={<Post />} />

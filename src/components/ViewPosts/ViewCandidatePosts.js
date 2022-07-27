@@ -10,6 +10,8 @@ import Button from "../Styles/Button";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Img from "../Styles/ProfilePicture";
 
+import { useLocation } from "react-router-dom";
+
 const cardVariants = {
   offscreen: {
     y: 300,
@@ -38,6 +40,8 @@ const ViewCandidatePosts = ({ profile }) => {
   const [openLocation, setOpenLocation] = useState(false);
   const buttonRef = useRef();
   const buttonRefLocation = useRef();
+
+  const locations = useLocation();
 
   const category = [
     "Software Developer",
@@ -217,6 +221,13 @@ const ViewCandidatePosts = ({ profile }) => {
         </>
       ) : (
         <>
+          <>
+            {locations.pathname === `/forum/candidates` ? (
+              <PageHeader>Candidate Posts</PageHeader>
+            ) : (
+              <></>
+            )}
+          </>
           <div
             style={{
               display: "flex",
@@ -380,7 +391,7 @@ const ViewCandidatePosts = ({ profile }) => {
                           <div>
                             <motion.div whileHover={{ scale: 1.05 }}>
                               <Links
-                                to={`/profile/${item.attributes.posterUsername}`}
+                                to={`/profile/${item.attributes.posterAccount}`}
                               >
                                 <Header>
                                   {item.attributes.posterUsername}
@@ -487,7 +498,6 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
-  justify-content: center;
 `;
 
 const Grid = styled.div`
@@ -586,6 +596,23 @@ const Header = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 0.9rem;
     padding: 0.1rem 0;
+  }
+`;
+
+const PageHeader = styled.h2`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  margin-top: 4rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2rem;
+    margin-bottom: 0;
+    margin-top: 3rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+    margin-top: 2rem;
   }
 `;
 

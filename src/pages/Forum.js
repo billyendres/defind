@@ -5,34 +5,11 @@ import ViewClientPosts from "../components/ViewPosts/ViewClientPosts";
 import Button from "../components/Styles/Button";
 import { motion } from "framer-motion";
 import softwareDev from "../components/images/worker.png";
+import { Links } from "../components/Styles/Links";
 
 const text =
   "Welcome to the forum. This is where you are able to match yourself with the perfect job or candiadate";
 const Forum = () => {
-  const [type, setType] = useState("candidate");
-  const scrollDown = useRef(null);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const scrollPage = (elementRef) => {
-    window.scrollTo({
-      top: elementRef.current.offsetTop,
-      behavior: "smooth",
-    });
-  };
-
-  const clickEventClients = () => {
-    setType("client");
-    scrollPage(scrollDown);
-  };
-
-  const clickEventCandidates = () => {
-    setType("candidate");
-    scrollPage(scrollDown);
-  };
-
   return (
     <>
       <Wrapper>
@@ -54,8 +31,12 @@ const Forum = () => {
                 <Text>{text}</Text>
               </HeaderWrapper>
               <ButtonWrapper>
-                <Button onClick={clickEventClients} text="Jobs" />
-                <Button onClick={clickEventCandidates} text="Candidates" />
+                <Links to="/forum/jobs">
+                  <Button text="Jobs" />
+                </Links>
+                <Links to="/forum/candidates">
+                  <Button text="Candidates" />
+                </Links>
               </ButtonWrapper>
             </div>
           </motion.div>
@@ -67,19 +48,6 @@ const Forum = () => {
             <Img src={softwareDev} alt={softwareDev} />
           </motion.div>
         </Grid>
-        <div style={{ minHeight: "100vh" }} ref={scrollDown}>
-          {type === "client" ? (
-            <PostHeaderWrapper>
-              <Header>Job Posts</Header>
-              <ViewClientPosts profile={false} />
-            </PostHeaderWrapper>
-          ) : (
-            <PostHeaderWrapper>
-              <Header>Candidate Posts</Header>
-              <ViewCandidatePosts profile={false} />
-            </PostHeaderWrapper>
-          )}
-        </div>
       </Wrapper>
     </>
   );

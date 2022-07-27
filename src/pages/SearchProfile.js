@@ -36,7 +36,7 @@ const SearchProfile = () => {
         setIsLoading(true);
         const Post = Moralis.Object.extend("Posts");
         const query = new Moralis.Query(Post);
-        query.equalTo("posterUsername", userId);
+        query.equalTo("posterAccount", userId);
         const results = await query.find();
         setProfile(results);
       } catch (error) {
@@ -57,7 +57,8 @@ const SearchProfile = () => {
       ) : (
         <>
           <Wrapper>
-            <PageHeader>{userId}</PageHeader>
+            <PageHeader>{`${userId.slice(0, 4)}...
+            ${userId.slice(38)}`}</PageHeader>
             <Grid>
               {profile
                 ?.map((item, key) => {

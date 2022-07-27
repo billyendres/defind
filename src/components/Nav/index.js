@@ -84,7 +84,7 @@ const Nav = () => {
               <>Profile</>
             </IconWrapper>
           ),
-          route: `/profile/${ethAddress}`,
+          route: `/myprofile/${ethAddress}`,
           key: 2,
         },
         {

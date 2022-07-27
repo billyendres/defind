@@ -69,7 +69,7 @@ const EditUserProfle = () => {
       }
     } finally {
       setTimeout(() => {
-        navigate(`/profile/${user.attributes.ethAddress}`);
+        navigate(`/myprofile/${user.attributes.ethAddress}`);
         setIsLoading(false);
         window.location.reload();
       }, 4000);
@@ -80,15 +80,17 @@ const EditUserProfle = () => {
     const User = Moralis.Object.extend("_User");
     const query = new Moralis.Query(User);
     const myDetails = await query.first();
-    setIsLoading(true);
-
-    myDetails.set("username", "");
+    myDetails.set(
+      "username",
+      `${user.attributes.ethAddress.slice(0, 4)}...
+    ${user.attributes.ethAddress.slice(38)}`
+    );
     myDetails.set("bio", "");
     myDetails.set("profilePic", defaultProfileImage);
 
     await myDetails.save();
     setIsLoading(false);
-    navigate(`/profile/${user.attributes.ethAddress}`);
+    navigate(`/myprofile/${user.attributes.ethAddress}`);
     window.location.reload();
   };
 
@@ -180,7 +182,7 @@ const EditUserProfle = () => {
             </div>
           </>
           <div>
-            <Links to={`/profile/${user.attributes.ethAddress}`}>
+            <Links to={`/myprofile/${user.attributes.ethAddress}`}>
               <Button
                 text={
                   <>

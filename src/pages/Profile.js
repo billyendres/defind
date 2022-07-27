@@ -8,7 +8,7 @@ import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
 import Img from "../components/Styles/ProfilePicture";
 import Button from "../components/Styles/Button";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserEdit, FaRegIdCard } from "react-icons/fa";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -39,29 +39,30 @@ const UserProfile = () => {
           {`${user.attributes.ethAddress.slice(0, 4)}...
             ${user.attributes.ethAddress.slice(38)}`}
         </Subheader>
-        <Links to={`/profile/edit/${user.attributes.ethAddress}`}>
-          <Subheader>
-            <Button
-              text={
-                <>
-                  <FaUserEdit
-                    style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
-                  />
-                  Edit Profile
-                </>
-              }
-            />
-          </Subheader>
+        <Links to={`/myprofile/edit/${user.attributes.ethAddress}`}>
+          <Button
+            text={
+              <>
+                <FaUserEdit
+                  style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                />
+                Edit Profile
+              </>
+            }
+          />
         </Links>
-        {location.pathname === `/profile/${user.attributes.ethAddress}` ? (
-          <Links to={`/profile/posts/${user.attributes.ethAddress}`}></Links>
-        ) : (
-          <Links to={`/profile/${user.attributes.ethAddress}`}>
-            <Subheader>
-              <Button text="Return to profile" />
-            </Subheader>
-          </Links>
-        )}
+        <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
+          <Button
+            text={
+              <>
+                <FaRegIdCard
+                  style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                />
+                My Posts
+              </>
+            }
+          />
+        </Links>
       </motion.div>
     </Wrapper>
   );
