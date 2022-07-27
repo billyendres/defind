@@ -114,7 +114,7 @@ const Nav = () => {
               <>Post</>
             </IconWrapper>
           ),
-          route: `/newpost/${ethAddress}`,
+          route: `/post`,
           key: 5,
         },
       ]);
@@ -139,6 +139,16 @@ const Nav = () => {
           ),
           route: "/forum",
           key: 7,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaRegEdit style={{ marginRight: "1rem" }} />
+              <>Post</>
+            </IconWrapper>
+          ),
+          route: `/post`,
+          key: 8,
         },
       ]);
     }

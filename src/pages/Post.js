@@ -1,38 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useMoralis } from "react-moralis";
 import CandidatePost from "../components/Posting/CandidatePost";
 import ClientPost from "../components/Posting/ClientPost";
 import Button from "../components/Styles/Button";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import softwareDev from "../components/images/softwareDev.jpg";
+import { Links } from "../components/Styles/Links";
 
 const text =
   "Welcome to the forum. This is where you are able to match yourself with the perfect job or candiadate";
 
 const Post = () => {
-  const [type, setType] = useState("candidate");
-  const scrollDown = useRef(null);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const scrollPage = (elementRef) => {
-    window.scrollTo({
-      top: elementRef.current.offsetTop,
-      behavior: "smooth",
-    });
-  };
-
-  const clickEventClients = () => {
-    setType("client");
-    scrollPage(scrollDown);
-  };
-
-  const clickEventCandidates = () => {
-    setType("candidate");
-    scrollPage(scrollDown);
-  };
+  const { user, Moralis } = useMoralis();
+  const [readMore, setReadMore] = useState(false);
 
   return (
     <Wrapper>
@@ -51,12 +32,31 @@ const Post = () => {
           >
             <HeaderWrapper>
               <Header>Share Your Story</Header>
-              <Text>{text}</Text>
+              <Text>
+                {text}
+                <span onClick={() => setReadMore(!readMore)}>
+                  . <b>Read more.</b>
+                </span>
+              </Text>
             </HeaderWrapper>
-            <ButtonWrapper>
-              <Button onClick={clickEventClients} text="Job Post" />
-              <Button onClick={clickEventCandidates} text="Profile Post" />
-            </ButtonWrapper>
+            {user && (
+              <ButtonWrapper>
+                <Links
+                  to={`/post/job/${
+                    Moralis.User.current().attributes.ethAddress
+                  }`}
+                >
+                  <Button text="Job Post" />
+                </Links>
+                <Links
+                  to={`/post/candidate/${
+                    Moralis.User.current().attributes.ethAddress
+                  }`}
+                >
+                  <Button text="Profile Post" />
+                </Links>
+              </ButtonWrapper>
+            )}
           </div>
         </motion.div>
         <motion.div
@@ -67,19 +67,62 @@ const Post = () => {
           <Img src={softwareDev} alt={softwareDev} />
         </motion.div>
       </Grid>
-      <div style={{ minHeight: "100vh" }} ref={scrollDown}>
-        {type === "client" ? (
-          <>
-            <Header>Job Post</Header>
-            <ClientPost profile={false} />
-          </>
-        ) : (
-          <>
-            <Header>Profile Post</Header>
-            <CandidatePost profile={false} />
-          </>
+      <AnimatePresence>
+        {readMore && (
+          <PaymentWrapper>
+            <PaymentGrid>
+              <Modal
+                initial={{ opacity: 0, scale: 0.75 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+              >
+                <ModalText>
+                  <p>
+                    We offer basic and featured posts. Basic posts and free to
+                    publish, while featured posts incur a USDT charge. A charge
+                    that is decided by you.
+                  </p>
+                  <p>
+                    <br />
+                    While all posts are visible on the forum, they are by
+                    default filtered by 'Featured Points'. <br />
+                    <p>
+                      <br />
+                      <i>Featured Points = USDT charge * 10</i>
+                    </p>
+                  </p>
+                  <br />
+                  <p>
+                    Posts with the highest number of Featured Points are
+                    displayed at the top of the forum, while basic posts are
+                    displayed last.
+                  </p>
+                  <br />
+                  <p>
+                    In order for your post to be viewed by the most eyes, it is
+                    recommended to utilise the Featured Points bidding system to
+                    secure a top rank.
+                  </p>
+                  <br />
+                  <p>
+                    Payments are accepted in USDT via the Binance Smart Chain,
+                    or Ethereum mainnet blockchains.
+                  </p>
+                  <br />
+                  <p>
+                    Please note, all posts will be screened for compliance
+                    within 24 hours. Once approved, they will be published to
+                    the forum and active for 30 days. If you wish to edit or
+                    delete a post during this time, please contact our support
+                    team.
+                  </p>
+                </ModalText>
+                <Button onClick={() => setReadMore(!readMore)} text="close" />
+              </Modal>
+            </PaymentGrid>
+          </PaymentWrapper>
         )}
-      </div>
+      </AnimatePresence>
     </Wrapper>
   );
 };
@@ -112,6 +155,53 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
+`;
+
+const PaymentWrapper = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: ${({ theme }) => theme.background};
+  height: 100vh;
+  width: 100vw;
+`;
+
+const PaymentGrid = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalText = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1rem;
+  text-align: left;
+  /* font-size: 1.25rem; */
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+  }
+`;
+
+const Modal = styled(motion.div)`
+  width: 40rem;
+  position: absolute;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  background: ${({ theme }) => theme.text};
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 34rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+  }
 `;
 
 const HeaderWrapper = styled.div`

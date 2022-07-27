@@ -19,6 +19,8 @@ import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
 import { lightTheme, darkTheme } from "./components/Styles/themes";
 import PostSuccess from "./pages/PostSuccess";
+import CandidatePost from "./components/Posting/CandidatePost";
+import ClientPost from "./components/Posting/ClientPost";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -84,9 +86,16 @@ const App = () => {
               }`}
               element={<MyPosts />}
             />
+            <Route path={`/post`} element={<Post />} />
             <Route
-              path={`/newpost/${Moralis.User.current().attributes.ethAddress}`}
-              element={<Post />}
+              path={`/post/job/${Moralis.User.current().attributes.ethAddress}`}
+              element={<CandidatePost profile={false} />}
+            />
+            <Route
+              path={`/post/candidate/${
+                Moralis.User.current().attributes.ethAddress
+              }`}
+              element={<ClientPost profile={false} />}
             />
             <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="*" element={<PageNotFound />} />
@@ -101,6 +110,7 @@ const App = () => {
             <Route path="/forum" element={<Forum />} />
             <Route path="/forum/:id" element={<FullPost />} />
             <Route path="/profile/:userId" element={<SearchProfile />} />
+            <Route path={`/post`} element={<Post />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>
