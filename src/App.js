@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
@@ -14,7 +14,6 @@ import PageNotFound from "./pages/404";
 import Nav from "./components/Nav";
 import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
-import Logout from "./components/Authentication/Logout";
 import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
 import { lightTheme, darkTheme } from "./components/Styles/themes";
@@ -23,6 +22,8 @@ import CandidatePost from "./components/Posting/CandidatePost";
 import ClientPost from "./components/Posting/ClientPost";
 import ViewClientPosts from "./components/ViewPosts/ViewClientPosts";
 import ViewCandidatePosts from "./components/ViewPosts/ViewCandidatePosts";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -36,36 +37,49 @@ const App = () => {
     isAuthenticating,
     Moralis,
     user,
+    account,
   } = useMoralis();
 
   const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
   const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
   Moralis.start({ serverUrl, appId });
 
-  // const login = async () => {
-  //   if (!isAuthenticated) {
-  //     await authenticate({
-  //       provider: "walletconnect",
-  //       mobileLinks: ["metamask", "trust", "rainbow"],
-  //     })
-  //       .then(function (user) {
-  //         console.log(user.get("ethAddress"));
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   }
-  // };
-
-  // const ethereum = window.ethereum;
+  useEffect(() => {
+    const checkAccount = () => {
+      if (account && user) {
+        if (account !== Moralis.User.current().attributes.ethAddress) {
+          return toast(
+            <div style={{ textAlign: "left" }}>
+              Your wallet address does not match the current user account.
+              <br /> <br />
+              To create a new account, simply logout and reauthenticate.
+            </div>,
+            {
+              position: "bottom-left",
+              toastId: "custom-id",
+              autoClose: 10000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
+        }
+      }
+    };
+    checkAccount();
+  }, [Moralis, account, user]);
 
   return (
     <ThemeProvider theme={themeMode}>
       <GloablStyle />
-      {/* {console.log(isAuthenticated)} */}
       <Nav />
       {isAuthenticated ? (
         <>
+          <ToastContainer />
+
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <div style={{ background: "black" }}></div>
           <Routes>

@@ -4,6 +4,7 @@ import Button from "../Styles/Button";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useMoralis, useChain } from "react-moralis";
 import { useNavigate } from "react-router-dom";
+import { ConnectButton } from "web3uikit";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -14,70 +15,24 @@ const Logout = () => {
     isAuthenticated,
     isWeb3Enabled,
     isWeb3EnableLoading,
+    user,
   } = useMoralis();
+  const { switchNetwork, chainId } = useChain();
   const ethereum = window.ethereum;
 
-  // useEffect(() => {
-  //   const unlockMetaMask = async () => {
-  //     if (ethereum) {
-  //       const result = await ethereum._metamask.isUnlocked();
-  //       if (!result) {
-  //         await Moralis.User.logOut();
-  //         navigate("/");
-  //         window.location.reload();
-  //       }
-  //       console.log(result);
-  //     } else {
-  //       console.log("Eth browser not connected");
-  //     }
-  //   };
-  //   unlockMetaMask();
-  // }, [Moralis, ethereum, navigate]);
-
-  // useEffect(() => {
-  //   ethereum &&
-  //     ethereum.on("accountsChanged", (accounts) => {
-  //       console.log(accounts);
-  //       if (accounts) {
-  //         const changeAccount = async () => {
-  //           await Moralis.User.logOut();
-  //           navigate("/");
-  //           window.location.reload();
-  //         };
-  //         changeAccount();
-  //       }
-  //     });
-  // }, [Moralis, ethereum, navigate]);
-  const { switchNetwork, chainId, chain } = useChain();
-  console.log(account);
+  console.log(chainId, "chainID");
   useEffect(() => {
-    const connectorId = window.localStorage.getItem("connectorId");
-    if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
-      Moralis.enableWeb3({ provider: connectorId });
-    }
-    if (chainId != 3) {
+    if (chainId !== "0x3") {
       switchNetwork(3);
     }
   }, [
     isAuthenticated,
     isWeb3Enabled,
-    chain,
     Moralis,
     chainId,
     isWeb3EnableLoading,
     switchNetwork,
   ]);
-
-  useEffect(() => {
-    const logout = async () => {
-      if (account !== Moralis.User.current().attributes.ethAddress) {
-        await Moralis.User.logOut();
-        navigate("/");
-        window.location.reload();
-      }
-    };
-    logout();
-  }, [account, navigate, Moralis]);
 
   const logout = async () => {
     await Moralis.User.logOut();
@@ -108,3 +63,35 @@ const Wrapper = styled.div`
   bottom: 1rem;
   left: 0.25rem;
 `;
+
+// useEffect(() => {
+//   const unlockMetaMask = async () => {
+//     if (ethereum) {
+//       const result = await ethereum._metamask.isUnlocked();
+//       if (!result) {
+//         await Moralis.User.logOut();
+//         navigate("/");
+//         window.location.reload();
+//       }
+//       console.log(result);
+//     } else {
+//       console.log("Eth browser not connected");
+//     }
+//   };
+//   unlockMetaMask();
+// }, [Moralis, ethereum, navigate]);
+
+// useEffect(() => {
+//   ethereum &&
+//     ethereum.on("accountsChanged", (accounts) => {
+//       console.log(accounts);
+//       if (accounts) {
+//         const changeAccount = async () => {
+//           await Moralis.User.logOut();
+//           navigate("/");
+//           window.location.reload();
+//         };
+//         changeAccount();
+//       }
+//     });
+// }, [Moralis, ethereum, navigate]);

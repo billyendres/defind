@@ -117,7 +117,7 @@ const Post = () => {
                     team.
                   </p>
                 </ModalText>
-                <Button onClick={() => setReadMore(!readMore)} text="close" />
+                <Button onClick={() => setReadMore(!readMore)} text="Close" />
               </Modal>
             </PaymentGrid>
           </PaymentWrapper>

@@ -496,6 +496,7 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
+  background: ${({ theme }) => theme.background};
 `;
 
 const Grid = styled.div`
@@ -602,15 +603,15 @@ const PageHeader = styled.h2`
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
   @media screen and (max-width: 1023px) {
     font-size: 2rem;
     margin-bottom: 0;
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 `;
 

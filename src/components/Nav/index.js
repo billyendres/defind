@@ -16,9 +16,11 @@ import {
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
 import Logout from "../Authentication/Logout";
+import { ConnectButton } from "web3uikit";
+import Button from "../Styles/Button";
 
 const Nav = () => {
-  const { Moralis, isAuthenticated } = useMoralis();
+  const { Moralis, isAuthenticated, account } = useMoralis();
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
@@ -196,24 +198,27 @@ const Nav = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              paddingTop: "1rem",
+              width: "100%",
+              justifyContent: "left",
             }}
           >
             <div>
-              <Links to={`/profile/${ethAddress}`}>
-                {/* <h3
+              {account && (
+                <div
                   style={{
                     opacity: navColor ? 0 : 1,
                     transition: "0.5s linear",
                   }}
                   className="navTop"
                 >
-                  {user.attributes.username.toUpperCase()}
-                  {" - "}
-                  {`${ethAddress.slice(0, 4).toUpperCase()}...
-                    ${ethAddress.slice(38).toUpperCase()}`}
-                </h3> */}
-              </Links>
+                  <Links to={`/profile/${ethAddress}`}>
+                    <Button
+                      text={`${account.slice(0, 4)}...
+            ${account.slice(38)}`}
+                    />
+                  </Links>
+                </div>
+              )}
             </div>
           </Hide>
           <div>
@@ -366,19 +371,12 @@ const Header = styled.h3`
 const Subheader = styled.h4`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
-  font-size: 1rem;
-  margin: 0.25rem;
-`;
+  font-size: 1.5rem;
+  margin: 0.5rem;
 
-const UserTextWrapper = styled.div`
-  padding: 1rem;
-  position: fixed;
-  text-align: center;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-  background: ${({ theme }) => theme.backgroundNav};
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -387,25 +385,9 @@ const IconWrapper = styled.div`
   text-transform: uppercase;
 `;
 
-const Icons = styled.h2`
-  transition: all 0.5s linear;
-  color: ${({ theme }) => theme.icon};
-  padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  /* border: 3px solid ${({ theme }) => theme.icon}; */
-  border-radius: 50%;
-  text-transform: uppercase;
-  cursor: pointer;
-`;
-
 const Hide = styled.span`
   margin-left: 1rem;
   @media screen and (max-width: 600px) {
     display: none;
   }
-`;
-
-const ImageWrapper = styled.div`
-  margin-top: 5rem;
 `;
