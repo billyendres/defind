@@ -228,29 +228,27 @@ const ViewCandidatePosts = ({ profile }) => {
               <></>
             )}
           </>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <div style={{ display: "flex", alignItems: "center" }}>
             <Label>
-              <FaSearch
-                style={{
-                  marginRight: "1rem",
-                  marginBottom: "-0.5rem",
-                  marginLeft: "-3rem",
-                  marginTop: "1.5rem",
-                }}
-              />
               <Input
                 type="text"
                 placeholder={window.localStorage.getItem("searchResults")}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Label>
-            <Button onClick={getPosts} text="Go" />
+            <Label>
+              <Button
+                onClick={getPosts}
+                text={
+                  <>
+                    <FaSearch
+                      style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                    />
+                    Search
+                  </>
+                }
+              />
+            </Label>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <motion.div whileHover={{ scale: 1.05 }}>

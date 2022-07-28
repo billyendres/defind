@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
-import CandidatePost from "../components/Posting/CandidatePost";
-import ClientPost from "../components/Posting/ClientPost";
 import Button from "../components/Styles/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import softwareDev from "../components/images/softwareDev.jpg";

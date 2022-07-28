@@ -10,7 +10,7 @@ const MyPosts = () => {
   return (
     <Wrapper>
       <Header>My Posts</Header>
-      <ViewCandidatePosts profile={true} />;
+      <ViewCandidatePosts profile={true} />
     </Wrapper>
   );
 };

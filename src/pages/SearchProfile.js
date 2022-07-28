@@ -57,8 +57,11 @@ const SearchProfile = () => {
       ) : (
         <>
           <Wrapper>
-            <PageHeader>{`${userId.slice(0, 4)}...
-            ${userId.slice(38)}`}</PageHeader>
+            <PageHeader>
+              Posts -{" "}
+              {`${userId.slice(0, 4)}...
+            ${userId.slice(38)}`}
+            </PageHeader>
             <Grid>
               {profile
                 ?.map((item, key) => {

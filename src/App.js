@@ -62,6 +62,7 @@ const App = () => {
   return (
     <ThemeProvider theme={themeMode}>
       <GloablStyle />
+      {/* {console.log(isAuthenticated)} */}
       <Nav />
       {isAuthenticated ? (
         <>
@@ -101,13 +102,13 @@ const App = () => {
             <Route path={`/post`} element={<Post />} />
             <Route
               path={`/post/job/${Moralis.User.current().attributes.ethAddress}`}
-              element={<CandidatePost profile={false} />}
+              element={<ClientPost profile={false} />}
             />
             <Route
               path={`/post/candidate/${
                 Moralis.User.current().attributes.ethAddress
               }`}
-              element={<ClientPost profile={false} />}
+              element={<CandidatePost profile={false} />}
             />
             <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="*" element={<PageNotFound />} />

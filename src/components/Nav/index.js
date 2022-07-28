@@ -3,6 +3,7 @@ import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMoralis } from "react-moralis";
+
 import {
   FaHome,
   FaUserAlt,
