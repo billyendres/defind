@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { ethers } from "ethers";
 import {
   Education,
   AddEducation,
@@ -49,23 +50,46 @@ const CandidatePost = () => {
   const [open, setOpen] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
   const [contact, setContact] = useState([]);
-  const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
-  const [post, setPost] = useState(false);
-  const [readMore, setReadMore] = useState(false);
+  const [contractAddress, setContractAddress] = useState();
+  const [decimal, setDecimal] = useState();
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
-    amount:
-      currency === "usdt"
-        ? `${Moralis.Units.Token(paymentAmount, 6)}`
-        : `${Moralis.Units.Token(0.2, 18)}`,
+    amount: Moralis.Units.Token(paymentAmount, decimal),
     receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
-    contractAddress:
-      currency === "usdt"
-        ? "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83"
-        : "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+    contractAddress: contractAddress,
   });
+
+  const usdt = () => {
+    setDecimal(6);
+    setContractAddress("0x110a13FC3efE6A245B50102D2d79B3E76125Ae83");
+    // userPost();
+  };
+
+  const uni = () => {
+    setDecimal(18);
+    setContractAddress("0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984");
+    // userPost();
+  };
+
+  const busd = () => {
+    setDecimal(18);
+    setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
+  };
+
+  const dai = () => {
+    setDecimal(18);
+    setContractAddress("0xaD6D458402F60fD3Bd25163575031ACDce07538D");
+  };
+
+  const usdc = () => {
+    setDecimal(6);
+    setContractAddress("0x07865c6E87B9F70255377e024ace6630C1Eaa37F");
+  };
+
+  console.log(paymentAmount, "amount", contractAddress, "contract adress");
+
   const userPost = async () => {
     try {
       await Moralis.enableWeb3();
@@ -477,18 +501,27 @@ const CandidatePost = () => {
               ))}
             </Template>
             <Button onClick={savePost} disabled={isLoading} text="Basic Post" />
-            <Button
-              onClick={userPost}
-              disabled={isLoading}
-              text="Featured Post"
-            />
+
             <h1>Payment amount {paymentAmount}</h1>
             <Button
-              onClick={() => setPaymentAmount(paymentAmount + 1)}
+              onClick={() => {
+                setPaymentAmount(paymentAmount + 1);
+              }}
               text="+ $1"
             />
-            <Button onClick={() => setCurrency("usdt")} text="USDT" />
-            <Button onClick={() => setCurrency("uni")} text="UNI" />
+            <Button
+              onClick={() => {
+                setPaymentAmount(paymentAmount - 1);
+              }}
+              text="- $1"
+            />
+            <Button onClick={usdt} text="USDT" />
+            <Button onClick={uni} text="UNI" />
+            <Button onClick={busd} text="BUSD" />
+            <Button onClick={dai} text="DAI" />
+            <Button onClick={usdc} text="USDC" />
+
+            <Button onClick={userPost} text="Pay" />
           </motion.div>
         </Wrapper>
       )}

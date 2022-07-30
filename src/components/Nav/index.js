@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
+import Dreamount from "../images/Dreamount.png";
 import Logout from "../Authentication/Logout";
 import { ConnectButton } from "web3uikit";
 import Button from "../Styles/Button";
@@ -160,7 +161,9 @@ const Nav = () => {
   return (
     <>
       <LinkWrapper>
-        <TextWrapper className="navTop">
+        <TextWrapper>
+          {/* <TextWrapper className={navColor ? 'navTop': 'navScrolled'}> */}
+
           <div
             style={{
               width: "3rem",
@@ -199,26 +202,43 @@ const Nav = () => {
               display: "flex",
               alignItems: "center",
               width: "100%",
-              justifyContent: "left",
+              justifyContent: "space-between",
             }}
           >
             <div>
-              {account && (
-                <div
-                  style={{
-                    opacity: navColor ? 0 : 1,
-                    transition: "0.5s linear",
-                  }}
-                  className="navTop"
-                >
-                  <Links to={`/profile/${ethAddress}`}>
+              <div
+                style={{
+                  opacity: navColor ? 0 : 1,
+                  transition: "0.5s linear",
+                }}
+                className="navTop"
+              >
+                <Links to={`/myprofile/${ethAddress}`}>
+                  {account ? (
                     <Button
                       text={`${account.slice(0, 4)}...
             ${account.slice(38)}`}
                     />
-                  </Links>
-                </div>
-              )}
+                  ) : (
+                    <div></div>
+                  )}
+                </Links>
+              </div>
+            </div>
+            <Links to="/">
+              <img
+                src={Dreamount}
+                alt="header"
+                style={{
+                  height: "6rem",
+                  opacity: navColor ? 0 : 1,
+                  transition: "0.5s linear",
+                }}
+                className="navTop"
+              />
+            </Links>
+            <div>
+              <Button text="header" />
             </div>
           </Hide>
           <div>

@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import Dreamount from "../images/Dreamount.png";
 
 const Header = () => {
   return (
     <Wrapper>
       <motion.div
-        style={{ display: "flex" }}
+        style={{ display: "flex", alignItems: "center" }}
         initial={{ y: "50%", scale: 0.5, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{
@@ -16,7 +17,8 @@ const Header = () => {
           duration: 1,
         }}
       >
-        <HeaderText>Web3</HeaderText>
+        <img src={Dreamount} />
+        {/* <HeaderText>Web3</HeaderText> */}
       </motion.div>
     </Wrapper>
   );
@@ -26,7 +28,9 @@ export default Header;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
   justify-content: center;
 `;
 
