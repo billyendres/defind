@@ -60,7 +60,7 @@ const FullPost = () => {
                   >
                     <div>
                       <motion.div whileHover={{ scale: 1.05 }}>
-                        <Links to={`/profile/${attributes.posterUsername}`}>
+                        <Links to={`/profile/${attributes.posterAccount}`}>
                           <Header>{attributes.posterUsername}</Header>
                         </Links>
                       </motion.div>

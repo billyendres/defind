@@ -9,6 +9,7 @@ import defaultProfileImage from "../images/defaultProfileImage.png";
 import Button from "../Styles/Button";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import Img from "../Styles/ProfilePicture";
+import { FaTwitter } from "react-icons/fa";
 
 import { useLocation } from "react-router-dom";
 
@@ -464,6 +465,16 @@ const ViewCandidatePosts = ({ profile }) => {
                               {item.attributes.searchLocation && (
                                 <Text>{item.attributes.searchLocation}</Text>
                               )}
+                              <a
+                                type="button"
+                                role="button"
+                                title="Share on twitter"
+                                href={`https://twitter.com/intent/tweet?url=http://localhost:3000/forum/${item.id} - ${item.attributes.posterUsername}`}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                              >
+                                <FaTwitter size={30} />
+                              </a>
                             </div>
                           </div>
                         </div>
