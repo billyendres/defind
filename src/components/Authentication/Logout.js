@@ -4,7 +4,6 @@ import Button from "../Styles/Button";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useMoralis, useChain } from "react-moralis";
 import { useNavigate } from "react-router-dom";
-import { ConnectButton } from "web3uikit";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -20,19 +19,19 @@ const Logout = () => {
   const { switchNetwork, chainId } = useChain();
   const ethereum = window.ethereum;
 
-  console.log(chainId, "chainID");
-  useEffect(() => {
-    if (chainId !== "0x3") {
-      switchNetwork(3);
-    }
-  }, [
-    isAuthenticated,
-    isWeb3Enabled,
-    Moralis,
-    chainId,
-    isWeb3EnableLoading,
-    switchNetwork,
-  ]);
+  // console.log(chainId, "chainID");
+  // useEffect(() => {
+  //   if (chainId !== "0x3") {
+  //     switchNetwork(3);
+  //   }
+  // }, [
+  //   isAuthenticated,
+  //   isWeb3Enabled,
+  //   Moralis,
+  //   chainId,
+  //   isWeb3EnableLoading,
+  //   switchNetwork,
+  // ]);
 
   const logout = async () => {
     await Moralis.User.logOut();

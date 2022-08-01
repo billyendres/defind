@@ -465,7 +465,7 @@ const ViewCandidatePosts = ({ profile }) => {
                               {item.attributes.searchLocation && (
                                 <Text>{item.attributes.searchLocation}</Text>
                               )}
-                              <a
+                              <Tweet
                                 type="button"
                                 role="button"
                                 title="Share on twitter"
@@ -473,8 +473,8 @@ const ViewCandidatePosts = ({ profile }) => {
                                 rel="noopener noreferrer"
                                 target="_blank"
                               >
-                                <FaTwitter size={30} />
-                              </a>
+                                <FaTwitter />
+                              </Tweet>
                             </div>
                           </div>
                         </div>
@@ -715,5 +715,19 @@ const Text = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 0.55rem;
     line-height: 170%;
+  }
+`;
+
+const Tweet = styled.a`
+  padding-top: 0.25rem;
+  color: ${({ theme }) => theme.textModals};
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
   }
 `;

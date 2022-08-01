@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useChain } from "react-moralis";
 
 import {
   FaHome,
@@ -12,22 +12,23 @@ import {
   FaRegIdCard,
   FaAngleDoubleUp,
   FaChevronUp,
+  FaWallet,
 } from "react-icons/fa";
-import defaultProfileImage from "../images/defaultProfileImage.png";
-import Img from "../Styles/ProfilePicture";
+
 import Dreamount from "../images/Dreamount.png";
 import Logout from "../Authentication/Logout";
-import { ConnectButton } from "web3uikit";
 import Button from "../Styles/Button";
 
 const Nav = () => {
-  const { Moralis, isAuthenticated, account } = useMoralis();
+  const { Moralis, account } = useMoralis();
+  const { chainId } = useChain();
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
+  const [chain, setChain] = useState();
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -67,6 +68,25 @@ const Nav = () => {
     };
     userCheck();
   }, [user]);
+
+  ///Check chain
+  console.log(chainId, "chainID");
+  useEffect(() => {
+    if (chainId === "0x3") {
+      setChain("Eth");
+    } else if (chainId === "0x61") {
+      setChain("BSC");
+    }
+    if (chainId === "0x13881") {
+      setChain("Mumbai");
+    }
+    if (chainId === "0x505") {
+      setChain("MOVR");
+    }
+    if (chainId !== "0x3" || chainId !== "0x61") {
+      console.log("wrong netwrok");
+    }
+  }, [chainId]);
 
   useEffect(() => {
     if (user) {
@@ -161,9 +181,8 @@ const Nav = () => {
   return (
     <>
       <LinkWrapper>
-        <TextWrapper>
-          {/* <TextWrapper className={navColor ? 'navTop': 'navScrolled'}> */}
-
+        {/* <TextWrapper> */}
+        <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
           <div
             style={{
               width: "3rem",
@@ -202,7 +221,7 @@ const Nav = () => {
               display: "flex",
               alignItems: "center",
               width: "100%",
-              justifyContent: "space-between",
+              justifyContent: "left",
             }}
           >
             <div>
@@ -216,8 +235,9 @@ const Nav = () => {
                 <Links to={`/myprofile/${ethAddress}`}>
                   {account ? (
                     <Button
-                      text={`${account.slice(0, 4)}...
-            ${account.slice(38)}`}
+                      text={`${account.slice(0, 2)}...${account.slice(
+                        38
+                      )} - ${chain}`}
                     />
                   ) : (
                     <div></div>
@@ -226,43 +246,30 @@ const Nav = () => {
               </div>
             </div>
             <Links to="/">
-              <img
+              <LogoImage
                 src={Dreamount}
                 alt="header"
                 style={{
-                  height: "6rem",
                   opacity: navColor ? 0 : 1,
-                  transition: "0.5s linear",
                 }}
                 className="navTop"
               />
             </Links>
-            <div>
-              <Button text="header" />
-            </div>
           </Hide>
-          <div>
-            <div
+          <ArrowWrapper>
+            <LinkHeaders
+              className="navTop"
+              onClick={scrollToTop}
               style={{
-                width: "3rem",
-                display: "flex",
-                justifyContent: "center",
+                opacity: !navColor ? 0 : 1,
+                transition: "0.5s linear",
               }}
             >
-              <LinkHeaders
-                className="navTop"
-                onClick={scrollToTop}
-                style={{
-                  opacity: !navColor ? 0 : 1,
-                  transition: "0.5s linear",
-                }}
-              >
-                <IconWrapper>
-                  <FaAngleDoubleUp />
-                </IconWrapper>
-              </LinkHeaders>
-            </div>
-          </div>
+              <IconWrapper>
+                <FaAngleDoubleUp />
+              </IconWrapper>
+            </LinkHeaders>
+          </ArrowWrapper>
         </TextWrapper>
       </LinkWrapper>
       <AnimatePresence>
@@ -323,7 +330,6 @@ const LinkWrapper = styled.div`
   position: fixed;
   background: ${({ theme }) => theme.backgroundNav};
   z-index: 100000;
-  padding: 0 0.25rem;
   @media screen and (max-width: 600px) {
     padding: 0;
   }
@@ -333,18 +339,19 @@ const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 98.5vw;
+  width: 100vw;
   cursor: pointer;
-  transition: 0.2s linear;
+  transition: 0.5s linear;
   /* margin-top: 0.5rem; */
 
   &.navTop {
     background: ${({ theme }) => theme.backgroundNav};
   }
   &.navScrolled {
-    background: ${({ theme }) => theme.nav};
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    background: #bae1ff;
+    border-bottom: 1px solid black;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   }
   @media screen and (max-width: 600px) {
     width: 100vw;
@@ -388,17 +395,6 @@ const Header = styled.h3`
   }
 `;
 
-const Subheader = styled.h4`
-  color: ${({ theme }) => theme.text};
-  transition: all 0.5s linear;
-  font-size: 1.5rem;
-  margin: 0.5rem;
-
-  @media screen and (max-width: 1023px) {
-    font-size: 1rem;
-  }
-`;
-
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -406,8 +402,38 @@ const IconWrapper = styled.div`
 `;
 
 const Hide = styled.span`
-  margin-left: 1rem;
   @media screen and (max-width: 600px) {
     display: none;
+  }
+`;
+
+const ArrowWrapper = styled.div`
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  padding-right: 2rem;
+  @media screen and (max-width: 1023px) {
+    padding-right: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    padding-right: 0;
+  }
+`;
+
+const LogoImage = styled.img`
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  height: 4rem;
+  transition: 0.5s linear;
+  @media screen and (max-width: 1023px) {
+    /* height: 3rem; */
+  }
+  @media screen and (max-width: 600px) {
+    height: 2rem;
   }
 `;
