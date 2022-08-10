@@ -15,7 +15,8 @@ import {
   FaWallet,
 } from "react-icons/fa";
 
-import Dreamount from "../images/Dreamount.png";
+import logoDarkTheme from "../images/logoDarkTheme.png";
+import logoLightTheme from "../images/logoLightTheme.png";
 import Logout from "../Authentication/Logout";
 import Button from "../Styles/Button";
 
@@ -29,6 +30,13 @@ const Nav = () => {
   const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
   const [chain, setChain] = useState();
+  const [theme, setTheme] = useState("dark");
+
+  const localTheme = window.localStorage.getItem("theme");
+  useEffect(() => {
+    setTheme(localTheme);
+    console.log(theme);
+  }, [theme, localTheme]);
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -61,8 +69,8 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    const userCheck = async () => {
-      const u = await user;
+    const userCheck = () => {
+      const u = user;
       if (!u) return null;
       setEthAddress(user.get("ethAddress"));
     };
@@ -76,12 +84,12 @@ const Nav = () => {
       setChain("Eth");
     } else if (chainId === "0x61") {
       setChain("BSC");
-    }
-    if (chainId === "0x13881") {
+    } else if (chainId === "0x13881") {
       setChain("Mumbai");
-    }
-    if (chainId === "0x505") {
+    } else if (chainId === "0x505") {
       setChain("MOVR");
+    } else {
+      setChain("Unkown Chain: " + chainId);
     }
     if (chainId !== "0x3" || chainId !== "0x61") {
       console.log("wrong netwrok");
@@ -224,30 +232,34 @@ const Nav = () => {
               justifyContent: "left",
             }}
           >
-            <div>
-              <div
-                style={{
-                  opacity: navColor ? 0 : 1,
-                  transition: "0.5s linear",
-                }}
-                className="navTop"
-              >
-                <Links to={`/myprofile/${ethAddress}`}>
-                  {account ? (
+            <div
+              style={{
+                opacity: navColor ? 0 : 1,
+                transition: "0.5s linear",
+              }}
+              className="navTop"
+            >
+              <Links to={`/myprofile/${ethAddress}`}>
+                {account ? (
+                  <div style={{ display: "flex" }}>
                     <Button
-                      text={`${account.slice(0, 2)}...${account.slice(
-                        38
-                      )} - ${chain}`}
+                      text={`${account.slice(0, 2)}...${account.slice(38)}`}
                     />
-                  ) : (
-                    <div></div>
-                  )}
-                </Links>
-              </div>
+                    {/* <Button text={chain} /> */}
+                    {/* <WalletHeader>
+                      {`${account.slice(0, 2)}...${account.slice(38)}`} -{" "}
+                      {chain}
+                    </WalletHeader> */}
+                    {/* <WalletHeader>{chain}</WalletHeader> */}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </Links>
             </div>
             <Links to="/">
               <LogoImage
-                src={Dreamount}
+                src={theme === "dark" ? logoDarkTheme : logoLightTheme}
                 alt="header"
                 style={{
                   opacity: navColor ? 0 : 1,
@@ -309,7 +321,7 @@ const NavWrapper = styled(motion.div)`
   position: fixed;
   width: 25vw;
   height: 100vh;
-  background: #bae1ff;
+  background: ${({ theme }) => theme.text};
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -348,8 +360,8 @@ const TextWrapper = styled.div`
     background: ${({ theme }) => theme.backgroundNav};
   }
   &.navScrolled {
-    background: #bae1ff;
-    border-bottom: 1px solid black;
+    background: transparent;
+    /* border-bottom: 1px solid black; */
     /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   }
@@ -384,13 +396,25 @@ const LinkHeaders = styled.div`
 
 const Header = styled.h3`
   transition: all 0.5s linear;
-  color: #080e57;
+  color: ${({ theme }) => theme.textModals};
   font-family: "Russo One", sans-serif;
   padding: 1rem 0;
   letter-spacing: 5px;
   font-size: 1.5rem;
   @media screen and (max-width: 600px) {
     font-size: 1rem;
+    padding: 0.75rem 0;
+  }
+`;
+const WalletHeader = styled.h3`
+  transition: all 0.5s linear;
+  color: ${({ theme }) => theme.text};
+
+  padding: 1rem 0;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
     padding: 0.75rem 0;
   }
 `;
@@ -428,7 +452,7 @@ const LogoImage = styled.img`
   right: 0;
   top: 0;
   text-align: center;
-  height: 4rem;
+  height: 5rem;
   transition: 0.5s linear;
   @media screen and (max-width: 1023px) {
     /* height: 3rem; */

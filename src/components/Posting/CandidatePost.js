@@ -67,12 +67,6 @@ const CandidatePost = () => {
     // userPost();
   };
 
-  const uni = () => {
-    setDecimal(18);
-    setContractAddress("0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984");
-    // userPost();
-  };
-
   const busd = () => {
     setDecimal(18);
     setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
@@ -515,12 +509,11 @@ const CandidatePost = () => {
               }}
               text="- $1"
             />
+            {/* SWITCH NETWORK */}
             <Button onClick={usdt} text="USDT" />
-            <Button onClick={uni} text="UNI" />
             <Button onClick={busd} text="BUSD" />
             <Button onClick={dai} text="DAI" />
             <Button onClick={usdc} text="USDC" />
-
             <Button onClick={userPost} text="Pay" />
           </motion.div>
         </Wrapper>
@@ -533,7 +526,8 @@ export default CandidatePost;
 
 const Wrapper = styled.div`
   min-height: 80vh;
-  padding: 2rem 0;
+  padding-top: 7rem;
+  padding-bottom: 2rem;
   display: flex;
   justify-content: left;
   text-align: left;
@@ -541,6 +535,13 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   transition: all 0.5s linear;
+  background: ${({ theme }) => theme.background};
+  @media screen and (max-width: 1023px) {
+    padding-top: 6rem;
+  }
+  @media screen and (max-width: 600px) {
+    padding-top: 4rem;
+  }
 `;
 
 const Template = styled.div`

@@ -27,14 +27,14 @@ const Header = styled.h2`
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  padding-top: 4rem;
+  padding-top: 6rem;
   @media screen and (max-width: 1023px) {
     font-size: 2rem;
     margin-bottom: 0;
-    padding-top: 3rem;
+    padding-top: 5rem;
   }
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
-    padding-top: 2rem;
+    padding-top: 4rem;
   }
 `;

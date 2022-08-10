@@ -465,16 +465,18 @@ const ViewCandidatePosts = ({ profile }) => {
                               {item.attributes.searchLocation && (
                                 <Text>{item.attributes.searchLocation}</Text>
                               )}
-                              <Tweet
-                                type="button"
-                                role="button"
-                                title="Share on twitter"
-                                href={`https://twitter.com/intent/tweet?url=http://localhost:3000/forum/${item.id} - ${item.attributes.posterUsername}`}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                <FaTwitter />
-                              </Tweet>
+                              <motion.div whileHover={{ scale: 1.05 }}>
+                                <Tweet
+                                  type="button"
+                                  role="button"
+                                  title="Share on twitter"
+                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/forum/${item.id} - ${item.attributes.posterUsername}`}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                >
+                                  <FaTwitter />
+                                </Tweet>
+                              </motion.div>
                             </div>
                           </div>
                         </div>
