@@ -455,9 +455,10 @@ const LogoImage = styled.img`
   height: 5rem;
   transition: 0.5s linear;
   @media screen and (max-width: 1023px) {
-    /* height: 3rem; */
+    height: 4rem;
   }
   @media screen and (max-width: 600px) {
-    height: 2rem;
+    height: 3rem;
+    top: -0.25rem;
   }
 `;

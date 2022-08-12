@@ -11,25 +11,25 @@ const Home = () => {
   const [viewModal, setViewModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const buyCrypto = async () => {
-      try {
-        setIsLoading(true);
-        await Moralis.initPlugins();
+  // useEffect(() => {
+  //   const buyCrypto = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       await Moralis.initPlugins();
 
-        const results = await Moralis.Plugins.fiat.buy(
-          {},
-          { disableTriggers: true }
-        );
-        setBuy(results);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    buyCrypto();
-  }, [Moralis]);
+  //       const results = await Moralis.Plugins.fiat.buy(
+  //         {},
+  //         { disableTriggers: true }
+  //       );
+  //       setBuy(results);
+  //     } catch (error) {
+  //       console.error(error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   buyCrypto();
+  // }, [Moralis]);
 
   return (
     <>
@@ -41,7 +41,7 @@ const Home = () => {
         ) : (
           <>
             <Header />
-            <button onClick={() => setViewModal(!viewModal)}>Buy Crypto</button>
+            {/* <button onClick={() => setViewModal(!viewModal)}>Buy Crypto</button> */}
             <AnimatePresence>
               {viewModal && (
                 <motion.div

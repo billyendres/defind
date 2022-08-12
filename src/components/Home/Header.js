@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import Dreamount from "../images/Dreamount.png";
+import mainLogo from "../images/mainLogo.png";
+import mainLogoDarkTheme from "../images/mainLogoDarkTheme.png";
 
 const Header = () => {
+  const [theme, setTheme] = useState("dark");
+
+  const localTheme = window.localStorage.getItem("theme");
+  useEffect(() => {
+    setTheme(localTheme);
+    console.log(theme);
+  }, [theme, localTheme]);
   return (
     <Wrapper>
-      <motion.div
-        style={{ display: "flex", alignItems: "center" }}
+      {/* <motion.div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
         initial={{ y: "50%", scale: 0.5, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{
@@ -17,9 +29,14 @@ const Header = () => {
           duration: 1,
         }}
       >
-        <img src={Dreamount} />
-        {/* <HeaderText>Web3</HeaderText> */}
-      </motion.div>
+        <HeaderText>DeFind</HeaderText>
+        <div>Web3 Career Portal</div>
+      </motion.div> */}
+      <Logo
+        // style={{ position: "absolute", top: "10%", bottom: 50 }}
+        src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
+        alt="DeFind"
+      />
     </Wrapper>
   );
 };
@@ -28,31 +45,19 @@ export default Header;
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
 `;
 
-const HeaderText = styled.h1`
-  font-size: 3.5rem;
-  font-family: "Bungee", cursive;
-  background: -webkit-linear-gradient(
-    161deg,
-    rgba(239, 124, 142, 1) 50%,
-    rgba(41, 243, 226, 1) 50%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  @media screen and (min-width: 768px) {
-    font-size: 6rem;
+const Logo = styled.img`
+  height: 40rem;
+  @media screen and (max-width: 1023px) {
+    height: 30rem;
   }
-
-  @media screen and (min-width: 1200px) {
-    font-size: 9rem;
-  }
-  @media screen and (max-height: 391px) {
-    font-size: 3.5rem;
+  @media screen and (max-width: 600px) {
+    height: 20rem;
   }
 `;
