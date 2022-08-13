@@ -223,7 +223,7 @@ const ViewCandidatePosts = ({ profile }) => {
       ) : (
         <>
           <>
-            {locations.pathname === `/forum/candidates` ? (
+            {locations.pathname === `/portal/candidates` ? (
               <PageHeader>Candidate Posts</PageHeader>
             ) : (
               <></>
@@ -445,7 +445,7 @@ const ViewCandidatePosts = ({ profile }) => {
                               }}
                             >
                               <motion.div whileHover={{ scale: 1.05 }}>
-                                <Links to={`/forum/${item.id}`}>
+                                <Links to={`/portal/${item.id}`}>
                                   <Text
                                     style={{
                                       fontWeight: "bold",
@@ -470,7 +470,7 @@ const ViewCandidatePosts = ({ profile }) => {
                                   type="button"
                                   role="button"
                                   title="Share on twitter"
-                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/forum/${item.id} - ${item.attributes.posterUsername}`}
+                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/portal/${item.id} - ${item.attributes.posterUsername}`}
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >

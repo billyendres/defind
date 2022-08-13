@@ -23,13 +23,13 @@ const PostSuccess = () => {
             <Header>Success!</Header>
             <Text>
               Congratulations, your post has been submitted. It will be reviewed
-              by a member of our team and published to the forum within 24
+              by a member of our team and published to the portal within 24
               hours.
             </Text>
           </HeaderWrapper>
           <ButtonWrapper>
-            <Links to="/forum">
-              <Button text="Forum" />
+            <Links to="/portal">
+              <Button text="Portal" />
             </Links>
             <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
               <Button text="My Posts" />

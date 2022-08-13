@@ -12,6 +12,7 @@ import {
   FaRegIdCard,
   FaAngleDoubleUp,
   FaChevronUp,
+  FaDiceD20,
   FaWallet,
 } from "react-icons/fa";
 
@@ -122,11 +123,11 @@ const Nav = () => {
         {
           title: (
             <IconWrapper>
-              <FaBookReader style={{ marginRight: "1rem" }} />
-              <>Forum</>
+              <FaDiceD20 style={{ marginRight: "1rem" }} />
+              <>Portal</>
             </IconWrapper>
           ),
-          route: "/forum",
+          route: "/portal",
           key: 3,
         },
         {
@@ -149,6 +150,16 @@ const Nav = () => {
           route: `/post`,
           key: 5,
         },
+        {
+          title: (
+            <IconWrapper>
+              <FaBookReader style={{ marginRight: "1rem" }} />
+              <>Guide</>
+            </IconWrapper>
+          ),
+          route: `/guide`,
+          key: 6,
+        },
       ]);
     } else {
       setMenuItems([
@@ -160,17 +171,17 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: "/",
-          key: 6,
+          key: 7,
         },
         {
           title: (
             <IconWrapper>
-              <FaBookReader style={{ marginRight: "1rem" }} />
-              <>Forum</>
+              <FaDiceD20 style={{ marginRight: "1rem" }} />
+              <>Portal</>
             </IconWrapper>
           ),
-          route: "/forum",
-          key: 7,
+          route: "/portal",
+          key: 8,
         },
         {
           title: (
@@ -180,7 +191,17 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: `/post`,
-          key: 8,
+          key: 9,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaBookReader style={{ marginRight: "1rem" }} />
+              <>Guide</>
+            </IconWrapper>
+          ),
+          route: `/guide`,
+          key: 10,
         },
       ]);
     }
@@ -204,7 +225,6 @@ const Nav = () => {
                   <FaChevronUp
                     style={{
                       transform: !open && "rotate(-270deg)",
-                      transition: "0.25s linear",
                     }}
                   />
                 </IconWrapper>
@@ -217,7 +237,6 @@ const Nav = () => {
                     onClick={() => setOpen(false)}
                     style={{
                       transform: open && "rotate(270deg)",
-                      transition: "0.25s linear",
                     }}
                   />
                 </IconWrapper>
@@ -243,14 +262,21 @@ const Nav = () => {
                 {account ? (
                   <div style={{ display: "flex" }}>
                     <Button
-                      text={`${account.slice(0, 2)}...${account.slice(38)}`}
+                      text={
+                        <>
+                          <div style={{ textTransform: "lowercase" }}>
+                            <FaWallet
+                              style={{
+                                marginBottom: "-0.1rem",
+                                marginRight: "0.5rem",
+                              }}
+                            />
+                            {account.slice(0, 2)}...{account.slice(38)}
+                          </div>
+                        </>
+                      }
                     />
                     {/* <Button text={chain} /> */}
-                    {/* <WalletHeader>
-                      {`${account.slice(0, 2)}...${account.slice(38)}`} -{" "}
-                      {chain}
-                    </WalletHeader> */}
-                    {/* <WalletHeader>{chain}</WalletHeader> */}
                   </div>
                 ) : (
                   <div></div>
@@ -394,7 +420,7 @@ const LinkHeaders = styled.div`
   }
 `;
 
-const Header = styled.h3`
+const Header = styled.div`
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.textModals};
   font-family: "Russo One", sans-serif;

@@ -8,8 +8,8 @@ import softwareDev from "../components/images/worker.png";
 import { Links } from "../components/Styles/Links";
 
 const text =
-  "Welcome to the forum. This is where you are able to match yourself with the perfect job or candiadate";
-const Forum = () => {
+  "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
+const Guide = () => {
   return (
     <>
       <Wrapper>
@@ -27,14 +27,14 @@ const Forum = () => {
               }}
             >
               <HeaderWrapper>
-                <Header>Find Your Match</Header>
+                <Header>How It Works</Header>
                 <Text>{text}</Text>
               </HeaderWrapper>
               <ButtonWrapper>
-                <Links to="/forum/jobs">
+                <Links to="/portal/jobs">
                   <Button text="Jobs" />
                 </Links>
-                <Links to="/forum/candidates">
+                <Links to="/portal/candidates">
                   <Button text="Candidates" />
                 </Links>
               </ButtonWrapper>
@@ -53,7 +53,7 @@ const Forum = () => {
   );
 };
 
-export default Forum;
+export default Guide;
 
 const Grid = styled.div`
   display: grid;

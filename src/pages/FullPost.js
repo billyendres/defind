@@ -102,14 +102,14 @@ const FullPost = () => {
                         }}
                       >
                         <motion.div whileHover={{ scale: 1.05 }}>
-                          <Links to="/forum/candidates">
+                          <Links to="/portal/candidates">
                             <Text
                               style={{
                                 fontWeight: "bold",
                                 padding: "0.5rem 0",
                               }}
                             >
-                              {"<"} Return to forum
+                              {"<"} Return to portal
                             </Text>
                           </Links>
                         </motion.div>

@@ -6,7 +6,7 @@ import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-import Forum from "./pages/Forum";
+import Portal from "./pages/Portal";
 import MyPosts from "./pages/MyPosts";
 import Post from "./pages/Post";
 import FullPost from "./pages/FullPost";
@@ -16,6 +16,7 @@ import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
 import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
+import Twitter from "./components/Styles/Twitter";
 import { lightTheme, darkTheme } from "./components/Styles/themes";
 import PostSuccess from "./pages/PostSuccess";
 import CandidatePost from "./components/Posting/CandidatePost";
@@ -24,6 +25,7 @@ import ViewClientPosts from "./components/ViewPosts/ViewClientPosts";
 import ViewCandidatePosts from "./components/ViewPosts/ViewCandidatePosts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Guide from "./pages/Guide";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -76,6 +78,7 @@ const App = () => {
     <ThemeProvider theme={themeMode}>
       <GloablStyle />
       <Nav />
+      <Twitter />
       {isAuthenticated ? (
         <>
           <ToastContainer />
@@ -97,16 +100,16 @@ const App = () => {
               }`}
               element={<EditProfile />}
             />
-            <Route path="/forum" element={<Forum />} />
+            <Route path="/Portal" element={<Portal />} />
             <Route
-              path="/forum/jobs"
+              path="/Portal/jobs"
               element={<ViewClientPosts profile={false} />}
             />
             <Route
-              path="/forum/candidates"
+              path="/Portal/candidates"
               element={<ViewCandidatePosts profile={false} />}
             />
-            <Route path="/forum/:id" element={<FullPost />} />
+            <Route path="/Portal/:id" element={<FullPost />} />
             <Route
               path={`/profile/posts/${
                 Moralis.User.current().attributes.ethAddress
@@ -124,6 +127,7 @@ const App = () => {
               }`}
               element={<CandidatePost profile={false} />}
             />
+            <Route path="/guide" element={<Guide />} />
             <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
@@ -134,18 +138,19 @@ const App = () => {
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/forum" element={<Forum />} />
+            <Route path="/Portal" element={<Portal />} />
             <Route
-              path="/forum/jobs"
+              path="/Portal/jobs"
               element={<ViewClientPosts profile={false} />}
             />
             <Route
-              path="/forum/candidates"
+              path="/Portal/candidates"
               element={<ViewCandidatePosts profile={false} />}
             />
-            <Route path="/forum/:id" element={<FullPost />} />
+            <Route path="/Portal/:id" element={<FullPost />} />
             <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route path={`/post`} element={<Post />} />
+            <Route path="/guide" element={<Guide />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>

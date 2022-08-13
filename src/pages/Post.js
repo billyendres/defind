@@ -7,7 +7,7 @@ import softwareDev from "../components/images/softwareDev.jpg";
 import { Links } from "../components/Styles/Links";
 
 const text =
-  "Welcome to the forum. This is where you are able to match yourself with the perfect job or candiadate";
+  "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
 
 const Post = () => {
   const { user, Moralis } = useMoralis();
@@ -86,7 +86,7 @@ const Post = () => {
                   </p>
                   <p>
                     <br />
-                    While all posts are visible on the forum, they are by
+                    While all posts are visible on the portal, they are by
                     default filtered by 'Featured Points'. <br />
                     <br />
                     <i>Featured Points = USDT charge * 10</i>
@@ -94,7 +94,7 @@ const Post = () => {
                   <br />
                   <p>
                     Posts with the highest number of Featured Points are
-                    displayed at the top of the forum, while basic posts are
+                    displayed at the top of the portal, while basic posts are
                     displayed last.
                   </p>
                   <br />
@@ -112,7 +112,7 @@ const Post = () => {
                   <p>
                     Please note, all posts will be screened for compliance
                     within 24 hours. Once approved, they will be published to
-                    the forum and active for 30 days. If you wish to edit or
+                    the portal and active for 30 days. If you wish to edit or
                     delete a post during this time, please contact our support
                     team.
                   </p>

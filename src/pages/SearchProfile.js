@@ -132,7 +132,7 @@ const SearchProfile = () => {
                               }}
                             >
                               <motion.div whileHover={{ scale: 1.05 }}>
-                                <Links to={`/forum/${item.id}`}>
+                                <Links to={`/portal/${item.id}`}>
                                   <Text style={{ fontWeight: "bold" }}>
                                     View post {">"}
                                   </Text>
@@ -142,8 +142,8 @@ const SearchProfile = () => {
                                 style={{ width: "100%", textAlign: "center" }}
                               >
                                 <motion.div whileHover={{ scale: 1.05 }}>
-                                  <Links to="/forum">
-                                    <Text>{"<"} Return to forum</Text>
+                                  <Links to="/portal">
+                                    <Text>{"<"} Return to portal</Text>
                                   </Links>
                                 </motion.div>
                               </div>
