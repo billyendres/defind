@@ -268,7 +268,7 @@ const Text = styled.div`
   }
 `;
 
-const PageHeader = styled.h2`
+const PageHeader = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 3rem;

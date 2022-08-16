@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   transition: all 0.5s linear;
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 4rem;

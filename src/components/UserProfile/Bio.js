@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   transition: all 0.5s linear;
 `;
 
-const Label = styled.h2`
+const Label = styled.div`
   padding: 0.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -56,7 +56,7 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #080e57;
-  background: #bae1ff;
+  /* background: #bae1ff; */
   font-family: "Kdam Thmor Pro", sans-serif;
 
   &:focus {

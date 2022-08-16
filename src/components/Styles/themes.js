@@ -4,8 +4,8 @@ export const lightTheme = {
   background: `#bae1ff`,
   text: "#080e57",
   textModals: "#bae1ff",
-  button: `linear-gradient(164deg, rgba(8,14,87,1) 0%, rgba(0,84,130,1) 100%)`,
-  buttonHover: `linear-gradient(164deg, rgba(8,14,87,1) 0%, rgba(1,1,1,1) 100%)`,
+  buttonHover: `linear-gradient(164deg, rgba(8,14,87,1) 0%, rgba(0,84,130,1) 100%)`,
+  button: `linear-gradient(164deg, rgba(8,14,87,1) 0%, rgba(1,1,1,1) 100%)`,
   nav: `rgba(8,14,87,1)`,
 };
 

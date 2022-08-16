@@ -6,7 +6,7 @@ import LoadingSpinner from "../Styles/LoadingSpinner";
 import { ConnectButton } from "web3uikit";
 
 const Login = () => {
-  const { isAuthenticating } = useMoralis();
+  const { isAuthenticating, isAuthenticated } = useMoralis();
 
   return (
     <Wrapper>
@@ -14,7 +14,11 @@ const Login = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <ConnectButton />
+          {!isAuthenticated && (
+            <div>
+              <ConnectButton />
+            </div>
+          )}
         </>
       )}
     </Wrapper>
@@ -24,11 +28,7 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  margin-bottom: -2rem;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
-  min-height: 50vh;
 `;

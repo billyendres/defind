@@ -80,7 +80,7 @@ const Wrapper = styled.div`
   transition: all 0.5s linear;
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 3rem;
@@ -91,7 +91,7 @@ const Header = styled.h2`
   }
 `;
 
-const Subheader = styled.h4`
+const Subheader = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 1.5rem;

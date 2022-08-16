@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import Button from "../components/Styles/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import softwareDev from "../components/images/softwareDev.jpg";
+import softwareDev from "../components/images/softwareDev.png";
 import { Links } from "../components/Styles/Links";
 
 const text =
@@ -237,7 +237,7 @@ const Text = styled.div`
   }
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 3rem;
@@ -254,11 +254,11 @@ const Header = styled.h2`
 `;
 
 const Img = styled.img`
-  height: 20rem;
+  height: 22rem;
   @media screen and (max-width: 1023px) {
     height: 15rem;
   }
   @media screen and (max-width: 600px) {
-    height: 10rem;
+    height: 12rem;
   }
 `;

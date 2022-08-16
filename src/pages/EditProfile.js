@@ -192,7 +192,7 @@ const EditUserProfle = () => {
                         marginRight: "0.5rem",
                       }}
                     />
-                    Back to profile
+                    Return
                   </>
                 }
               />

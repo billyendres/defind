@@ -3,6 +3,10 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import mainLogo from "../images/mainLogo.png";
 import mainLogoDarkTheme from "../images/mainLogoDarkTheme.png";
+import Button from "../Styles/Button";
+import { Links } from "../Styles/Links";
+import { FaBookReader } from "react-icons/fa";
+import Login from "../Authentication/Login";
 
 const Header = () => {
   const [theme, setTheme] = useState("dark");
@@ -26,6 +30,21 @@ const Header = () => {
           alt="DeFind"
         />
       </motion.div>
+      <Login />
+      <LearnMore>
+        <Links to="/guide">
+          <Button
+            text={
+              <>
+                <FaBookReader
+                  style={{ marginBottom: "-0.1rem", marginRight: "0.5rem" }}
+                />
+                Guide
+              </>
+            }
+          />
+        </Links>
+      </LearnMore>
     </Wrapper>
   );
 };
@@ -49,4 +68,12 @@ const Logo = styled.img`
   @media screen and (max-width: 600px) {
     height: 20rem;
   }
+`;
+
+const LearnMore = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100000;
+  /* margin-bottom: 3rem; */
 `;

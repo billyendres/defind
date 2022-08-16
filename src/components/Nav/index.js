@@ -407,10 +407,10 @@ const LinkHeaders = styled.div`
 
   &.navTop {
     color: ${({ theme }) => theme.textModals};
-    background: ${({ theme }) => theme.button};
+    background: ${({ theme }) => theme.buttonHover};
   }
   &:hover {
-    background: ${({ theme }) => theme.buttonHover};
+    background: ${({ theme }) => theme.button};
   }
 
   @media screen and (max-width: 600px) {

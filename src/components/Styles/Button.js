@@ -31,12 +31,12 @@ const MotionButton = styled(motion.button)`
   border-radius: 0.25rem;
   cursor: pointer;
   color: ${({ theme }) => theme.textModals};
-  background: ${({ theme }) => theme.button};
+  background: ${({ theme }) => theme.buttonHover};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   &:hover {
-    background: ${({ theme }) => theme.buttonHover};
+    background: ${({ theme }) => theme.button};
   }
 
   @media screen and (max-width: 1023px) {

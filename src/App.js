@@ -82,7 +82,6 @@ const App = () => {
       {isAuthenticated ? (
         <>
           <ToastContainer />
-
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <div style={{ background: "black" }}></div>
           <Routes>
@@ -134,7 +133,7 @@ const App = () => {
         </>
       ) : (
         <>
-          <Login />
+          {/* <Login /> */}
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route exact path="/" element={<Home />} />
