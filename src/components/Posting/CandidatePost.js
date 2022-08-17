@@ -53,6 +53,7 @@ const CandidatePost = () => {
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [contractAddress, setContractAddress] = useState();
   const [decimal, setDecimal] = useState();
+  const [completePost, setCompletePost] = useState(false);
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
@@ -86,6 +87,27 @@ const CandidatePost = () => {
   };
 
   console.log(paymentAmount, "amount", contractAddress, "contract adress");
+
+  const checkout = () => {
+    try {
+      if (!personalSummary || !category || !location)
+        return toast.error("Please complete all required fields", {
+          position: "bottom-left",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      if (personalSummary && category && location) {
+        setCompletePost(!completePost);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const userPost = async () => {
     try {
@@ -497,80 +519,113 @@ const CandidatePost = () => {
                 />
               ))}
             </Template>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "1rem",
-                flexDirection: "column",
-              }}
-            >
-              <PaymentHeader>Select Payment Method</PaymentHeader>
-              <div style={{ display: "flex" }}>
-                <PaymentText onClick={usdt}>USDT</PaymentText>
-                <PaymentText onClick={busd}>BUSD</PaymentText>
-                <PaymentText onClick={dai}>DAI</PaymentText>
-                <PaymentText onClick={usdc}>USDC</PaymentText>
-              </div>
-              <PaymentHeader>Select Payment Value</PaymentHeader>
-              <div style={{ display: "flex" }}>
-                <PaymentText
-                  onClick={() => {
-                    setPaymentAmount(paymentAmount + 1.5);
-                  }}
-                  text="+ $1"
-                >
-                  + $10
-                </PaymentText>
-                <PaymentText
-                  onClick={() => {
-                    setPaymentAmount(paymentAmount + 1.5);
-                  }}
-                  text="+ $1"
-                >
-                  + $25
-                </PaymentText>
-                <PaymentText
-                  onClick={() => {
-                    setPaymentAmount(paymentAmount + 1.5);
-                  }}
-                  text="+ $1"
-                >
-                  + $50
-                </PaymentText>
-                <PaymentText
-                  onClick={() => {
-                    setPaymentAmount(paymentAmount + 1.5);
-                  }}
-                  text="+ $1"
-                >
-                  + $100
-                </PaymentText>
-              </div>
-              <div style={{ display: "flex" }}>
-                <PaymentText
-                  onClick={() => {
-                    setPaymentAmount(paymentAmount - 1);
-                  }}
-                  text="- $1"
-                >
-                  - $1
-                </PaymentText>
-              </div>
-              <PaymentHeader>Payment Amount ${paymentAmount}</PaymentHeader>
-              {/* SWITCH NETWORK */}
-
-              <div style={{ display: "flex" }}>
-                <Button onClick={userPost} text="Post" />
-                <Button
-                  onClick={savePost}
-                  disabled={isLoading}
-                  text="Basic Post"
-                />
-              </div>
-            </div>
           </motion.div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "1.5rem",
+            }}
+          >
+            <Button onClick={checkout} text="Post" />
+          </div>
+          <AnimatePresence>
+            {completePost && (
+              <PaymentWrapper>
+                <PaymentGrid>
+                  <Modal
+                    initial={{ opacity: 0, scale: 0.75 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: "1rem",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <CheckoutHeader>Checkout</CheckoutHeader>
+                      <PaymentHeader>Select Payment Method</PaymentHeader>
+                      <div style={{ display: "flex" }}>
+                        <PaymentText onClick={usdt}>USDT</PaymentText>
+                        <PaymentText onClick={busd}>BUSD</PaymentText>
+                        <PaymentText onClick={dai}>DAI</PaymentText>
+                        <PaymentText onClick={usdc}>USDC</PaymentText>
+                      </div>
+                      <PaymentHeader>Select Payment Value</PaymentHeader>
+                      <div style={{ display: "flex" }}>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount + 1.5);
+                          }}
+                          text="+ $1"
+                        >
+                          + $10
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount + 1.5);
+                          }}
+                          text="+ $1"
+                        >
+                          + $25
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount + 1.5);
+                          }}
+                          text="+ $1"
+                        >
+                          + $50
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount + 1.5);
+                          }}
+                          text="+ $1"
+                        >
+                          + $100
+                        </PaymentText>
+                      </div>
+                      <div style={{ display: "flex" }}>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount - 1);
+                          }}
+                          text="- $1"
+                        >
+                          - $1
+                        </PaymentText>
+                      </div>
+                      <PaymentHeader>
+                        Payment Amount ${paymentAmount}
+                      </PaymentHeader>
+                      {/* SWITCH NETWORK */}
+
+                      <div style={{ display: "flex" }}>
+                        <Button onClick={userPost} text="Post" />
+                        <Button
+                          onClick={savePost}
+                          disabled={isLoading}
+                          text="Basic Post"
+                        />
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <Button
+                        onClick={() => setCompletePost(!completePost)}
+                        text="Close"
+                      />
+                    </div>
+                  </Modal>
+                </PaymentGrid>
+              </PaymentWrapper>
+            )}
+          </AnimatePresence>
         </Wrapper>
       )}
     </>
@@ -580,7 +635,7 @@ const CandidatePost = () => {
 export default CandidatePost;
 
 const Wrapper = styled.div`
-  min-height: 80vh;
+  min-height: 100vh;
   padding-top: 7rem;
   padding-bottom: 2rem;
   display: flex;
@@ -673,7 +728,7 @@ const DropdownMenu = styled.div`
 `;
 
 const PaymentText = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
@@ -689,12 +744,12 @@ const PaymentText = styled.div`
 `;
 
 const PaymentHeader = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.textModals};
   font-weight: bold;
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   @media screen and (max-width: 1023px) {
     padding: 0.3rem 0.5rem;
     font-size: 0.75rem;
@@ -702,5 +757,54 @@ const PaymentHeader = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 0.65rem;
     padding: 0.3rem 0.4rem;
+  }
+`;
+
+const Modal = styled(motion.div)`
+  width: 40rem;
+  position: absolute;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  background: ${({ theme }) => theme.text};
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  @media screen and (max-width: 1023px) {
+    width: 34rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+  }
+`;
+
+const PaymentWrapper = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: ${({ theme }) => theme.background};
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+`;
+
+const PaymentGrid = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const CheckoutHeader = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2rem;
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+    margin-top: 2rem;
   }
 `;
