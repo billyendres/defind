@@ -36,7 +36,6 @@ const Nav = () => {
   const localTheme = window.localStorage.getItem("theme");
   useEffect(() => {
     setTheme(localTheme);
-    console.log(theme);
   }, [theme, localTheme]);
 
   const changeColor = () => {
@@ -79,23 +78,30 @@ const Nav = () => {
   }, [user]);
 
   ///Check chain
-  console.log(chainId, "chainID");
+  // console.log(chainId, "chainID");
+
   useEffect(() => {
-    if (chainId === "0x3") {
-      setChain("Eth");
-    } else if (chainId === "0x61") {
-      setChain("BSC");
-    } else if (chainId === "0x13881") {
-      setChain("Mumbai");
-    } else if (chainId === "0x505") {
-      setChain("MOVR");
-    } else {
-      setChain("Unkown Chain: " + chainId);
+    async function getChain() {
+      await Moralis.enableWeb3();
+      const chainId = await Moralis.getChainId();
+      if (chainId === "0x3") {
+        setChain("Eth");
+      } else if (chainId === "0x61") {
+        setChain(chainId);
+      } else if (chainId === "0x13881") {
+        setChain("Mumbai");
+      } else if (chainId === "0x505") {
+        setChain("MOVR");
+      } else {
+        setChain("Unkown Chain: " + chainId);
+      }
+      if (chainId !== "0x3" || chainId !== "0x61") {
+        console.log("wrong netwrok");
+      }
     }
-    if (chainId !== "0x3" || chainId !== "0x61") {
-      console.log("wrong netwrok");
-    }
-  }, [chainId]);
+    getChain();
+  }, [chainId, Moralis]);
+  console.log(chain);
 
   useEffect(() => {
     if (user) {
@@ -259,7 +265,7 @@ const Nav = () => {
               className="navTop"
             >
               <Links to={`/myprofile/${ethAddress}`}>
-                {account ? (
+                {account && (
                   <div style={{ display: "flex" }}>
                     <Button
                       text={
@@ -278,10 +284,9 @@ const Nav = () => {
                     />
                     {/* <Button text={chain} /> */}
                   </div>
-                ) : (
-                  <div></div>
                 )}
               </Links>
+              {console.log("account:", account)}
             </div>
             <Links to="/">
               <LogoImage

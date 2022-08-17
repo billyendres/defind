@@ -50,7 +50,7 @@ const CandidatePost = () => {
   const [open, setOpen] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
   const [contact, setContact] = useState([]);
-  const [paymentAmount, setPaymentAmount] = useState(1);
+  const [paymentAmount, setPaymentAmount] = useState(0);
   const [contractAddress, setContractAddress] = useState();
   const [decimal, setDecimal] = useState();
 
@@ -61,15 +61,18 @@ const CandidatePost = () => {
     contractAddress: contractAddress,
   });
 
-  const usdt = () => {
+  const usdt = async () => {
     setDecimal(6);
     setContractAddress("0x110a13FC3efE6A245B50102D2d79B3E76125Ae83");
-    // userPost();
+    const chainId = "0x3"; //Ropsten
+    await Moralis.switchNetwork(chainId);
   };
 
-  const busd = () => {
+  const busd = async () => {
     setDecimal(18);
     setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
+    const chainId = "0x61"; //BSC Testnet
+    await Moralis.switchNetwork(chainId);
   };
 
   const dai = () => {
@@ -494,27 +497,79 @@ const CandidatePost = () => {
                 />
               ))}
             </Template>
-            <Button onClick={savePost} disabled={isLoading} text="Basic Post" />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "1rem",
+                flexDirection: "column",
+              }}
+            >
+              <PaymentHeader>Select Payment Method</PaymentHeader>
+              <div style={{ display: "flex" }}>
+                <PaymentText onClick={usdt}>USDT</PaymentText>
+                <PaymentText onClick={busd}>BUSD</PaymentText>
+                <PaymentText onClick={dai}>DAI</PaymentText>
+                <PaymentText onClick={usdc}>USDC</PaymentText>
+              </div>
+              <PaymentHeader>Select Payment Value</PaymentHeader>
+              <div style={{ display: "flex" }}>
+                <PaymentText
+                  onClick={() => {
+                    setPaymentAmount(paymentAmount + 1.5);
+                  }}
+                  text="+ $1"
+                >
+                  + $10
+                </PaymentText>
+                <PaymentText
+                  onClick={() => {
+                    setPaymentAmount(paymentAmount + 1.5);
+                  }}
+                  text="+ $1"
+                >
+                  + $25
+                </PaymentText>
+                <PaymentText
+                  onClick={() => {
+                    setPaymentAmount(paymentAmount + 1.5);
+                  }}
+                  text="+ $1"
+                >
+                  + $50
+                </PaymentText>
+                <PaymentText
+                  onClick={() => {
+                    setPaymentAmount(paymentAmount + 1.5);
+                  }}
+                  text="+ $1"
+                >
+                  + $100
+                </PaymentText>
+              </div>
+              <div style={{ display: "flex" }}>
+                <PaymentText
+                  onClick={() => {
+                    setPaymentAmount(paymentAmount - 1);
+                  }}
+                  text="- $1"
+                >
+                  - $1
+                </PaymentText>
+              </div>
+              <PaymentHeader>Payment Amount ${paymentAmount}</PaymentHeader>
+              {/* SWITCH NETWORK */}
 
-            <h1>Payment amount {paymentAmount}</h1>
-            <Button
-              onClick={() => {
-                setPaymentAmount(paymentAmount + 1);
-              }}
-              text="+ $1"
-            />
-            <Button
-              onClick={() => {
-                setPaymentAmount(paymentAmount - 1);
-              }}
-              text="- $1"
-            />
-            {/* SWITCH NETWORK */}
-            <Button onClick={usdt} text="USDT" />
-            <Button onClick={busd} text="BUSD" />
-            <Button onClick={dai} text="DAI" />
-            <Button onClick={usdc} text="USDC" />
-            <Button onClick={userPost} text="Pay" />
+              <div style={{ display: "flex" }}>
+                <Button onClick={userPost} text="Post" />
+                <Button
+                  onClick={savePost}
+                  disabled={isLoading}
+                  text="Basic Post"
+                />
+              </div>
+            </div>
           </motion.div>
         </Wrapper>
       )}
@@ -615,4 +670,37 @@ const DropdownMenu = styled.div`
   background: ${({ theme }) => theme.text};
   border-radius: 0.5rem;
   padding: 0 1.5rem;
+`;
+
+const PaymentText = styled.div`
+  color: ${({ theme }) => theme.text};
+  transition: all 0.5s linear;
+  font-size: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  @media screen and (max-width: 1023px) {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.4rem;
+  }
+`;
+
+const PaymentHeader = styled.div`
+  color: ${({ theme }) => theme.text};
+  font-weight: bold;
+  transition: all 0.5s linear;
+  font-size: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  text-transform: uppercase;
+  @media screen and (max-width: 1023px) {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.4rem;
+  }
 `;
