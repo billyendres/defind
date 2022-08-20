@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMoralis, useWeb3Transfer } from "react-moralis";
+import { useMoralis, useWeb3Transfer, useChain } from "react-moralis";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,6 +36,8 @@ import { LocationDropdown, LocationHeader } from "./PostComponents/Location";
 const CandidatePost = () => {
   const navigate = useNavigate();
   const { Moralis } = useMoralis();
+  const { chainId } = useChain();
+
   const user = Moralis.User.current();
   const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
@@ -54,6 +56,7 @@ const CandidatePost = () => {
   const [contractAddress, setContractAddress] = useState();
   const [decimal, setDecimal] = useState();
   const [completePost, setCompletePost] = useState(false);
+  const [cryptoSelected, setCryptoSelected] = useState("");
 
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
@@ -62,9 +65,12 @@ const CandidatePost = () => {
     contractAddress: contractAddress,
   });
 
+  console.log(chainId);
+
   const usdt = async () => {
     setDecimal(6);
     setContractAddress("0x110a13FC3efE6A245B50102D2d79B3E76125Ae83");
+    setCryptoSelected("usdt");
     const chainId = "0x3"; //Ropsten
     await Moralis.switchNetwork(chainId);
   };
@@ -72,18 +78,25 @@ const CandidatePost = () => {
   const busd = async () => {
     setDecimal(18);
     setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
+    setCryptoSelected("busd");
     const chainId = "0x61"; //BSC Testnet
     await Moralis.switchNetwork(chainId);
   };
 
-  const dai = () => {
+  const dai = async () => {
     setDecimal(18);
     setContractAddress("0xaD6D458402F60fD3Bd25163575031ACDce07538D");
+    setCryptoSelected("dai");
+    const chainId = "0x3"; //Ropsten
+    await Moralis.switchNetwork(chainId);
   };
 
-  const usdc = () => {
+  const usdc = async () => {
     setDecimal(6);
     setContractAddress("0x07865c6E87B9F70255377e024ace6630C1Eaa37F");
+    setCryptoSelected("usdc");
+    const chainId = "0x3"; //Ropsten
+    await Moralis.switchNetwork(chainId);
   };
 
   console.log(paymentAmount, "amount", contractAddress, "contract adress");
@@ -123,6 +136,34 @@ const CandidatePost = () => {
           draggable: true,
           progress: undefined,
         });
+      if (chainId !== "0x3") {
+        return toast.error(
+          "Please select an Ethereum wallet before proceeding",
+          {
+            position: "bottom-left",
+            toastId: "custom-id",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+      if (cryptoSelected === "") {
+        return toast.error("Please select a crypto before proceeding", {
+          position: "bottom-left",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+
       setIsLoading(true);
       fetch({
         onSuccess: (tx) =>
@@ -147,6 +188,8 @@ const CandidatePost = () => {
       console.log(error);
     }
   };
+
+  console.log(cryptoSelected, "crypto");
 
   const savePost = async () => {
     try {
@@ -602,7 +645,7 @@ const CandidatePost = () => {
                         </PaymentText>
                       </div>
                       <PaymentHeader>
-                        Payment Amount ${paymentAmount}
+                        Payment Amount ${paymentAmount} - {cryptoSelected}
                       </PaymentHeader>
                       {/* SWITCH NETWORK */}
 
