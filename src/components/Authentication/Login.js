@@ -9,19 +9,23 @@ const Login = () => {
   const { isAuthenticating, isAuthenticated } = useMoralis();
 
   return (
-    <Wrapper>
+    <>
       {isAuthenticating ? (
-        <LoadingSpinner />
+        <Wrapper
+          style={{ position: "absolute", width: "100vw", height: "100vh" }}
+        >
+          <LoadingSpinner />
+        </Wrapper>
       ) : (
         <>
           {!isAuthenticated && (
-            <div>
+            <Wrapper>
               <ConnectButton />
-            </div>
+            </Wrapper>
           )}
         </>
       )}
-    </Wrapper>
+    </>
   );
 };
 

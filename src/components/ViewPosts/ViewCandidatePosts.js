@@ -635,13 +635,11 @@ const HeaderSearch = styled.div`
   font-size: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
-  font-weight: bold;
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
     margin-bottom: 0.5rem;
   }
   @media screen and (max-width: 600px) {
-    font-weight: 300;
     font-size: 0.55rem;
     margin-bottom: 0.25rem;
   }
@@ -667,7 +665,6 @@ const DropdownHeader = styled.div`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
     margin-bottom: 0.2rem;
@@ -675,7 +672,6 @@ const DropdownHeader = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 0.6rem;
     padding: 0.15rem 0.5rem;
-    font-weight: 300;
   }
 `;
 

@@ -59,7 +59,7 @@ const App = () => {
             {
               position: "bottom-left",
               toastId: "custom-id",
-              autoClose: 10000,
+              autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,

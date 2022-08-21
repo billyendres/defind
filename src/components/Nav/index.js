@@ -22,7 +22,7 @@ import Logout from "../Authentication/Logout";
 import Button from "../Styles/Button";
 
 const Nav = () => {
-  const { Moralis, account } = useMoralis();
+  const { Moralis, account, isAuthenticated } = useMoralis();
   const { chainId } = useChain();
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
@@ -264,8 +264,8 @@ const Nav = () => {
               }}
               className="navTop"
             >
-              <Links to={`/myprofile/${ethAddress}`}>
-                {account && (
+              {account && isAuthenticated ? (
+                <Links to={`/myprofile/${ethAddress}`}>
                   <div style={{ display: "flex" }}>
                     <Button
                       text={
@@ -282,10 +282,31 @@ const Nav = () => {
                         </>
                       }
                     />
-                    {/* <Button text={chain} /> */}
                   </div>
-                )}
-              </Links>
+                </Links>
+              ) : (
+                <Links to="/">
+                  {account && (
+                    <div style={{ display: "flex" }}>
+                      <Button
+                        text={
+                          <>
+                            <div style={{ textTransform: "lowercase" }}>
+                              <FaWallet
+                                style={{
+                                  marginBottom: "-0.1rem",
+                                  marginRight: "0.5rem",
+                                }}
+                              />
+                              {account.slice(0, 2)}...{account.slice(38)}
+                            </div>
+                          </>
+                        }
+                      />
+                    </div>
+                  )}
+                </Links>
+              )}
               {console.log("account:", account)}
             </div>
             <Links to="/">

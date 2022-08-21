@@ -75,13 +75,13 @@ const CandidatePost = () => {
     await Moralis.switchNetwork(chainId);
   };
 
-  const busd = async () => {
-    setDecimal(18);
-    setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
-    setCryptoSelected("busd");
-    const chainId = "0x61"; //BSC Testnet
-    await Moralis.switchNetwork(chainId);
-  };
+  // const busd = async () => {
+  //   setDecimal(18);
+  //   setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
+  //   setCryptoSelected("busd");
+  //   const chainId = "0x61"; //BSC Testnet
+  //   await Moralis.switchNetwork(chainId);
+  // };
 
   const dai = async () => {
     setDecimal(18);
@@ -104,7 +104,7 @@ const CandidatePost = () => {
   const checkout = () => {
     try {
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields", {
+        return toast.error("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -126,7 +126,7 @@ const CandidatePost = () => {
     try {
       await Moralis.enableWeb3();
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields", {
+        return toast.error("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -137,22 +137,19 @@ const CandidatePost = () => {
           progress: undefined,
         });
       if (chainId !== "0x3") {
-        return toast.error(
-          "Please select an Ethereum wallet before proceeding",
-          {
-            position: "bottom-left",
-            toastId: "custom-id",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        return toast.error("Please select an Ethereum wallet.", {
+          position: "bottom-left",
+          toastId: "custom-id",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
       }
       if (cryptoSelected === "") {
-        return toast.error("Please select a crypto before proceeding", {
+        return toast.error("Please select a payment method.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -172,16 +169,19 @@ const CandidatePost = () => {
           }),
         onError: (error) => {
           setIsLoading(false);
-          return toast.error(error.message, {
-            position: "bottom-left",
-            toastId: "custom-id",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-          });
+          return toast.error(
+            "Transaction declined, please check you account balance and try again.",
+            {
+              position: "bottom-left",
+              toastId: "custom-id",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+            }
+          );
         },
       });
     } catch (error) {
@@ -197,7 +197,7 @@ const CandidatePost = () => {
       const newPost = new Posts();
 
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields", {
+        return toast.error("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -591,13 +591,45 @@ const CandidatePost = () => {
                         flexDirection: "column",
                       }}
                     >
-                      <CheckoutHeader>Checkout</CheckoutHeader>
+                      <CheckoutHeader>Submit Post</CheckoutHeader>
                       <PaymentHeader>Select Payment Method</PaymentHeader>
                       <div style={{ display: "flex" }}>
-                        <PaymentText onClick={usdt}>USDT</PaymentText>
-                        <PaymentText onClick={busd}>BUSD</PaymentText>
-                        <PaymentText onClick={dai}>DAI</PaymentText>
-                        <PaymentText onClick={usdc}>USDC</PaymentText>
+                        <PaymentText
+                          style={{
+                            border: cryptoSelected === "usdt" && "1px solid",
+                            borderRadius: "0.25rem",
+                          }}
+                          onClick={usdt}
+                        >
+                          USDT
+                        </PaymentText>
+                        {/* <PaymentText
+                          style={{
+                            border: cryptoSelected === "busd" && "1px solid",
+                            borderRadius: "0.25rem",
+                          }}
+                          onClick={busd}
+                        >
+                          BUSD
+                        </PaymentText> */}
+                        <PaymentText
+                          style={{
+                            border: cryptoSelected === "dai" && "1px solid",
+                            borderRadius: "0.25rem",
+                          }}
+                          onClick={dai}
+                        >
+                          DAI
+                        </PaymentText>
+                        <PaymentText
+                          style={{
+                            border: cryptoSelected === "usdc" && "1px solid",
+                            borderRadius: "0.25rem",
+                          }}
+                          onClick={usdc}
+                        >
+                          USDC
+                        </PaymentText>
                       </div>
                       <PaymentHeader>Select Payment Value</PaymentHeader>
                       <div style={{ display: "flex" }}>
@@ -647,8 +679,6 @@ const CandidatePost = () => {
                       <PaymentHeader>
                         Payment Amount ${paymentAmount} - {cryptoSelected}
                       </PaymentHeader>
-                      {/* SWITCH NETWORK */}
-
                       <div style={{ display: "flex" }}>
                         <Button onClick={userPost} text="Post" />
                         <Button
@@ -774,7 +804,8 @@ const PaymentText = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;
   font-size: 1.25rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.2rem 0.75rem;
+  margin: 0.3rem 0;
   cursor: pointer;
   @media screen and (max-width: 1023px) {
     padding: 0.3rem 0.5rem;
@@ -788,7 +819,7 @@ const PaymentText = styled.div`
 
 const PaymentHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
-  font-weight: bold;
+  /* font-weight: bold; */
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
