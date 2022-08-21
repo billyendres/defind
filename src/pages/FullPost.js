@@ -293,13 +293,13 @@ const FullPost = () => {
 
                       {/* <PostImage src={attributes.postImg} alt={ /> */}
                       <a
-                        style={{ textDecoration: "none", color: "yellow" }}
+                        style={{ textDecoration: "none", color: "#fc03e8" }}
                         href={attributes.postImg}
                         alt="Link"
                         target="_blank"
                         rel="noreferrer noopener"
                       >
-                        Resume
+                        IPFS.pdf
                       </a>
                     </>
                   )}
@@ -316,13 +316,13 @@ const FullPost = () => {
 
                       {/* <PostImage src={attributes.postImg} alt={ /> */}
                       <a
-                        style={{ textDecoration: "none", color: "yellow" }}
+                        style={{ textDecoration: "none", color: "#fc03e8" }}
                         href={attributes.postImgCoverLetter}
                         alt="Link"
                         target="_blank"
                         rel="noreferrer noopener"
                       >
-                        Cover Letter
+                        IPFS.pdf
                       </a>
                     </>
                   )}
@@ -408,15 +408,39 @@ const FullPost = () => {
                       </div>
                     </div>
 
-                    {attributes.personalSummary && (
+                    {attributes.positionSummary && (
                       <>
-                        <Subheader>Personal Summary</Subheader>
-                        <Text>{attributes.personalSummary}</Text>
+                        <Subheader>Position Summary</Subheader>
+                        <Text>{attributes.positionSummary}</Text>
                         <div style={{ marginBottom: "1.5rem" }}></div>
                       </>
                     )}
 
-                    {/* {attributes.contactInformation.length > 0 && (
+                    {attributes.postImg && (
+                      <>
+                        <Subheader>
+                          <FaRegIdBadge
+                            style={{
+                              marginRight: "0.25rem",
+                            }}
+                          />
+                          Additional Documents
+                        </Subheader>
+
+                        {/* <PostImage src={attributes.postImg} alt={ /> */}
+                        <a
+                          style={{ textDecoration: "none", color: "#fc03e8" }}
+                          href={attributes.postImg}
+                          alt="Link"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          IPFS.pdf
+                        </a>
+                      </>
+                    )}
+
+                    {attributes.contactInformation.length > 0 && (
                       <>
                         <Subheader>
                           <FaPhone
@@ -474,7 +498,7 @@ const FullPost = () => {
                           )
                         )}
                       </>
-                    )} */}
+                    )}
                   </ProfileWrapper>
                 </Wrapper>
               );

@@ -83,7 +83,7 @@ const ViewClientPosts = ({ profile }) => {
 
         const filteredArray = x?.filter((i) => {
           // if (
-          //   i.attributes.personalSummary
+          //   i.attributes.positionSummary
           //     .toLowerCase()
           //     .includes(search.toLowerCase())
           // ) {
@@ -126,7 +126,7 @@ const ViewClientPosts = ({ profile }) => {
         let x = results;
         const filteredArray = x?.filter((i) => {
           if (
-            i.attributes.personalSummary
+            i.attributes.positionSummary
               .toLowerCase()
               .includes(search.toLowerCase())
           ) {
@@ -498,12 +498,12 @@ const ViewClientPosts = ({ profile }) => {
                           </div>
                         </div>
 
-                        {item.attributes.personalSummary && (
+                        {item.attributes.positionSummary && (
                           <>
                             <Subheader style={{ marginBottom: "0.25rem" }}>
                               Personal Summary
                             </Subheader>
-                            <Text>{item.attributes.personalSummary}</Text>
+                            <Text>{item.attributes.positionSummary}</Text>
                           </>
                         )}
                       </ProfileWrapper>

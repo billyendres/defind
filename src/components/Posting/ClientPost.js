@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import LoadingSpinner from "../Styles/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,12 @@ import Img from "../Styles/ProfilePicture";
 import PositionSummary from "./PostComponents/PositionSummary";
 import { CategoryDropdown, CategoryHeader } from "./PostComponents/Category";
 import { LocationDropdown, LocationHeader } from "./PostComponents/Location";
+import { Contact, AddContact, ContactAdded } from "./PostComponents/Contact";
+import {
+  AdditionalDocs,
+  AdditionalDocsHeader,
+  RemoveAdditionalDocs,
+} from "./PostComponents/AdditionalDocs";
 
 const ClientPost = () => {
   const navigate = useNavigate();
@@ -19,12 +25,15 @@ const ClientPost = () => {
   const { chainId } = useChain();
   const user = Moralis.User.current();
 
+  const inputFile = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
-  const [currency, setCurrency] = useState("usdt");
+  // const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
   const [positionSummary, setPositionSummary] = useState("");
+  const [contact, setContact] = useState([]);
+  const [postFile, setPostFile] = useState();
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [decimal, setDecimal] = useState();
@@ -184,12 +193,22 @@ const ClientPost = () => {
       setIsLoading(true);
 
       newPost.set("paymentAmount", paymentAmount);
+      newPost.set("positionSummary", positionSummary);
+      newPost.set("contactInformation", contact);
       newPost.set("searchCategory", category);
       newPost.set("searchLocation", location);
       newPost.set("posterProfilePic", user.attributes.profilePic);
       newPost.set("posterAccount", user.attributes.ethAddress);
       newPost.set("posterUsername", user.attributes.username);
       newPost.set("posterBio", user.attributes.bio);
+      //additionalDocs
+      if (postFile) {
+        const data = postFile;
+        const file = new Moralis.File(data.name, data);
+
+        await file.saveIPFS();
+        newPost.set("postImg", file.ipfs());
+      }
 
       await newPost.save();
       navigate(`/postsuccess`);
@@ -198,6 +217,57 @@ const ClientPost = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const imageType = /application\/(pdf)/i;
+
+  const onImageClick = () => {
+    inputFile.current.click();
+  };
+
+  const changeHandler = (e) => {
+    const img = e.target.files[0];
+    if (!img.type.match(imageType)) {
+      return toast.error("Image type not valid", {
+        position: "top-center",
+        toastId: "custom-id",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    setPostFile(img);
+  };
+
+  // Contact
+  const handleChangeInputContact = (index, event) => {
+    const values = [...contact];
+    values[index][event.target.name] = event.target.value;
+    setContact(values);
+  };
+
+  const handleAddContact = () => {
+    setContact([
+      ...contact,
+      {
+        email: "",
+        phone: "",
+        twitter: "",
+        github: "",
+        telegram: "",
+        website: "",
+        location: "",
+      },
+    ]);
+  };
+
+  const handleRemoveContact = (index) => {
+    const values = [...contact];
+    values.splice(index, 1);
+    setContact(values);
   };
 
   const description = [
@@ -307,6 +377,48 @@ const ClientPost = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
+              {!postFile ? (
+                <AdditionalDocs
+                  onImageClick={onImageClick}
+                  inputFile={inputFile}
+                  changeHandler={changeHandler}
+                />
+              ) : (
+                <>
+                  <AdditionalDocsHeader />
+                  <div style={{ display: "flex" }}>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      {postFile && (
+                        <RemoveAdditionalDocs onClick={() => setPostFile()} />
+                      )}
+                    </motion.div>
+                  </div>
+                  {postFile && (
+                    <Text style={{ width: "100%", padding: 0 }}>
+                      {`> `}
+                      {postFile.name}
+                    </Text>
+                  )}
+                </>
+              )}
+              {contact.length === 0 ? (
+                <AddContact onClick={() => handleAddContact()} />
+              ) : (
+                <ContactAdded />
+              )}
+              {contact.map((info, index) => (
+                <Contact
+                  key={index}
+                  onChange={(event) => handleChangeInputContact(index, event)}
+                  valueOne={info.email}
+                  valueTwo={info.phone}
+                  valueThree={info.twitter}
+                  valueFour={info.github}
+                  valueFive={info.telegram}
+                  valueSix={info.website}
+                  onClick={() => handleRemoveContact(index)}
+                />
+              ))}
             </Template>
           </motion.div>
           <div
@@ -501,6 +613,20 @@ const Header = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     padding: 0.1rem 0;
+  }
+`;
+
+const Text = styled.div`
+  color: ${({ theme }) => theme.textModals};
+  transition: all 0.5s linear;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
   }
 `;
 

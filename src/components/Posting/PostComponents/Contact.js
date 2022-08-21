@@ -48,7 +48,7 @@ export const Contact = ({
               name="email"
               label="email"
               value={valueOne}
-              maxLength="20"
+              maxLength="50"
               onChange={onChange}
             />
           </Label>
