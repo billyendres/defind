@@ -168,6 +168,7 @@ const GloablStyle = createGlobalStyle`
 }
 
 html, body {
+    background: ${({ theme }) => theme.background};
     display: flex;
     flex-direction: column;
     max-width: 100vw;

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { ethers } from "ethers";
 import {
   Education,
   AddEducation,
@@ -37,8 +36,8 @@ const CandidatePost = () => {
   const navigate = useNavigate();
   const { Moralis } = useMoralis();
   const { chainId } = useChain();
-
   const user = Moralis.User.current();
+
   const [isLoading, setIsLoading] = useState(false);
   const inputFile = useRef(null);
   const inputFileCoverLetter = useRef(null);
@@ -819,11 +818,9 @@ const PaymentText = styled.div`
 
 const PaymentHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
-  /* font-weight: bold; */
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
-  /* text-transform: uppercase; */
   @media screen and (max-width: 1023px) {
     padding: 0.3rem 0.5rem;
     font-size: 0.75rem;
@@ -867,6 +864,7 @@ const PaymentGrid = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const CheckoutHeader = styled.div`
   color: ${({ theme }) => theme.textModals};
   transition: all 0.5s linear;

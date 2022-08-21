@@ -29,7 +29,7 @@ const cardVariants = {
 };
 
 const ViewCandidatePosts = ({ profile }) => {
-  const { Moralis } = useMoralis();
+  const { Moralis, isAuthenticated } = useMoralis();
   const user = Moralis.User.current();
   const [postArray, setPostArray] = useState();
   const [search, setSearch] = useState("");
@@ -69,7 +69,7 @@ const ViewCandidatePosts = ({ profile }) => {
   const getPosts = async () => {
     try {
       setIsLoading(true);
-      const Posts = Moralis.Object.extend("Posts");
+      const Posts = Moralis.Object.extend("Candidate_Posts");
       const query = new Moralis.Query(Posts);
       if (profile) {
         query.equalTo("posterAccount", user.attributes.ethAddress);
@@ -229,146 +229,163 @@ const ViewCandidatePosts = ({ profile }) => {
               <></>
             )}
           </>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Label>
-              <Input
-                type="text"
-                placeholder={window.localStorage.getItem("searchResults")}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Label>
-            <Label>
-              <Button
-                onClick={getPosts}
-                text={
-                  <>
-                    <FaSearch
-                      style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
-                    />
-                    Search
-                  </>
-                }
-              />
-            </Label>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch
-                style={{
-                  border: sortByPaymentAmount && "1px solid",
-                  borderRadius: "0.25rem",
-                }}
-                onClick={sortPrice}
-              >
-                Sort By Points
-              </HeaderSearch>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch
-                onClick={sortDate}
-                style={{
-                  border: !sortByPaymentAmount && "1px solid",
-                  borderRadius: "0.25rem",
-                }}
-              >
-                Sort by Date
-              </HeaderSearch>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <HeaderSearch onClick={clearLocalStorage}>View All</HeaderSearch>
-            </motion.div>
-          </div>
-          <div style={{ display: "flex" }}>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <DropdownHeader
-                ref={buttonRef}
-                onClick={() => setOpenCategory(!openCategory)}
-              >
-                Select Category
-              </DropdownHeader>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <DropdownHeader
-                ref={buttonRefLocation}
-                onClick={() => setOpenLocation(!openLocation)}
-              >
-                Select Location
-              </DropdownHeader>
-            </motion.div>
-          </div>
-          <AnimatePresence>
-            {openCategory && (
-              <motion.div
-                initial={{ opacity: 0, y: "-5%" }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: "-5%" }}
-                key="box"
-                transition={{
-                  type: "spring",
-                  stiffness: "100",
-                }}
-                style={{ height: "12rem", marginBottom: "-12rem" }}
-              >
-                <DropdownMenu>
-                  {category.map((i, key) => (
-                    <motion.div key={key} whileHover={{ scale: 1.05 }}>
-                      <DropdownSearch
+          {/*  */}
+          <>
+            {isAuthenticated &&
+              locations.pathname !==
+                `/profile/posts/${user.attributes.ethAddress}` && (
+                <>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Label>
+                      <Input
+                        type="text"
+                        placeholder={window.localStorage.getItem(
+                          "searchResults"
+                        )}
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </Label>
+                    <Label>
+                      <Button
+                        onClick={getPosts}
+                        text={
+                          <>
+                            <FaSearch
+                              style={{
+                                marginBottom: "-0.2rem",
+                                marginRight: "0.5rem",
+                              }}
+                            />
+                            Search
+                          </>
+                        }
+                      />
+                    </Label>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <HeaderSearch
                         style={{
-                          border: i === searchCategory && "1px solid",
+                          border: sortByPaymentAmount && "1px solid",
                           borderRadius: "0.25rem",
                         }}
-                        onClick={() => {
-                          setSearchCategory(i);
-                          setOpenCategory(false);
-                        }}
+                        onClick={sortPrice}
                       >
-                        {i}
-                      </DropdownSearch>
+                        Sort By Points
+                      </HeaderSearch>
                     </motion.div>
-                  ))}
-                </DropdownMenu>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {openLocation && (
-              <motion.div
-                initial={{ opacity: 0, y: "-5%" }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: "-5%" }}
-                transition={{
-                  type: "spring",
-                  stiffness: "100",
-                }}
-                style={{ height: "12rem", marginBottom: "-12rem" }}
-                key="box 1"
-              >
-                <DropdownMenu>
-                  {location.map((i, key) => (
-                    <motion.div key={key} whileHover={{ scale: 1.05 }}>
-                      <DropdownSearch
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <HeaderSearch
+                        onClick={sortDate}
                         style={{
-                          border: i === searchLocation && "1px solid",
+                          border: !sortByPaymentAmount && "1px solid",
                           borderRadius: "0.25rem",
                         }}
-                        onClick={() => {
-                          setSearchLocation(i);
-                          setOpenLocation(false);
-                        }}
                       >
-                        {i}
-                      </DropdownSearch>
+                        Sort by Date
+                      </HeaderSearch>
                     </motion.div>
-                  ))}
-                </DropdownMenu>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <ResultsText>
-            {postArray?.length === 1
-              ? `${postArray.length} result found`
-              : `${postArray?.length} results found`}
-          </ResultsText>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <HeaderSearch onClick={clearLocalStorage}>
+                        View All
+                      </HeaderSearch>
+                    </motion.div>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <DropdownHeader
+                        ref={buttonRef}
+                        onClick={() => setOpenCategory(!openCategory)}
+                      >
+                        Select Category
+                      </DropdownHeader>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <DropdownHeader
+                        ref={buttonRefLocation}
+                        onClick={() => setOpenLocation(!openLocation)}
+                      >
+                        Select Location
+                      </DropdownHeader>
+                    </motion.div>
+                  </div>
+                  <AnimatePresence>
+                    {openCategory && (
+                      <motion.div
+                        initial={{ opacity: 0, y: "-5%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-5%" }}
+                        key="box"
+                        transition={{
+                          type: "spring",
+                          stiffness: "100",
+                        }}
+                        style={{ height: "12rem", marginBottom: "-12rem" }}
+                      >
+                        <DropdownMenu>
+                          {category.map((i, key) => (
+                            <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                              <DropdownSearch
+                                style={{
+                                  border: i === searchCategory && "1px solid",
+                                  borderRadius: "0.25rem",
+                                }}
+                                onClick={() => {
+                                  setSearchCategory(i);
+                                  setOpenCategory(false);
+                                }}
+                              >
+                                {i}
+                              </DropdownSearch>
+                            </motion.div>
+                          ))}
+                        </DropdownMenu>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {openLocation && (
+                      <motion.div
+                        initial={{ opacity: 0, y: "-5%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-5%" }}
+                        transition={{
+                          type: "spring",
+                          stiffness: "100",
+                        }}
+                        style={{ height: "12rem", marginBottom: "-12rem" }}
+                        key="box 1"
+                      >
+                        <DropdownMenu>
+                          {location.map((i, key) => (
+                            <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                              <DropdownSearch
+                                style={{
+                                  border: i === searchLocation && "1px solid",
+                                  borderRadius: "0.25rem",
+                                }}
+                                onClick={() => {
+                                  setSearchLocation(i);
+                                  setOpenLocation(false);
+                                }}
+                              >
+                                {i}
+                              </DropdownSearch>
+                            </motion.div>
+                          ))}
+                        </DropdownMenu>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <ResultsText>
+                    {postArray?.length === 1
+                      ? `${postArray.length} result found`
+                      : `${postArray?.length} results found`}
+                  </ResultsText>
+                </>
+              )}
+          </>
+          {/*  */}
           <>
             <Grid>
               {postArray
@@ -507,9 +524,10 @@ export default ViewCandidatePosts;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   flex-direction: column;
   background: ${({ theme }) => theme.background};
+  padding-bottom: 2rem;
 `;
 
 const Grid = styled.div`

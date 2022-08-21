@@ -19,6 +19,7 @@ const FullPost = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
   const [userProfile, setUserProfile] = useState();
+  const [jobProfile, setJobProfile] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
@@ -26,11 +27,20 @@ const FullPost = () => {
     const getPost = async () => {
       try {
         setIsLoading(true);
-        const Post = Moralis.Object.extend("Posts");
+        const Post = Moralis.Object.extend("Candidate_Posts");
+        const JobPost = Moralis.Object.extend("Job_Posts");
+
         const query = new Moralis.Query(Post);
+        const jobQuery = new Moralis.Query(JobPost);
+
+        jobQuery.equalTo("objectId", id);
         query.equalTo("objectId", id);
+
         const results = await query.find();
+        const jobResults = await jobQuery.find();
+
         setUserProfile(results);
+        setJobProfile(jobResults);
       } catch (error) {
         console.error(error);
       } finally {
@@ -320,6 +330,156 @@ const FullPost = () => {
               </Wrapper>
             );
           })}
+          <>
+            {jobProfile?.map(({ attributes }, key) => {
+              return (
+                <Wrapper key={key}>
+                  {console.log(attributes)}
+                  <ProfileWrapper>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <motion.div whileHover={{ scale: 1.05 }}>
+                          <Links to={`/profile/${attributes.posterAccount}`}>
+                            <Header>{attributes.posterUsername}</Header>
+                          </Links>
+                        </motion.div>
+                        <Subheader>{attributes.posterBio}</Subheader>
+                        <Text>
+                          {"> "}
+                          {`${attributes.createdAt.toLocaleString("en-us", {
+                            month: "short",
+                          })} ${attributes.createdAt.toLocaleString("en-us", {
+                            day: "numeric",
+                          })}, ${attributes.createdAt.toLocaleString("en-us", {
+                            year: "numeric",
+                          })}`}
+                          <div style={{ marginBottom: "0.5rem" }}></div>
+                        </Text>
+                      </div>
+                      <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Img
+                            src={
+                              attributes.posterProfilePic
+                                ? attributes.posterProfilePic
+                                : defaultProfileImage
+                            }
+                            alt="Profile pic"
+                          />
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            textAlign: "center",
+                          }}
+                        >
+                          <motion.div whileHover={{ scale: 1.05 }}>
+                            <Links to="/portal/jobs">
+                              <Text
+                                style={{
+                                  fontWeight: "bold",
+                                  padding: "0.5rem 0",
+                                }}
+                              >
+                                {"<"} Return to portal
+                              </Text>
+                            </Links>
+                          </motion.div>
+                          <Text>Points - {attributes.paymentAmount * 10}</Text>
+                          {attributes.searchCategory && (
+                            <Text>{attributes.searchCategory}</Text>
+                          )}
+                          {attributes.searchLocation && (
+                            <Text>{attributes.searchLocation}</Text>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {attributes.personalSummary && (
+                      <>
+                        <Subheader>Personal Summary</Subheader>
+                        <Text>{attributes.personalSummary}</Text>
+                        <div style={{ marginBottom: "1.5rem" }}></div>
+                      </>
+                    )}
+
+                    {/* {attributes.contactInformation.length > 0 && (
+                      <>
+                        <Subheader>
+                          <FaPhone
+                            style={{
+                              marginRight: "0.5rem",
+                            }}
+                          />
+                          Contact Information
+                        </Subheader>
+                        {attributes.contactInformation.map(
+                          (
+                            {
+                              email,
+                              phone,
+                              twitter,
+                              github,
+                              telegram,
+                              website,
+                            },
+                            key
+                          ) => (
+                            <span key={key}>
+                              {email && (
+                                <Text>
+                                  <Titles>Email:</Titles> {email}
+                                </Text>
+                              )}
+                              {phone && (
+                                <Text>
+                                  <Titles>Phone:</Titles> {phone}
+                                </Text>
+                              )}
+                              {twitter && (
+                                <Text>
+                                  <Titles>Twitter:</Titles> {twitter}
+                                </Text>
+                              )}
+                              {github && (
+                                <Text>
+                                  <Titles>Github:</Titles> {github}
+                                </Text>
+                              )}
+                              {telegram && (
+                                <Text>
+                                  <Titles>Telegram:</Titles> {telegram}
+                                </Text>
+                              )}
+                              {website && (
+                                <Text>
+                                  <Titles>Website:</Titles> {website}
+                                </Text>
+                              )}
+                              <div style={{ marginBottom: "1.5rem" }}></div>
+                            </span>
+                          )
+                        )}
+                      </>
+                    )} */}
+                  </ProfileWrapper>
+                </Wrapper>
+              );
+            })}
+          </>
         </div>
       )}
     </>
