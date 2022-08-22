@@ -32,7 +32,7 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-  margin-bottom: -2rem;
+  margin-top: -2rem;
   background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
