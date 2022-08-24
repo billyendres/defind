@@ -6,6 +6,7 @@ import Button from "../components/Styles/Button";
 import { motion } from "framer-motion";
 import softwareDev from "../components/images/worker.png";
 import { Links } from "../components/Styles/Links";
+import guideImage from "../components/images/guide.png";
 
 const text =
   "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
@@ -13,13 +14,13 @@ const Guide = () => {
   return (
     <>
       <Wrapper>
-        <Grid>
-          <motion.div
-            initial={{ x: "-200%", scale: 0.5, opacity: 0 }}
-            animate={{ x: 0, scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div
+        {/* <Grid> */}
+        <motion.div
+          initial={{ y: "-50%", scale: 0.5, opacity: 0 }}
+          animate={{ y: 0, scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -45,9 +46,10 @@ const Guide = () => {
             animate={{ x: 0, scale: 1, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <Img src={softwareDev} alt={softwareDev} />
-          </motion.div>
-        </Grid>
+            <Img src={softwareDev} alt={softwareDev} /> */}
+          <img src={guideImage} alt={guideImage} />
+        </motion.div>
+        {/* </Grid> */}
       </Wrapper>
     </>
   );
