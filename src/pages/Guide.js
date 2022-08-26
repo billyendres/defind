@@ -16,7 +16,7 @@ const Guide = () => {
       <Wrapper>
         {/* <Grid> */}
         <motion.div
-          initial={{ y: "-50%", scale: 0.5, opacity: 0 }}
+          initial={{ scale: 0.5, opacity: 0 }}
           animate={{ y: 0, scale: 1, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
@@ -47,7 +47,8 @@ const Guide = () => {
             transition={{ duration: 0.6 }}
           >
             <Img src={softwareDev} alt={softwareDev} /> */}
-          <img src={guideImage} alt={guideImage} />
+          {/* <Header>Guide</Header> */}
+          <Img src={guideImage} alt={guideImage} />
         </motion.div>
         {/* </Grid> */}
       </Wrapper>
@@ -112,13 +113,16 @@ const Header = styled.div`
   color: ${({ theme }) => theme.text};
   transition: all 0.5s linear;
   font-size: 3rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  padding-top: 6rem;
   @media screen and (max-width: 1023px) {
     font-size: 2rem;
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
+    padding-top: 5rem;
   }
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
+    padding-top: 4rem;
   }
 `;
 
@@ -141,12 +145,14 @@ const ButtonWrapper = styled.div`
 `;
 
 const Img = styled.img`
-  height: 25rem;
+  padding-top: 3rem;
+  /* z-index: 100000000000; */
+  /* height: 50rem; */
   @media screen and (max-width: 1023px) {
-    height: 18rem;
+    /* width: 60rem; */
   }
   @media screen and (max-width: 600px) {
-    height: 14rem;
-    margin-top: 2rem;
+    /* height: 14rem;
+    margin-top: 2rem; */
   }
 `;

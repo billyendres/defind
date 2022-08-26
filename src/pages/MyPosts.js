@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import ViewCandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
 import ViewClientPosts from "../components/ViewPosts/ViewClientPosts";
+import myPosts from "../components/images/myPosts.png";
 
 const MyPosts = () => {
   useEffect(() => {
@@ -10,6 +11,7 @@ const MyPosts = () => {
 
   return (
     <Wrapper>
+      {/* <img src={myPosts} /> */}
       <Header>My Posts</Header>
       <ViewCandidatePosts profile={true} />
       <ViewClientPosts profile={true} />
