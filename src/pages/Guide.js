@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import softwareDev from "../components/images/worker.png";
 import { Links } from "../components/Styles/Links";
 import guideImage from "../components/images/guide.png";
+import guideImageSmall from "../components/images/guideSmall.png";
 
 const text =
   "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
@@ -49,6 +50,7 @@ const Guide = () => {
             <Img src={softwareDev} alt={softwareDev} /> */}
           {/* <Header>Guide</Header> */}
           <Img src={guideImage} alt={guideImage} />
+          <ImgSmall src={guideImageSmall} alt={guideImageSmall} />
         </motion.div>
         {/* </Grid> */}
       </Wrapper>
@@ -149,10 +151,28 @@ const Img = styled.img`
   /* z-index: 100000000000; */
   /* height: 50rem; */
   @media screen and (max-width: 1023px) {
-    /* width: 60rem; */
+    display: none;
   }
   @media screen and (max-width: 600px) {
     /* height: 14rem;
+    margin-top: 2rem; */
+  }
+`;
+
+const ImgSmall = styled.img`
+  padding-top: 3rem;
+  /* z-index: 100000000000; */
+  /* height: 50rem; */
+  display: none;
+  @media screen and (max-width: 1023px) {
+    display: inline;
+    margin-top: 2rem;
+    /* height: 20rem; */
+  }
+  @media screen and (max-width: 600px) {
+    margin-top: 1rem;
+    /* height: 14rem;
+
     margin-top: 2rem; */
   }
 `;
