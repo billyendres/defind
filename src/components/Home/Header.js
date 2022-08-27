@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import mainLogo from "../images/mainLogo.png";
 import mainLogoDarkTheme from "../images/mainLogoDarkTheme.png";
 import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
-import { FaBookReader } from "react-icons/fa";
+import { FaBookReader, FaAngleDown } from "react-icons/fa";
 import Login from "../Authentication/Login";
 import theProblem from "../images/theProblem.png";
 import theProblemDarkTheme from "../images/theProblemDarkTheme.png";
@@ -18,12 +18,29 @@ import theSolutionSmallDarkTheme from "../images/theSolutionSmallDarkTheme.png";
 
 const Header = () => {
   const [theme, setTheme] = useState("dark");
+  const problemElement = useRef(null);
+  const problemElementSmall = useRef(null);
 
   const localTheme = window.localStorage.getItem("theme");
   useEffect(() => {
     setTheme(localTheme);
     console.log(theme);
   }, [theme, localTheme]);
+
+  const scrollToSection = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToSectionSmall = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Wrapper>
@@ -54,12 +71,24 @@ const Header = () => {
             />
           </Links>
         </LearnMore>
+        <Arrow whileHover={{ scale: 1.1 }}>
+          <FaAngleDown onClick={() => scrollToSection(problemElement)} />
+        </Arrow>
+        <ArrowSmall whileHover={{ scale: 1.1 }}>
+          <FaAngleDown
+            onClick={() => scrollToSectionSmall(problemElementSmall)}
+          />
+        </ArrowSmall>
       </Wrapper>
+      {/* <div style={{ width: "100vw", height: "100vh", background: "#FEEDAA" }}> */}
       <TheProblem
+        ref={problemElement}
         src={theme === "dark" ? theProblemDarkTheme : theProblem}
         alt="The Problem"
       />
+      {/* </div> */}
       <TheProblemSmall
+        ref={problemElementSmall}
         src={theme === "dark" ? theProblemSmallDarkTheme : theProblemSmall}
         alt="The Problem"
       />
@@ -84,6 +113,36 @@ const Wrapper = styled.div`
   min-height: 100vh;
   align-items: center;
   justify-content: center;
+`;
+
+const Arrow = styled(motion.div)`
+  position: absolute;
+  bottom: 0;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 3rem;
+
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
+const ArrowSmall = styled(motion.div)`
+  position: absolute;
+  bottom: 0;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
+  cursor: pointer;
+  display: none;
+
+  @media screen and (max-width: 1023px) {
+    display: inline;
+    font-size: 3rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
 `;
 
 const Logo = styled.img`
