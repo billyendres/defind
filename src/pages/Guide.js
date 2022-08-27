@@ -166,11 +166,11 @@ const ImgSmall = styled.img`
   display: none;
   @media screen and (max-width: 1023px) {
     display: inline;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     /* height: 20rem; */
   }
   @media screen and (max-width: 600px) {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     /* height: 14rem;
 
     margin-top: 2rem; */

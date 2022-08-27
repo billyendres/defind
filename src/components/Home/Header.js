@@ -7,6 +7,8 @@ import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
 import { FaBookReader } from "react-icons/fa";
 import Login from "../Authentication/Login";
+import theProblem from "../images/theProblem.png";
+import theSolution from "../images/theSolution.png";
 
 const Header = () => {
   const [theme, setTheme] = useState("dark");
@@ -17,35 +19,39 @@ const Header = () => {
     console.log(theme);
   }, [theme, localTheme]);
   return (
-    <Wrapper>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.5,
-        }}
-      >
-        <Logo
-          src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
-          alt="DeFind"
-        />
-      </motion.div>
-      <Login />
-      <LearnMore>
-        <Links to="/guide">
-          <Button
-            text={
-              <>
-                <FaBookReader
-                  style={{ marginBottom: "-0.1rem", marginRight: "0.5rem" }}
-                />
-                Guide
-              </>
-            }
+    <>
+      <Wrapper>
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Logo
+            src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
+            alt="DeFind"
           />
-        </Links>
-      </LearnMore>
-    </Wrapper>
+        </motion.div>
+        <Login />
+        <LearnMore>
+          <Links to="/guide">
+            <Button
+              text={
+                <>
+                  <FaBookReader
+                    style={{ marginBottom: "-0.1rem", marginRight: "0.5rem" }}
+                  />
+                  Guide
+                </>
+              }
+            />
+          </Links>
+        </LearnMore>
+      </Wrapper>
+      <img src={theProblem} />
+      <img src={theSolution} />
+    </>
   );
 };
 
