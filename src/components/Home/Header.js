@@ -8,7 +8,13 @@ import { Links } from "../Styles/Links";
 import { FaBookReader } from "react-icons/fa";
 import Login from "../Authentication/Login";
 import theProblem from "../images/theProblem.png";
+import theProblemDarkTheme from "../images/theProblemDarkTheme.png";
+import theProblemSmall from "../images/theProblemSmall.png";
+import theProblemSmallDarkTheme from "../images/theProblemSmallDarkTheme.png";
 import theSolution from "../images/theSolution.png";
+import theSolutionDarkTheme from "../images/theSolutionDarkTheme.png";
+import theSolutionSmall from "../images/theSolutionSmall.png";
+import theSolutionSmallDarkTheme from "../images/theSolutionSmallDarkTheme.png";
 
 const Header = () => {
   const [theme, setTheme] = useState("dark");
@@ -49,8 +55,22 @@ const Header = () => {
           </Links>
         </LearnMore>
       </Wrapper>
-      <img src={theProblem} />
-      <img src={theSolution} />
+      <TheProblem
+        src={theme === "dark" ? theProblemDarkTheme : theProblem}
+        alt="The Problem"
+      />
+      <TheProblemSmall
+        src={theme === "dark" ? theProblemSmallDarkTheme : theProblemSmall}
+        alt="The Problem"
+      />
+      <TheSolution
+        src={theme === "dark" ? theSolutionDarkTheme : theSolution}
+        alt="The Solution"
+      />
+      <TheSolutionSmall
+        src={theme === "dark" ? theSolutionSmallDarkTheme : theSolutionSmall}
+        alt="The Problem"
+      />
     </>
   );
 };
@@ -82,4 +102,30 @@ const LearnMore = styled.div`
   right: 0;
   z-index: 100000;
   /* margin-bottom: 3rem; */
+`;
+
+const TheProblem = styled.img`
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
+const TheProblemSmall = styled.img`
+  display: none;
+  @media screen and (max-width: 1023px) {
+    display: inline;
+  }
+`;
+
+const TheSolution = styled.img`
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
+const TheSolutionSmall = styled.img`
+  display: none;
+  @media screen and (max-width: 1023px) {
+    display: inline;
+  }
 `;
