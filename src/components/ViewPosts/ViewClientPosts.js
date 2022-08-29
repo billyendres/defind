@@ -82,13 +82,6 @@ const ViewClientPosts = ({ profile }) => {
         );
 
         const filteredArray = x?.filter((i) => {
-          // if (
-          //   i.attributes.positionSummary
-          //     .toLowerCase()
-          //     .includes(search.toLowerCase())
-          // ) {
-          //   return true;
-          // }
           if (
             i.attributes.posterUsername
               .toLowerCase()
@@ -229,7 +222,6 @@ const ViewClientPosts = ({ profile }) => {
               <></>
             )}
           </>
-          {/*  */}
           <>
             {isAuthenticated ? (
               locations.pathname !==
@@ -534,7 +526,6 @@ const ViewClientPosts = ({ profile }) => {
               </>
             )}
           </>
-          {/*  */}
           <>
             <Grid>
               {postArray
@@ -673,7 +664,6 @@ export default ViewClientPosts;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  /* min-height: 100vh; */
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   padding-bottom: 2rem;

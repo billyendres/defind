@@ -77,9 +77,6 @@ const Nav = () => {
     userCheck();
   }, [user]);
 
-  ///Check chain
-  // console.log(chainId, "chainID");
-
   useEffect(() => {
     async function getChain() {
       await Moralis.enableWeb3();
@@ -216,7 +213,6 @@ const Nav = () => {
   return (
     <>
       <LinkWrapper>
-        {/* <TextWrapper> */}
         <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
           <div
             style={{
@@ -385,7 +381,6 @@ const NavWrapper = styled(motion.div)`
     width: 50vw;
   }
   @media screen and (max-width: 600px) {
-    /* width: 100vw; */
     padding-left: 1rem;
   }
 `;
@@ -413,9 +408,6 @@ const TextWrapper = styled.div`
   }
   &.navScrolled {
     background: transparent;
-    /* border-bottom: 1px solid black; */
-    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   }
   @media screen and (max-width: 600px) {
     width: 100vw;
@@ -455,18 +447,6 @@ const Header = styled.div`
   font-size: 1.5rem;
   @media screen and (max-width: 600px) {
     font-size: 1rem;
-    padding: 0.75rem 0;
-  }
-`;
-const WalletHeader = styled.h3`
-  transition: all 0.5s linear;
-  color: ${({ theme }) => theme.text};
-
-  padding: 1rem 0;
-  letter-spacing: 2px;
-  font-size: 1.5rem;
-  @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
     padding: 0.75rem 0;
   }
 `;

@@ -673,7 +673,6 @@ export default ViewCandidatePosts;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  /* min-height: 100vh; */
   flex-direction: column;
   background: ${({ theme }) => theme.background};
   padding-bottom: 2rem;
@@ -749,7 +748,6 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #080e57;
-  /* background: #bae1ff; */
   font-family: "Kdam Thmor Pro", sans-serif;
   &:focus {
     outline: none;

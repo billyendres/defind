@@ -9,7 +9,6 @@ const Username = ({ onChange, value }) => {
         <div style={{ width: "100%" }}>
           <Label>
             <FaGrin
-              // size={30}
               style={{
                 marginRight: "1rem",
                 marginBottom: "-0.5rem",
@@ -57,7 +56,6 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #080e57;
-  /* background: #bae1ff; */
   font-family: "Kdam Thmor Pro", sans-serif;
 
   &:focus {

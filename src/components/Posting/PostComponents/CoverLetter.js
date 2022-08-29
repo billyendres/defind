@@ -21,7 +21,6 @@ export const CoverLetter = ({ onImageClick, inputFile, changeHandler }) => {
           onChange={changeHandler}
           style={{ display: "none" }}
           accept="application/pdf"
-          // accept="image/png, image/jpeg, image/jpg"
         />
         <SubHeader>
           <FaFileAlt

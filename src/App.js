@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
@@ -12,7 +12,6 @@ import Post from "./pages/Post";
 import FullPost from "./pages/FullPost";
 import PageNotFound from "./pages/404";
 import Nav from "./components/Nav";
-import Login from "./components/Authentication/Login";
 import SearchProfile from "./pages/SearchProfile";
 import useDarkMode from "./components/Styles/useDarkMode";
 import Toggle from "./components/Styles/Toggle";
@@ -32,15 +31,7 @@ const App = () => {
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const {
-    isAuthenticated,
-    authenticate,
-    authError,
-    isAuthenticating,
-    Moralis,
-    user,
-    account,
-  } = useMoralis();
+  const { isAuthenticated, Moralis, user, account } = useMoralis();
 
   const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
   const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
@@ -133,7 +124,6 @@ const App = () => {
         </>
       ) : (
         <>
-          {/* <Login /> */}
           <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route exact path="/" element={<Home />} />

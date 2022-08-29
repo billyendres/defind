@@ -29,7 +29,6 @@ const ClientPost = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
-  // const [currency, setCurrency] = useState("usdt");
   const [paymentAmount, setPaymentAmount] = useState(1);
   const [positionSummary, setPositionSummary] = useState("");
   const [contact, setContact] = useState([]);
@@ -57,14 +56,6 @@ const ClientPost = () => {
     const chainId = "0x3"; //Ropsten
     await Moralis.switchNetwork(chainId);
   };
-
-  // const busd = async () => {
-  //   setDecimal(18);
-  //   setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
-  //   setCryptoSelected("busd");
-  //   const chainId = "0x61"; //BSC Testnet
-  //   await Moralis.switchNetwork(chainId);
-  // };
 
   const dai = async () => {
     setDecimal(18);
@@ -460,15 +451,6 @@ const ClientPost = () => {
                         >
                           USDT
                         </PaymentText>
-                        {/* <PaymentText
-                          style={{
-                            border: cryptoSelected === "busd" && "1px solid",
-                            borderRadius: "0.25rem",
-                          }}
-                          onClick={busd}
-                        >
-                          BUSD
-                        </PaymentText> */}
                         <PaymentText
                           style={{
                             border: cryptoSelected === "dai" && "1px solid",

@@ -80,13 +80,11 @@ const Header = () => {
           />
         </ArrowSmall>
       </Wrapper>
-      {/* <div style={{ width: "100vw", height: "100vh", background: "#FEEDAA" }}> */}
       <TheProblem
         ref={problemElement}
         src={theme === "dark" ? theProblemDarkTheme : theProblem}
         alt="The Problem"
       />
-      {/* </div> */}
       <TheProblemSmall
         ref={problemElementSmall}
         src={theme === "dark" ? theProblemSmallDarkTheme : theProblemSmall}
@@ -160,7 +158,6 @@ const LearnMore = styled.div`
   top: 0;
   right: 0;
   z-index: 100000;
-  /* margin-bottom: 3rem; */
 `;
 
 const TheProblem = styled.img`

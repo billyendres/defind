@@ -17,7 +17,6 @@ import {
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
-  const user = Moralis.User.current();
   const [userProfile, setUserProfile] = useState();
   const [jobProfile, setJobProfile] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -427,7 +426,6 @@ const FullPost = () => {
                           Additional Documents
                         </Subheader>
 
-                        {/* <PostImage src={attributes.postImg} alt={ /> */}
                         <a
                           style={{ textDecoration: "none", color: "#fc03e8" }}
                           href={attributes.postImg}

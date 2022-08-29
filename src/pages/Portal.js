@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import ViewCandidatePosts from "../components/ViewPosts/ViewCandidatePosts";
-import ViewClientPosts from "../components/ViewPosts/ViewClientPosts";
 import Button from "../components/Styles/Button";
 import { motion } from "framer-motion";
 import softwareDev from "../components/images/worker.png";
@@ -117,16 +115,6 @@ const Header = styled.div`
   }
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
-  }
-`;
-
-const PostHeaderWrapper = styled.div`
-  margin-top: 3rem;
-  @media screen and (max-width: 1023px) {
-    margin-top: 4rem;
-  }
-  @media screen and (max-width: 600px) {
-    margin-top: 3rem;
   }
 `;
 

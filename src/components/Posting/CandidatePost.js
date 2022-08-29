@@ -74,14 +74,6 @@ const CandidatePost = () => {
     await Moralis.switchNetwork(chainId);
   };
 
-  // const busd = async () => {
-  //   setDecimal(18);
-  //   setContractAddress("0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee");
-  //   setCryptoSelected("busd");
-  //   const chainId = "0x61"; //BSC Testnet
-  //   await Moralis.switchNetwork(chainId);
-  // };
-
   const dai = async () => {
     setDecimal(18);
     setContractAddress("0xaD6D458402F60fD3Bd25163575031ACDce07538D");
@@ -602,15 +594,6 @@ const CandidatePost = () => {
                         >
                           USDT
                         </PaymentText>
-                        {/* <PaymentText
-                          style={{
-                            border: cryptoSelected === "busd" && "1px solid",
-                            borderRadius: "0.25rem",
-                          }}
-                          onClick={busd}
-                        >
-                          BUSD
-                        </PaymentText> */}
                         <PaymentText
                           style={{
                             border: cryptoSelected === "dai" && "1px solid",
@@ -785,12 +768,6 @@ const SubHeader = styled.div`
     font-size: 0.75rem;
     line-height: 150%;
   }
-`;
-
-const Label = styled.div`
-  padding: 0.5rem 0;
-  color: ${({ theme }) => theme.textModals};
-  transition: all 0.5s linear;
 `;
 
 const DropdownMenu = styled.div`

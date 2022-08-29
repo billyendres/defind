@@ -5,12 +5,7 @@ import styled from "styled-components";
 const Button = ({ text, onClick, disabled }) => {
   return (
     <div>
-      <MotionButton
-        onClick={onClick}
-        disabled={disabled}
-        // whileHover={{ scale: 1.05 }}
-        // whileTap={{ scale: 0.95 }}
-      >
+      <MotionButton onClick={onClick} disabled={disabled}>
         {text}
       </MotionButton>
     </div>

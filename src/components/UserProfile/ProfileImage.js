@@ -1,7 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import Img from "../Styles/ProfilePicture";
-import { FaUserEdit, FaImage } from "react-icons/fa";
 
 const ProfileImage = ({ onChange, onClick, inputFile, src, alt, accept }) => {
   return (

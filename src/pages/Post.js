@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import Button from "../components/Styles/Button";
@@ -179,7 +179,6 @@ const ModalText = styled.div`
   padding: 0.25rem 0;
   font-size: 1rem;
   text-align: left;
-  /* font-size: 1.25rem; */
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
   }

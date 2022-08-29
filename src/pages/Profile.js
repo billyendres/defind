@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useMoralis } from "react-moralis";
 import { motion } from "framer-motion";
@@ -13,7 +12,6 @@ import { FaUserEdit, FaRegIdCard } from "react-icons/fa";
 const UserProfile = () => {
   const { Moralis } = useMoralis();
   const user = Moralis.User.current();
-  const location = useLocation();
 
   return (
     <Wrapper>
