@@ -14,6 +14,7 @@ import {
   FaChevronUp,
   FaDiceD20,
   FaWallet,
+  FaPhone,
 } from "react-icons/fa";
 
 import logoDarkTheme from "../images/logoDarkTheme.png";
@@ -163,6 +164,16 @@ const Nav = () => {
           route: `/guide`,
           key: 6,
         },
+        {
+          title: (
+            <IconWrapper>
+              <FaPhone style={{ marginRight: "1rem" }} />
+              <>Contact</>
+            </IconWrapper>
+          ),
+          route: `/contact`,
+          key: 7,
+        },
       ]);
     } else {
       setMenuItems([
@@ -174,7 +185,7 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: "/",
-          key: 7,
+          key: 8,
         },
         {
           title: (
@@ -184,7 +195,7 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: "/portal",
-          key: 8,
+          key: 9,
         },
         {
           title: (
@@ -194,7 +205,7 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: `/post`,
-          key: 9,
+          key: 10,
         },
         {
           title: (
@@ -204,7 +215,17 @@ const Nav = () => {
             </IconWrapper>
           ),
           route: `/guide`,
-          key: 10,
+          key: 11,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaPhone style={{ marginRight: "1rem" }} />
+              <>Contact</>
+            </IconWrapper>
+          ),
+          route: `/contact`,
+          key: 6,
         },
       ]);
     }
@@ -401,7 +422,6 @@ const TextWrapper = styled.div`
   width: 100vw;
   cursor: pointer;
   transition: 0.5s linear;
-  /* margin-top: 0.5rem; */
 
   &.navTop {
     background: ${({ theme }) => theme.backgroundNav};

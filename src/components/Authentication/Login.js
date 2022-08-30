@@ -20,7 +20,7 @@ const Login = () => {
         <>
           {!isAuthenticated && (
             <Wrapper>
-              <ConnectButton />
+              <ConnectButton signingMessage="DeFind authentication" />
             </Wrapper>
           )}
         </>

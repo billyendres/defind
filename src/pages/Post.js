@@ -79,17 +79,20 @@ const Post = () => {
                 exit={{ opacity: 0, scale: 0 }}
               >
                 <ModalText>
-                  <p>
+                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
+                    Share your story:
+                  </div>
+                  <p style={{ paddingTop: "0.5rem" }}>
                     We offer basic and featured posts. Basic posts and free to
-                    publish, while featured posts incur a USDT charge. A charge
-                    that is decided by you.
+                    publish, while featured posts incur a charge. A charge that
+                    is decided by you.
                   </p>
                   <p>
                     <br />
                     While all posts are visible on the portal, they are by
                     default filtered by 'Featured Points'. <br />
                     <br />
-                    <i>Featured Points = USDT charge * 10</i>
+                    <i>Featured Points = USD post value * 10</i>
                   </p>
                   <br />
                   <p>
@@ -105,8 +108,8 @@ const Post = () => {
                   </p>
                   <br />
                   <p>
-                    Payments are accepted in USDT via the Binance Smart Chain,
-                    or Ethereum mainnet blockchains.
+                    Payments are accepted in USDT, DAI and USDC - via the
+                    Ethereum mainnet.
                   </p>
                   <br />
                   <p>
@@ -175,15 +178,17 @@ const PaymentGrid = styled.div`
 
 const ModalText = styled.div`
   color: ${({ theme }) => theme.textModals};
+  font-family: "Varela Round", sans-serif;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
   text-align: left;
+  line-height: 130%;
   @media screen and (max-width: 1023px) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
   }
 `;
 

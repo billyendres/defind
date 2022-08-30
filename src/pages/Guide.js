@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: ${({ theme }) => theme.background};
+  background: #b89ad3;
   transition: all 0.5s linear;
 `;
 

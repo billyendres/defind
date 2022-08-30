@@ -43,7 +43,7 @@ const ClientPost = () => {
   const { fetch, isFetching } = useWeb3Transfer({
     type: "erc20",
     amount: Moralis.Units.Token(paymentAmount, decimal),
-    receiver: "0xEbcAB2d369eB669c20728415ff3CEB9B9F9f5034",
+    receiver: "0xE10208aAc0F0D1B0Ba62a1E65Ce6728B0349370C",
     contractAddress: contractAddress,
   });
 
@@ -53,7 +53,7 @@ const ClientPost = () => {
     setDecimal(6);
     setContractAddress("0x110a13FC3efE6A245B50102D2d79B3E76125Ae83");
     setCryptoSelected("usdt");
-    const chainId = "0x3"; //Ropsten
+    const chainId = "0x1"; //Eth Mainnet
     await Moralis.switchNetwork(chainId);
   };
 
@@ -61,7 +61,7 @@ const ClientPost = () => {
     setDecimal(18);
     setContractAddress("0xaD6D458402F60fD3Bd25163575031ACDce07538D");
     setCryptoSelected("dai");
-    const chainId = "0x3"; //Ropsten
+    const chainId = "0x1"; //Eth Mainnet
     await Moralis.switchNetwork(chainId);
   };
 
@@ -69,7 +69,7 @@ const ClientPost = () => {
     setDecimal(6);
     setContractAddress("0x07865c6E87B9F70255377e024ace6630C1Eaa37F");
     setCryptoSelected("usdc");
-    const chainId = "0x3"; //Ropsten
+    const chainId = "0x1"; //Eth Mainnet
     await Moralis.switchNetwork(chainId);
   };
 
@@ -110,7 +110,7 @@ const ClientPost = () => {
           draggable: true,
           progress: undefined,
         });
-      if (chainId !== "0x3") {
+      if (chainId !== "0x1") {
         return toast.error("Please select an Ethereum wallet.", {
           position: "bottom-left",
           toastId: "custom-id",

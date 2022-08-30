@@ -229,7 +229,6 @@ const ViewCandidatePosts = ({ profile }) => {
               <></>
             )}
           </>
-          {/*  */}
           <>
             {isAuthenticated ? (
               locations.pathname !==

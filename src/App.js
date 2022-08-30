@@ -25,6 +25,7 @@ import ViewCandidatePosts from "./components/ViewPosts/ViewCandidatePosts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Guide from "./pages/Guide";
+import Contact from "./pages/Contact";
 
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
@@ -36,6 +37,7 @@ const App = () => {
   const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
   const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
   Moralis.start({ serverUrl, appId });
+  Moralis.getSigningData = () => "DeFind";
 
   useEffect(() => {
     const checkAccount = () => {
@@ -118,6 +120,7 @@ const App = () => {
               element={<CandidatePost profile={false} />}
             />
             <Route path="/guide" element={<Guide />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
@@ -140,6 +143,7 @@ const App = () => {
             <Route path="/profile/:userId" element={<SearchProfile />} />
             <Route path={`/post`} element={<Post />} />
             <Route path="/guide" element={<Guide />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../components/Home/Header";
-import { motion, AnimatePresence } from "framer-motion";
-import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const Home = () => {
   return (
