@@ -64,7 +64,7 @@ const CandidatePost = () => {
     contractAddress: contractAddress,
   });
 
-  console.log(chainId);
+  // console.log(chainId);
 
   const usdt = async () => {
     setDecimal(6);
@@ -89,8 +89,6 @@ const CandidatePost = () => {
     const chainId = "0x1"; //Eth Mainnet
     await Moralis.switchNetwork(chainId);
   };
-
-  console.log(paymentAmount, "amount", contractAddress, "contract adress");
 
   const checkout = () => {
     try {
@@ -179,8 +177,6 @@ const CandidatePost = () => {
       console.log(error);
     }
   };
-
-  console.log(cryptoSelected, "crypto");
 
   const savePost = async () => {
     try {
@@ -617,49 +613,66 @@ const CandidatePost = () => {
                       <div style={{ display: "flex" }}>
                         <PaymentText
                           onClick={() => {
-                            setPaymentAmount(paymentAmount + 1.5);
+                            setPaymentAmount(paymentAmount + 5);
                           }}
-                          text="+ $1"
+                        >
+                          + $5
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount + 10);
+                          }}
                         >
                           + $10
                         </PaymentText>
                         <PaymentText
                           onClick={() => {
-                            setPaymentAmount(paymentAmount + 1.5);
+                            setPaymentAmount(paymentAmount + 25);
                           }}
-                          text="+ $1"
                         >
                           + $25
                         </PaymentText>
                         <PaymentText
                           onClick={() => {
-                            setPaymentAmount(paymentAmount + 1.5);
+                            setPaymentAmount(paymentAmount + 50);
                           }}
-                          text="+ $1"
                         >
                           + $50
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount + 1.5);
-                          }}
-                          text="+ $1"
-                        >
-                          + $100
                         </PaymentText>
                       </div>
                       <div style={{ display: "flex" }}>
                         <PaymentText
                           onClick={() => {
-                            setPaymentAmount(paymentAmount - 1);
+                            setPaymentAmount(paymentAmount - 5);
                           }}
-                          text="- $1"
                         >
-                          - $1
+                          - $5
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount - 10);
+                          }}
+                        >
+                          - $10
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount - 25);
+                          }}
+                        >
+                          - $25
+                        </PaymentText>
+                        <PaymentText
+                          onClick={() => {
+                            setPaymentAmount(paymentAmount - 50);
+                          }}
+                        >
+                          - $50
                         </PaymentText>
                       </div>
                       <PaymentHeader>
-                        Payment Amount ${paymentAmount} - {cryptoSelected}
+                        Payment Amount ${paymentAmount} -{" "}
+                        {cryptoSelected.toUpperCase()}
                       </PaymentHeader>
                       <div style={{ display: "flex" }}>
                         <Button onClick={userPost} text="Post" />

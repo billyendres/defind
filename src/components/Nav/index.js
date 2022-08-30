@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMoralis, useChain } from "react-moralis";
+import { useMoralis } from "react-moralis";
 
 import {
   FaHome,
@@ -24,14 +24,12 @@ import Button from "../Styles/Button";
 
 const Nav = () => {
   const { Moralis, account, isAuthenticated } = useMoralis();
-  const { chainId } = useChain();
   const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
-  const [chain, setChain] = useState();
   const [theme, setTheme] = useState("dark");
 
   const localTheme = window.localStorage.getItem("theme");
@@ -77,29 +75,6 @@ const Nav = () => {
     };
     userCheck();
   }, [user]);
-
-  useEffect(() => {
-    async function getChain() {
-      await Moralis.enableWeb3();
-      const chainId = await Moralis.getChainId();
-      if (chainId === "0x3") {
-        setChain("Eth");
-      } else if (chainId === "0x61") {
-        setChain(chainId);
-      } else if (chainId === "0x13881") {
-        setChain("Mumbai");
-      } else if (chainId === "0x505") {
-        setChain("MOVR");
-      } else {
-        setChain("Unkown Chain: " + chainId);
-      }
-      if (chainId !== "0x3" || chainId !== "0x61") {
-        console.log("wrong netwrok");
-      }
-    }
-    getChain();
-  }, [chainId, Moralis]);
-  console.log(chain);
 
   useEffect(() => {
     if (user) {
@@ -324,7 +299,6 @@ const Nav = () => {
                   )}
                 </Links>
               )}
-              {console.log("account:", account)}
             </div>
             <Links to="/">
               <LogoImage

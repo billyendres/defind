@@ -24,7 +24,6 @@ const Header = () => {
   const localTheme = window.localStorage.getItem("theme");
   useEffect(() => {
     setTheme(localTheme);
-    console.log(theme);
   }, [theme, localTheme]);
 
   const scrollToSection = (elementRef) => {

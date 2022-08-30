@@ -71,7 +71,6 @@ const ViewClientPosts = ({ profile }) => {
       setIsLoading(true);
       const Posts = Moralis.Object.extend("Job_Posts");
       const query = new Moralis.Query(Posts);
-      console.log(Posts);
       if (profile) {
         query.equalTo("posterAccount", user.attributes.ethAddress);
       }

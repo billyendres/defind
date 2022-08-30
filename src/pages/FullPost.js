@@ -333,7 +333,6 @@ const FullPost = () => {
             {jobProfile?.map(({ attributes }, key) => {
               return (
                 <Wrapper key={key}>
-                  {console.log(attributes)}
                   <ProfileWrapper>
                     <div
                       style={{
