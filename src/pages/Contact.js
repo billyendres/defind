@@ -40,6 +40,7 @@ const ImgLarge = styled.img`
 
 const ImgSmall = styled.img`
   display: none;
+  width: 100%;
   @media screen and (max-width: 1023px) {
     display: inline;
   }

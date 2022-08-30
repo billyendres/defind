@@ -44,6 +44,7 @@ const Img = styled.img`
 const ImgSmall = styled.img`
   padding-top: 3rem;
   display: none;
+  width: 100%;
   @media screen and (max-width: 1023px) {
     display: inline;
   }
