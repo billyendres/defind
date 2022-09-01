@@ -11,6 +11,8 @@ const Logout = () => {
 
   const logout = async () => {
     await Moralis.User.logOut();
+    window.localStorage.removeItem("userLocal");
+    window.localStorage.removeItem("walletconnect");
     navigate("/");
     window.location.reload();
   };

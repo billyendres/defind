@@ -66,6 +66,8 @@ const ViewCandidatePosts = ({ profile }) => {
     "Other",
   ];
 
+  console.log(user);
+
   const getPosts = async () => {
     try {
       setIsLoading(true);

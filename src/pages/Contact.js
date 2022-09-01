@@ -8,7 +8,7 @@ const Contact = () => {
   return (
     <Wrapper>
       <motion.div
-        initial={{ scale: 0.5, opacity: 0 }}
+        initial={{ y: "50%", scale: 0.5, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >

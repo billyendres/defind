@@ -204,7 +204,8 @@ const Modal = styled(motion.div)`
     width: 34rem;
   }
   @media screen and (max-width: 600px) {
-    width: 18.5rem;
+    width: 20rem;
+    padding: 1rem;
   }
 `;
 
@@ -234,10 +235,10 @@ const Text = styled.div`
   padding: 0.25rem 0;
   font-size: 1.25rem;
   @media screen and (max-width: 1023px) {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
   }
 `;
 
@@ -252,7 +253,7 @@ const Header = styled.div`
     margin-top: 2rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-top: 2rem;
   }
 `;

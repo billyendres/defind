@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMoralis, useWeb3Transfer, useChain } from "react-moralis";
 import styled from "styled-components";
@@ -64,14 +64,19 @@ const CandidatePost = () => {
     contractAddress: contractAddress,
   });
 
-  // console.log(chainId);
+  // console.log(window.localStorage.walletconnect);
 
   const usdt = async () => {
     setDecimal(6);
     setContractAddress("0xdAC17F958D2ee523a2206206994597C13D831ec7");
     setCryptoSelected("usdt");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const dai = async () => {
@@ -79,7 +84,12 @@ const CandidatePost = () => {
     setContractAddress("0x6B175474E89094C44Da98b954EedeAC495271d0F");
     setCryptoSelected("dai");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const usdc = async () => {
@@ -87,7 +97,12 @@ const CandidatePost = () => {
     setContractAddress("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
     setCryptoSelected("usdc");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const checkout = () => {
@@ -111,9 +126,15 @@ const CandidatePost = () => {
     }
   };
 
+  console.log(chainId);
+
   const userPost = async () => {
     try {
-      await Moralis.enableWeb3();
+      // if (!window.localStorage.walletconnect) {
+      //   await Moralis.enableWeb3();
+      // } else {
+      //   await Moralis.enableWeb3({ provider: "walletconnect" });
+      // }
       if (!personalSummary || !category || !location)
         return toast.error("Please complete all required fields.", {
           position: "bottom-left",
@@ -149,7 +170,6 @@ const CandidatePost = () => {
           progress: undefined,
         });
       }
-
       setIsLoading(true);
       fetch({
         onSuccess: (tx) =>
@@ -363,7 +383,6 @@ const CandidatePost = () => {
     "South America",
     "Other",
   ];
-
   return (
     <>
       {isLoading || isFetching ? (
@@ -372,328 +391,336 @@ const CandidatePost = () => {
         </Wrapper>
       ) : (
         <Wrapper>
-          <ToastContainer />
-          <motion.div
-            initial={{ y: "50%", scale: 0.5, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Template>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <Header>{user.attributes.username}</Header>
-                  <SubHeader>{user.attributes.bio}</SubHeader>
+          <>
+            <ToastContainer />
+            <motion.div
+              initial={{ y: "50%", scale: 0.5, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Template>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Header>{user.attributes.username}</Header>
+                    <SubHeader>{user.attributes.bio}</SubHeader>
+                  </div>
+                  <Img
+                    src={
+                      user.attributes.profilePic
+                        ? user.attributes.profilePic
+                        : defaultProfileImage
+                    }
+                    alt="Profile pic"
+                  />
                 </div>
-                <Img
-                  src={
-                    user.attributes.profilePic
-                      ? user.attributes.profilePic
-                      : defaultProfileImage
-                  }
-                  alt="Profile pic"
+                <PersonalSummary
+                  onChange={(e) => setPersonalSummary(e.target.value)}
+                  value={personalSummary}
                 />
-              </div>
-              <PersonalSummary
-                onChange={(e) => setPersonalSummary(e.target.value)}
-                value={personalSummary}
-              />
-              <CategoryHeader onClick={() => setOpen(!open)} />
-              <AnimatePresence>
-                {open && (
-                  <motion.div
-                    key="box 1"
-                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                    animate={{ y: 0, opacity: 1, scale: 1 }}
-                  >
-                    <DropdownMenu>
-                      {description.map((i, key) => (
-                        <CategoryDropdown
-                          key={key}
-                          i={i}
-                          category={category}
-                          onClick={() => {
-                            setCategory(i);
-                          }}
-                        />
-                      ))}
-                    </DropdownMenu>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <LocationHeader onClick={() => setOpenLocation(!openLocation)} />
-              <AnimatePresence>
-                {openLocation && (
-                  <motion.div
-                    key="box 1"
-                    initial={{ y: "50%", opacity: 0, scale: 0.5 }}
-                    animate={{ y: 0, opacity: 1, scale: 1 }}
-                  >
-                    <DropdownMenu>
-                      {locationArray.map((i, key) => (
-                        <LocationDropdown
-                          key={key}
-                          i={i}
-                          location={location}
-                          onClick={() => {
-                            setLocation(i);
-                          }}
-                        />
-                      ))}
-                    </DropdownMenu>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              {education.length === 0 ? (
-                <AddEducation onClick={() => handleAddEducation()} />
-              ) : (
-                <EducationAdded />
-              )}
-              {education.map((study, index) => (
-                <Education
-                  key={index}
-                  valueOne={study.course}
-                  onChange={(event) => handleChangeInputEducation(index, event)}
-                  valueTwo={study.institution}
-                  onClickOne={() => handleRemoveEducation(index)}
-                  onClickTwo={() => handleAddEducation()}
-                />
-              ))}
-              {job.length === 0 ? (
-                <AddEmploymentHistory onClick={() => handleAddJob()} />
-              ) : (
-                <EmploymentHistoryAdded />
-              )}
-              {job.map((work, index) => (
-                <EmploymentHistory
-                  key={index}
-                  valueOne={work.jobTitle}
-                  onChange={(event) => handleChangeInputJob(index, event)}
-                  valueTwo={work.company}
-                  valueThree={work.description}
-                  onClickOne={() => handleRemoveJob(index)}
-                  onClickTwo={() => handleAddJob()}
-                />
-              ))}
-              {!postFile ? (
-                <Resume
-                  onImageClick={onImageClick}
-                  inputFile={inputFile}
-                  changeHandler={changeHandler}
-                />
-              ) : (
-                <>
-                  <ResumeHeader />
-                  <div style={{ display: "flex" }}>
-                    <motion.div whileHover={{ scale: 1.05 }}>
-                      {postFile && (
-                        <RemoveResume onClick={() => setPostFile()} />
-                      )}
-                    </motion.div>
-                  </div>
-                  {postFile && (
-                    <Text style={{ width: "100%", padding: 0 }}>
-                      {`> `}
-                      {postFile.name}
-                    </Text>
-                  )}
-                </>
-              )}
-              {!postFileCoverLetter ? (
-                <CoverLetter
-                  onImageClick={onImageClickCoverLetter}
-                  inputFile={inputFileCoverLetter}
-                  changeHandler={changeHandlerCoverLetter}
-                />
-              ) : (
-                <>
-                  <CoverLetterHeader />
-                  <div style={{ display: "flex" }}>
-                    <motion.div whileHover={{ scale: 1.05 }}>
-                      {postFileCoverLetter && (
-                        <RemoveCoverLetter
-                          onClick={() => setPostFileCoverLetter()}
-                        />
-                      )}
-                    </motion.div>
-                  </div>
-                  {postFileCoverLetter && (
-                    <Text style={{ width: "100%", padding: 0 }}>
-                      {`> `}
-                      {postFileCoverLetter.name}
-                    </Text>
-                  )}
-                </>
-              )}
-              {contact.length === 0 ? (
-                <AddContact onClick={() => handleAddContact()} />
-              ) : (
-                <ContactAdded />
-              )}
-              {contact.map((info, index) => (
-                <Contact
-                  key={index}
-                  onChange={(event) => handleChangeInputContact(index, event)}
-                  valueOne={info.email}
-                  valueTwo={info.phone}
-                  valueThree={info.twitter}
-                  valueFour={info.github}
-                  valueFive={info.telegram}
-                  valueSix={info.website}
-                  onClick={() => handleRemoveContact(index)}
-                />
-              ))}
-            </Template>
-          </motion.div>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "1.5rem",
-            }}
-          >
-            <Button onClick={checkout} text="Post" />
-          </div>
-          <AnimatePresence>
-            {completePost && (
-              <PaymentWrapper>
-                <PaymentGrid>
-                  <Modal
-                    initial={{ opacity: 0, scale: 0.75 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: "1rem",
-                        flexDirection: "column",
-                      }}
+                <CategoryHeader onClick={() => setOpen(!open)} />
+                <AnimatePresence>
+                  {open && (
+                    <motion.div
+                      key="box 1"
+                      initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
                     >
-                      <CheckoutHeader>Submit Post</CheckoutHeader>
-                      <PaymentHeader>Select Payment Method</PaymentHeader>
-                      <div style={{ display: "flex" }}>
-                        <PaymentText
-                          style={{
-                            border: cryptoSelected === "usdt" && "1px solid",
-                            borderRadius: "0.25rem",
-                          }}
-                          onClick={usdt}
-                        >
-                          USDT
-                        </PaymentText>
-                        <PaymentText
-                          style={{
-                            border: cryptoSelected === "dai" && "1px solid",
-                            borderRadius: "0.25rem",
-                          }}
-                          onClick={dai}
-                        >
-                          DAI
-                        </PaymentText>
-                        <PaymentText
-                          style={{
-                            border: cryptoSelected === "usdc" && "1px solid",
-                            borderRadius: "0.25rem",
-                          }}
-                          onClick={usdc}
-                        >
-                          USDC
-                        </PaymentText>
+                      <DropdownMenu>
+                        {description.map((i, key) => (
+                          <CategoryDropdown
+                            key={key}
+                            i={i}
+                            category={category}
+                            onClick={() => {
+                              setCategory(i);
+                            }}
+                          />
+                        ))}
+                      </DropdownMenu>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <LocationHeader
+                  onClick={() => setOpenLocation(!openLocation)}
+                />
+                <AnimatePresence>
+                  {openLocation && (
+                    <motion.div
+                      key="box 1"
+                      initial={{ y: "50%", opacity: 0, scale: 0.5 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                    >
+                      <DropdownMenu>
+                        {locationArray.map((i, key) => (
+                          <LocationDropdown
+                            key={key}
+                            i={i}
+                            location={location}
+                            onClick={() => {
+                              setLocation(i);
+                            }}
+                          />
+                        ))}
+                      </DropdownMenu>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                {education.length === 0 ? (
+                  <AddEducation onClick={() => handleAddEducation()} />
+                ) : (
+                  <EducationAdded />
+                )}
+                {education.map((study, index) => (
+                  <Education
+                    key={index}
+                    valueOne={study.course}
+                    onChange={(event) =>
+                      handleChangeInputEducation(index, event)
+                    }
+                    valueTwo={study.institution}
+                    onClickOne={() => handleRemoveEducation(index)}
+                    onClickTwo={() => handleAddEducation()}
+                  />
+                ))}
+                {job.length === 0 ? (
+                  <AddEmploymentHistory onClick={() => handleAddJob()} />
+                ) : (
+                  <EmploymentHistoryAdded />
+                )}
+                {job.map((work, index) => (
+                  <EmploymentHistory
+                    key={index}
+                    valueOne={work.jobTitle}
+                    onChange={(event) => handleChangeInputJob(index, event)}
+                    valueTwo={work.company}
+                    valueThree={work.description}
+                    onClickOne={() => handleRemoveJob(index)}
+                    onClickTwo={() => handleAddJob()}
+                  />
+                ))}
+                {!postFile ? (
+                  <Resume
+                    onImageClick={onImageClick}
+                    inputFile={inputFile}
+                    changeHandler={changeHandler}
+                  />
+                ) : (
+                  <>
+                    <ResumeHeader />
+                    <div style={{ display: "flex" }}>
+                      <motion.div whileHover={{ scale: 1.05 }}>
+                        {postFile && (
+                          <RemoveResume onClick={() => setPostFile()} />
+                        )}
+                      </motion.div>
+                    </div>
+                    {postFile && (
+                      <Text style={{ width: "100%", padding: 0 }}>
+                        {`> `}
+                        {postFile.name}
+                      </Text>
+                    )}
+                  </>
+                )}
+                {!postFileCoverLetter ? (
+                  <CoverLetter
+                    onImageClick={onImageClickCoverLetter}
+                    inputFile={inputFileCoverLetter}
+                    changeHandler={changeHandlerCoverLetter}
+                  />
+                ) : (
+                  <>
+                    <CoverLetterHeader />
+                    <div style={{ display: "flex" }}>
+                      <motion.div whileHover={{ scale: 1.05 }}>
+                        {postFileCoverLetter && (
+                          <RemoveCoverLetter
+                            onClick={() => setPostFileCoverLetter()}
+                          />
+                        )}
+                      </motion.div>
+                    </div>
+                    {postFileCoverLetter && (
+                      <Text style={{ width: "100%", padding: 0 }}>
+                        {`> `}
+                        {postFileCoverLetter.name}
+                      </Text>
+                    )}
+                  </>
+                )}
+                {contact.length === 0 ? (
+                  <AddContact onClick={() => handleAddContact()} />
+                ) : (
+                  <ContactAdded />
+                )}
+                {contact.map((info, index) => (
+                  <Contact
+                    key={index}
+                    onChange={(event) => handleChangeInputContact(index, event)}
+                    valueOne={info.email}
+                    valueTwo={info.phone}
+                    valueThree={info.twitter}
+                    valueFour={info.github}
+                    valueFive={info.telegram}
+                    valueSix={info.website}
+                    onClick={() => handleRemoveContact(index)}
+                  />
+                ))}
+              </Template>
+            </motion.div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "1.5rem",
+              }}
+            >
+              <Button onClick={checkout} text="Post" />
+            </div>
+            <AnimatePresence>
+              {completePost && (
+                <PaymentWrapper>
+                  <PaymentGrid>
+                    <Modal
+                      initial={{ opacity: 0, scale: 0.75 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0 }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginTop: "1rem",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <CheckoutHeader>Submit Post</CheckoutHeader>
+                        <PaymentHeader>Select Payment Method</PaymentHeader>
+                        <div style={{ display: "flex" }}>
+                          <PaymentText
+                            style={{
+                              border: cryptoSelected === "usdt" && "1px solid",
+                              borderRadius: "0.25rem",
+                            }}
+                            onClick={usdt}
+                          >
+                            USDT
+                          </PaymentText>
+                          <PaymentText
+                            style={{
+                              border: cryptoSelected === "dai" && "1px solid",
+                              borderRadius: "0.25rem",
+                            }}
+                            onClick={dai}
+                          >
+                            DAI
+                          </PaymentText>
+                          <PaymentText
+                            style={{
+                              border: cryptoSelected === "usdc" && "1px solid",
+                              borderRadius: "0.25rem",
+                            }}
+                            onClick={usdc}
+                          >
+                            USDC
+                          </PaymentText>
+                        </div>
+                        <PaymentHeader>Select Payment Value</PaymentHeader>
+                        <div style={{ display: "flex" }}>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount + 5);
+                            }}
+                          >
+                            + $5
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount + 10);
+                            }}
+                          >
+                            + $10
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount + 25);
+                            }}
+                          >
+                            + $25
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount + 50);
+                            }}
+                          >
+                            + $50
+                          </PaymentText>
+                        </div>
+                        <div style={{ display: "flex" }}>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount - 5);
+                            }}
+                          >
+                            - $5
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount - 10);
+                            }}
+                          >
+                            - $10
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount - 25);
+                            }}
+                          >
+                            - $25
+                          </PaymentText>
+                          <PaymentText
+                            onClick={() => {
+                              setPaymentAmount(paymentAmount - 50);
+                            }}
+                          >
+                            - $50
+                          </PaymentText>
+                        </div>
+                        <PaymentHeader>
+                          Payment Amount ${paymentAmount} -{" "}
+                          {cryptoSelected.toUpperCase()}
+                        </PaymentHeader>
+                        <div style={{ display: "flex" }}>
+                          <Button onClick={userPost} text="Post" />
+                          <Button
+                            onClick={savePost}
+                            disabled={isLoading}
+                            text="Basic Post"
+                          />
+                        </div>
                       </div>
-                      <PaymentHeader>Select Payment Value</PaymentHeader>
-                      <div style={{ display: "flex" }}>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount + 5);
-                          }}
-                        >
-                          + $5
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount + 10);
-                          }}
-                        >
-                          + $10
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount + 25);
-                          }}
-                        >
-                          + $25
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount + 50);
-                          }}
-                        >
-                          + $50
-                        </PaymentText>
-                      </div>
-                      <div style={{ display: "flex" }}>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount - 5);
-                          }}
-                        >
-                          - $5
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount - 10);
-                          }}
-                        >
-                          - $10
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount - 25);
-                          }}
-                        >
-                          - $25
-                        </PaymentText>
-                        <PaymentText
-                          onClick={() => {
-                            setPaymentAmount(paymentAmount - 50);
-                          }}
-                        >
-                          - $50
-                        </PaymentText>
-                      </div>
-                      <PaymentHeader>
-                        Payment Amount ${paymentAmount} -{" "}
-                        {cryptoSelected.toUpperCase()}
-                      </PaymentHeader>
-                      <div style={{ display: "flex" }}>
-                        <Button onClick={userPost} text="Post" />
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <Button
-                          onClick={savePost}
-                          disabled={isLoading}
-                          text="Basic Post"
+                          onClick={() => setCompletePost(!completePost)}
+                          text="Close"
                         />
                       </div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <Button
-                        onClick={() => setCompletePost(!completePost)}
-                        text="Close"
-                      />
-                    </div>
-                  </Modal>
-                </PaymentGrid>
-              </PaymentWrapper>
-            )}
-          </AnimatePresence>
+                    </Modal>
+                  </PaymentGrid>
+                </PaymentWrapper>
+              )}
+            </AnimatePresence>
+          </>
         </Wrapper>
       )}
     </>

@@ -9,7 +9,7 @@ const Guide = () => {
     <>
       <Wrapper>
         <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
+          initial={{ y: "-100%", scale: 0.5, opacity: 0 }}
           animate={{ y: 0, scale: 1, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >

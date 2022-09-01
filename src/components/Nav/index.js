@@ -31,7 +31,6 @@ const Nav = () => {
   const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
   const [theme, setTheme] = useState("dark");
-
   const localTheme = window.localStorage.getItem("theme");
   useEffect(() => {
     setTheme(localTheme);
@@ -45,6 +44,7 @@ const Nav = () => {
     }
   };
   window.addEventListener("scroll", changeColor);
+  const userLocal = window.localStorage.getItem("userLocal");
 
   useEffect(() => {
     let handler = (e) => {
@@ -256,7 +256,7 @@ const Nav = () => {
               }}
               className="navTop"
             >
-              {account && isAuthenticated ? (
+              {userLocal && isAuthenticated ? (
                 <Links to={`/myprofile/${ethAddress}`}>
                   <div style={{ display: "flex" }}>
                     <Button
@@ -269,7 +269,7 @@ const Nav = () => {
                                 marginRight: "0.5rem",
                               }}
                             />
-                            {account.slice(0, 2)}...{account.slice(38)}
+                            {userLocal.slice(0, 2)}...{userLocal.slice(38)}
                           </div>
                         </>
                       }
