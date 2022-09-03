@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMoralis, useWeb3Transfer, useChain } from "react-moralis";
 import styled from "styled-components";
@@ -64,8 +64,6 @@ const CandidatePost = () => {
     contractAddress: contractAddress,
   });
 
-  // console.log(window.localStorage.walletconnect);
-
   const usdt = async () => {
     setDecimal(6);
     setContractAddress("0xdAC17F958D2ee523a2206206994597C13D831ec7");
@@ -130,11 +128,6 @@ const CandidatePost = () => {
 
   const userPost = async () => {
     try {
-      // if (!window.localStorage.walletconnect) {
-      //   await Moralis.enableWeb3();
-      // } else {
-      //   await Moralis.enableWeb3({ provider: "walletconnect" });
-      // }
       if (!personalSummary || !category || !location)
         return toast.error("Please complete all required fields.", {
           position: "bottom-left",

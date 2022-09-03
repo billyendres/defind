@@ -39,4 +39,10 @@ const Wrapper = styled.div`
   position: fixed;
   bottom: 1rem;
   left: 0.25rem;
+  @media screen and (max-width: 1023px) {
+    bottom: 3rem;
+  }
+  @media screen and (max-width: 600px) {
+    bottom: 2rem;
+  }
 `;

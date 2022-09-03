@@ -66,8 +66,6 @@ const ViewCandidatePosts = ({ profile }) => {
     "Other",
   ];
 
-  console.log(user);
-
   const getPosts = async () => {
     try {
       setIsLoading(true);
@@ -637,7 +635,7 @@ const ViewCandidatePosts = ({ profile }) => {
                                   type="button"
                                   role="button"
                                   title="Share on twitter"
-                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/portal/${item.id} - ${item.attributes.posterUsername}`}
+                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/portal/${item.id}`}
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >

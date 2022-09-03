@@ -56,7 +56,7 @@ const Header = () => {
           />
         </motion.div>
         <Login />
-        <LearnMore>
+        {/* <LearnMore>
           <Links to="/guide">
             <Button
               text={
@@ -69,7 +69,7 @@ const Header = () => {
               }
             />
           </Links>
-        </LearnMore>
+        </LearnMore> */}
         <Arrow whileHover={{ scale: 1.1 }}>
           <FaAngleDown onClick={() => scrollToSection(problemElement)} />
         </Arrow>
@@ -152,12 +152,12 @@ const Logo = styled.img`
   }
 `;
 
-const LearnMore = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 100000;
-`;
+// const LearnMore = styled.div`
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   z-index: 100000;
+// `;
 
 const TheProblem = styled.img`
   @media screen and (max-width: 1023px) {

@@ -47,14 +47,17 @@ const ClientPost = () => {
     contractAddress: contractAddress,
   });
 
-  // console.log(chainId);
-
   const usdt = async () => {
     setDecimal(6);
     setContractAddress("0xdAC17F958D2ee523a2206206994597C13D831ec7");
     setCryptoSelected("usdt");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const dai = async () => {
@@ -62,7 +65,12 @@ const ClientPost = () => {
     setContractAddress("0x6B175474E89094C44Da98b954EedeAC495271d0F");
     setCryptoSelected("dai");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const usdc = async () => {
@@ -70,7 +78,12 @@ const ClientPost = () => {
     setContractAddress("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
     setCryptoSelected("usdc");
     const chainId = "0x1"; //Eth Mainnet
-    await Moralis.switchNetwork(chainId);
+    if (!window.localStorage.walletconnect) {
+      await Moralis.enableWeb3();
+      await Moralis.switchNetwork(chainId);
+    } else {
+      await Moralis.enableWeb3({ provider: "walletconnect" });
+    }
   };
 
   const checkout = () => {
@@ -96,7 +109,6 @@ const ClientPost = () => {
 
   const userPost = async () => {
     try {
-      await Moralis.enableWeb3();
       if (!positionSummary || !category || !location)
         return toast.error("Please complete all required fields.", {
           position: "bottom-left",
@@ -132,7 +144,6 @@ const ClientPost = () => {
           progress: undefined,
         });
       }
-
       setIsLoading(true);
       fetch({
         onSuccess: (tx) =>
