@@ -27,12 +27,17 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  min-height: 100vh;
-  background: #ff5757;
+  height: 100vh;
+  /* background: #ff5757; */
+  background: ${({ theme }) => theme.background};
+
   transition: all 0.5s linear;
 `;
 
 const ImgLarge = styled.img`
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
   @media screen and (max-width: 1023px) {
     display: none;
   }

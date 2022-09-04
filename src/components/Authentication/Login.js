@@ -95,7 +95,6 @@ const Login = () => {
                 zIndex: 100000,
               }}
             >
-              {" "}
               <>
                 <LoginWrapper>
                   <Button
@@ -141,8 +140,6 @@ const Login = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                {/* <Button onClick={loginMetamask} text="metamask" />
-                  <Button onClick={loginWalletConnect} text="walletconnect" /> */}
               </>
             </div>
           )}

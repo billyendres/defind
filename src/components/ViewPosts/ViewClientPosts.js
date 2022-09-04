@@ -45,11 +45,18 @@ const ViewClientPosts = ({ profile }) => {
   const locations = useLocation();
 
   const category = [
-    "Software Developer",
-    "Customer Service",
+    "Software Development",
+    "Business Development",
+    "Customer Support",
+    "Engineering",
     "Management",
+    "Non-Tech",
+    "Marketing",
     "Finance",
     "Writing",
+    "Trading",
+    "Design",
+    "Sales",
     "Other",
   ];
 
@@ -63,6 +70,7 @@ const ViewClientPosts = ({ profile }) => {
     "Asia",
     "New Zealand",
     "South America",
+    "India",
     "Other",
   ];
 
@@ -613,7 +621,8 @@ const ViewClientPosts = ({ profile }) => {
                                 </Links>
                               </motion.div>
                               <Text>
-                                Points - {item.attributes.paymentAmount * 10}
+                                Featured Points -{" "}
+                                {item.attributes.paymentAmount * 10}
                               </Text>
                               {item.attributes.searchCategory && (
                                 <Text>{item.attributes.searchCategory}</Text>
@@ -626,7 +635,7 @@ const ViewClientPosts = ({ profile }) => {
                                   type="button"
                                   role="button"
                                   title="Share on twitter"
-                                  href={`https://twitter.com/intent/tweet?url=http://localhost:3000/portal/${item.id}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://defind.tech/portal/${item.id}`}
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >

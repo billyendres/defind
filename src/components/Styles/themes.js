@@ -12,7 +12,7 @@ export const lightTheme = {
 export const darkTheme = {
   backgroundNav: "inherit",
   icon: "#daefff",
-  background: `#171810`,
+  background: `#040010`,
   text: "#daefff",
   textModals: "#080e57",
   button: `linear-gradient(164deg, rgba(0,219,255,1) 0%, rgba(186,225,255,1) 100%)`,

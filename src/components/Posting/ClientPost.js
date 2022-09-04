@@ -51,7 +51,7 @@ const ClientPost = () => {
     setDecimal(6);
     setContractAddress("0xdAC17F958D2ee523a2206206994597C13D831ec7");
     setCryptoSelected("usdt");
-    const chainId = "0x1"; //Eth Mainnet
+    const chainId = "0x1";
     if (!window.localStorage.walletconnect) {
       await Moralis.enableWeb3();
       await Moralis.switchNetwork(chainId);
@@ -64,7 +64,7 @@ const ClientPost = () => {
     setDecimal(18);
     setContractAddress("0x6B175474E89094C44Da98b954EedeAC495271d0F");
     setCryptoSelected("dai");
-    const chainId = "0x1"; //Eth Mainnet
+    const chainId = "0x1";
     if (!window.localStorage.walletconnect) {
       await Moralis.enableWeb3();
       await Moralis.switchNetwork(chainId);
@@ -77,7 +77,7 @@ const ClientPost = () => {
     setDecimal(6);
     setContractAddress("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
     setCryptoSelected("usdc");
-    const chainId = "0x1"; //Eth Mainnet
+    const chainId = "0x1";
     if (!window.localStorage.walletconnect) {
       await Moralis.enableWeb3();
       await Moralis.switchNetwork(chainId);
@@ -153,7 +153,7 @@ const ClientPost = () => {
         onError: (error) => {
           setIsLoading(false);
           return toast.error(
-            "Transaction declined, please check you account balance and try again.",
+            "Transaction declined, please check your wallet balance and try again.",
             {
               position: "bottom-left",
               toastId: "custom-id",
@@ -269,11 +269,18 @@ const ClientPost = () => {
   };
 
   const description = [
-    "Software Developer",
-    "Finance",
-    "Customer Service",
+    "Software Development",
+    "Business Development",
+    "Customer Support",
+    "Engineering",
     "Management",
+    "Non-Tech",
+    "Marketing",
+    "Finance",
     "Writing",
+    "Trading",
+    "Design",
+    "Sales",
     "Other",
   ];
 
@@ -287,6 +294,7 @@ const ClientPost = () => {
     "Asia",
     "New Zealand",
     "South America",
+    "India",
     "Other",
   ];
 

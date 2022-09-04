@@ -122,7 +122,9 @@ const FullPost = () => {
                             </Text>
                           </Links>
                         </motion.div>
-                        <Text>Points - {attributes.paymentAmount * 10}</Text>
+                        <Text>
+                          Featured Points - {attributes.paymentAmount * 10}
+                        </Text>
                         {attributes.searchCategory && (
                           <Text>{attributes.searchCategory}</Text>
                         )}
@@ -395,7 +397,9 @@ const FullPost = () => {
                               </Text>
                             </Links>
                           </motion.div>
-                          <Text>Points - {attributes.paymentAmount * 10}</Text>
+                          <Text>
+                            Featured Points - {attributes.paymentAmount * 10}
+                          </Text>
                           {attributes.searchCategory && (
                             <Text>{attributes.searchCategory}</Text>
                           )}

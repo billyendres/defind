@@ -9,8 +9,8 @@ const Guide = () => {
     <>
       <Wrapper>
         <motion.div
-          initial={{ y: "-100%", scale: 0.5, opacity: 0 }}
-          animate={{ y: 0, scale: 1, opacity: 1 }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
           <Img src={guideImage} alt={guideImage} />
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: #b89ad3;
+  background: ${({ theme }) => theme.background};
   transition: all 0.5s linear;
 `;
 
