@@ -5,6 +5,7 @@ import Button from "../components/Styles/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import softwareDev from "../components/images/softwareDev.png";
 import { Links } from "../components/Styles/Links";
+import { FaHome } from "react-icons/fa";
 
 const Post = () => {
   const { user, Moralis } = useMoralis();
@@ -40,9 +41,15 @@ const Post = () => {
                   whileHover={{ scale: 1.05 }}
                   style={{ display: "inline", cursor: "pointer" }}
                 >
-                  <br />
                   <b>Read more.</b>
                 </motion.div>
+                {!user && (
+                  <Text>
+                    <br />
+                    You are not logged in. If you want to access the full site
+                    features, please return home and connect your web3 wallet.
+                  </Text>
+                )}
               </Text>
             </HeaderWrapper>
             {user && (
@@ -62,6 +69,28 @@ const Post = () => {
                   <Button text="Profile Post" />
                 </Links>
               </ButtonWrapper>
+            )}
+            {!user && (
+              <>
+                <ButtonWrapper>
+                  <Links to="/">
+                    <Button
+                      text={
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <FaHome style={{ marginRight: "0.5rem" }} />
+                          <>Home</>
+                        </div>
+                      }
+                    />
+                  </Links>
+                </ButtonWrapper>
+              </>
             )}
           </div>
         </motion.div>
@@ -124,7 +153,7 @@ const Post = () => {
                   <br />
                   <p>
                     Please contact our support team if you wish to edit or
-                    delete a post during this time - contact@defind.tech
+                    delete a post during this time - contact@defind.tech.
                   </p>
                 </ModalText>
                 <Button onClick={() => setReadMore(!readMore)} text="Close" />

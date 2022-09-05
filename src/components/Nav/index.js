@@ -112,21 +112,21 @@ const Nav = () => {
         {
           title: (
             <IconWrapper>
-              <FaRegIdCard style={{ marginRight: "1rem" }} />
-              <>My Posts</>
-            </IconWrapper>
-          ),
-          route: `/profile/posts/${ethAddress}`,
-          key: 4,
-        },
-        {
-          title: (
-            <IconWrapper>
               <FaRegEdit style={{ marginRight: "1rem" }} />
               <>Post</>
             </IconWrapper>
           ),
           route: `/post`,
+          key: 4,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaRegIdCard style={{ marginRight: "1rem" }} />
+              <>My Posts</>
+            </IconWrapper>
+          ),
+          route: `/profile/posts/${ethAddress}`,
           key: 5,
         },
         {
