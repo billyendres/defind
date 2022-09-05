@@ -6,9 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import softwareDev from "../components/images/softwareDev.png";
 import { Links } from "../components/Styles/Links";
 
-const text =
-  "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
-
 const Post = () => {
   const { user, Moralis } = useMoralis();
   const [readMore, setReadMore] = useState(false);
@@ -31,13 +28,20 @@ const Post = () => {
             <HeaderWrapper>
               <Header>Share Your Story</Header>
               <Text>
-                {text}.
+                <p>List a job or post your professional profile.</p> <br />
+                <p>You can fill in all fields or just include a summary.</p>
+                <br />
+                <p>
+                  Resumes, cover letters and additional documents can be
+                  uploaded via IPFS in PDF format.
+                </p>
                 <motion.div
                   onClick={() => setReadMore(!readMore)}
                   whileHover={{ scale: 1.05 }}
                   style={{ display: "inline", cursor: "pointer" }}
                 >
-                  <b> Read more.</b>
+                  <br />
+                  <b>Read more.</b>
                 </motion.div>
               </Text>
             </HeaderWrapper>
@@ -83,26 +87,26 @@ const Post = () => {
                     Share your story:
                   </div>
                   <p style={{ paddingTop: "0.5rem" }}>
-                    We offer basic and featured posts. Basic posts and free to
-                    publish, while featured posts incur a charge. A charge that
-                    is decided by you.
+                    DeFind supports basic and featured listings. Basic posts are
+                    free to publish, while featured posts incur a charge that
+                    you decide.
                   </p>
                   <p>
                     <br />
-                    While all posts are visible on the portal, they are by
-                    default filtered by 'Featured Points'. <br />
+                    While all posts are visible on the Portal, they are filtered
+                    by 'Featured Points' by default. <br />
                     <br />
                     <i>Featured Points = USD post value * 10</i>
                   </p>
                   <br />
                   <p>
                     Posts with the highest number of Featured Points are
-                    displayed at the top of the portal, while basic posts are
-                    displayed last.
+                    displayed at the top of the Portal, while basic listings are
+                    shown last.
                   </p>
                   <br />
                   <p>
-                    In order for your post to be viewed by the most eyes, it is
+                    For your post to be viewed by the most eyes, it is
                     recommended to utilise the Featured Points bidding system to
                     secure a top rank.
                   </p>
@@ -113,11 +117,14 @@ const Post = () => {
                   </p>
                   <br />
                   <p>
-                    Please note, all posts will be screened for compliance
+                    Please note that all posts will be screened for compliance
                     within 24 hours. Once approved, they will be published to
-                    the portal and active for 30 days. If you wish to edit or
-                    delete a post during this time, please contact our support
-                    team.
+                    the Portal and active for 30 days.
+                  </p>
+                  <br />
+                  <p>
+                    Please contact our support team if you wish to edit or
+                    delete a post during this time - contact@defind.tech
                   </p>
                 </ModalText>
                 <Button onClick={() => setReadMore(!readMore)} text="Close" />
@@ -193,7 +200,7 @@ const ModalText = styled.div`
 `;
 
 const Modal = styled(motion.div)`
-  width: 40rem;
+  width: 60rem;
   position: absolute;
   border-radius: 1rem;
   padding: 1rem 2rem;
@@ -212,7 +219,7 @@ const Modal = styled(motion.div)`
 const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
-  width: 30rem;
+  width: 35rem;
   @media screen and (max-width: 975px) {
     text-align: center;
   }
@@ -223,7 +230,7 @@ const HeaderWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  width: 32rem;
+  width: 37rem;
   @media screen and (max-width: 975px) {
     justify-content: center;
   }

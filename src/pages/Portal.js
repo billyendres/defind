@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 import softwareDev from "../components/images/worker.png";
 import { Links } from "../components/Styles/Links";
 
-const text =
-  "Welcome to the portal. This is where you are able to match yourself with the perfect job or candiadate";
 const Portal = () => {
   return (
     <>
@@ -26,7 +24,23 @@ const Portal = () => {
             >
               <HeaderWrapper>
                 <Header>Find Your Match</Header>
-                <Text>{text}</Text>
+                <Text>
+                  <p>
+                    Welcome to the Portal. It's time to match yourself with the
+                    perfect job or employee.
+                  </p>
+                  <br />
+                  <p>
+                    Filter posts by location, category, featured/date and unique
+                    search phrases. Click 'View Post' to see the complete
+                    listing.
+                  </p>
+                  <br />
+                  <p>
+                    Resumes, cover letters and additional documents can be
+                    viewed and downloaded via the IPFS link on the full post.
+                  </p>
+                </Text>
               </HeaderWrapper>
               <ButtonWrapper>
                 <Links to="/portal/jobs">
@@ -81,7 +95,7 @@ const Wrapper = styled.div`
 const HeaderWrapper = styled.div`
   text-align: left;
   margin-top: 2rem;
-  width: 30rem;
+  width: 35rem;
   @media screen and (max-width: 975px) {
     text-align: center;
     margin-top: 5rem;
@@ -122,7 +136,7 @@ const Header = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  width: 32rem;
+  width: 37rem;
   @media screen and (max-width: 975px) {
     justify-content: center;
   }

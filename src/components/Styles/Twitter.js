@@ -8,7 +8,7 @@ const Twitter = () => {
       <>
         <div>
           <a
-            href="https://twitter.com/billy_3nd"
+            href="https://twitter.com/defind_web3"
             alt="DeFind Twitter"
             rel="noopener noreferrer"
             target="_blank"
