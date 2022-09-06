@@ -15,7 +15,7 @@ export const darkTheme = {
   background: `#040010`,
   text: "#daefff",
   textModals: "#080e57",
-  button: `linear-gradient(164deg, rgba(0,219,255,1) 0%, rgba(186,225,255,1) 100%)`,
-  buttonHover: `linear-gradient(164deg, rgba(81,231,255,1) 0%, rgba(255,255,255,1) 100%)`,
+  buttonHover: `linear-gradient(164deg, rgba(0,219,255,1) 0%, rgba(186,225,255,1) 100%)`,
+  button: `linear-gradient(164deg, rgba(254,0,254,1) 0%, rgba(255,198,255,1) 100%)`,
   nav: `rgba(186,225,255,1)`,
 };

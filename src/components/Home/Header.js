@@ -13,6 +13,10 @@ import theSolution from "../images/theSolution.png";
 import theSolutionDarkTheme from "../images/theSolutionDarkTheme.png";
 import theSolutionSmall from "../images/theSolutionSmall.png";
 import theSolutionSmallDarkTheme from "../images/theSolutionSmallDarkTheme.png";
+import backgroundMain from "../images/background.png";
+
+// background: ${({ theme }) => theme.button};
+// color: ${({ theme }) => theme.textModals};
 
 const Header = () => {
   const [theme, setTheme] = useState("dark");
@@ -41,33 +45,12 @@ const Header = () => {
   return (
     <>
       <Wrapper>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 0.5,
-          }}
-        >
-          <Logo
-            src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
-            alt="DeFind"
-          />
-        </motion.div>
+        <Logo
+          src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
+          alt="DeFind"
+        />
+        <BackgroundMain src={backgroundMain} alt={backgroundMain} />
         <Login />
-        {/* <LearnMore>
-          <Links to="/guide">
-            <Button
-              text={
-                <>
-                  <FaBookReader
-                    style={{ marginBottom: "-0.1rem", marginRight: "0.5rem" }}
-                  />
-                  Guide
-                </>
-              }
-            />
-          </Links>
-        </LearnMore> */}
         <Arrow whileHover={{ scale: 1.1 }}>
           <FaAngleDown onClick={() => scrollToSection(problemElement)} />
         </Arrow>
@@ -101,6 +84,13 @@ const Header = () => {
 
 export default Header;
 
+const BackgroundMain = styled.img`
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: relative;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -113,7 +103,7 @@ const Wrapper = styled.div`
 const Arrow = styled(motion.div)`
   position: absolute;
   bottom: 0;
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   text-decoration: none;
   cursor: pointer;
   font-size: 3rem;
@@ -126,7 +116,7 @@ const Arrow = styled(motion.div)`
 const ArrowSmall = styled(motion.div)`
   position: absolute;
   bottom: 0;
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   text-decoration: none;
   cursor: pointer;
   display: none;
@@ -142,6 +132,8 @@ const ArrowSmall = styled(motion.div)`
 
 const Logo = styled.img`
   height: 40rem;
+  position: absolute;
+  z-index: 1;
   @media screen and (max-width: 1023px) {
     height: 30rem;
   }
@@ -149,13 +141,6 @@ const Logo = styled.img`
     height: 20rem;
   }
 `;
-
-// const LearnMore = styled.div`
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   z-index: 100000;
-// `;
 
 const TheProblem = styled.img`
   @media screen and (max-width: 1023px) {

@@ -382,7 +382,7 @@ const NavWrapper = styled(motion.div)`
 
 const LinkWrapper = styled.div`
   position: fixed;
-  background: ${({ theme }) => theme.backgroundNav};
+  background: inerit;
   z-index: 100000;
   @media screen and (max-width: 600px) {
     padding: 0;
@@ -398,7 +398,7 @@ const TextWrapper = styled.div`
   transition: 0.5s linear;
 
   &.navTop {
-    background: ${({ theme }) => theme.backgroundNav};
+    background: inherit;
   }
   &.navScrolled {
     background: transparent;
@@ -412,7 +412,7 @@ const LinkHeaders = styled.div`
   padding: 0.5rem;
   margin: 1rem;
   transition: all 0.5s linear;
-  border-radius: 50%;
+  border-radius: 10%;
   font-size: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;

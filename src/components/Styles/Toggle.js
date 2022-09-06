@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 const LinkHeaders = styled.div`
   padding: 0.2rem 0.5rem;
   margin: 1rem 0.5rem;
-  border-radius: 50%;
+  border-radius: 10%;
   font-size: 1.5rem;
   transition: all 0.5s linear;
   color: ${({ theme }) => theme.textModals};

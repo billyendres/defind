@@ -23,15 +23,23 @@ const MotionButton = styled(motion.button)`
   margin: 1rem;
   min-width: 10rem;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: 0.2rem;
   cursor: pointer;
-  color: ${({ theme }) => theme.textModals};
-  background: ${({ theme }) => theme.buttonHover};
+  color: "#080e57";
+  background: linear-gradient(
+    164deg,
+    rgba(0, 219, 255, 1) 0%,
+    rgba(186, 225, 255, 1) 100%
+  );
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   &:hover {
-    background: ${({ theme }) => theme.button};
+    background: linear-gradient(
+      164deg,
+      rgba(254, 0, 254, 1) 0%,
+      rgba(255, 198, 255, 1) 100%
+    );
   }
 
   @media screen and (max-width: 1023px) {
