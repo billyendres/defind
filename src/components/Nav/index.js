@@ -21,6 +21,7 @@ import logoDarkTheme from "../images/logoDarkTheme.png";
 import logoLightTheme from "../images/logoLightTheme.png";
 import Logout from "../Authentication/Logout";
 import Button from "../Styles/Button";
+import ButtonSmall from "../Styles/ButtonSmall";
 
 const Nav = () => {
   const { Moralis, account, isAuthenticated } = useMoralis();
@@ -210,35 +211,35 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
-          <div
-            style={{
-              width: "3rem",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <div>
             {!open && (
-              <LinkHeaders className="navTop" onClick={() => setOpen(true)}>
-                <IconWrapper>
-                  <FaChevronUp
-                    style={{
-                      transform: !open && "rotate(-270deg)",
-                    }}
-                  />
-                </IconWrapper>
-              </LinkHeaders>
+              <div className="navTop" onClick={() => setOpen(true)}>
+                <ButtonSmall
+                  text={
+                    <FaChevronUp
+                      style={{
+                        transform: !open && "rotate(-270deg)",
+                        marginBottom: "-0.15rem",
+                      }}
+                    />
+                  }
+                />
+              </div>
             )}
             {open && (
-              <LinkHeaders className="navTop" onClick={() => setOpen(false)}>
-                <IconWrapper>
-                  <FaChevronUp
-                    onClick={() => setOpen(false)}
-                    style={{
-                      transform: open && "rotate(270deg)",
-                    }}
-                  />
-                </IconWrapper>
-              </LinkHeaders>
+              <div className="navTop" onClick={() => setOpen(false)}>
+                <ButtonSmall
+                  onClick={() => setOpen(false)}
+                  text={
+                    <FaChevronUp
+                      style={{
+                        transform: open && "rotate(270deg)",
+                        marginBottom: "-0.15rem",
+                      }}
+                    />
+                  }
+                />
+              </div>
             )}
           </div>
           <Hide
@@ -312,18 +313,18 @@ const Nav = () => {
             </Links>
           </Hide>
           <ArrowWrapper>
-            <LinkHeaders
+            <div
               className="navTop"
               onClick={scrollToTop}
               style={{
                 opacity: !navColor ? 0 : 1,
                 transition: "0.5s linear",
+                marginLeft: "-2rem",
+                marginBottom: "-0.15rem",
               }}
             >
-              <IconWrapper>
-                <FaAngleDoubleUp />
-              </IconWrapper>
-            </LinkHeaders>
+              <ButtonSmall text={<FaAngleDoubleUp />} />
+            </div>
           </ArrowWrapper>
         </TextWrapper>
       </LinkWrapper>
@@ -405,30 +406,6 @@ const TextWrapper = styled.div`
   }
   @media screen and (max-width: 600px) {
     width: 100vw;
-  }
-`;
-
-const LinkHeaders = styled.div`
-  padding: 0.5rem;
-  margin: 1rem;
-  transition: all 0.5s linear;
-  border-radius: 10%;
-  font-size: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    rgba(0, 0, 0, 0.22) 0px 10px 10px;
-
-  &.navTop {
-    color: ${({ theme }) => theme.textModals};
-    background: ${({ theme }) => theme.buttonHover};
-  }
-  &:hover {
-    background: ${({ theme }) => theme.button};
-  }
-
-  @media screen and (max-width: 600px) {
-    margin: 0.5rem;
-    font-size: 1rem;
-    padding: 0.3rem;
   }
 `;
 

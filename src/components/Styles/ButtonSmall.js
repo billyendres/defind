@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const Button = ({ text, onClick, disabled }) => {
+const ButtonSmall = ({ text, onClick, disabled }) => {
   return (
     <div>
       <MotionButton onClick={onClick} disabled={disabled}>
@@ -12,16 +12,15 @@ const Button = ({ text, onClick, disabled }) => {
   );
 };
 
-export default Button;
+export default ButtonSmall;
 
 const MotionButton = styled(motion.button)`
   font-size: 1.25rem;
   font-family: "Russo One", sans-serif;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   margin: 1rem;
-  min-width: 10rem;
   border: none;
   border-radius: 0.2rem;
   cursor: pointer;
@@ -46,15 +45,13 @@ const MotionButton = styled(motion.button)`
     font-size: 0.8rem;
     padding: 0.45rem 0.5rem;
     letter-spacing: 2px;
-    min-width: 7rem;
     margin: 0.5rem;
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
     padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
     letter-spacing: 2px;
-    min-width: 5rem;
     margin: 0.35rem;
   }
 `;
