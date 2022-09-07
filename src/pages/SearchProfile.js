@@ -26,19 +26,40 @@ const cardVariants = {
 
 const SearchProfile = () => {
   const { Moralis } = useMoralis();
-  const [profile, setProfile] = useState();
+  const [candidateProfile, setCandidateProfile] = useState();
+  const [jobProfile, setJobProfile] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const { userId } = useParams();
 
+  //Candidates
   useEffect(() => {
     const getProfile = async () => {
       try {
         setIsLoading(true);
-        const Post = Moralis.Object.extend("Posts");
+        const Post = Moralis.Object.extend("Candidate_Posts");
         const query = new Moralis.Query(Post);
         query.equalTo("posterAccount", userId);
         const results = await query.find();
-        setProfile(results);
+        setCandidateProfile(results);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getProfile();
+  }, [userId, Moralis.Object, Moralis.Query]);
+
+  //Jobs
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        setIsLoading(true);
+        const Post = Moralis.Object.extend("Job_Posts");
+        const query = new Moralis.Query(Post);
+        query.equalTo("posterAccount", userId);
+        const results = await query.find();
+        setJobProfile(results);
       } catch (error) {
         console.error(error);
       } finally {
@@ -63,7 +84,7 @@ const SearchProfile = () => {
             ${userId.slice(38)}`}
             </PageHeader>
             <Grid>
-              {profile
+              {candidateProfile
                 ?.map((item, key) => {
                   return (
                     <CardContainer
@@ -80,6 +101,7 @@ const SearchProfile = () => {
                             marginRight: "3rem",
                           }}
                         >
+                          {console.log(item.attributes)}
                           <div>
                             <motion.div whileHover={{ scale: 1.05 }}>
                               <Header>{item.attributes.posterUsername}</Header>
@@ -164,6 +186,111 @@ const SearchProfile = () => {
                 })
                 .reverse()}
             </Grid>
+            <GridGap />
+            <Grid>
+              {jobProfile
+                ?.map((item, key) => {
+                  return (
+                    <CardContainer
+                      key={key}
+                      initial="offscreen"
+                      whileInView="onscreen"
+                      viewport={{ once: true, amount: 0.8 }}
+                    >
+                      <ProfileWrapper variants={cardVariants}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginRight: "3rem",
+                          }}
+                        >
+                          {console.log(item.attributes)}
+                          <div>
+                            <motion.div whileHover={{ scale: 1.05 }}>
+                              <Header>{item.attributes.posterUsername}</Header>
+                            </motion.div>
+                            <Subheader>{item.attributes.posterBio}</Subheader>
+                            <Text>
+                              {"> "}
+                              {`${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  month: "short",
+                                }
+                              )} ${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  day: "numeric",
+                                }
+                              )}, ${item.attributes.createdAt.toLocaleString(
+                                "en-us",
+                                {
+                                  year: "numeric",
+                                }
+                              )}`}
+                              <div style={{ marginBottom: "1.5rem" }}></div>
+                            </Text>
+                          </div>
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Img
+                                src={
+                                  item.attributes.posterProfilePic
+                                    ? item.attributes.posterProfilePic
+                                    : defaultProfileImage
+                                }
+                                alt="Profile pic"
+                              />
+                            </div>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                                padding: "0.75rem",
+                              }}
+                            >
+                              <motion.div whileHover={{ scale: 1.05 }}>
+                                <Links to={`/portal/${item.id}`}>
+                                  <Text style={{ fontWeight: "bold" }}>
+                                    View post {">"}
+                                  </Text>
+                                </Links>
+                              </motion.div>
+                              <div
+                                style={{ width: "100%", textAlign: "center" }}
+                              >
+                                <motion.div whileHover={{ scale: 1.05 }}>
+                                  <Links to="/portal">
+                                    <Text>{"<"} Return to portal</Text>
+                                  </Links>
+                                </motion.div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {item.attributes.positionSummary && (
+                          <>
+                            <Subheader style={{ marginBottom: "0.25rem" }}>
+                              Personal Summary
+                            </Subheader>
+                            <Text>{item.attributes.positionSummary}</Text>
+                          </>
+                        )}
+                      </ProfileWrapper>
+                    </CardContainer>
+                  );
+                })
+                .reverse()}
+            </Grid>
+            <GridGap />
           </Wrapper>
         </>
       )}
@@ -178,7 +305,7 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   transition: all 0.5s linear;
   padding-top: 4rem;
   @media screen and (max-width: 1023px) {
@@ -198,6 +325,13 @@ const Grid = styled.div`
   }
 `;
 
+const GridGap = styled.div`
+  margin-top: 2rem;
+  @media screen and (max-width: 600px) {
+    margin-top: 1.5rem;
+  }
+`;
+
 const CardContainer = styled(motion.div)`
   overflow: hidden;
   display: flex;
@@ -210,7 +344,7 @@ const ProfileWrapper = styled(motion.div)`
   width: 43rem;
   padding: 2.5rem;
   border-radius: 1rem;
-  background-color: ${({ theme }) => theme.text};
+  background-color: #daefff;
   box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
     0 0 16px hsl(0deg 0% 0% / 0.075);
@@ -226,7 +360,7 @@ const ProfileWrapper = styled(motion.div)`
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;
@@ -240,7 +374,7 @@ const Header = styled.div`
 `;
 
 const Subheader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.2rem;
   padding: 0.25rem 0;
@@ -254,7 +388,7 @@ const Subheader = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0;
   font-size: 0.85rem;
@@ -269,10 +403,10 @@ const Text = styled.div`
 `;
 
 const PageHeader = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 3rem;
-  margin-bottom: 2.5rem;
+  margin: 2rem 0;
   @media screen and (max-width: 1023px) {
     font-size: 2rem;
     margin-bottom: 1.5rem;

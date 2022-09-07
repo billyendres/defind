@@ -45,10 +45,7 @@ const Header = () => {
   return (
     <>
       <Wrapper>
-        <Logo
-          src={theme === "dark" ? mainLogoDarkTheme : mainLogo}
-          alt="DeFind"
-        />
+        <Logo src={mainLogoDarkTheme} alt="DeFind" />
         <BackgroundMain src={backgroundMain} alt={backgroundMain} />
         <Login />
         <Arrow whileHover={{ scale: 1.1 }}>
@@ -62,22 +59,16 @@ const Header = () => {
       </Wrapper>
       <TheProblem
         ref={problemElement}
-        src={theme === "dark" ? theProblemDarkTheme : theProblem}
+        src={theProblemDarkTheme}
         alt="The Problem"
       />
       <TheProblemSmall
         ref={problemElementSmall}
-        src={theme === "dark" ? theProblemSmallDarkTheme : theProblemSmall}
+        src={theProblemSmallDarkTheme}
         alt="The Problem"
       />
-      <TheSolution
-        src={theme === "dark" ? theSolutionDarkTheme : theSolution}
-        alt="The Solution"
-      />
-      <TheSolutionSmall
-        src={theme === "dark" ? theSolutionSmallDarkTheme : theSolutionSmall}
-        alt="The Problem"
-      />
+      <TheSolution src={theSolutionDarkTheme} alt="The Solution" />
+      <TheSolutionSmall src={theSolutionSmallDarkTheme} alt="The Problem" />
     </>
   );
 };
@@ -131,14 +122,14 @@ const ArrowSmall = styled(motion.div)`
 `;
 
 const Logo = styled.img`
-  height: 40rem;
+  width: 50rem;
   position: absolute;
   z-index: 1;
   @media screen and (max-width: 1023px) {
-    height: 30rem;
+    width: 35rem;
   }
   @media screen and (max-width: 600px) {
-    height: 20rem;
+    width: 22rem;
   }
 `;
 

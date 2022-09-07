@@ -151,7 +151,7 @@ const EmploymentWrapper = styled.div`
   flex-wrap: wrap;
   text-align: left;
   justify-content: flex-start;
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
 `;
 
@@ -191,7 +191,7 @@ const Textarea = styled.textarea`
 
 const Label = styled.div`
   padding: 0.5rem 0 0 0;
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.25rem;
   @media screen and (max-width: 1023px) {
@@ -232,7 +232,7 @@ const MotionDiv = styled(motion.div)`
 `;
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 1rem 0;
   font-size: 1.5rem;

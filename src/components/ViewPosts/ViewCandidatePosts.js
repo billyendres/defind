@@ -682,7 +682,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   padding-bottom: 2rem;
 `;
 
@@ -707,7 +707,7 @@ const ProfileWrapper = styled(motion.div)`
   width: 43rem;
   padding: 2.5rem;
   border-radius: 1rem;
-  background-color: ${({ theme }) => theme.text};
+  background-color: #daefff;
   box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
     0 0 16px hsl(0deg 0% 0% / 0.075);
@@ -723,7 +723,7 @@ const ProfileWrapper = styled(motion.div)`
 `;
 
 const ResultsText = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 1rem;
   margin: 1rem 0.5rem;
@@ -741,7 +741,7 @@ const Label = styled.div`
   padding: 0.5rem;
   font-size: 1.25rem;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.icon};
+  color: #daefff;
   margin-bottom: 0.5rem;
   @media screen and (max-width: 1023px) {
     padding: 0;
@@ -771,7 +771,7 @@ const Input = styled.input`
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;
@@ -785,7 +785,7 @@ const Header = styled.div`
 `;
 
 const PageHeader = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
@@ -802,7 +802,7 @@ const PageHeader = styled.div`
 `;
 
 const HeaderSearch = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   padding: 0.25rem 1rem;
   font-size: 1rem;
@@ -819,8 +819,8 @@ const HeaderSearch = styled.div`
 `;
 
 const DropdownMenu = styled.div`
-  background: ${({ theme }) => theme.text};
-  border: 2px solid ${({ theme }) => theme.textModals};
+  background: #daefff;
+  border: 2px solid #080e57;
   border-radius: 0.5rem;
   padding: 1rem;
   width: 15rem;
@@ -828,12 +828,12 @@ const DropdownMenu = styled.div`
     width: 12rem;
     font-size: 0.75rem;
     padding: 0.5rem;
-    border: 1px solid ${({ theme }) => theme.textModals};
+    border: 1px solid #080e57;
   }
 `;
 
 const DropdownHeader = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -849,7 +849,7 @@ const DropdownHeader = styled.div`
 `;
 
 const DropdownSearch = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -861,7 +861,7 @@ const DropdownSearch = styled.div`
 `;
 
 const Subheader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.2rem;
   padding: 0.25rem 0;
@@ -875,7 +875,7 @@ const Subheader = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0;
   font-size: 0.85rem;
@@ -891,7 +891,7 @@ const Text = styled.div`
 
 const Tweet = styled.a`
   padding-top: 0.25rem;
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   text-decoration: none;
   cursor: pointer;
   font-size: 2rem;

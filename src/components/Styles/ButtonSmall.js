@@ -24,10 +24,10 @@ const MotionButton = styled(motion.button)`
   border: none;
   border-radius: 0.2rem;
   cursor: pointer;
-  color: "#080e57";
+  color: #080e57;
   background: linear-gradient(
     164deg,
-    rgba(0, 219, 255, 1) 0%,
+    rgba(41, 243, 226, 1) 0%,
     rgba(186, 225, 255, 1) 100%
   );
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,

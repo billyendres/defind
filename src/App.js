@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { useMoralis } from "react-moralis";
 
 import Home from "./pages/Home";
@@ -13,10 +13,7 @@ import FullPost from "./pages/FullPost";
 import PageNotFound from "./pages/404";
 import Nav from "./components/Nav";
 import SearchProfile from "./pages/SearchProfile";
-import useDarkMode from "./components/Styles/useDarkMode";
-import Toggle from "./components/Styles/Toggle";
 import Twitter from "./components/Styles/Twitter";
-import { lightTheme, darkTheme } from "./components/Styles/themes";
 import PostSuccess from "./pages/PostSuccess";
 import CandidatePost from "./components/Posting/CandidatePost";
 import ClientPost from "./components/Posting/ClientPost";
@@ -28,10 +25,6 @@ import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
 
 const App = () => {
-  const [theme, toggleTheme] = useDarkMode();
-
-  const themeMode = theme === "light" ? lightTheme : darkTheme;
-
   const { isAuthenticated, Moralis, user, account } = useMoralis();
 
   const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -68,14 +61,13 @@ const App = () => {
   }, [Moralis, account, user]);
 
   return (
-    <ThemeProvider theme={themeMode}>
+    <>
       <GloablStyle />
       <Nav />
       <Twitter />
       {isAuthenticated ? (
         <>
           <ToastContainer />
-          <Toggle theme={theme} toggleTheme={toggleTheme} />
           <div style={{ background: "black" }}></div>
           <Routes>
             <Route exact path="/" element={<Home />} />
@@ -127,7 +119,6 @@ const App = () => {
         </>
       ) : (
         <>
-          <Toggle theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/Portal" element={<Portal />} />
@@ -148,7 +139,7 @@ const App = () => {
           </Routes>
         </>
       )}
-    </ThemeProvider>
+    </>
   );
 };
 
@@ -162,7 +153,7 @@ const GloablStyle = createGlobalStyle`
 }
 
 html, body {
-    background: ${({ theme }) => theme.background};
+    background: #040010;
     display: flex;
     flex-direction: column;
     max-width: 100vw;

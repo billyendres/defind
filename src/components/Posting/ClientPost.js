@@ -589,7 +589,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   transition: all 0.5s linear;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   @media screen and (max-width: 1023px) {
     padding-top: 6rem;
   }
@@ -599,7 +599,7 @@ const Wrapper = styled.div`
 `;
 
 const Template = styled.div`
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   min-height: 80vh;
   width: 43rem;
   padding: 3rem;
@@ -617,7 +617,7 @@ const Template = styled.div`
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 2rem;
@@ -631,7 +631,7 @@ const Header = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.5rem 0;
   font-size: 1rem;
@@ -645,7 +645,7 @@ const Text = styled.div`
 `;
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0 0 0.5rem 0;
   font-size: 1.25rem;
@@ -660,13 +660,13 @@ const SubHeader = styled.div`
 `;
 
 const DropdownMenu = styled.div`
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   border-radius: 0.5rem;
   padding: 0 1.5rem;
 `;
 
 const PaymentText = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.2rem 0.75rem;
@@ -683,7 +683,7 @@ const PaymentText = styled.div`
 `;
 
 const PaymentHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
@@ -702,7 +702,7 @@ const Modal = styled(motion.div)`
   position: absolute;
   border-radius: 1rem;
   padding: 1rem 2rem;
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   @media screen and (max-width: 1023px) {
@@ -717,7 +717,7 @@ const PaymentWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   height: 100vh;
   width: 100vw;
   top: 0;
@@ -732,7 +732,7 @@ const PaymentGrid = styled.div`
 `;
 
 const CheckoutHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;

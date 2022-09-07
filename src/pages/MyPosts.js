@@ -20,11 +20,11 @@ const MyPosts = () => {
 export default MyPosts;
 
 const Wrapper = styled.div`
-  background: ${({ theme }) => theme.background};
+  background: #040010;
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 2rem;

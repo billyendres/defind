@@ -365,7 +365,7 @@ const NavWrapper = styled(motion.div)`
   position: fixed;
   width: 25vw;
   height: 100vh;
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -411,7 +411,7 @@ const TextWrapper = styled.div`
 
 const Header = styled.div`
   transition: all 0.5s linear;
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   font-family: "Russo One", sans-serif;
   padding: 1rem 0;
   letter-spacing: 5px;

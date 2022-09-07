@@ -19,7 +19,7 @@ const PersonalSummary = ({ value, onChange }) => {
 export default PersonalSummary;
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;

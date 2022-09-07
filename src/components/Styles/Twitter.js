@@ -30,7 +30,7 @@ export default Twitter;
 
 const Icons = styled.div`
   transition: all 0.5s linear;
-  color: ${({ theme }) => theme.icon};
+  color: #daefff;
   display: flex;
   align-items: center;
   text-transform: uppercase;

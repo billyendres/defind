@@ -39,7 +39,7 @@ export const CategoryHeader = ({ onClick }) => {
 };
 
 const DropdownSearch = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.3rem 0.5rem;
   font-size: 1rem;
@@ -55,7 +55,7 @@ const DropdownSearch = styled.div`
 `;
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 1rem 0;
   font-size: 1.5rem;

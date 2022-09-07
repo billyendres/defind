@@ -152,13 +152,13 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   transition: all 0.5s linear;
 `;
 
 const DropdownMenu = styled.div`
-  background: ${({ theme }) => theme.text};
-  border: 2px solid ${({ theme }) => theme.textModals};
+  background: #daefff;
+  border: 2px solid #080e57;
   border-radius: 0.5rem;
   padding: 0.5rem 0.25rem;
   width: 10.5rem;
@@ -176,12 +176,12 @@ const DropdownMenu = styled.div`
 
     font-size: 0.7rem;
     padding: 0.5rem;
-    border: 1px solid ${({ theme }) => theme.textModals};
+    border: 1px solid #080e57;
   }
 `;
 
 const DropdownSearch = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.5rem;
   font-size: 1rem;

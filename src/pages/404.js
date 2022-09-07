@@ -30,12 +30,12 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   min-height: 100vh;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   transition: all 0.5s linear;
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 4rem;
   margin-bottom: 0.5rem;

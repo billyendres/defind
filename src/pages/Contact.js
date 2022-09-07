@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   /* background: #ff5757; */
-  background: ${({ theme }) => theme.background};
+  background: #040010;
 
   transition: all 0.5s linear;
 `;

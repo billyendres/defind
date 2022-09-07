@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
 `;
 

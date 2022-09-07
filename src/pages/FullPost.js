@@ -523,11 +523,11 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   transition: all 0.5s linear;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
 `;
 
 const ProfileWrapper = styled.div`
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   width: 43rem;
   padding: 3rem;
   margin-top: 5rem;
@@ -547,7 +547,7 @@ const ProfileWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.5rem;
@@ -561,7 +561,7 @@ const Header = styled.div`
 `;
 
 const Subheader = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   font-size: 1.2rem;
   padding: 0.25rem 0;
@@ -575,7 +575,7 @@ const Subheader = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   transition: all 0.5s linear;
   padding: 0;
   font-size: 0.85rem;
@@ -591,5 +591,5 @@ const Text = styled.div`
 
 const Titles = styled.span`
   margin-right: 0.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.textModals};
+  border-bottom: 1px solid #080e57;
 `;

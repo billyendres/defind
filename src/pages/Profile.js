@@ -74,12 +74,12 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 100vh;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   transition: all 0.5s linear;
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 3rem;
   margin: 0.5rem;
@@ -90,7 +90,7 @@ const Header = styled.div`
 `;
 
 const Subheader = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 1.5rem;
   margin: 0.5rem;

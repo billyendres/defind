@@ -192,7 +192,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   transition: all 0.5s linear;
 `;
 
@@ -200,7 +200,7 @@ const PaymentWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  background: ${({ theme }) => theme.background};
+  background: #040010;
   height: 100vh;
   width: 100vw;
 `;
@@ -213,7 +213,7 @@ const PaymentGrid = styled.div`
 `;
 
 const ModalText = styled.div`
-  color: ${({ theme }) => theme.textModals};
+  color: #080e57;
   font-family: "Varela Round", sans-serif;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
@@ -233,7 +233,7 @@ const Modal = styled(motion.div)`
   position: absolute;
   border-radius: 1rem;
   padding: 1rem 2rem;
-  background: ${({ theme }) => theme.text};
+  background: #daefff;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   @media screen and (max-width: 1023px) {
@@ -266,7 +266,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.25rem;
@@ -279,7 +279,7 @@ const Text = styled.div`
 `;
 
 const Header = styled.div`
-  color: ${({ theme }) => theme.text};
+  color: #daefff;
   transition: all 0.5s linear;
   font-size: 3rem;
   margin-bottom: 0.5rem;
