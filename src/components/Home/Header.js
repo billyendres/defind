@@ -14,6 +14,7 @@ import theSolutionDarkTheme from "../images/theSolutionDarkTheme.png";
 import theSolutionSmall from "../images/theSolutionSmall.png";
 import theSolutionSmallDarkTheme from "../images/theSolutionSmallDarkTheme.png";
 import backgroundMain from "../images/background.png";
+import Button from "../Styles/Button";
 
 // background: ${({ theme }) => theme.button};
 // color: ${({ theme }) => theme.textModals};
@@ -57,23 +58,85 @@ const Header = () => {
           />
         </ArrowSmall>
       </Wrapper>
-      <TheProblem
-        ref={problemElement}
-        src={theProblemDarkTheme}
-        alt="The Problem"
-      />
+      <BlockTextWrapper ref={problemElement}>
+        <H2>We're</H2>
+        <H1 style={{ color: "blue" }}>Reinventing</H1>
+        <H1>Jobs</H1>
+        <H3>Blockchain - crypto - defi - web3</H3>
+        <H4>
+          <p>Decentralised technologies are evolving rapidly.</p>
+          <br />
+          <p>
+            The problem is that companies struggle to find candidates to fill
+            positions, and job seekers have nowhere to advertise themselves.
+          </p>
+          <br />
+          <p>
+            We aim to <b>break</b> and <b>reinvent</b> traditional job boards to
+            suit the web3 revolution.
+          </p>
+          <br />
+          <p>
+            DeFind's Web3 Career Poral supports listings for <b>job posters </b>
+            and <b>job seekers</b> - matching candidates with careers
+            efficiently and effectively.
+          </p>
+        </H4>
+
+        <Button text="Learn More" />
+      </BlockTextWrapper>
+      {/* <TheProblem src={theProblemDarkTheme} alt="The Problem" />
       <TheProblemSmall
         ref={problemElementSmall}
         src={theProblemSmallDarkTheme}
         alt="The Problem"
       />
       <TheSolution src={theSolutionDarkTheme} alt="The Solution" />
-      <TheSolutionSmall src={theSolutionSmallDarkTheme} alt="The Problem" />
+      <TheSolutionSmall src={theSolutionSmallDarkTheme} alt="The Problem" /> */}
     </>
   );
 };
 
 export default Header;
+
+const BlockTextWrapper = styled.div`
+  width: 35rem;
+  height: 100vh;
+  display: flex;
+  padding-top: 4rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /* justify-content: center; */
+  text-align: left;
+`;
+
+const H2 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 2rem;
+  padding-left: 1rem;
+`;
+
+const H1 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  padding-left: 1rem;
+`;
+
+const H3 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.55rem;
+  padding-left: 1rem;
+`;
+
+const H4 = styled.div`
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-size: 1rem;
+  padding-left: 1rem;
+  width: 33rem;
+`;
 
 const BackgroundMain = styled.img`
   height: 100vh;

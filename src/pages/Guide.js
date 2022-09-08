@@ -30,7 +30,13 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  background: #040010;
+  background: linear-gradient(
+    164deg,
+    rgba(96, 41, 175, 1) 0%,
+    rgba(165, 81, 255, 1) 100%
+  );
+  /* background: #040010; */
+
   transition: all 0.5s linear;
 `;
 

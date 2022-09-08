@@ -101,7 +101,6 @@ const SearchProfile = () => {
                             marginRight: "3rem",
                           }}
                         >
-                          {console.log(item.attributes)}
                           <div>
                             <motion.div whileHover={{ scale: 1.05 }}>
                               <Header>{item.attributes.posterUsername}</Header>

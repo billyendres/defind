@@ -35,7 +35,7 @@ const Wrapper = styled.div`
 `;
 
 const ImgLarge = styled.img`
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   object-fit: cover;
   @media screen and (max-width: 1023px) {
