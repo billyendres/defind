@@ -106,7 +106,7 @@ const CandidatePost = () => {
   const checkout = () => {
     try {
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields.", {
+        return toast("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -115,6 +115,7 @@ const CandidatePost = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       if (personalSummary && category && location) {
         setCompletePost(!completePost);
@@ -129,7 +130,7 @@ const CandidatePost = () => {
   const userPost = async () => {
     try {
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields.", {
+        return toast("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -138,9 +139,10 @@ const CandidatePost = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       if (chainId !== "0x1") {
-        return toast.error("Please select an Ethereum wallet.", {
+        return toast("Please select an Ethereum wallet.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -149,10 +151,11 @@ const CandidatePost = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       }
       if (cryptoSelected === "") {
-        return toast.error("Please select a payment method.", {
+        return toast("Please select a payment method.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -161,6 +164,7 @@ const CandidatePost = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       }
       setIsLoading(true);
@@ -171,7 +175,7 @@ const CandidatePost = () => {
           }),
         onError: (error) => {
           setIsLoading(false);
-          return toast.error(
+          return toast(
             "Transaction declined, please check your wallet balance and try again.",
             {
               position: "bottom-left",
@@ -182,6 +186,7 @@ const CandidatePost = () => {
               pauseOnHover: false,
               draggable: true,
               progress: undefined,
+              theme: "light",
             }
           );
         },
@@ -197,7 +202,7 @@ const CandidatePost = () => {
       const newPost = new Posts();
 
       if (!personalSummary || !category || !location)
-        return toast.error("Please complete all required fields.", {
+        return toast("Please complete all required fields.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 3000,
@@ -206,6 +211,7 @@ const CandidatePost = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       setIsLoading(true);
 
@@ -258,7 +264,7 @@ const CandidatePost = () => {
   const changeHandler = (e) => {
     const img = e.target.files[0];
     if (!img.type.match(imageType)) {
-      return toast.error("Image type not valid", {
+      return toast("Image type not valid", {
         position: "top-center",
         toastId: "custom-id",
         autoClose: 3000,
@@ -267,6 +273,7 @@ const CandidatePost = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
+        theme: "light",
       });
     }
     setPostFile(img);
@@ -274,7 +281,7 @@ const CandidatePost = () => {
   const changeHandlerCoverLetter = (e) => {
     const img = e.target.files[0];
     if (!img.type.match(imageType)) {
-      return toast.error("Image type not valid", {
+      return toast("Image type not valid", {
         position: "top-center",
         toastId: "custom-id",
         autoClose: 3000,
@@ -283,6 +290,7 @@ const CandidatePost = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
+        theme: "light",
       });
     }
     setPostFileCoverLetter(img);

@@ -56,7 +56,7 @@ const EditUserProfle = () => {
       await myDetails.save();
     } catch (error) {
       if (error) {
-        return toast.error("Account already exists for this username", {
+        return toast("Account already exists for this username", {
           position: "top-center",
           toastId: "custom-id",
           autoClose: 5000,
@@ -65,6 +65,7 @@ const EditUserProfle = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       }
     } finally {
@@ -104,7 +105,7 @@ const EditUserProfle = () => {
     const img = e.target.files[0];
     if (!img.type.match(imageType)) {
       if (!img.type.match(imageType)) {
-        return toast.error("Image type not valid", {
+        return toast("Image type not valid", {
           position: "top-center",
           toastId: "custom-id",
           autoClose: 3000,
@@ -113,6 +114,7 @@ const EditUserProfle = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       }
     }
@@ -214,5 +216,4 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background: #040010;
-  transition: all 0.5s linear;
 `;

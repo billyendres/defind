@@ -35,7 +35,10 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  color: #daefff;
+  color: #31f2e4;
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   font-size: 4rem;
   margin-bottom: 0.5rem;

@@ -18,7 +18,6 @@ import {
 } from "react-icons/fa";
 
 import logoDarkTheme from "../images/logoDarkTheme.png";
-import logoLightTheme from "../images/logoLightTheme.png";
 import Logout from "../Authentication/Logout";
 import Button from "../Styles/Button";
 import ButtonSmall from "../Styles/ButtonSmall";
@@ -31,11 +30,6 @@ const Nav = () => {
   const buttonRef = useRef(null);
   const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
-  const [theme, setTheme] = useState("dark");
-  const localTheme = window.localStorage.getItem("theme");
-  useEffect(() => {
-    setTheme(localTheme);
-  }, [theme, localTheme]);
 
   const changeColor = () => {
     if (window.scrollY >= 90) {
@@ -303,7 +297,7 @@ const Nav = () => {
             </div>
             <Links to="/">
               <LogoImage
-                src={theme === "dark" ? logoDarkTheme : logoLightTheme}
+                src={logoDarkTheme}
                 alt="header"
                 style={{
                   opacity: navColor ? 0 : 1,

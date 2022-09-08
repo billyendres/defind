@@ -1,33 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import mainLogo from "../images/mainLogo.png";
 import mainLogoDarkTheme from "../images/mainLogoDarkThemeGlitch.png";
 import { FaAngleDown } from "react-icons/fa";
-import Login from "../Authentication/Login";
-import theProblem from "../images/theProblem.png";
-import theProblemDarkTheme from "../images/theProblemDarkTheme.png";
-import theProblemSmall from "../images/theProblemSmall.png";
-import theProblemSmallDarkTheme from "../images/theProblemSmallDarkTheme.png";
-import theSolution from "../images/theSolution.png";
-import theSolutionDarkTheme from "../images/theSolutionDarkTheme.png";
-import theSolutionSmall from "../images/theSolutionSmall.png";
-import theSolutionSmallDarkTheme from "../images/theSolutionSmallDarkTheme.png";
 import backgroundMain from "../images/background.png";
 import Button from "../Styles/Button";
-
-// background: ${({ theme }) => theme.button};
-// color: ${({ theme }) => theme.textModals};
+import { Links } from "../Styles/Links";
 
 const Header = () => {
-  const [theme, setTheme] = useState("dark");
-  const problemElement = useRef(null);
-  const problemElementSmall = useRef(null);
+  const pageTwo = useRef(null);
+  const pageTwoSmall = useRef(null);
 
-  const localTheme = window.localStorage.getItem("theme");
   useEffect(() => {
-    setTheme(localTheme);
-  }, [theme, localTheme]);
+    window.scrollTo(0, 0);
+  }, []);
 
   const scrollToSection = (elementRef) => {
     window.scrollTo({
@@ -48,18 +34,15 @@ const Header = () => {
       <Wrapper>
         <Logo src={mainLogoDarkTheme} alt="DeFind" />
         <BackgroundMain src={backgroundMain} alt={backgroundMain} />
-        <Login />
         <Arrow whileHover={{ scale: 1.1 }}>
-          <FaAngleDown onClick={() => scrollToSection(problemElement)} />
+          <FaAngleDown onClick={() => scrollToSection(pageTwo)} />
         </Arrow>
         <ArrowSmall whileHover={{ scale: 1.1 }}>
-          <FaAngleDown
-            onClick={() => scrollToSectionSmall(problemElementSmall)}
-          />
+          <FaAngleDown onClick={() => scrollToSectionSmall(pageTwoSmall)} />
         </ArrowSmall>
       </Wrapper>
-      <BlockTextWrapper ref={problemElement}>
-        <H2>We're</H2>
+      <BlockTextWrapper ref={pageTwo}>
+        <H2 ref={pageTwoSmall}>We're</H2>
         <H1 className="main">Reinventing</H1>
         <H1>Jobs</H1>
         <H3>Blockchain - crypto - defi - web3</H3>
@@ -81,18 +64,12 @@ const Header = () => {
             and <b>job seekers</b> - matching candidates with careers
             efficiently and effectively.
           </p>
+          <br />
         </H4>
-
-        <Button text="Learn More" />
+        <Links to="learn">
+          <Button text="Learn More" />
+        </Links>
       </BlockTextWrapper>
-      {/* <TheProblem src={theProblemDarkTheme} alt="The Problem" />
-      <TheProblemSmall
-        ref={problemElementSmall}
-        src={theProblemSmallDarkTheme}
-        alt="The Problem"
-      />
-      <TheSolution src={theSolutionDarkTheme} alt="The Solution" />
-      <TheSolutionSmall src={theSolutionSmallDarkTheme} alt="The Problem" /> */}
     </>
   );
 };
@@ -100,13 +77,19 @@ const Header = () => {
 export default Header;
 
 const BlockTextWrapper = styled.div`
-  width: 35rem;
+  width: 50rem;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   text-align: left;
   justify-content: center;
+  @media screen and (max-width: 1023px) {
+    width: 35rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 22rem;
+  }
 `;
 
 const H2 = styled.div`
@@ -115,6 +98,13 @@ const H2 = styled.div`
   font-size: 2rem;
   padding-left: 1rem;
   color: #daefff;
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
+  }
 `;
 
 const H1 = styled.div`
@@ -123,7 +113,6 @@ const H1 = styled.div`
   font-size: 4.5rem;
   padding-left: 1rem;
   color: #daefff;
-
   &.main {
     color: #31f2e4;
     filter: drop-shadow(0px 0px 14px #31f2e4);
@@ -142,6 +131,13 @@ const H1 = styled.div`
       color: rgb(255, 0, 255);
     }
   }
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 3.375rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2.8rem;
+  }
 `;
 
 const H3 = styled.div`
@@ -149,17 +145,40 @@ const H3 = styled.div`
   text-transform: uppercase;
   font-size: 1.55rem;
   padding-left: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+
   background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 1.162rem;
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.95rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
 `;
 
 const H4 = styled.div`
   font-family: "Kdam Thmor Pro", sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   padding-left: 1rem;
-  width: 33rem;
+  width: 35rem;
   color: #daefff;
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 0.9rem;
+    width: 27rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 22rem;
+    font-size: 0.8rem;
+  }
 `;
 
 const BackgroundMain = styled.img`
@@ -249,33 +268,5 @@ const Logo = styled.img`
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
-  }
-`;
-
-const TheProblem = styled.img`
-  @media screen and (max-width: 1023px) {
-    display: none;
-  }
-`;
-
-const TheProblemSmall = styled.img`
-  display: none;
-  width: 100%;
-  @media screen and (max-width: 1023px) {
-    display: inline;
-  }
-`;
-
-const TheSolution = styled.img`
-  @media screen and (max-width: 1023px) {
-    display: none;
-  }
-`;
-
-const TheSolutionSmall = styled.img`
-  display: none;
-  width: 100%;
-  @media screen and (max-width: 1023px) {
-    display: inline;
   }
 `;

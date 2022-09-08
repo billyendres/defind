@@ -22,7 +22,7 @@ const Login = () => {
           window.localStorage.setItem("userLocal", user.get("ethAddress"));
           window.location.reload();
         } else {
-          return toast.error(
+          return toast(
             "Web3 browser not recognised, please login via WalletConnect.",
             {
               position: "bottom-left",
@@ -33,6 +33,7 @@ const Login = () => {
               pauseOnHover: false,
               draggable: true,
               progress: undefined,
+              theme: "light",
             }
           );
         }
@@ -55,7 +56,7 @@ const Login = () => {
         window.localStorage.setItem("userLocal", user.get("ethAddress"));
         window.location.reload();
       } catch (e) {
-        return toast.error("Please connect and sign your web3 wallet.", {
+        return toast("Please connect and sign your web3 wallet.", {
           position: "bottom-left",
           toastId: "custom-id",
           autoClose: 4000,
@@ -64,6 +65,7 @@ const Login = () => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "light",
         });
       } finally {
         setTimeout(() => {
@@ -163,17 +165,16 @@ const DropdownMenu = styled.div`
   padding: 0.5rem 0.25rem;
   width: 10.5rem;
   margin-right: 0.75rem;
-  margin-top: 3.75rem;
+  margin-top: 4rem;
   @media screen and (max-width: 1023px) {
     width: 8.25rem;
     margin-right: 0.5rem;
-    margin-top: 3rem;
+    margin-top: 3.5rem;
     padding: 0.25rem 0;
   }
   @media screen and (max-width: 600px) {
     width: 7rem;
-    margin-top: 2.5rem;
-
+    margin-top: 2.25rem;
     font-size: 0.7rem;
     padding: 0.5rem;
     border: 1px solid #080e57;

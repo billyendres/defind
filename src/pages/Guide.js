@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import guideImage from "../components/images/guide.png";
 import guideImageSmall from "../components/images/guideSmall.png";
 
 const Guide = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Wrapper>
@@ -35,9 +38,6 @@ const Wrapper = styled.div`
     rgba(96, 41, 175, 1) 0%,
     rgba(165, 81, 255, 1) 100%
   );
-  /* background: #040010; */
-
-  transition: all 0.5s linear;
 `;
 
 const Img = styled.img`

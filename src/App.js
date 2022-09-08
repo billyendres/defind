@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { useMoralis } from "react-moralis";
 
+import Login from "./components/Authentication/Login";
+
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
@@ -23,6 +25,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
+import LearnMore from "./pages/LearnMore";
 
 const App = () => {
   const { isAuthenticated, Moralis, user, account } = useMoralis();
@@ -114,11 +117,13 @@ const App = () => {
             <Route path="/guide" element={<Guide />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/postsuccess" element={<PostSuccess />} />
+            <Route path="/learn" element={<LearnMore />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>
       ) : (
         <>
+          <Login />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/Portal" element={<Portal />} />
@@ -135,6 +140,7 @@ const App = () => {
             <Route path={`/post`} element={<Post />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/learn" element={<LearnMore />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </>
