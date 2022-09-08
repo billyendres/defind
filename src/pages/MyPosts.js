@@ -9,23 +9,24 @@ const MyPosts = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <>
       <Header>My Posts</Header>
       <ViewCandidatePosts profile={true} />
       <ViewClientPosts profile={true} />
-    </Wrapper>
+    </>
   );
 };
 
 export default MyPosts;
 
-const Wrapper = styled.div`
-  background: #040010;
-`;
-
 const Header = styled.div`
-  color: #daefff;
-  transition: all 0.5s linear;
+  background: -webkit-linear-gradient(
+    164deg,
+    rgba(49, 242, 228, 1) 0%,
+    rgba(255, 0, 255, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 3rem;
   margin-bottom: 2rem;
   padding-top: 6rem;

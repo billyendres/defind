@@ -402,8 +402,9 @@ const Text = styled.div`
 `;
 
 const PageHeader = styled.div`
-  color: #daefff;
-  transition: all 0.5s linear;
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 3rem;
   margin: 2rem 0;
   @media screen and (max-width: 1023px) {

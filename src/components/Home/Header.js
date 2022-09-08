@@ -60,7 +60,7 @@ const Header = () => {
       </Wrapper>
       <BlockTextWrapper ref={problemElement}>
         <H2>We're</H2>
-        <H1 style={{ color: "blue" }}>Reinventing</H1>
+        <H1 className="main">Reinventing</H1>
         <H1>Jobs</H1>
         <H3>Blockchain - crypto - defi - web3</H3>
         <H4>
@@ -77,7 +77,7 @@ const Header = () => {
           </p>
           <br />
           <p>
-            DeFind's Web3 Career Poral supports listings for <b>job posters </b>
+            DeFind's web3 Career Poral supports listings for <b>job posters </b>
             and <b>job seekers</b> - matching candidates with careers
             efficiently and effectively.
           </p>
@@ -103,11 +103,10 @@ const BlockTextWrapper = styled.div`
   width: 35rem;
   height: 100vh;
   display: flex;
-  padding-top: 4rem;
   flex-wrap: wrap;
   flex-direction: column;
-  /* justify-content: center; */
   text-align: left;
+  justify-content: center;
 `;
 
 const H2 = styled.div`
@@ -115,6 +114,7 @@ const H2 = styled.div`
   text-transform: uppercase;
   font-size: 2rem;
   padding-left: 1rem;
+  color: #daefff;
 `;
 
 const H1 = styled.div`
@@ -122,6 +122,26 @@ const H1 = styled.div`
   text-transform: uppercase;
   font-size: 4.5rem;
   padding-left: 1rem;
+  color: #daefff;
+
+  &.main {
+    color: #31f2e4;
+    filter: drop-shadow(0px 0px 14px #31f2e4);
+
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
 `;
 
 const H3 = styled.div`
@@ -129,6 +149,9 @@ const H3 = styled.div`
   text-transform: uppercase;
   font-size: 1.55rem;
   padding-left: 1rem;
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const H4 = styled.div`
@@ -136,6 +159,7 @@ const H4 = styled.div`
   font-size: 1rem;
   padding-left: 1rem;
   width: 33rem;
+  color: #daefff;
 `;
 
 const BackgroundMain = styled.img`
@@ -157,10 +181,26 @@ const Wrapper = styled.div`
 const Arrow = styled(motion.div)`
   position: absolute;
   bottom: 0;
-  color: #daefff;
   text-decoration: none;
   cursor: pointer;
   font-size: 3rem;
+  color: #31f2e4;
+  filter: drop-shadow(0px 0px 14px #31f2e4);
+
+  -webkit-animation: glow 2s ease-in-out infinite alternate;
+  -moz-animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
 
   @media screen and (max-width: 1023px) {
     display: none;
@@ -170,10 +210,26 @@ const Arrow = styled(motion.div)`
 const ArrowSmall = styled(motion.div)`
   position: absolute;
   bottom: 0;
-  color: #daefff;
+
   text-decoration: none;
   cursor: pointer;
   display: none;
+  color: #31f2e4;
+  filter: drop-shadow(0px 0px 14px #31f2e4);
+  -webkit-animation: glow 2s ease-in-out infinite alternate;
+  -moz-animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
 
   @media screen and (max-width: 1023px) {
     display: inline;

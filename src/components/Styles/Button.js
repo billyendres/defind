@@ -31,8 +31,7 @@ const MotionButton = styled(motion.button)`
     rgba(41, 243, 226, 1) 0%,
     rgba(186, 225, 255, 1) 100%
   );
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  filter: drop-shadow(5px 5px 10px #000);
 
   &:hover {
     background: linear-gradient(
@@ -40,6 +39,7 @@ const MotionButton = styled(motion.button)`
       rgba(254, 0, 254, 1) 0%,
       rgba(255, 198, 255, 1) 100%
     );
+    /* transition: 0.5s linear; */
   }
 
   @media screen and (max-width: 1023px) {
