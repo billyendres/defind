@@ -55,14 +55,16 @@ const Header = () => {
           </p>
           <br />
           <p>
-            We aim to <b>break</b> and <b>reinvent</b> traditional job boards to
-            suit the web3 revolution.
+            Our goal is to <b style={{ color: "#ff00ff" }}>break</b> and{" "}
+            <b style={{ color: "#31f2e4" }}>reinvent</b> traditional job boards
+            to suit the web3 revolution.
           </p>
           <br />
           <p>
-            DeFind's web3 Career Poral supports listings for <b>job posters </b>
-            and <b>job seekers</b> - matching candidates with careers
-            efficiently and effectively.
+            DeFind's web3 Career Poral supports listings for{" "}
+            <b style={{ color: "#ff00ff" }}>job posters </b>
+            and <b style={{ color: "#31f2e4" }}>job seekers</b> - matching
+            candidates with careers efficiently and effectively.
           </p>
           <br />
         </H4>
