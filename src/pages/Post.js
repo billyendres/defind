@@ -41,7 +41,7 @@ const Post = () => {
                   whileHover={{ scale: 1.05 }}
                   style={{ display: "inline", cursor: "pointer" }}
                 >
-                  <b>Read more.</b>
+                  <b style={{ color: "#ff00ff" }}>Read more.</b>
                 </motion.div>
                 {!user && (
                   <Text>
@@ -112,18 +112,21 @@ const Post = () => {
                 exit={{ opacity: 0, scale: 0 }}
               >
                 <ModalText>
-                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
-                    Share your story:
-                  </div>
+                  <ModalTextHeader>Share Your Story:</ModalTextHeader>
                   <p style={{ paddingTop: "0.5rem" }}>
-                    DeFind supports basic and featured listings. Basic posts are
-                    free to publish, while featured posts incur a charge that
-                    you decide.
+                    DeFind supports{" "}
+                    <span style={{ color: "#ff00ff" }}>basic</span> and{" "}
+                    <span style={{ color: "#2BCCDE" }}>featured</span> listings.
+                    Basic posts are free to publish, while featured posts incur
+                    a charge that you decide.
                   </p>
                   <p>
                     <br />
                     While all posts are visible on the Portal, they are filtered
-                    by 'Featured Points' by default. <br />
+                    by <span style={{ color: "#ff00ff" }}>
+                      Featured Points
+                    </span>{" "}
+                    by default. <br />
                     <br />
                     <i>Featured Points = USD post value * 10</i>
                   </p>
@@ -141,8 +144,11 @@ const Post = () => {
                   </p>
                   <br />
                   <p>
-                    Payments are accepted in USDT, DAI and USDC - via the
-                    Ethereum mainnet.
+                    Payments are accepted in{" "}
+                    <span style={{ color: "#ff00ff" }}>USDT</span>,{" "}
+                    <span style={{ color: "#2BCCDE" }}>DAI</span> and{" "}
+                    <span style={{ color: "#ff00ff" }}>USDC</span> - via the{" "}
+                    <span style={{ color: "#2BCCDE" }}>Ethereum mainnet.</span>
                   </p>
                   <br />
                   <p>
@@ -153,7 +159,10 @@ const Post = () => {
                   <br />
                   <p>
                     Please contact our support team if you wish to edit or
-                    delete a post during this time - contact@defind.tech.
+                    delete a post during this time -{" "}
+                    <span style={{ color: "#ff00ff" }}>
+                      contact@defind.tech
+                    </span>
                   </p>
                 </ModalText>
                 <Button onClick={() => setReadMore(!readMore)} text="Close" />
@@ -214,7 +223,7 @@ const PaymentGrid = styled.div`
 
 const ModalText = styled.div`
   color: #080e57;
-  font-family: "Varela Round", sans-serif;
+  font-family: "Russo One", sans-serif;
   transition: all 0.5s linear;
   padding: 0.25rem 0;
   font-size: 1.1rem;
@@ -240,7 +249,7 @@ const Modal = styled(motion.div)`
     width: 34rem;
   }
   @media screen and (max-width: 600px) {
-    width: 20rem;
+    width: 22rem;
     padding: 1rem;
   }
 `;
@@ -303,5 +312,20 @@ const Img = styled.img`
   }
   @media screen and (max-width: 600px) {
     height: 12rem;
+  }
+`;
+
+const ModalTextHeader = styled.div`
+  font-size: 2rem;
+  padding-bottom: 0.75rem;
+  background: -webkit-linear-gradient(45deg, #ff00ff, #31f2e4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
+    padding-bottom: 0.5rem;
   }
 `;

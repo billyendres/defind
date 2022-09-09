@@ -420,6 +420,16 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   text-transform: uppercase;
+  &:hover {
+    color: #ff00ff;
+    background: -webkit-linear-gradient(
+      164deg,
+      rgba(49, 242, 228, 1) 0%,
+      rgba(255, 0, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 `;
 
 const Hide = styled.span`

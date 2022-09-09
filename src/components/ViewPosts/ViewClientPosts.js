@@ -616,7 +616,9 @@ const ViewClientPosts = ({ profile }) => {
                                       padding: "0.5rem 0",
                                     }}
                                   >
-                                    View Post {">"}
+                                    <b style={{ color: "#ff00ff" }}>
+                                      View Post {">"}
+                                    </b>
                                   </Text>
                                 </Links>
                               </motion.div>

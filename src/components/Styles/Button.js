@@ -31,8 +31,8 @@ const MotionButton = styled(motion.button)`
     rgba(41, 243, 226, 1) 0%,
     rgba(186, 225, 255, 1) 100%
   );
-  filter: drop-shadow(5px 5px 10px #000);
-
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
   &:hover {
     background: linear-gradient(
       164deg,

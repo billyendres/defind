@@ -26,14 +26,16 @@ const Portal = () => {
                 <Header>Find Your Match</Header>
                 <Text>
                   <p>
-                    Welcome to the Portal. It's time to match yourself with the
-                    perfect job or employee.
+                    Welcome to the <b style={{ color: "#ff00ff" }}>Portal.</b>{" "}
+                    It's time to match yourself with the perfect job or
+                    employee.
                   </p>
                   <br />
                   <p>
                     Filter posts by location, category, featured/date and unique
-                    search phrases. Click 'View Post' to see the complete
-                    listing.
+                    search phrases. Click{" "}
+                    <b style={{ color: "#31f2e4" }}>View Post</b> to see the
+                    complete listing.
                   </p>
                   <br />
                   <p>

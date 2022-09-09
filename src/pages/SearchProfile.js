@@ -155,7 +155,9 @@ const SearchProfile = () => {
                               <motion.div whileHover={{ scale: 1.05 }}>
                                 <Links to={`/portal/${item.id}`}>
                                   <Text style={{ fontWeight: "bold" }}>
-                                    View post {">"}
+                                    <b style={{ color: "#ff00ff" }}>
+                                      View post {">"}
+                                    </b>
                                   </Text>
                                 </Links>
                               </motion.div>
@@ -164,7 +166,12 @@ const SearchProfile = () => {
                               >
                                 <motion.div whileHover={{ scale: 1.05 }}>
                                   <Links to="/portal">
-                                    <Text>{"<"} Return to portal</Text>
+                                    <Text>
+                                      {" "}
+                                      <b style={{ color: "#ff00ff" }}>
+                                        {"<"} Return to Portal
+                                      </b>
+                                    </Text>
                                   </Links>
                                 </motion.div>
                               </div>
@@ -259,7 +266,9 @@ const SearchProfile = () => {
                               <motion.div whileHover={{ scale: 1.05 }}>
                                 <Links to={`/portal/${item.id}`}>
                                   <Text style={{ fontWeight: "bold" }}>
-                                    View post {">"}
+                                    <b style={{ color: "#ff00ff" }}>
+                                      View post {">"}
+                                    </b>
                                   </Text>
                                 </Links>
                               </motion.div>
@@ -268,7 +277,11 @@ const SearchProfile = () => {
                               >
                                 <motion.div whileHover={{ scale: 1.05 }}>
                                   <Links to="/portal">
-                                    <Text>{"<"} Return to portal</Text>
+                                    <Text>
+                                      <b style={{ color: "#ff00ff" }}>
+                                        {"<"} Return to Portal
+                                      </b>
+                                    </Text>
                                   </Links>
                                 </motion.div>
                               </div>

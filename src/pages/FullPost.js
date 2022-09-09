@@ -118,7 +118,9 @@ const FullPost = () => {
                                 padding: "0.5rem 0",
                               }}
                             >
-                              {"<"} Return to portal
+                              <b style={{ color: "#ff00ff" }}>
+                                {"<"} Return to Portal
+                              </b>
                             </Text>
                           </Links>
                         </motion.div>
@@ -393,7 +395,9 @@ const FullPost = () => {
                                   padding: "0.5rem 0",
                                 }}
                               >
-                                {"<"} Return to portal
+                                <b style={{ color: "#ff00ff" }}>
+                                  {"<"} Return to Portal
+                                </b>
                               </Text>
                             </Links>
                           </motion.div>
