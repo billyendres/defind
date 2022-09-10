@@ -40,10 +40,8 @@ const Contact = () => {
           <IconWrapper>
             <FaTelegram />
           </IconWrapper>
-          <Bold>@defind_web3</Bold>
+          <Bold>https://t.me/defind_web3</Bold>
         </H4>
-        {/* <ImgSmall src={contactUs} alt="Contact" />
-        <ImgLarge src={contactUsLarge} alt="Contact" /> */}
       </motion.div>
     </Wrapper>
   );

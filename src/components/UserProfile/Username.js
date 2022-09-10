@@ -20,7 +20,7 @@ const Username = ({ onChange, value }) => {
               value={value}
               onChange={onChange}
               placeholder="Username"
-              maxLength="15"
+              maxLength="30"
             />
           </Label>
         </div>

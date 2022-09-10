@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import mainLogoDarkTheme from "../images/mainLogoDarkThemeGlitch.png";

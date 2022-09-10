@@ -19,7 +19,7 @@ const Bio = ({ onChange, value }) => {
               value={value}
               onChange={onChange}
               placeholder="Bio"
-              maxLength="30"
+              maxLength="40"
             />
           </Label>
         </div>

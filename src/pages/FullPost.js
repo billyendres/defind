@@ -416,9 +416,42 @@ const FullPost = () => {
 
                     {attributes.positionSummary && (
                       <>
-                        <Subheader>Position Summary</Subheader>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Job Title
+                        </Subheader>
                         <Text>{attributes.positionSummary}</Text>
-                        <div style={{ marginBottom: "1.5rem" }}></div>
+                      </>
+                    )}
+                    {attributes.positionSummary1 && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Position Summary
+                        </Subheader>
+                        <Text>{attributes.positionSummary1}</Text>
+                      </>
+                    )}
+                    {attributes.responsibilities && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Responsibilities
+                        </Subheader>
+                        <Text>{attributes.responsibilities}</Text>
+                      </>
+                    )}
+                    {attributes.requirements && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Requirements
+                        </Subheader>
+                        <Text>{attributes.requirements}</Text>
+                      </>
+                    )}
+                    {attributes.benefits && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Benefits
+                        </Subheader>
+                        <Text>{attributes.benefits}</Text>
                       </>
                     )}
 

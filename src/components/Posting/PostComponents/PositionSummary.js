@@ -1,22 +1,78 @@
 import React from "react";
 import styled from "styled-components";
 
-const PositionSummary = ({ value, onChange }) => {
+export const PositionSummary = ({ value, onChange }) => {
   return (
     <>
-      <SubHeader>Position Summary*</SubHeader>
-      <Textarea
+      <Input
         value={value}
         onChange={onChange}
-        required
-        placeholder="Job Description."
-        maxLength="450"
+        placeholder="Job Title"
+        maxLength="50"
       />
     </>
   );
 };
 
-export default PositionSummary;
+export const PositionSummary1 = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>Position Summary</SubHeader>
+      <Textarea
+        value={value}
+        onChange={onChange}
+        required
+        placeholder="Position Summary."
+        maxLength="350"
+      />
+    </>
+  );
+};
+
+export const Responsibilities = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>Responsibilities</SubHeader>
+      <Textarea
+        value={value}
+        onChange={onChange}
+        required
+        placeholder="Responsibilities."
+        maxLength="350"
+      />
+    </>
+  );
+};
+
+export const Requirements = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>Requirements</SubHeader>
+      <Textarea
+        value={value}
+        onChange={onChange}
+        required
+        placeholder="Requirements."
+        maxLength="350"
+      />
+    </>
+  );
+};
+
+export const Benefits = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>Benefits</SubHeader>
+      <Textarea
+        value={value}
+        onChange={onChange}
+        required
+        placeholder="Benefits."
+        maxLength="350"
+      />
+    </>
+  );
+};
 
 const SubHeader = styled.div`
   color: #080e57;
@@ -29,6 +85,28 @@ const SubHeader = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 1rem;
     padding: 0.25rem 0;
+  }
+`;
+
+const Input = styled.input`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: #080e57;
+  font-family: "Kdam Thmor Pro", sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
+
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    padding: 0.25rem;
   }
 `;
 

@@ -9,7 +9,13 @@ import Button from "../Styles/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import defaultProfileImage from "../images/defaultProfileImage.png";
 import Img from "../Styles/ProfilePicture";
-import PositionSummary from "./PostComponents/PositionSummary";
+import {
+  PositionSummary,
+  PositionSummary1,
+  Requirements,
+  Responsibilities,
+  Benefits,
+} from "./PostComponents/PositionSummary";
 import { CategoryDropdown, CategoryHeader } from "./PostComponents/Category";
 import { LocationDropdown, LocationHeader } from "./PostComponents/Location";
 import { Contact, AddContact, ContactAdded } from "./PostComponents/Contact";
@@ -31,6 +37,10 @@ const ClientPost = () => {
   const [openLocation, setOpenLocation] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [positionSummary, setPositionSummary] = useState("");
+  const [positionSummary1, setPositionSummary1] = useState("");
+  const [requirements, setRequirements] = useState("");
+  const [responsibilities, setResposibilities] = useState("");
+  const [benefits, setBenefits] = useState("");
   const [contact, setContact] = useState([]);
   const [postFile, setPostFile] = useState();
   const [category, setCategory] = useState("");
@@ -340,9 +350,27 @@ const ClientPost = () => {
                   alt="Profile pic"
                 />
               </div>
-              <PositionSummary
-                onChange={(e) => setPositionSummary(e.target.value)}
-                value={positionSummary}
+              <div>
+                <PositionSummary
+                  onChange={(e) => setPositionSummary(e.target.value)}
+                  value={positionSummary}
+                />
+              </div>
+              <PositionSummary1
+                onChange={(e) => setPositionSummary1(e.target.value)}
+                value={positionSummary1}
+              />
+              <Responsibilities
+                onChange={(e) => setResposibilities(e.target.value)}
+                value={responsibilities}
+              />
+              <Requirements
+                onChange={(e) => setRequirements(e.target.value)}
+                value={requirements}
+              />
+              <Benefits
+                onChange={(e) => setBenefits(e.target.value)}
+                value={benefits}
               />
               <CategoryHeader onClick={() => setOpen(!open)} />
               <AnimatePresence>

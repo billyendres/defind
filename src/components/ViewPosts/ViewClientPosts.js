@@ -552,15 +552,13 @@ const ViewClientPosts = ({ profile }) => {
                           }}
                         >
                           <div>
-                            <motion.div whileHover={{ scale: 1.05 }}>
+                            {/* <motion.div whileHover={{ scale: 1.05 }}>
                               <Links
                                 to={`/profile/${item.attributes.posterAccount}`}
-                              >
-                                <Header>
-                                  {item.attributes.posterUsername}
-                                </Header>
-                              </Links>
-                            </motion.div>
+                              > */}
+                            <Header>{item.attributes.posterUsername}</Header>
+                            {/* </Links>
+                            </motion.div> */}
                             <Subheader>{item.attributes.posterBio}</Subheader>
                             <Text>
                               {"> "}
@@ -651,9 +649,17 @@ const ViewClientPosts = ({ profile }) => {
                         {item.attributes.positionSummary && (
                           <>
                             <Subheader style={{ marginBottom: "0.25rem" }}>
-                              Personal Summary
+                              Job Title
                             </Subheader>
                             <Text>{item.attributes.positionSummary}</Text>
+                          </>
+                        )}
+                        {item.attributes.positionSummary1 && (
+                          <>
+                            <Subheader style={{ marginBottom: "0.25rem" }}>
+                              Position Summary
+                            </Subheader>
+                            <Text>{item.attributes.positionSummary1}</Text>
                           </>
                         )}
                       </ProfileWrapper>
