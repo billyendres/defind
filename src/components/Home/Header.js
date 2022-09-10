@@ -61,7 +61,7 @@ const Header = () => {
           </p>
           <br />
           <p>
-            DeFind's web3 Career Poral supports listings for{" "}
+            DeFind's web3 Career Portal supports listings for{" "}
             <b style={{ color: "#ff00ff" }}>job posters </b>
             and <b style={{ color: "#31f2e4" }}>job seekers</b> - matching
             candidates with careers efficiently and effectively.

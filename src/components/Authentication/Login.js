@@ -187,6 +187,15 @@ const DropdownSearch = styled.div`
   padding: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
+  &:hover {
+    background: -webkit-linear-gradient(
+      164deg,
+      rgba(49, 242, 228, 1) 0%,
+      rgba(255, 0, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
   }

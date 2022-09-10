@@ -125,8 +125,6 @@ const CandidatePost = () => {
     }
   };
 
-  console.log(chainId);
-
   const userPost = async () => {
     try {
       if (!personalSummary || !category || !location)

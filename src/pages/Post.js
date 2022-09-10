@@ -47,7 +47,7 @@ const Post = () => {
                   <Text>
                     <br />
                     You are not logged in. If you want to access the full site
-                    features, please return home and connect your web3 wallet.
+                    features, please connect your web3 wallet.
                   </Text>
                 )}
               </Text>
