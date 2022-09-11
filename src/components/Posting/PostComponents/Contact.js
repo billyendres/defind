@@ -11,6 +11,7 @@ export const Contact = ({
   valueFour,
   valueFive,
   valueSix,
+  valueSeven,
   onClick,
 }) => {
   return (
@@ -108,7 +109,7 @@ export const Contact = ({
               name="telegram"
               label="telegram"
               value={valueFive}
-              maxLength="30"
+              maxLength="40"
               onChange={onChange}
             />
           </Label>
@@ -119,7 +120,18 @@ export const Contact = ({
               name="website"
               label="website"
               value={valueSix}
-              maxLength="50"
+              maxLength="100"
+              onChange={onChange}
+            />
+          </Label>
+          <Label>
+            <Input
+              type="url"
+              placeholder="Apply link"
+              name="apply"
+              label="apply"
+              value={valueSeven}
+              maxLength="200"
               onChange={onChange}
             />
           </Label>

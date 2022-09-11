@@ -14,6 +14,7 @@ import {
   FaRegIdBadge,
   FaFileAlt,
 } from "react-icons/fa";
+import Button from "../components/Styles/Button";
 
 const FullPost = () => {
   const { Moralis } = useMoralis();
@@ -243,7 +244,15 @@ const FullPost = () => {
                       </Subheader>
                       {attributes.contactInformation.map(
                         (
-                          { email, phone, twitter, github, telegram, website },
+                          {
+                            email,
+                            phone,
+                            twitter,
+                            github,
+                            telegram,
+                            website,
+                            apply,
+                          },
                           key
                         ) => (
                           <span key={key}>
@@ -422,6 +431,14 @@ const FullPost = () => {
                         <Text>{attributes.positionSummary}</Text>
                       </>
                     )}
+                    {attributes.theCompany && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          About the company
+                        </Subheader>
+                        <Text>{attributes.theCompany}</Text>
+                      </>
+                    )}
                     {attributes.positionSummary1 && (
                       <>
                         <Subheader style={{ marginBottom: "0.25rem" }}>
@@ -452,6 +469,14 @@ const FullPost = () => {
                           Benefits
                         </Subheader>
                         <Text>{attributes.benefits}</Text>
+                      </>
+                    )}
+                    {attributes.salary && (
+                      <>
+                        <Subheader style={{ marginBottom: "0.25rem" }}>
+                          Salary
+                        </Subheader>
+                        <Text>{attributes.salary}</Text>
                       </>
                     )}
 
@@ -497,13 +522,22 @@ const FullPost = () => {
                               github,
                               telegram,
                               website,
+                              apply,
                             },
                             key
                           ) => (
                             <span key={key}>
                               {email && (
                                 <Text>
-                                  <Titles>Email:</Titles> {email}
+                                  <Titles>Email:</Titles>{" "}
+                                  <Anchor
+                                    href={email}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    {email}
+                                  </Anchor>
                                 </Text>
                               )}
                               {phone && (
@@ -513,25 +547,68 @@ const FullPost = () => {
                               )}
                               {twitter && (
                                 <Text>
-                                  <Titles>Twitter:</Titles> {twitter}
+                                  <Titles>Twitter:</Titles>{" "}
+                                  <Anchor
+                                    href={twitter}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    {twitter}
+                                  </Anchor>
                                 </Text>
                               )}
                               {github && (
                                 <Text>
-                                  <Titles>Github:</Titles> {github}
+                                  <Titles>Github:</Titles>{" "}
+                                  <Anchor
+                                    href={github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    {github}
+                                  </Anchor>
                                 </Text>
                               )}
                               {telegram && (
                                 <Text>
-                                  <Titles>Telegram:</Titles> {telegram}
+                                  <Titles>Telegram:</Titles>{" "}
+                                  <Anchor
+                                    href={telegram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    {telegram}
+                                  </Anchor>
                                 </Text>
                               )}
                               {website && (
                                 <Text>
-                                  <Titles>Website:</Titles> {website}
+                                  <Titles>Website:</Titles>{" "}
+                                  <Anchor
+                                    href={website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    {website}
+                                  </Anchor>
                                 </Text>
                               )}
-                              <div style={{ marginBottom: "1.5rem" }}></div>
+                              {apply && (
+                                <ButtonWrapper>
+                                  <Anchor
+                                    href={apply}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    alt="Apply"
+                                  >
+                                    <Button text={<>Apply</>} />
+                                  </Anchor>
+                                </ButtonWrapper>
+                              )}
                             </span>
                           )
                         )}
@@ -615,6 +692,7 @@ const Text = styled.div`
   color: #080e57;
   transition: all 0.5s linear;
   padding: 0;
+  white-space: pre-wrap;
   font-size: 0.85rem;
   line-height: 180%;
   @media screen and (max-width: 1023px) {
@@ -629,4 +707,21 @@ const Text = styled.div`
 const Titles = styled.span`
   margin-right: 0.5rem;
   border-bottom: 1px solid #080e57;
+`;
+
+const Anchor = styled.a`
+  color: #080e57;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+const ButtonWrapper = styled.div`
+  margin-left: -1rem;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+  @media screen and (max-width: 1023px) {
+    margin-left: -0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: -0.5rem;
+  }
 `;

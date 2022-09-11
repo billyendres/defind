@@ -4,11 +4,27 @@ import styled from "styled-components";
 export const PositionSummary = ({ value, onChange }) => {
   return (
     <>
+      <SubHeader>Job Title*</SubHeader>
       <Input
         value={value}
         onChange={onChange}
-        placeholder="Job Title"
+        // placeholder="Job Title"
         maxLength="50"
+      />
+    </>
+  );
+};
+
+export const Company = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>About the company</SubHeader>
+      <Textarea
+        value={value}
+        onChange={onChange}
+        required
+        // placeholder="Position Summary."
+        maxLength="1000"
       />
     </>
   );
@@ -22,8 +38,8 @@ export const PositionSummary1 = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         required
-        placeholder="Position Summary."
-        maxLength="350"
+        // placeholder="Position Summary."
+        maxLength="2000"
       />
     </>
   );
@@ -37,8 +53,8 @@ export const Responsibilities = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         required
-        placeholder="Responsibilities."
-        maxLength="350"
+        // placeholder="Responsibilities."
+        maxLength="2000"
       />
     </>
   );
@@ -52,8 +68,8 @@ export const Requirements = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         required
-        placeholder="Requirements."
-        maxLength="350"
+        // placeholder="Requirements."
+        maxLength="2000"
       />
     </>
   );
@@ -67,8 +83,22 @@ export const Benefits = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         required
-        placeholder="Benefits."
-        maxLength="350"
+        // placeholder="Benefits."
+        maxLength="2000"
+      />
+    </>
+  );
+};
+
+export const Salary = ({ value, onChange }) => {
+  return (
+    <>
+      <SubHeader>Salary</SubHeader>
+      <Input
+        value={value}
+        onChange={onChange}
+        // placeholder="Salary"
+        maxLength="50"
       />
     </>
   );
@@ -120,7 +150,9 @@ const Textarea = styled.textarea`
   max-width: 37rem;
   min-width: 37rem;
   max-height: 12rem;
-
+  textarea {
+    white-space: pre-wrap !important;
+  }
   &:focus {
     outline: none;
   }

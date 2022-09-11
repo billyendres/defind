@@ -15,6 +15,8 @@ import {
   Requirements,
   Responsibilities,
   Benefits,
+  Salary,
+  Company,
 } from "./PostComponents/PositionSummary";
 import { CategoryDropdown, CategoryHeader } from "./PostComponents/Category";
 import { LocationDropdown, LocationHeader } from "./PostComponents/Location";
@@ -38,9 +40,11 @@ const ClientPost = () => {
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [positionSummary, setPositionSummary] = useState("");
   const [positionSummary1, setPositionSummary1] = useState("");
+  const [theCompany, setTheCompany] = useState("");
   const [requirements, setRequirements] = useState("");
   const [responsibilities, setResposibilities] = useState("");
   const [benefits, setBenefits] = useState("");
+  const [salary, setSalary] = useState("");
   const [contact, setContact] = useState([]);
   const [postFile, setPostFile] = useState();
   const [category, setCategory] = useState("");
@@ -208,6 +212,12 @@ const ClientPost = () => {
 
       newPost.set("paymentAmount", paymentAmount);
       newPost.set("positionSummary", positionSummary);
+      newPost.set("positionSummary1", positionSummary1);
+      newPost.set("theCompany", theCompany);
+      newPost.set("resposibilities", responsibilities);
+      newPost.set("requirements", requirements);
+      newPost.set("benefits", benefits);
+      newPost.set("salary", salary);
       newPost.set("contactInformation", contact);
       newPost.set("searchCategory", category);
       newPost.set("searchLocation", location);
@@ -275,6 +285,7 @@ const ClientPost = () => {
         telegram: "",
         website: "",
         location: "",
+        apply: "",
       },
     ]);
   };
@@ -356,6 +367,10 @@ const ClientPost = () => {
                   value={positionSummary}
                 />
               </div>
+              <Company
+                onChange={(e) => setTheCompany(e.target.value)}
+                value={theCompany}
+              />
               <PositionSummary1
                 onChange={(e) => setPositionSummary1(e.target.value)}
                 value={positionSummary1}
@@ -371,6 +386,10 @@ const ClientPost = () => {
               <Benefits
                 onChange={(e) => setBenefits(e.target.value)}
                 value={benefits}
+              />
+              <Salary
+                onChange={(e) => setSalary(e.target.value)}
+                value={salary}
               />
               <CategoryHeader onClick={() => setOpen(!open)} />
               <AnimatePresence>
@@ -457,6 +476,7 @@ const ClientPost = () => {
                   valueFour={info.github}
                   valueFive={info.telegram}
                   valueSix={info.website}
+                  valueSeven={info.apply}
                   onClick={() => handleRemoveContact(index)}
                 />
               ))}
