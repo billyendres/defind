@@ -61,12 +61,8 @@ const Post = () => {
                 >
                   <Button text="Job Post" />
                 </Links>
-                <Links
-                  to={`/post/candidate/${
-                    Moralis.User.current().attributes.ethAddress
-                  }`}
-                >
-                  <Button text="Profile Post" />
+                <Links to="/guide">
+                  <Button text="Guide" />
                 </Links>
               </ButtonWrapper>
             )}

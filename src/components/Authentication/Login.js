@@ -101,7 +101,7 @@ const Login = () => {
                 <LoginWrapper>
                   <Button
                     onClick={() => setOpenLogin(!openLogin)}
-                    text="Login"
+                    text="Connect"
                   />
                 </LoginWrapper>
                 <AnimatePresence>

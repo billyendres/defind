@@ -7,7 +7,7 @@ import defaultProfileImage from "../components/images/defaultProfileImage.png";
 import { Links } from "../components/Styles/Links";
 import Img from "../components/Styles/ProfilePicture";
 import Button from "../components/Styles/Button";
-import { FaUserEdit, FaRegIdCard } from "react-icons/fa";
+import { FaUserEdit, FaRegIdCard, FaRegEdit } from "react-icons/fa";
 
 const UserProfile = () => {
   const { Moralis } = useMoralis();
@@ -49,14 +49,42 @@ const UserProfile = () => {
             }
           />
         </Links>
-        <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
+        <div style={{ display: "flex" }}>
+          <Links
+            to={`/post/job/${Moralis.User.current().attributes.ethAddress}`}
+          >
+            <Button
+              text={
+                <>
+                  <FaRegEdit
+                    style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                  />
+                  Post job
+                </>
+              }
+            />
+          </Links>
+          <Links to={`/profile/posts/${user.attributes.ethAddress}`}>
+            <Button
+              text={
+                <>
+                  <FaRegIdCard
+                    style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
+                  />
+                  My Posts
+                </>
+              }
+            />
+          </Links>
+        </div>
+        <Links to="/guide">
           <Button
             text={
               <>
                 <FaRegIdCard
                   style={{ marginBottom: "-0.2rem", marginRight: "0.5rem" }}
                 />
-                My Posts
+                Guide
               </>
             }
           />

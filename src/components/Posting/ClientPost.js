@@ -26,6 +26,8 @@ import {
   AdditionalDocsHeader,
   RemoveAdditionalDocs,
 } from "./PostComponents/AdditionalDocs";
+import ButtonSmall from "../Styles/ButtonSmall";
+import { Links } from "../Styles/Links";
 
 const ClientPost = () => {
   const navigate = useNavigate();
@@ -334,6 +336,10 @@ const ClientPost = () => {
         </Wrapper>
       ) : (
         <Wrapper>
+          <H1 className="main">Post a Job</H1>
+          <Links style={{ marginBottom: "1rem" }} to="/guide">
+            <Button text="guide" />
+          </Links>
           <ToastContainer />
           <motion.div
             initial={{ y: "50%", scale: 0.5, opacity: 0 }}
@@ -799,5 +805,58 @@ const CheckoutHeader = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
     margin-top: 2rem;
+  }
+`;
+
+const HeaderPost = styled.div`
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2rem;
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.75rem;
+    margin-top: 2rem;
+  }
+`;
+
+const H1 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  padding-left: 1rem;
+  color: #daefff;
+  /* margin-top: 6rem; */
+  &.main {
+    color: #31f2e4;
+    filter: drop-shadow(0px 0px 14px #31f2e4);
+
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 3.375rem;
+    /* margin-top: 5rem; */
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2.8rem;
+    /* margin-top: 4rem; */
   }
 `;

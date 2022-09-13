@@ -26,6 +26,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
 import LearnMore from "./pages/LearnMore";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 const App = () => {
   const { isAuthenticated, Moralis, user, account } = useMoralis();
@@ -87,16 +89,16 @@ const App = () => {
               }`}
               element={<EditProfile />}
             />
-            <Route path="/Portal" element={<Portal />} />
+            {/* <Route path="/Portal" element={<Portal />} /> */}
             <Route
-              path="/Portal/jobs"
+              path="/portal/jobs"
               element={<ViewClientPosts profile={false} />}
             />
             <Route
-              path="/Portal/candidates"
+              path="/portal/candidate"
               element={<ViewCandidatePosts profile={false} />}
             />
-            <Route path="/Portal/:id" element={<FullPost />} />
+            <Route path="/portal/jobs/:id" element={<FullPost />} />
             <Route
               path={`/profile/posts/${
                 Moralis.User.current().attributes.ethAddress
@@ -108,13 +110,15 @@ const App = () => {
               path={`/post/job/${Moralis.User.current().attributes.ethAddress}`}
               element={<ClientPost profile={false} />}
             />
-            <Route
+            {/* <Route
               path={`/post/candidate/${
                 Moralis.User.current().attributes.ethAddress
               }`}
               element={<CandidatePost profile={false} />}
-            />
+            /> */}
             <Route path="/guide" element={<Guide />} />
+            <Route path="/portal" element={<Blog />} />
+            <Route path="/portal/:blogId" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/postsuccess" element={<PostSuccess />} />
             <Route path="/learn" element={<LearnMore />} />
@@ -126,17 +130,19 @@ const App = () => {
           <Login />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/Portal" element={<Portal />} />
+            {/* <Route path="/Portal" element={<Portal />} /> */}
             <Route
-              path="/Portal/jobs"
+              path="/portal/jobs"
               element={<ViewClientPosts profile={false} />}
             />
-            <Route
-              path="/Portal/candidates"
+            {/* <Route
+              path="/portal/blogs"
               element={<ViewCandidatePosts profile={false} />}
-            />
-            <Route path="/Portal/:id" element={<FullPost />} />
+            /> */}
+            <Route path="/portal/jobs/:id" element={<FullPost />} />
             <Route path="/profile/:userId" element={<SearchProfile />} />
+            <Route path="/portal" element={<Blog />} />
+            <Route path="/portal/:blogId" element={<BlogPost />} />
             <Route path={`/post`} element={<Post />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/contact" element={<Contact />} />

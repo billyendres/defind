@@ -16,9 +16,7 @@ const Contact = () => {
         <H1 className="main">In touch</H1>
         <br />
         <H4>
-          Please feel free to reach out to our support team anytime. We are
-          happy to answer any questions and aim to get back to you within 24
-          hours.
+          Please feel free to reach out anytime, we'd love to hear from you!
         </H4>
         <br />
         <H4>

@@ -42,35 +42,32 @@ const Header = () => {
         </ArrowSmall>
       </Wrapper>
       <BlockTextWrapper ref={pageTwo}>
-        <H2 ref={pageTwoSmall}>We're</H2>
-        <H1 className="main">Reinventing</H1>
-        <H1>Jobs</H1>
-        <H3>Blockchain - crypto - defi - web3</H3>
+        <H2 ref={pageTwoSmall}>The web3</H2>
+        <H1 className="main">Revolution</H1>
+        <H1>awaits</H1>
+        <H3>News - Jobs - Reviews - Tutorials</H3>
         <H4>
-          <p>Decentralised technologies are evolving rapidly.</p>
-          <br />
           <p>
-            The problem is that companies struggle to find candidates to fill
-            positions, and job seekers have nowhere to advertise themselves.
+            Decentralised technologies are evolving rapidly, keep pace with
+            DeFind.
           </p>
           <br />
           <p>
-            Our goal is to <b style={{ color: "#ff00ff" }}>break</b> and{" "}
-            <b style={{ color: "#31f2e4" }}>reinvent</b> traditional job boards
-            to suit the web3 revolution.
-          </p>
-          <br />
-          <p>
-            DeFind's web3 Career Portal supports listings for{" "}
-            <b style={{ color: "#ff00ff" }}>job posters </b>
-            and <b style={{ color: "#31f2e4" }}>job seekers</b> - matching
-            candidates with careers efficiently and effectively.
+            We're reinventing <b style={{ color: "#31f2e4" }}>news</b>,{" "}
+            <b style={{ color: "#ff00ff" }}>reviews</b>,{" "}
+            <b style={{ color: "#31f2e4" }}>blogs</b> and{" "}
+            <b style={{ color: "#ff00ff" }}>jobs</b> for the world of web3.
           </p>
           <br />
         </H4>
-        <Links to="learn">
-          <Button text="Learn More" />
-        </Links>
+        <div style={{ display: "flex" }}>
+          <Links to="/portal">
+            <Button text="Blog" />
+          </Links>
+          <Links to="portal/jobs">
+            <Button text="Jobs" />
+          </Links>
+        </div>
       </BlockTextWrapper>
     </>
   );

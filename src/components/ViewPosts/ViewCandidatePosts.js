@@ -44,21 +44,7 @@ const ViewCandidatePosts = ({ profile }) => {
 
   const locations = useLocation();
 
-  const category = [
-    "Software Development",
-    "Business Development",
-    "Customer Support",
-    "Engineering",
-    "Management",
-    "Non-Tech",
-    "Marketing",
-    "Finance",
-    "Writing",
-    "Trading",
-    "Design",
-    "Sales",
-    "Other",
-  ];
+  const category = ["News", "Reviews"];
 
   const location = [
     "Remote",
@@ -231,8 +217,8 @@ const ViewCandidatePosts = ({ profile }) => {
       ) : (
         <>
           <>
-            {locations.pathname === `/portal/candidates` ? (
-              <PageHeader>Candidate Posts</PageHeader>
+            {locations.pathname === `/portal/blogs` ? (
+              <H1 className="main">Blog</H1>
             ) : (
               <></>
             )}
@@ -278,7 +264,7 @@ const ViewCandidatePosts = ({ profile }) => {
                         }}
                         onClick={sortPrice}
                       >
-                        Sort By Points
+                        Sort By Featured
                       </HeaderSearch>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.05 }}>
@@ -541,7 +527,6 @@ const ViewCandidatePosts = ({ profile }) => {
               </>
             )}
           </>
-          {/*  */}
           <>
             <Grid>
               {postArray
@@ -685,6 +670,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: #040010;
   padding-bottom: 2rem;
+  min-height: 100vh;
 `;
 
 const Grid = styled.div`
@@ -903,5 +889,41 @@ const Tweet = styled.a`
   }
   @media screen and (max-width: 600px) {
     font-size: 1rem;
+  }
+`;
+
+const H1 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  padding-left: 1rem;
+  color: #daefff;
+  margin-top: 6rem;
+  &.main {
+    color: #31f2e4;
+    filter: drop-shadow(0px 0px 14px #31f2e4);
+
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    padding-left: 0.5rem;
+    font-size: 3.375rem;
+    margin-top: 5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2.8rem;
+    margin-top: 4rem;
   }
 `;

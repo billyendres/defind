@@ -10,6 +10,7 @@ import {
   FaBookReader,
   FaRegEdit,
   FaRegIdCard,
+  FaHammer,
   FaAngleDoubleUp,
   FaChevronUp,
   FaDiceD20,
@@ -87,6 +88,27 @@ const Nav = () => {
         {
           title: (
             <IconWrapper>
+              <FaDiceD20 style={{ marginRight: "1rem" }} />
+              <>Blog</>
+            </IconWrapper>
+          ),
+          route: `/portal`,
+          key: 16,
+        },
+
+        {
+          title: (
+            <IconWrapper>
+              <FaHammer style={{ marginRight: "1rem" }} />
+              <>Jobs</>
+            </IconWrapper>
+          ),
+          route: "/portal/jobs",
+          key: 3,
+        },
+        {
+          title: (
+            <IconWrapper>
               <FaUserAlt style={{ marginRight: "1rem" }} />
               <>Profile</>
             </IconWrapper>
@@ -94,46 +116,36 @@ const Nav = () => {
           route: `/myprofile/${ethAddress}`,
           key: 2,
         },
-        {
-          title: (
-            <IconWrapper>
-              <FaDiceD20 style={{ marginRight: "1rem" }} />
-              <>Portal</>
-            </IconWrapper>
-          ),
-          route: "/portal",
-          key: 3,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaRegEdit style={{ marginRight: "1rem" }} />
-              <>Post</>
-            </IconWrapper>
-          ),
-          route: `/post`,
-          key: 4,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaRegIdCard style={{ marginRight: "1rem" }} />
-              <>My Posts</>
-            </IconWrapper>
-          ),
-          route: `/profile/posts/${ethAddress}`,
-          key: 5,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaBookReader style={{ marginRight: "1rem" }} />
-              <>Guide</>
-            </IconWrapper>
-          ),
-          route: `/guide`,
-          key: 6,
-        },
+        // {
+        //   title: (
+        //     <IconWrapper>
+        //       <FaRegEdit style={{ marginRight: "1rem" }} />
+        //       <>Post</>
+        //     </IconWrapper>
+        //   ),
+        //   route: `/post`,
+        //   key: 4,
+        // },
+        // {
+        //   title: (
+        //     <IconWrapper>
+        //       <FaRegIdCard style={{ marginRight: "1rem" }} />
+        //       <>My Posts</>
+        //     </IconWrapper>
+        //   ),
+        //   route: `/profile/posts/${ethAddress}`,
+        //   key: 5,
+        // },
+        // {
+        //   title: (
+        //     <IconWrapper>
+        //       <FaBookReader style={{ marginRight: "1rem" }} />
+        //       <>Guide</>
+        //     </IconWrapper>
+        //   ),
+        //   route: `/guide`,
+        //   key: 6,
+        // },
         {
           title: (
             <IconWrapper>
@@ -161,32 +173,42 @@ const Nav = () => {
           title: (
             <IconWrapper>
               <FaDiceD20 style={{ marginRight: "1rem" }} />
-              <>Portal</>
+              <>Blog</>
             </IconWrapper>
           ),
-          route: "/portal",
+          route: `/portal`,
+          key: 15,
+        },
+        {
+          title: (
+            <IconWrapper>
+              <FaHammer style={{ marginRight: "1rem" }} />
+              <>Jobs</>
+            </IconWrapper>
+          ),
+          route: "/portal/jobs",
           key: 9,
         },
-        {
-          title: (
-            <IconWrapper>
-              <FaRegEdit style={{ marginRight: "1rem" }} />
-              <>Post</>
-            </IconWrapper>
-          ),
-          route: `/post`,
-          key: 10,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaBookReader style={{ marginRight: "1rem" }} />
-              <>Guide</>
-            </IconWrapper>
-          ),
-          route: `/guide`,
-          key: 11,
-        },
+        // {
+        //   title: (
+        //     <IconWrapper>
+        //       <FaRegEdit style={{ marginRight: "1rem" }} />
+        //       <>Post</>
+        //     </IconWrapper>
+        //   ),
+        //   route: `/post`,
+        //   key: 10,
+        // },
+        // {
+        //   title: (
+        //     <IconWrapper>
+        //       <FaBookReader style={{ marginRight: "1rem" }} />
+        //       <>Guide</>
+        //     </IconWrapper>
+        //   ),
+        //   route: `/guide`,
+        //   key: 11,
+        // },
         {
           title: (
             <IconWrapper>
