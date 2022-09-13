@@ -8,6 +8,21 @@ import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
+const cardVariants = {
+  offscreen: {
+    y: 300,
+  },
+  onscreen: {
+    y: 0,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      bounce: 0,
+      duration: 0.4,
+    },
+  },
+};
+
 const Blog = () => {
   const [posts, isLoading] = usePosts();
   const renderPosts = () => {
@@ -21,29 +36,48 @@ const Blog = () => {
           transition={{ duration: 0.6 }}
         >
           <H1>DeFind</H1>
-          <H1 className="main">Blog</H1>
+          <H1 className="main">News</H1>
+          <H1 className="main">Reviews</H1>
+
           <br />
           <H3>Crypto - Blockchain - web3 - DeFi</H3>
           <H4>
             Stay tuned.<Bold>BIG</Bold> things are coming!
           </H4>
-          <br />
-          {posts.map((post) => (
-            <section key={post.fields.slug}>
-              {console.log(post)}
-
-              {/* <img src={post?.fields?.blogImage?.fields.file.url} alt="img" /> */}
-              <div style={{ color: "white" }}>{post.fields.blogTitle}</div>
-              <div style={{ color: "white" }}>{post.fields.blogAuthor}</div>
-              <div style={{ color: "white" }}>
-                {readableDate(post.fields.createdDate)}
-              </div>
-              <Links to={`/portal/${post.fields.slug}`}>
-                <Button text="View Post" />
-              </Links>
-            </section>
-          ))}
         </motion.div>
+
+        <br />
+        <Grid>
+          {posts.map((post) => (
+            <CardContainer
+              key={post.fields.slug}
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ once: true, amount: 0.8 }}
+            >
+              <ProfileWrapper variants={cardVariants}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {/* <img
+                    src={post?.fields?.blogImage?.fields.file.url}
+                    alt="img"
+                  /> */}
+                  <Header>{post.fields.blogTitle}</Header>
+                  <Text>{post.fields.blogAuthor}</Text>
+                  <Text>{readableDate(post.fields.createdDate)}</Text>
+
+                  <Links to={`/portal/${post.fields.slug}`}>
+                    <Button text="View Post" />
+                  </Links>
+                </div>
+              </ProfileWrapper>
+            </CardContainer>
+          ))}
+        </Grid>
       </Wrapper>
     );
   };
@@ -54,15 +88,78 @@ export default Blog;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   flex-direction: column;
-  height: 100vh;
-  text-align: left;
   background: #040010;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+`;
 
+const Grid = styled.div`
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  @media screen and (max-width: 600px) {
+    grid-gap: 1.5rem;
+    padding-top: 1.5rem;
+  }
+`;
+
+const CardContainer = styled(motion.div)`
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ProfileWrapper = styled(motion.div)`
+  text-align: left;
+  width: 43rem;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  background-color: #daefff;
+  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
+    0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
+    0 0 16px hsl(0deg 0% 0% / 0.075);
+  transform-origin: 10% 60%;
+  @media screen and (max-width: 1023px) {
+    width: 33rem;
+    padding: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+    padding: 1.25rem;
+  }
+`;
+
+const Header = styled.div`
+  color: #080e57;
   transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.9rem;
+    padding: 0.1rem 0;
+  }
+`;
+
+const Text = styled.div`
+  color: #080e57;
+  transition: all 0.5s linear;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 180%;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.55rem;
+    line-height: 170%;
+  }
 `;
 
 const H3 = styled.div`

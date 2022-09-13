@@ -9,6 +9,21 @@ import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
+const cardVariants = {
+  offscreen: {
+    y: 300,
+  },
+  onscreen: {
+    y: 0,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      bounce: 0,
+      duration: 0.4,
+    },
+  },
+};
+
 const BlogPost = () => {
   const { blogId } = useParams();
   const [post, isLoading] = useSinglePost(blogId);
@@ -17,28 +32,35 @@ const BlogPost = () => {
     if (isLoading) return <LoadingSpinner />;
     return (
       <Wrapper>
-        <motion.div
-          initial={{ y: "50%", scale: 0.5, opacity: 0 }}
-          animate={{ y: 0, scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
+        <Grid>
           <H1 className="main">{post.blogTitle}</H1>
           <br />
-          <section>
-            {console.log(post)}
-            {/* <img src={post.blogImage.fields.file.url} alt="img" /> */}
+          <CardContainer
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.8 }}
+          >
+            <ProfileWrapper variants={cardVariants}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                {console.log(post)}
+                {/* <img src={post.blogImage.fields.file.url} alt="img" /> */}
 
-            <div style={{ color: "white" }}>{post.blogTitle}</div>
-            <div style={{ color: "white" }}>{post.blogAuthor}</div>
-            <div style={{ color: "white" }}>
-              {readableDate(post.createdDate)}
-            </div>
+                <Header>{post.blogTitle}</Header>
+                <Text>{post.blogAuthor}</Text>
+                <Text>{readableDate(post.createdDate)}</Text>
 
-            <Links to={`/portal`}>
-              <Button text="Return" />
-            </Links>
-          </section>
-        </motion.div>
+                <Links to={`/portal`}>
+                  <Button text="Return" />
+                </Links>
+              </div>
+            </ProfileWrapper>
+          </CardContainer>
+        </Grid>
       </Wrapper>
     );
   };
@@ -49,15 +71,78 @@ export default BlogPost;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   flex-direction: column;
-  height: 100vh;
-  text-align: left;
   background: #040010;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+`;
 
+const Grid = styled.div`
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  @media screen and (max-width: 600px) {
+    grid-gap: 1.5rem;
+    padding-top: 1.5rem;
+  }
+`;
+
+const CardContainer = styled(motion.div)`
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ProfileWrapper = styled(motion.div)`
+  text-align: left;
+  width: 43rem;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  background-color: #daefff;
+  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
+    0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
+    0 0 16px hsl(0deg 0% 0% / 0.075);
+  transform-origin: 10% 60%;
+  @media screen and (max-width: 1023px) {
+    width: 33rem;
+    padding: 2rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 18.5rem;
+    padding: 1.25rem;
+  }
+`;
+
+const Header = styled.div`
+  color: #080e57;
   transition: all 0.5s linear;
+  padding: 0.25rem 0;
+  font-size: 1.5rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.9rem;
+    padding: 0.1rem 0;
+  }
+`;
+
+const Text = styled.div`
+  color: #080e57;
+  transition: all 0.5s linear;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 180%;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.55rem;
+    line-height: 170%;
+  }
 `;
 
 const H3 = styled.div`
@@ -88,7 +173,7 @@ const H1 = styled.div`
   font-family: "Russo One", sans-serif;
   text-transform: uppercase;
   font-size: 5rem;
-  /* padding-left: 1rem; */
+  padding-left: 1rem;
   color: #daefff;
   &.main {
     color: #31f2e4;
@@ -109,7 +194,7 @@ const H1 = styled.div`
     }
   }
   @media screen and (max-width: 1023px) {
-    /* padding-left: 0.5rem; */
+    padding-left: 0.5rem;
     font-size: 3.75rem;
   }
   @media screen and (max-width: 600px) {
@@ -147,16 +232,5 @@ const Bold = styled.b`
   }
   @media screen and (max-width: 600px) {
     margin-left: 0.5rem;
-  }
-`;
-
-const IconWrapper = styled.div`
-  color: #31f2e4;
-  font-size: 1.75rem;
-  @media screen and (max-width: 1023px) {
-    font-size: 1.5rem;
-  }
-  @media screen and (max-width: 600px) {
-    font-size: 1.5rem;
   }
 `;
