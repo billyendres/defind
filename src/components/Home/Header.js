@@ -6,6 +6,7 @@ import { FaAngleDown } from "react-icons/fa";
 import backgroundMain from "../images/background.png";
 import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
+import Blog from "../../pages/Blog";
 
 const Header = () => {
   const pageTwo = useRef(null);
@@ -42,6 +43,7 @@ const Header = () => {
         </ArrowSmall>
       </Wrapper>
       <BlockTextWrapper ref={pageTwo}>
+        {/* <Blog /> */}
         <H2 ref={pageTwoSmall}>The web3</H2>
         <H1 className="main">Revolution</H1>
         <H1>awaits</H1>
@@ -74,7 +76,7 @@ export default Header;
 
 const BlockTextWrapper = styled.div`
   width: 50rem;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

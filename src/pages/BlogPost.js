@@ -45,9 +45,11 @@ const BlogPost = () => {
             <ProfileWrapper>
               <TextWrapper>
                 <Header>{post.blogTitle}</Header>
-                <Text>{post.blogSummary}</Text>
+                <Subheader>{post.blogSummary}</Subheader>
 
-                <Text>{readableDate(post.createdDate)}</Text>
+                <Text style={{ fontWeight: "bold" }}>
+                  {readableDate(post.createdDate)}
+                </Text>
                 <Img src={post.blogImage.fields.file.url} alt="img" />
 
                 <Text>
@@ -58,14 +60,9 @@ const BlogPost = () => {
                 </Text>
                 {console.log(post)}
                 <Links to={`/portal`}>
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      padding: "0.5rem 0",
-                    }}
-                  >
+                  <Return>
                     <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
-                  </Text>
+                  </Return>
                 </Links>
               </TextWrapper>
             </ProfileWrapper>
@@ -140,12 +137,32 @@ const TextWrapper = styled.div`
 
 const Header = styled.div`
   color: #080e57;
-  font-size: 1.5rem;
+  transition: all 0.5s linear;
+  padding-bottom: 0.75rem;
+  font-size: 2.25rem;
+  font-weight: bold;
   @media screen and (max-width: 1023px) {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+`;
+
+const Subheader = styled.div`
+  color: #080e57;
+  transition: all 0.5s linear;
+  padding-bottom: 0.75rem;
+  font-size: 1.25rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+    padding-bottom: 0.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    padding-bottom: 0.5rem;
   }
 `;
 
@@ -153,15 +170,34 @@ const Text = styled.div`
   color: #080e57;
   transition: all 0.5s linear;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 180%;
   white-space: pre-wrap;
   @media screen and (max-width: 1023px) {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
   @media screen and (max-width: 600px) {
     font-size: 0.55rem;
     line-height: 170%;
+  }
+`;
+
+const Return = styled.div`
+  color: #080e57;
+  transition: all 0.5s linear;
+  padding: 0;
+  font-size: 1.15rem;
+  white-space: pre-wrap;
+  font-weight: bold;
+  padding-top: 0.75rem;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+    padding-top: 0.65rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    padding-top: 0.45rem;
   }
 `;
 

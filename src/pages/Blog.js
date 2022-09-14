@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Links } from "../components/Styles/Links";
-import Button from "../components/Styles/Button";
 import { usePosts } from "../components/custom-hooks/usePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
@@ -25,44 +24,63 @@ const cardVariants = {
 
 const Blog = () => {
   const [posts, isLoading] = usePosts();
+  const [filteredSearch, setFilteredSearch] = useState();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const filterPosts = () => {
+      const filtered = posts?.filter((post) => {
+        if (
+          post.fields.blogTitle.toLowerCase().includes(search.toLowerCase())
+        ) {
+          return true;
+        }
+      });
+      setFilteredSearch(filtered);
+    };
+    filterPosts();
+  }, [search, posts]);
+  console.log(filteredSearch);
 
   const renderPosts = () => {
     if (isLoading) return <LoadingSpinner />;
 
     return (
       <Wrapper>
-        <H1 className="main">portal</H1>
-        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
+        <H3 className="main">News & Reviews</H3>
+        <Label>
+          <Input
+            type="text"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Label>
         <Grid>
-          {posts.map((post) => (
+          {filteredSearch.map((post) => (
             <CardContainer
               key={post.fields.slug}
               initial="offscreen"
               whileInView="onscreen"
-              viewport={{ once: true, amount: 0.8 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <ProfileWrapper variants={cardVariants}>
+                <Img src={post?.fields?.blogImage?.fields.file.url} alt="img" />
+
                 <TextWrapper>
                   <Header>{post.fields.blogTitle}</Header>
-                  <Text>{post.fields.blogSummary}</Text>
+                  {/* <Text>{post.fields.blogSummary}</Text> */}
                   <Text>{readableDate(post.fields.createdDate)}</Text>
 
                   <Links to={`/portal/${post.fields.slug}`}>
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        padding: "0.5rem 0",
-                      }}
-                    >
+                    <ViewPost>
                       <b style={{ color: "#ff00ff" }}>View Post {">"}</b>
-                    </Text>
+                    </ViewPost>
                   </Links>
                 </TextWrapper>
-                <Img src={post?.fields?.blogImage?.fields.file.url} alt="img" />
               </ProfileWrapper>
             </CardContainer>
           ))}
@@ -92,16 +110,16 @@ const Wrapper = styled.div`
 `;
 
 const Grid = styled.div`
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2rem;
   @media screen and (max-width: 1023px) {
     grid-gap: 1.5rem;
+    padding-top: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    grid-gap: 1rem;
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
   }
 `;
 
@@ -115,9 +133,9 @@ const CardContainer = styled(motion.div)`
 const ProfileWrapper = styled(motion.div)`
   text-align: left;
   display: flex;
-  justify-content: space-between;
-  width: 50rem;
-  border-radius: 1rem;
+  flex-direction: column;
+  width: 40rem;
+  border-radius: 0.75rem;
   background-color: #daefff;
   box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
     0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
@@ -134,26 +152,30 @@ const ProfileWrapper = styled(motion.div)`
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2.5rem;
+  width: 70%;
+  padding: 1.5rem 2.25rem;
   @media screen and (max-width: 1023px) {
-    padding: 2rem;
+    padding: 1.25rem 2rem;
+    width: 80%;
   }
   @media screen and (max-width: 600px) {
-    padding: 1.25rem;
+    padding: 1rem 1.25rem;
+    width: 90%;
   }
 `;
 
 const Header = styled.div`
   color: #080e57;
   transition: all 0.5s linear;
-  padding: 0.25rem 0;
+  padding-bottom: 0.75rem;
   font-size: 1.5rem;
   @media screen and (max-width: 1023px) {
     font-size: 1.25rem;
+    padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
-    padding: 0.1rem 0;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
   }
 `;
 
@@ -174,11 +196,29 @@ const Text = styled.div`
   }
 `;
 
+const ViewPost = styled.div`
+  color: #080e57;
+  transition: all 0.5s linear;
+  padding: 0;
+  font-size: 1.15rem;
+  white-space: pre-wrap;
+  font-weight: bold;
+  padding-top: 0.75rem;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+    padding-top: 0.65rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    padding-top: 0.45rem;
+  }
+`;
+
 const H3 = styled.div`
   font-family: "Russo One", sans-serif;
   text-transform: uppercase;
-  font-size: 1.55rem;
-  padding-left: 1rem;
+  font-size: 4rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
 
@@ -186,53 +226,49 @@ const H3 = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 1.162rem;
+    font-size: 3rem;
     padding-bottom: 0.75rem;
     padding-top: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.95rem;
+    font-size: 2rem;
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
   }
 `;
 
-const H1 = styled.div`
-  font-family: "Russo One", sans-serif;
-  text-transform: uppercase;
-  font-size: 5rem;
-  padding-left: 1rem;
-  color: #daefff;
-  &.main {
-    color: #31f2e4;
-    filter: drop-shadow(0px 0px 14px #31f2e4);
+const Img = styled.img`
+  object-fit: cover;
+  width: 100%;
+  border-radius: 0.75rem 0.75rem 0 0;
+`;
 
-    -webkit-animation: glow 2s ease-in-out infinite alternate;
-    -moz-animation: glow 2s ease-in-out infinite alternate;
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-  @keyframes glow {
-    from {
-      filter: drop-shadow(0px 0px 14px #31f2e4);
-      color: #31f2e4;
-    }
-    to {
-      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
-      color: rgb(255, 0, 255);
-    }
-  }
+const Label = styled.div`
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: #daefff;
   @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 3.75rem;
-  }
-  @media screen and (max-width: 600px) {
-    font-size: 3.5rem;
+    font-size: 1rem;
   }
 `;
 
-const Img = styled.img`
-  object-fit: cover;
-  width: 40%;
-  border-radius: 0 1rem 1rem 0;
+const Input = styled.input`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: #080e57;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #080e57;
+    opacity: 0.5;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
 `;
