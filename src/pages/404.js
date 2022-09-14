@@ -26,10 +26,11 @@ export default PageNotFound;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   background: #040010;
   transition: all 0.5s linear;
 `;

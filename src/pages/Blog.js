@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Links } from "../components/Styles/Links";
 import { usePosts } from "../components/custom-hooks/usePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
+import { FaTwitter } from "react-icons/fa";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
@@ -80,6 +81,17 @@ const Blog = () => {
                       <b style={{ color: "#ff00ff" }}>View Post {">"}</b>
                     </ViewPost>
                   </Links>
+                  <Tweet
+                    type="button"
+                    role="button"
+                    title="Share on twitter"
+                    href={`https://twitter.com/intent/tweet?url=https://defind.tech/portal/${post.fields.slug}&text=${post.fields.blogTitle}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <FaTwitter />
+                    {/* <div>Tweet</div> */}
+                  </Tweet>
                 </TextWrapper>
               </ProfileWrapper>
             </CardContainer>
@@ -270,5 +282,19 @@ const Input = styled.input`
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
     padding: 0.25rem;
+  }
+`;
+
+const Tweet = styled.a`
+  padding-top: 0.25rem;
+  color: #080e57;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
   }
 `;

@@ -30,14 +30,28 @@ const Contact = () => {
           <IconWrapper>
             <FaTwitterSquare />
           </IconWrapper>
-          <Bold>@defind_web3</Bold>
+          <Anchor
+            href="https://twitter.com/defind_web3"
+            target="_blank"
+            rel="noopener noreferrer"
+            alt="Apply"
+          >
+            <Bold>https://twitter.com/defind_web3</Bold>
+          </Anchor>
         </H4>
         <br />
         <H4>
           <IconWrapper>
             <FaTelegram />
           </IconWrapper>
-          <Bold>https://t.me/defind_web3</Bold>
+          <Anchor
+            href="https://t.me/defind_web3"
+            target="_blank"
+            rel="noopener noreferrer"
+            alt="Apply"
+          >
+            <Bold>https://t.me/defind_web3</Bold>
+          </Anchor>
         </H4>
       </motion.div>
     </Wrapper>
@@ -133,4 +147,10 @@ const IconWrapper = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
   }
+`;
+
+const Anchor = styled.a`
+  color: #080e57;
+  text-decoration: none;
+  cursor: pointer;
 `;
