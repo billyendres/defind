@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FaTelegram, FaTwitterSquare, FaMailBulk } from "react-icons/fa";
-import { Icon } from "web3uikit";
 
 const Contact = () => {
   return (

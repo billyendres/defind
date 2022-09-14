@@ -2,34 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import { Links } from "../Styles/Links";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMoralis } from "react-moralis";
 
 import {
   FaHome,
-  FaUserAlt,
-  FaBookReader,
-  FaRegEdit,
-  FaRegIdCard,
-  FaHammer,
   FaAngleDoubleUp,
   FaChevronUp,
   FaDiceD20,
-  FaWallet,
   FaPhone,
 } from "react-icons/fa";
 
 import logoDarkTheme from "../images/logoDarkTheme.png";
-import Logout from "../Authentication/Logout";
-import Button from "../Styles/Button";
 import ButtonSmall from "../Styles/ButtonSmall";
 
 const Nav = () => {
-  const { Moralis, account, isAuthenticated } = useMoralis();
-  const user = Moralis.User.current();
   const [navColor, setNavColor] = useState(false);
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
-  const [ethAddress, setEthAddress] = useState();
   const [menuItems, setMenuItems] = useState();
 
   const changeColor = () => {
@@ -40,7 +28,6 @@ const Nav = () => {
     }
   };
   window.addEventListener("scroll", changeColor);
-  const userLocal = window.localStorage.getItem("userLocal");
 
   useEffect(() => {
     let handler = (e) => {
@@ -64,164 +51,39 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    const userCheck = () => {
-      const u = user;
-      if (!u) return null;
-      setEthAddress(user.get("ethAddress"));
-    };
-    userCheck();
-  }, [user]);
-
-  useEffect(() => {
-    if (user) {
-      setMenuItems([
-        {
-          title: (
-            <IconWrapper>
-              <FaHome style={{ marginRight: "1rem" }} />
-              <>Home</>
-            </IconWrapper>
-          ),
-          route: "/",
-          key: 1,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaDiceD20 style={{ marginRight: "1rem" }} />
-              <>Blog</>
-            </IconWrapper>
-          ),
-          route: `/portal`,
-          key: 16,
-        },
-
-        {
-          title: (
-            <IconWrapper>
-              <FaHammer style={{ marginRight: "1rem" }} />
-              <>Jobs</>
-            </IconWrapper>
-          ),
-          route: "/portal/jobs",
-          key: 3,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaUserAlt style={{ marginRight: "1rem" }} />
-              <>Profile</>
-            </IconWrapper>
-          ),
-          route: `/myprofile/${ethAddress}`,
-          key: 2,
-        },
-        // {
-        //   title: (
-        //     <IconWrapper>
-        //       <FaRegEdit style={{ marginRight: "1rem" }} />
-        //       <>Post</>
-        //     </IconWrapper>
-        //   ),
-        //   route: `/post`,
-        //   key: 4,
-        // },
-        // {
-        //   title: (
-        //     <IconWrapper>
-        //       <FaRegIdCard style={{ marginRight: "1rem" }} />
-        //       <>My Posts</>
-        //     </IconWrapper>
-        //   ),
-        //   route: `/profile/posts/${ethAddress}`,
-        //   key: 5,
-        // },
-        // {
-        //   title: (
-        //     <IconWrapper>
-        //       <FaBookReader style={{ marginRight: "1rem" }} />
-        //       <>Guide</>
-        //     </IconWrapper>
-        //   ),
-        //   route: `/guide`,
-        //   key: 6,
-        // },
-        {
-          title: (
-            <IconWrapper>
-              <FaPhone style={{ marginRight: "1rem" }} />
-              <>Contact</>
-            </IconWrapper>
-          ),
-          route: `/contact`,
-          key: 7,
-        },
-      ]);
-    } else {
-      setMenuItems([
-        {
-          title: (
-            <IconWrapper>
-              <FaHome style={{ marginRight: "1rem" }} />
-              <>Home</>
-            </IconWrapper>
-          ),
-          route: "/",
-          key: 8,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaDiceD20 style={{ marginRight: "1rem" }} />
-              <>Blog</>
-            </IconWrapper>
-          ),
-          route: `/portal`,
-          key: 15,
-        },
-        {
-          title: (
-            <IconWrapper>
-              <FaHammer style={{ marginRight: "1rem" }} />
-              <>Jobs</>
-            </IconWrapper>
-          ),
-          route: "/portal/jobs",
-          key: 9,
-        },
-        // {
-        //   title: (
-        //     <IconWrapper>
-        //       <FaRegEdit style={{ marginRight: "1rem" }} />
-        //       <>Post</>
-        //     </IconWrapper>
-        //   ),
-        //   route: `/post`,
-        //   key: 10,
-        // },
-        // {
-        //   title: (
-        //     <IconWrapper>
-        //       <FaBookReader style={{ marginRight: "1rem" }} />
-        //       <>Guide</>
-        //     </IconWrapper>
-        //   ),
-        //   route: `/guide`,
-        //   key: 11,
-        // },
-        {
-          title: (
-            <IconWrapper>
-              <FaPhone style={{ marginRight: "1rem" }} />
-              <>Contact</>
-            </IconWrapper>
-          ),
-          route: `/contact`,
-          key: 6,
-        },
-      ]);
-    }
-  }, [user, ethAddress]);
+    setMenuItems([
+      {
+        title: (
+          <IconWrapper>
+            <FaHome style={{ marginRight: "1rem" }} />
+            <>Home</>
+          </IconWrapper>
+        ),
+        route: "/",
+        key: 8,
+      },
+      {
+        title: (
+          <IconWrapper>
+            <FaDiceD20 style={{ marginRight: "1rem" }} />
+            <>Portal</>
+          </IconWrapper>
+        ),
+        route: `/portal`,
+        key: 15,
+      },
+      {
+        title: (
+          <IconWrapper>
+            <FaPhone style={{ marginRight: "1rem" }} />
+            <>Contact</>
+          </IconWrapper>
+        ),
+        route: `/contact`,
+        key: 6,
+      },
+    ]);
+  }, []);
 
   return (
     <>
@@ -272,51 +134,7 @@ const Nav = () => {
                 transition: "0.5s linear",
               }}
               className="navTop"
-            >
-              {userLocal && isAuthenticated ? (
-                <Links to={`/myprofile/${ethAddress}`}>
-                  <div style={{ display: "flex" }}>
-                    <Button
-                      text={
-                        <>
-                          <div style={{ textTransform: "lowercase" }}>
-                            <FaWallet
-                              style={{
-                                marginBottom: "-0.1rem",
-                                marginRight: "0.5rem",
-                              }}
-                            />
-                            {userLocal.slice(0, 2)}...{userLocal.slice(38)}
-                          </div>
-                        </>
-                      }
-                    />
-                  </div>
-                </Links>
-              ) : (
-                <Links to="/">
-                  {account && (
-                    <div style={{ display: "flex" }}>
-                      <Button
-                        text={
-                          <>
-                            <div style={{ textTransform: "lowercase" }}>
-                              <FaWallet
-                                style={{
-                                  marginBottom: "-0.1rem",
-                                  marginRight: "0.5rem",
-                                }}
-                              />
-                              {account.slice(0, 2)}...{account.slice(38)}
-                            </div>
-                          </>
-                        }
-                      />
-                    </div>
-                  )}
-                </Links>
-              )}
-            </div>
+            ></div>
             <Links to="/">
               <LogoImage
                 src={logoDarkTheme}
@@ -367,7 +185,6 @@ const Nav = () => {
                 </motion.div>
               );
             })}
-            {user && <Logout />}
           </NavWrapper>
         )}
       </AnimatePresence>

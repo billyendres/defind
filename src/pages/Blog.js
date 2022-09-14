@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Links } from "../components/Styles/Links";
@@ -25,28 +25,18 @@ const cardVariants = {
 
 const Blog = () => {
   const [posts, isLoading] = usePosts();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const renderPosts = () => {
     if (isLoading) return <LoadingSpinner />;
 
     return (
       <Wrapper>
-        <motion.div
-          initial={{ y: "50%", scale: 0.5, opacity: 0 }}
-          animate={{ y: 0, scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <H1>DeFind</H1>
-          <H1 className="main">News</H1>
-          <H1 className="main">Reviews</H1>
-
-          <br />
-          <H3>Crypto - Blockchain - web3 - DeFi</H3>
-          <H4>
-            Stay tuned.<Bold>BIG</Bold> things are coming!
-          </H4>
-        </motion.div>
-
-        <br />
+        <H1 className="main">portal</H1>
+        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
         <Grid>
           {posts.map((post) => (
             <CardContainer
@@ -56,24 +46,23 @@ const Blog = () => {
               viewport={{ once: true, amount: 0.8 }}
             >
               <ProfileWrapper variants={cardVariants}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {/* <img
-                    src={post?.fields?.blogImage?.fields.file.url}
-                    alt="img"
-                  /> */}
+                <TextWrapper>
                   <Header>{post.fields.blogTitle}</Header>
-                  <Text>{post.fields.blogAuthor}</Text>
+                  <Text>{post.fields.blogSummary}</Text>
                   <Text>{readableDate(post.fields.createdDate)}</Text>
 
                   <Links to={`/portal/${post.fields.slug}`}>
-                    <Button text="View Post" />
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        padding: "0.5rem 0",
+                      }}
+                    >
+                      <b style={{ color: "#ff00ff" }}>View Post {">"}</b>
+                    </Text>
                   </Links>
-                </div>
+                </TextWrapper>
+                <Img src={post?.fields?.blogImage?.fields.file.url} alt="img" />
               </ProfileWrapper>
             </CardContainer>
           ))}
@@ -92,7 +81,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: #040010;
   padding-bottom: 2rem;
+  padding-top: 7rem;
   min-height: 100vh;
+  @media screen and (max-width: 1023px) {
+    padding-top: 5rem;
+  }
+  @media screen and (max-width: 600px) {
+    padding-top: 4rem;
+  }
 `;
 
 const Grid = styled.div`
@@ -100,8 +96,11 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2rem;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1023px) {
     grid-gap: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    grid-gap: 1rem;
     padding-top: 1.5rem;
   }
 `;
@@ -115,8 +114,9 @@ const CardContainer = styled(motion.div)`
 
 const ProfileWrapper = styled(motion.div)`
   text-align: left;
-  width: 43rem;
-  padding: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 50rem;
   border-radius: 1rem;
   background-color: #daefff;
   box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
@@ -124,11 +124,21 @@ const ProfileWrapper = styled(motion.div)`
     0 0 16px hsl(0deg 0% 0% / 0.075);
   transform-origin: 10% 60%;
   @media screen and (max-width: 1023px) {
-    width: 33rem;
+    width: 34rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 22rem;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  @media screen and (max-width: 1023px) {
     padding: 2rem;
   }
   @media screen and (max-width: 600px) {
-    width: 18.5rem;
     padding: 1.25rem;
   }
 `;
@@ -153,6 +163,8 @@ const Text = styled.div`
   padding: 0;
   font-size: 0.85rem;
   line-height: 180%;
+  white-space: pre-wrap;
+
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
   }
@@ -219,35 +231,8 @@ const H1 = styled.div`
   }
 `;
 
-const H4 = styled.div`
-  display: flex;
-  align-items: center;
-  font-family: "Kdam Thmor Pro", sans-serif;
-  font-size: 1.25rem;
-  padding-left: 1rem;
-  width: 35rem;
-  color: #daefff;
-  @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 1.15rem;
-    width: 27rem;
-  }
-  @media screen and (max-width: 600px) {
-    width: 22rem;
-    font-size: 1rem;
-  }
-`;
-
-const Bold = styled.b`
-  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  @media screen and (max-width: 1023px) {
-    margin-left: 0.75rem;
-  }
-  @media screen and (max-width: 600px) {
-    margin-left: 0.5rem;
-  }
+const Img = styled.img`
+  object-fit: cover;
+  width: 40%;
+  border-radius: 0 1rem 1rem 0;
 `;

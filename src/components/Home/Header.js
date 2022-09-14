@@ -45,29 +45,26 @@ const Header = () => {
         <H2 ref={pageTwoSmall}>The web3</H2>
         <H1 className="main">Revolution</H1>
         <H1>awaits</H1>
-        <H3>News - Jobs - Reviews - Tutorials</H3>
+        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
         <H4>
+          <p>Decentralised technologies are often overcomplicated. </p>
+          <br />
           <p>
-            Decentralised technologies are evolving rapidly, keep pace with
-            DeFind.
+            Our goal is to provide up-to-date educational resources and make{" "}
+            <b style={{ color: "#31f2e4" }}>complex</b> -{" "}
+            <b style={{ color: "#ff00ff" }}>simple.</b>
           </p>
           <br />
           <p>
-            We're reinventing <b style={{ color: "#31f2e4" }}>news</b>,{" "}
-            <b style={{ color: "#ff00ff" }}>reviews</b>,{" "}
-            <b style={{ color: "#31f2e4" }}>blogs</b> and{" "}
-            <b style={{ color: "#ff00ff" }}>jobs</b> for the world of web3.
+            Reiventing <b style={{ color: "#31f2e4" }}>news</b> &
+            <b style={{ color: "#ff00ff" }}> reviews</b>, for the world of web3
+            - keep pace with DeFind.
           </p>
           <br />
         </H4>
-        <div style={{ display: "flex" }}>
-          <Links to="/portal">
-            <Button text="Blog" />
-          </Links>
-          <Links to="portal/jobs">
-            <Button text="Jobs" />
-          </Links>
-        </div>
+        <Links to="/portal">
+          <Button text="portal" />
+        </Links>
       </BlockTextWrapper>
     </>
   );
