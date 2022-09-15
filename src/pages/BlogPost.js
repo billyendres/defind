@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Links } from "../components/Styles/Links";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-
+import { FaTwitter } from "react-icons/fa";
 import { useSinglePost } from "../components/custom-hooks/useSinglePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
@@ -58,12 +58,31 @@ const BlogPost = () => {
                     rehypePlugins={[rehypeRaw]}
                   />
                 </Text>
-                {console.log(post)}
+
                 <Links to={`/portal`}>
                   <Return>
                     <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
                   </Return>
                 </Links>
+                <div
+                  style={{
+                    display: "flex",
+                    marginTop: "0.5rem",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Tweet
+                    type="button"
+                    role="button"
+                    title="Share"
+                    href={`https://twitter.com/intent/tweet?url=https://defind.tech/portal/${post.slug}&text=${post.blogTitle}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <FaTwitter />
+                  </Tweet>
+                </div>
               </TextWrapper>
             </ProfileWrapper>
           </CardContainer>
@@ -131,7 +150,7 @@ const TextWrapper = styled.div`
   @media screen and (max-width: 1023px) {
   }
   @media screen and (max-width: 600px) {
-    padding: 1.25rem;
+    /* padding: 1.25rem; */
   }
 `;
 
@@ -263,4 +282,18 @@ const Img = styled.img`
   height: auto;
   /* height: 5rem; */
   padding: 1rem 0;
+`;
+
+const Tweet = styled.a`
+  padding-top: 0.25rem;
+  color: #080e57;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;

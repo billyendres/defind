@@ -3,17 +3,17 @@ import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/404";
-import Twitter from "./components/Styles/Twitter";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Nav from "./components/Nav";
+import Logo from "./pages/Logo";
+import Footer from "./components/Home/Footer";
 
 const App = () => {
   return (
     <>
       <GloablStyle />
-      <Twitter />
       <Nav />
 
       <>
@@ -22,8 +22,10 @@ const App = () => {
           <Route path="/portal" element={<Blog />} />
           <Route path="/portal/:blogId" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="unknownPage" element={<Logo />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer />
       </>
     </>
   );

@@ -37,9 +37,4 @@ const Icons = styled.div`
   cursor: pointer;
 `;
 
-const Wrapper = styled.div`
-  z-index: 1000;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-`;
+const Wrapper = styled.div``;

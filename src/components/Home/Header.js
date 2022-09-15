@@ -6,7 +6,7 @@ import { FaAngleDown } from "react-icons/fa";
 import backgroundMain from "../images/background.png";
 import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
-import Blog from "../../pages/Blog";
+import Footer from "./Footer";
 
 const Header = () => {
   const pageTwo = useRef(null);
