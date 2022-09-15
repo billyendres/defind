@@ -239,7 +239,7 @@ const H3 = styled.div`
 
 const Img = styled.img`
   object-fit: cover;
-  width: 100%;
+  width: 101%;
   border-radius: 0.75rem 0.75rem 0 0;
 `;
 

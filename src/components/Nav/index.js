@@ -138,7 +138,7 @@ const Nav = () => {
             <Links to="/">
               <LogoImage
                 src={logoDarkTheme}
-                alt="header"
+                alt="DeFind Web3 Portal"
                 style={{
                   opacity: navColor ? 0 : 1,
                 }}

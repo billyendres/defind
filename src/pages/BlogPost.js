@@ -11,24 +11,13 @@ import LoadingSpinner from "../components/Styles/LoadingSpinner";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
-const cardVariants = {
-  offscreen: {
-    y: 300,
-  },
-  onscreen: {
-    y: 0,
-    rotate: 0,
-    transition: {
-      type: "spring",
-      bounce: 0,
-      duration: 0.4,
-    },
-  },
-};
-
 const BlogPost = () => {
   const { blogId } = useParams();
   const [post, isLoading] = useSinglePost(blogId);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const renderPost = () => {
     if (isLoading) return <LoadingSpinner />;
@@ -37,11 +26,7 @@ const BlogPost = () => {
         <Grid>
           {/* <H1 className="main">{post.blogTitle}</H1> */}
           <br />
-          <CardContainer
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.8 }}
-          >
+          <CardContainer>
             <ProfileWrapper>
               <TextWrapper>
                 <Header>{post.blogTitle}</Header>
@@ -57,8 +42,30 @@ const BlogPost = () => {
                     children={post.blogContentLong}
                     rehypePlugins={[rehypeRaw]}
                   />
+                  {/* <table style="width: 100%;">
+                    <thead style="text-align: center;">
+                      <td style="border: 2px solid #54CAE9; width: 50%; font-weight:  bold;">
+                        Pros
+                      </td>
+                      <td style="border: 2px solid #ff00ff; width: 50%; font-weight:  bold;">
+                        Cons
+                      </td>
+                    </thead>
+                    <tbody style="text-align: center;">
+                      <tr>
+                        <td>Sue</td>
+                        <td>00002</td>
+                      </tr>
+                      <tr>
+                        <td>Barb</td>
+                        <td>00003</td>
+                      </tr>
+                      <tr>
+                        <td>Barb</td>
+                      </tr>
+                    </tbody>
+                  </table> */}
                 </Text>
-
                 <Links to={`/portal`}>
                   <Return>
                     <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
@@ -120,8 +127,7 @@ const Grid = styled.div`
   }
 `;
 
-const CardContainer = styled(motion.div)`
-  /* overflow: hidden; */
+const CardContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,11 +167,11 @@ const Header = styled.div`
   font-size: 2.25rem;
   font-weight: bold;
   @media screen and (max-width: 1023px) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     padding-bottom: 0.5rem;
   }
 `;
@@ -176,11 +182,11 @@ const Subheader = styled.div`
   padding-bottom: 0.75rem;
   font-size: 1.25rem;
   @media screen and (max-width: 1023px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     padding-bottom: 0.5rem;
   }
 `;
@@ -193,10 +199,10 @@ const Text = styled.div`
   line-height: 180%;
   white-space: pre-wrap;
   @media screen and (max-width: 1023px) {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.55rem;
+    font-size: 0.75rem;
     line-height: 170%;
   }
 `;

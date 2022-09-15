@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.6.9",
     "@contentful/rich-text-from-markdown": "^15.13.1",
     "@contentful/rich-text-html-renderer": "^15.13.1",
     "contentful": "^9.2.4",
     "framer-motion": "^6.3.6",
-    "graphql": "^16.6.0",
+    "ga-4-react": "^0.1.281",
     "markdown-to-jsx": "^7.1.7",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

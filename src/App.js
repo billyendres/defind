@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
@@ -9,8 +9,19 @@ import BlogPost from "./pages/BlogPost";
 import Nav from "./components/Nav";
 import Logo from "./pages/Logo";
 import Footer from "./components/Home/Footer";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   window.gtag("event", "page_view", {
+  //     page_path: location.pathname + location.search + location.hash,
+  //     page_search: location.search,
+  //     page_hash: location.hash,
+  //   });
+  // }, [location]);
+
   return (
     <>
       <GloablStyle />

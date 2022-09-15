@@ -59,8 +59,7 @@ const Header = () => {
           <br />
           <p>
             Reiventing <b style={{ color: "#31f2e4" }}>news</b> &
-            <b style={{ color: "#ff00ff" }}> reviews</b>, for the world of web3
-            - keep pace with DeFind.
+            <b style={{ color: "#ff00ff" }}> reviews</b>, for the world of web3.{" "}
           </p>
           <br />
         </H4>
