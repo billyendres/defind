@@ -23,26 +23,23 @@ const BlogPost = () => {
     if (isLoading) return <LoadingSpinner />;
     return (
       <Wrapper>
-        <Grid>
-          {/* <H1 className="main">{post.blogTitle}</H1> */}
-          <br />
-          <CardContainer>
-            <ProfileWrapper>
-              <TextWrapper>
-                <Header>{post.blogTitle}</Header>
-                <Subheader>{post.blogSummary}</Subheader>
+        <CardContainer>
+          <ProfileWrapper>
+            <TextWrapper>
+              <Header>{post.blogTitle}</Header>
+              <Subheader>{post.blogSummary}</Subheader>
 
-                <Text style={{ fontWeight: "bold" }}>
-                  {readableDate(post.createdDate)}
-                </Text>
-                <Img src={post.blogImage.fields.file.url} alt="img" />
+              <Text style={{ fontWeight: "bold" }}>
+                {readableDate(post.createdDate)}
+              </Text>
+              <Img src={post.blogImage.fields.file.url} alt="img" />
 
-                <Text>
-                  <ReactMarkdown
-                    children={post.blogContentLong}
-                    rehypePlugins={[rehypeRaw]}
-                  />
-                  {/* <table style="width: 100%;">
+              <Text>
+                <ReactMarkdown
+                  children={post.blogContentLong}
+                  rehypePlugins={[rehypeRaw]}
+                />
+                {/* <table style="width: 100%;">
                     <thead style="text-align: center;">
                       <td style="border: 2px solid #54CAE9; width: 50%; font-weight:  bold;">
                         Pros
@@ -65,35 +62,34 @@ const BlogPost = () => {
                       </tr>
                     </tbody>
                   </table> */}
-                </Text>
-                <Links to={`/`}>
-                  <Return>
-                    <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
-                  </Return>
-                </Links>
-                <div
-                  style={{
-                    display: "flex",
-                    marginTop: "0.5rem",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
+              </Text>
+              <Links to={`/`}>
+                <Return>
+                  <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
+                </Return>
+              </Links>
+              <div
+                style={{
+                  display: "flex",
+                  marginTop: "0.5rem",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Tweet
+                  type="button"
+                  role="button"
+                  title="Share"
+                  href={`https://twitter.com/intent/tweet?url=https://defind.tech/${post.slug}&text=${post.blogTitle}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  <Tweet
-                    type="button"
-                    role="button"
-                    title="Share"
-                    href={`https://twitter.com/intent/tweet?url=https://defind.tech/${post.slug}&text=${post.blogTitle}`}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <FaTwitter />
-                  </Tweet>
-                </div>
-              </TextWrapper>
-            </ProfileWrapper>
-          </CardContainer>
-        </Grid>
+                  <FaTwitter />
+                </Tweet>
+              </div>
+            </TextWrapper>
+          </ProfileWrapper>
+        </CardContainer>
       </Wrapper>
     );
   };
@@ -110,20 +106,12 @@ const Wrapper = styled.div`
   background: #daefff;
   padding-bottom: 2rem;
   padding-top: 7rem;
-  min-height: 100vh;
+
   @media screen and (max-width: 1023px) {
     padding-top: 5rem;
   }
   @media screen and (max-width: 600px) {
     padding-top: 4rem;
-  }
-`;
-
-const Grid = styled.div`
-  display: flex;
-  @media screen and (max-width: 1023px) {
-  }
-  @media screen and (max-width: 600px) {
   }
 `;
 

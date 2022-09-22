@@ -34,11 +34,11 @@ const Header = () => {
   return (
     <>
       <Wrapper>
+        <BackgroundMain src={backgroundMain} alt={backgroundMain} />
         <Logo src={mainLogoDarkTheme} alt="DeFind" />
-        <H1 style={{ position: "absolute", zIndex: 1 }} className="main">
+        <H1 style={{ position: "absolute" }} className="main">
           Web3 portal
         </H1>
-        <BackgroundMain src={backgroundMain} alt={backgroundMain} />
         <Arrow whileHover={{ scale: 1.1 }}>
           <FaAngleDown onClick={() => scrollToSection(pageTwo)} />
         </Arrow>
@@ -70,11 +70,13 @@ const Header = () => {
       </BlockTextWrapper> */}
       <BlockTextWrapper>
         {/* <H1 className="main">Revolution</H1> */}
-        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
+        <H3>News & Reviews</H3>
       </BlockTextWrapper>
       <div ref={pageTwo}></div>
       <div ref={pageTwoSmall}></div>
-      <Blog />
+      <div style={{ minHeight: "100vh" }}>
+        <Blog />
+      </div>
     </>
   );
 };
@@ -121,7 +123,6 @@ const H1 = styled.h1`
   &.main {
     color: #31f2e4;
     filter: drop-shadow(0px 0px 14px #31f2e4);
-
     -webkit-animation: glow 2s ease-in-out infinite alternate;
     -moz-animation: glow 2s ease-in-out infinite alternate;
     animation: glow 2s ease-in-out infinite alternate;
@@ -138,11 +139,11 @@ const H1 = styled.h1`
   }
   @media screen and (max-width: 1023px) {
     padding-top: 1rem;
-    font-size: 2.67rem;
+    font-size: 2.65rem;
   }
   @media screen and (max-width: 600px) {
     padding-top: 0.75rem;
-    font-size: 1.65rem;
+    font-size: 1.6rem;
   }
 `;
 
@@ -190,7 +191,7 @@ const BackgroundMain = styled.img`
   height: 90vh;
   width: 100vw;
   object-fit: cover;
-  position: relative;
+  position: absolute;
 `;
 
 const Wrapper = styled.div`
@@ -198,6 +199,8 @@ const Wrapper = styled.div`
   width: 100vw;
   align-items: center;
   justify-content: center;
+  height: 90vh;
+  /* position: relative; */
 `;
 
 const Arrow = styled(motion.div)`
@@ -265,7 +268,7 @@ const ArrowSmall = styled(motion.div)`
 const Logo = styled.img`
   width: 50rem;
   position: absolute;
-  z-index: 1;
+  /* z-index: 1; */
   @media screen and (max-width: 1023px) {
     width: 35rem;
   }

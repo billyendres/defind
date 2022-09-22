@@ -5,9 +5,9 @@ import Header from "../components/Home/Header";
 const Home = () => {
   return (
     <>
-      <Wrapper>
-        <Header />
-      </Wrapper>
+      {/* <Wrapper> */}
+      <Header />
+      {/* </Wrapper> */}
     </>
   );
 };
@@ -15,7 +15,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
   min-height: 100vh;
   display: flex;
   align-items: center;

@@ -56,13 +56,12 @@ html, body {
     background: #daefff;
     display: flex;
     flex-direction: column;
-    max-width: 100vw;
-    overflow-x: hidden;
+    width: auto;
     font-family: "Kdam Thmor Pro", sans-serif;
     letter-spacing: 1.25px;
-    /* text-align: center; */
-    z-index: -1;
-
+    @media screen and (min-width: 1023px) {
+      overflow-x: hidden;
+    }
 }
 
 @font-face {
