@@ -62,7 +62,7 @@ const Blog = () => {
 
         <Grid>
           {filteredSearch.map((post) => (
-            <Links to={`/portal/${post.fields.slug}`}>
+            <Links to={`/${post.fields.slug}`}>
               <CardContainer
                 key={post.fields.slug}
                 initial="offscreen"

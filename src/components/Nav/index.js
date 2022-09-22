@@ -89,7 +89,7 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
-          <div>
+          {/* <div>
             {!open && (
               <div className="navTop" onClick={() => setOpen(true)}>
                 <ButtonSmall
@@ -119,7 +119,7 @@ const Nav = () => {
                 />
               </div>
             )}
-          </div>
+          </div> */}
           <Hide
             style={{
               display: "flex",
@@ -162,7 +162,7 @@ const Nav = () => {
           </ArrowWrapper>
         </TextWrapper>
       </LinkWrapper>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {open && (
           <NavWrapper
             ref={buttonRef}
@@ -187,7 +187,7 @@ const Nav = () => {
             })}
           </NavWrapper>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </>
   );
 };

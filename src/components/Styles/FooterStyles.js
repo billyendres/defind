@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaPhoneAlt } from "react-icons/fa";
 import ButtonSmall from "./ButtonSmall";
+import { Links } from "./Links";
 
-const Twitter = () => {
+export const Twitter = () => {
   return (
     <Wrapper>
       <>
@@ -26,7 +27,23 @@ const Twitter = () => {
   );
 };
 
-export default Twitter;
+export const Contact = () => {
+  return (
+    <Wrapper>
+      <>
+        <div>
+          <Links to="/contact">
+            <Icons>
+              <ButtonSmall
+                text={<FaPhoneAlt style={{ marginBottom: "-0.15rem" }} />}
+              />
+            </Icons>
+          </Links>
+        </div>
+      </>
+    </Wrapper>
+  );
+};
 
 const Icons = styled.div`
   transition: all 0.5s linear;

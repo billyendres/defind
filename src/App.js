@@ -31,8 +31,8 @@ const App = () => {
       <>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/portal" element={<Blog />} />
-          <Route path="/portal/:blogId" element={<BlogPost />} />
+          {/* <Route path="/portal" element={<Blog />} /> */}
+          <Route path="/:blogId" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="unknownPage" element={<Logo />} />
           <Route path="*" element={<PageNotFound />} />

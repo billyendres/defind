@@ -75,10 +75,6 @@ const Header = () => {
       <div ref={pageTwo}></div>
       <div ref={pageTwoSmall}></div>
       <Blog />
-
-      {/* <Links to="/portal">
-          <Button text="portal" />
-        </Links> */}
     </>
   );
 };
@@ -195,12 +191,6 @@ const BackgroundMain = styled.img`
   width: 100vw;
   object-fit: cover;
   position: relative;
-  @media screen and (max-width: 1023px) {
-    height: 50vh;
-  }
-  @media screen and (max-width: 600px) {
-    height: 40vh;
-  }
 `;
 
 const Wrapper = styled.div`
@@ -241,7 +231,7 @@ const Arrow = styled(motion.div)`
 
 const ArrowSmall = styled(motion.div)`
   position: absolute;
-  bottom: 30vh;
+  bottom: 10vh;
 
   text-decoration: none;
   cursor: pointer;
@@ -266,11 +256,9 @@ const ArrowSmall = styled(motion.div)`
   @media screen and (max-width: 1023px) {
     display: inline;
     font-size: 2.5rem;
-    bottom: 50vh;
   }
   @media screen and (max-width: 600px) {
     font-size: 2rem;
-    bottom: 60vh;
   }
 `;
 

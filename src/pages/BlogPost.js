@@ -66,7 +66,7 @@ const BlogPost = () => {
                     </tbody>
                   </table> */}
                 </Text>
-                <Links to={`/portal`}>
+                <Links to={`/`}>
                   <Return>
                     <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
                   </Return>
@@ -83,7 +83,7 @@ const BlogPost = () => {
                     type="button"
                     role="button"
                     title="Share"
-                    href={`https://twitter.com/intent/tweet?url=https://defind.tech/portal/${post.slug}&text=${post.blogTitle}`}
+                    href={`https://twitter.com/intent/tweet?url=https://defind.tech/${post.slug}&text=${post.blogTitle}`}
                     rel="noopener noreferrer"
                     target="_blank"
                   >

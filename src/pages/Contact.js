@@ -66,7 +66,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
   text-align: left;
   background: #040010;
 
