@@ -10,6 +10,7 @@ import Nav from "./components/Nav";
 import Logo from "./pages/Logo";
 import Footer from "./components/Home/Footer";
 import { useLocation } from "react-router-dom";
+import Phatt from "./fonts/Phatt.ttf";
 
 const App = () => {
   const location = useLocation();
@@ -52,7 +53,7 @@ const GloablStyle = createGlobalStyle`
 }
 
 html, body {
-    background: #040010;
+    background: #daefff;
     display: flex;
     flex-direction: column;
     max-width: 100vw;
@@ -64,10 +65,10 @@ html, body {
 
 }
 
-img {
-
-  }
-
+@font-face {
+  font-family: 'Phatt';
+  src: url(${Phatt});
+}
   ul,
   li {
     margin: 0;

@@ -27,9 +27,9 @@ const Blog = () => {
   const [filteredSearch, setFilteredSearch] = useState();
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   useEffect(() => {
     const filterPosts = () => {
@@ -51,7 +51,7 @@ const Blog = () => {
 
     return (
       <Wrapper>
-        <H3 className="main">News & Reviews</H3>
+        {/* <H1 className="main">News & Reviews</H1> */}
         <Label>
           <Input
             type="text"
@@ -59,30 +59,39 @@ const Blog = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </Label>
+
         <Grid>
           {filteredSearch.map((post) => (
-            <CardContainer
-              key={post.fields.slug}
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <ProfileWrapper variants={cardVariants}>
-                <Img src={post?.fields?.blogImage?.fields.file.url} alt="img" />
+            <Links to={`/portal/${post.fields.slug}`}>
+              <CardContainer
+                key={post.fields.slug}
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <ProfileWrapper variants={cardVariants}>
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Img
+                      src={post?.fields?.blogImage?.fields.file.url}
+                      alt="img"
+                    />
+                  </motion.div>
 
-                <TextWrapper>
-                  <Header>{post.fields.blogTitle}</Header>
-                  {/* <Text>{post.fields.blogSummary}</Text> */}
-                  <Text>{readableDate(post.fields.createdDate)}</Text>
+                  <TextWrapper>
+                    <Header>{post.fields.blogTitle}</Header>
 
-                  <Links to={`/portal/${post.fields.slug}`}>
-                    <ViewPost>
-                      <b style={{ color: "#ff00ff" }}>View Post {">"}</b>
-                    </ViewPost>
-                  </Links>
-                </TextWrapper>
-              </ProfileWrapper>
-            </CardContainer>
+                    <Text>{post.fields.blogSummary}</Text>
+                    <Text>{readableDate(post.fields.createdDate)}</Text>
+
+                    <SmallText>
+                      <span style={{ color: "#ff00ff" }}>
+                        {readableDate(post.fields.createdDate)}
+                      </span>
+                    </SmallText>
+                  </TextWrapper>
+                </ProfileWrapper>
+              </CardContainer>
+            </Links>
           ))}
         </Grid>
       </Wrapper>
@@ -97,29 +106,34 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: #040010;
+  /* background: #040010; */
   padding-bottom: 2rem;
-  padding-top: 7rem;
+  padding-top: 3rem;
   min-height: 100vh;
   @media screen and (max-width: 1023px) {
-    padding-top: 5rem;
+    padding-top: 2rem;
   }
   @media screen and (max-width: 600px) {
-    padding-top: 4rem;
+    padding-top: 1rem;
   }
 `;
 
 const Grid = styled.div`
   padding-top: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
   @media screen and (max-width: 1023px) {
-    grid-gap: 1.5rem;
+    grid-gap: 2rem;
     padding-top: 0.75rem;
+    grid-template-columns: 1fr;
   }
   @media screen and (max-width: 600px) {
     padding-top: 0.5rem;
+    grid-gap: 2rem;
+  }
+  @media screen and (min-width: 1560px) {
+    grid-gap: 4rem;
   }
 `;
 
@@ -128,71 +142,106 @@ const CardContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0.5rem;
 `;
 
 const ProfileWrapper = styled(motion.div)`
   text-align: left;
   display: flex;
   flex-direction: column;
-  width: 40rem;
-  border-radius: 0.75rem;
-  background-color: #daefff;
-  box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075),
-    0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075),
-    0 0 16px hsl(0deg 0% 0% / 0.075);
-  transform-origin: 10% 60%;
+  width: 31rem;
+  height: 34rem;
+  background: #040010;
   @media screen and (max-width: 1023px) {
-    width: 34rem;
+    width: 28rem;
+    height: 28rem;
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
+    height: 22rem;
+  }
+  @media screen and (min-width: 1560px) {
+    width: 38rem;
+    height: 36rem;
   }
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  justify-content: center;
   padding: 1.5rem 2.25rem;
+  /* height: 16rem; */
   @media screen and (max-width: 1023px) {
     padding: 1.25rem 2rem;
-    width: 80%;
   }
   @media screen and (max-width: 600px) {
     padding: 1rem 1.25rem;
-    width: 90%;
   }
 `;
 
 const Header = styled.div`
-  color: #080e57;
+  font-family: "Russo One", sans-serif;
+  /* text-transform: uppercase; */
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   @media screen and (max-width: 1023px) {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 0.75rem;
     padding-bottom: 0.5rem;
+  }
+  @media screen and (min-width: 1560px) {
+    font-size: 1.3rem;
   }
 `;
 
 const Text = styled.div`
-  color: #080e57;
+  color: #daefff;
   transition: all 0.5s linear;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   line-height: 180%;
   white-space: pre-wrap;
 
   @media screen and (max-width: 1023px) {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     line-height: 170%;
+  }
+  @media screen and (min-width: 1560px) {
+    font-size: 0.85rem;
+  }
+`;
+
+const SmallText = styled.div`
+  color: #daefff;
+  transition: all 0.5s linear;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 180%;
+  white-space: pre-wrap;
+  padding-top: 1rem;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 0.55rem;
+    padding-top: 0.9rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.45rem;
+    line-height: 170%;
+    padding-top: 0.8rem;
+  }
+  @media screen and (min-width: 1560px) {
+    font-size: 0.7rem;
   }
 `;
 
@@ -239,8 +288,7 @@ const H3 = styled.div`
 
 const Img = styled.img`
   object-fit: cover;
-  width: 101%;
-  border-radius: 0.75rem 0.75rem 0 0;
+  width: 100%;
 `;
 
 const Label = styled.div`
@@ -284,5 +332,38 @@ const Tweet = styled.a`
   }
   @media screen and (max-width: 600px) {
     font-size: 1rem;
+  }
+`;
+
+const H1 = styled.div`
+  font-family: "Russo One", sans-serif;
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  /* padding-left: 1rem; */
+  color: #daefff;
+  &.main {
+    color: #31f2e4;
+    filter: drop-shadow(0px 0px 14px #31f2e4);
+
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0px 0px 14px #31f2e4);
+      color: #31f2e4;
+    }
+    to {
+      filter: drop-shadow(0px 0px 14px rgb(255, 0, 255));
+      color: rgb(255, 0, 255);
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    /* padding-left: 0.5rem; */
+    font-size: 3.375rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
   }
 `;

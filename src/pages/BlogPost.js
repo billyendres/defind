@@ -161,7 +161,12 @@ const TextWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  color: #080e57;
+  /* color: #080e57; */
+  font-family: "Russo One", sans-serif;
+  /* text-transform: uppercase; */
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
   font-size: 2.25rem;

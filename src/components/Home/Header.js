@@ -6,6 +6,7 @@ import { FaAngleDown } from "react-icons/fa";
 import backgroundMain from "../images/background.png";
 import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
+import Blog from "../../pages/Blog";
 import Footer from "./Footer";
 
 const Header = () => {
@@ -34,6 +35,9 @@ const Header = () => {
     <>
       <Wrapper>
         <Logo src={mainLogoDarkTheme} alt="DeFind" />
+        <H1 style={{ position: "absolute", zIndex: 1 }} className="main">
+          Web3 portal
+        </H1>
         <BackgroundMain src={backgroundMain} alt={backgroundMain} />
         <Arrow whileHover={{ scale: 1.1 }}>
           <FaAngleDown onClick={() => scrollToSection(pageTwo)} />
@@ -42,8 +46,8 @@ const Header = () => {
           <FaAngleDown onClick={() => scrollToSectionSmall(pageTwoSmall)} />
         </ArrowSmall>
       </Wrapper>
-      <BlockTextWrapper ref={pageTwo}>
-        {/* <Blog /> */}
+      {/* <BlockTextWrapper ref={pageTwo}>
+        <div ref={pageTwoSmall}></div>
         <H2 ref={pageTwoSmall}>The web3</H2>
         <H1 className="main">Revolution</H1>
         <H1>awaits</H1>
@@ -63,10 +67,18 @@ const Header = () => {
           </p>
           <br />
         </H4>
-        <Links to="/portal">
-          <Button text="portal" />
-        </Links>
+      </BlockTextWrapper> */}
+      <BlockTextWrapper>
+        {/* <H1 className="main">Revolution</H1> */}
+        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
       </BlockTextWrapper>
+      <div ref={pageTwo}></div>
+      <div ref={pageTwoSmall}></div>
+      <Blog />
+
+      {/* <Links to="/portal">
+          <Button text="portal" />
+        </Links> */}
     </>
   );
 };
@@ -74,19 +86,19 @@ const Header = () => {
 export default Header;
 
 const BlockTextWrapper = styled.div`
-  width: 50rem;
-  min-height: 100vh;
+  width: 100vw;
+  height: 10vh;
+  border-top: 1px solid #daefff;
+
+  background: #040010;
+
+  /* min-height: 100vh; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
   justify-content: center;
-  @media screen and (max-width: 1023px) {
-    width: 35rem;
-  }
-  @media screen and (max-width: 600px) {
-    width: 22rem;
-  }
+  align-items: center;
 `;
 
 const H2 = styled.div`
@@ -104,11 +116,11 @@ const H2 = styled.div`
   }
 `;
 
-const H1 = styled.div`
-  font-family: "Russo One", sans-serif;
+const H1 = styled.h1`
+  font-family: "Phatt", sans-serif;
   text-transform: uppercase;
-  font-size: 4.5rem;
-  padding-left: 1rem;
+  font-size: 3.85rem;
+  padding-top: 1.5rem;
   color: #daefff;
   &.main {
     color: #31f2e4;
@@ -129,22 +141,22 @@ const H1 = styled.div`
     }
   }
   @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 3.375rem;
+    padding-top: 1rem;
+    font-size: 2.67rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 2.8rem;
+    padding-top: 0.75rem;
+    font-size: 1.65rem;
   }
 `;
 
 const H3 = styled.div`
-  font-family: "Russo One", sans-serif;
+  font-family: "Phatt", sans-serif;
   text-transform: uppercase;
   font-size: 1.55rem;
   padding-left: 1rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
-
   background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -179,24 +191,28 @@ const H4 = styled.div`
 `;
 
 const BackgroundMain = styled.img`
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   object-fit: cover;
   position: relative;
+  @media screen and (max-width: 1023px) {
+    height: 50vh;
+  }
+  @media screen and (max-width: 600px) {
+    height: 40vh;
+  }
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100vw;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
 `;
 
 const Arrow = styled(motion.div)`
   position: absolute;
-  bottom: 0;
+  bottom: 10vh;
   text-decoration: none;
   cursor: pointer;
   font-size: 3rem;
@@ -225,7 +241,7 @@ const Arrow = styled(motion.div)`
 
 const ArrowSmall = styled(motion.div)`
   position: absolute;
-  bottom: 0;
+  bottom: 30vh;
 
   text-decoration: none;
   cursor: pointer;
@@ -249,10 +265,12 @@ const ArrowSmall = styled(motion.div)`
 
   @media screen and (max-width: 1023px) {
     display: inline;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    bottom: 50vh;
   }
   @media screen and (max-width: 600px) {
     font-size: 2rem;
+    bottom: 60vh;
   }
 `;
 
