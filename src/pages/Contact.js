@@ -66,17 +66,22 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 80vh;
+  min-height: 75vh;
   text-align: left;
   background: #040010;
-
   transition: all 0.5s linear;
+  @media screen and (max-width: 1023px) {
+    min-height: 80vh;
+  }
+  @media screen and (max-width: 600px) {
+    min-height: 85vh;
+  }
 `;
 
 const H1 = styled.div`
   font-family: "Russo One", sans-serif;
   text-transform: uppercase;
-  font-size: 5rem;
+  font-size: 4rem;
   padding-left: 1rem;
   color: #daefff;
   &.main {
@@ -99,10 +104,10 @@ const H1 = styled.div`
   }
   @media screen and (max-width: 1023px) {
     padding-left: 0.5rem;
-    font-size: 3.75rem;
+    font-size: 3.5rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 3.5rem;
+    font-size: 3.25rem;
   }
 `;
 

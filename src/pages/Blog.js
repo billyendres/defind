@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { Links } from "../components/Styles/Links";
 import { usePosts } from "../components/custom-hooks/usePost";
@@ -21,11 +21,15 @@ const cardVariants = {
     },
   },
 };
+const category = ["News", "Reviews", "dydx", "View all"];
 
 const Blog = () => {
   const [posts, isLoading] = usePosts();
   const [filteredSearch, setFilteredSearch] = useState();
   const [search, setSearch] = useState("");
+  const [searchCategory, setSearchCategory] = useState("View all");
+  const [openCategory, setOpenCategory] = useState(false);
+  const buttonRef = useRef();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,10 +44,22 @@ const Blog = () => {
           return true;
         }
       });
-      setFilteredSearch(filtered);
+      const filteredSearchTwo = filtered?.filter((post) => {
+        if (
+          post.fields.postType
+            .toLowerCase()
+            .includes(searchCategory.toLowerCase())
+        ) {
+          return true;
+        }
+      });
+      setFilteredSearch(filteredSearchTwo);
     };
     filterPosts();
-  }, [search, posts]);
+  }, [search, posts, searchCategory]);
+
+  console.log(searchCategory);
+  window.localStorage.setItem("searchResultsCategory", searchCategory);
 
   const renderPosts = () => {
     if (isLoading) return <LoadingSpinner />;
@@ -58,7 +74,49 @@ const Blog = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </Label>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <DropdownHeader
+            ref={buttonRef}
+            onClick={() => setOpenCategory(!openCategory)}
+          >
+            Select Category
+          </DropdownHeader>
+        </motion.div>
 
+        <AnimatePresence>
+          {openCategory && (
+            <motion.div
+              initial={{ opacity: 0, y: "-5%" }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: "-5%" }}
+              key="box"
+              transition={{
+                type: "spring",
+                stiffness: "100",
+              }}
+              style={{ height: "12rem", marginBottom: "-12rem" }}
+            >
+              <DropdownMenu>
+                {category.map((i, key) => (
+                  <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                    <DropdownSearch
+                      style={{
+                        border: i === searchCategory && "1px solid",
+                        borderRadius: "0.25rem",
+                      }}
+                      onClick={() => {
+                        setSearchCategory(i);
+                        setOpenCategory(false);
+                      }}
+                    >
+                      {i}
+                    </DropdownSearch>
+                  </motion.div>
+                ))}
+              </DropdownMenu>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Grid>
           {filteredSearch.map((post, key) => (
             <Links key={key} to={`/${post.fields.slug}`}>
@@ -78,6 +136,7 @@ const Blog = () => {
 
                   <TextWrapper>
                     <Header>{post.fields.blogTitle}</Header>
+                    {/* {console.log(post?.metadata.tags[0].sys.id)} */}
 
                     <Text>{post.fields.blogSummary}</Text>
                     <SmallText>
@@ -140,6 +199,8 @@ const CardContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
 const ProfileWrapper = styled(motion.div)`
@@ -362,5 +423,47 @@ const H1 = styled.div`
   }
   @media screen and (max-width: 600px) {
     font-size: 2rem;
+  }
+`;
+
+const DropdownMenu = styled.div`
+  background: #daefff;
+  border: 2px solid #080e57;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 15rem;
+  @media screen and (max-width: 600px) {
+    width: 12rem;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #080e57;
+  }
+`;
+
+const DropdownSearch = styled.div`
+  color: #040010;
+  transition: all 0.5s linear;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+`;
+
+const DropdownHeader = styled.div`
+  color: #040010;
+  transition: all 0.5s linear;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  @media screen and (max-width: 1023px) {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
   }
 `;

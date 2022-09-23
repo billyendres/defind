@@ -89,7 +89,7 @@ const BlogPost = () => {
                   type="button"
                   role="button"
                   title="Share"
-                  href={`https://twitter.com/intent/tweet?url=https://defind.tech/${post.slug}&text=${post.blogTitle}`}
+                  href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fdefind.tech/${post.slug}&text=${post.twitterTitle}`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

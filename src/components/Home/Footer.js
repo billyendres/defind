@@ -29,14 +29,17 @@ const Wrapper = styled.div`
   align-items: center;
   background: #040010;
   border-top: 1px solid #daefff;
-  height: 20vh;
+  height: 25vh;
   width: 100vw;
+  @media screen and (max-width: 1023px) {
+    height: 20vh;
+  }
 `;
 
 const H3 = styled.div`
   font-family: "Russo One", sans-serif;
   text-transform: uppercase;
-  font-size: 1.55rem;
+  font-size: 1.85rem;
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -44,11 +47,11 @@ const H3 = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   @media screen and (max-width: 1023px) {
-    font-size: 1.162rem;
-    padding: 1.25rem;
+    font-size: 1.5rem;
+    padding: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.95rem;
-    padding: 1rem;
+    font-size: 1.25rem;
+    padding: 0.5rem;
   }
 `;

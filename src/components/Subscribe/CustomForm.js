@@ -83,13 +83,6 @@ const CustomForm = ({ status, onValidated }) => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      {/* {status === "sending" && <Label>sending...</Label>}
-      {status === "error" && (
-        <Label dangerouslySetInnerHTML={{ __html: message }} />
-      )}
-      {status === "success" && (
-        <Label dangerouslySetInnerHTML={{ __html: message }} />
-      )} */}
       <Label style={{ display: "flex", alignItems: "center" }}>
         <Input
           onChange={(e) => setEmail(e.target.value)}
