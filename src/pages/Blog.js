@@ -51,7 +51,7 @@ const Blog = () => {
 
     return (
       <Wrapper>
-        {/* <H1 className="main">News & Reviews</H1> */}
+        <H3>News & Reviews</H3>
         <Label>
           <Input
             type="text"

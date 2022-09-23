@@ -1,19 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { Links } from "../components/Styles/Links";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaLink, FaCheck } from "react-icons/fa";
 import { useSinglePost } from "../components/custom-hooks/useSinglePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
+import Button from "../components/Styles/Button";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
 const BlogPost = () => {
   const { blogId } = useParams();
   const [post, isLoading] = useSinglePost(blogId);
+  const [copied, setCopied] = useState(false);
+
+  function copy() {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,12 +39,9 @@ const BlogPost = () => {
           <ProfileWrapper>
             <TextWrapper>
               <Header>{post.blogTitle}</Header>
-              <Subheader>{post.blogSummary}</Subheader>
-
-              <Text style={{ fontWeight: "bold" }}>
-                {readableDate(post.createdDate)}
-              </Text>
+              <Text>{readableDate(post.createdDate)}</Text>
               <Img src={post.blogImage.fields.file.url} alt="img" />
+              <Subheader>{post.blogSummary}</Subheader>
 
               <Text>
                 <ReactMarkdown
@@ -72,7 +81,7 @@ const BlogPost = () => {
                 style={{
                   display: "flex",
                   marginTop: "0.5rem",
-                  flexDirection: "column",
+                  justifyContent: "center",
                   alignItems: "center",
                 }}
               >
@@ -86,6 +95,9 @@ const BlogPost = () => {
                 >
                   <FaTwitter />
                 </Tweet>
+                <CopyLink onClick={copy}>
+                  {!copied ? <FaLink /> : <FaCheck />}
+                </CopyLink>
               </div>
             </TextWrapper>
           </ProfileWrapper>
@@ -157,14 +169,14 @@ const Header = styled.div`
   -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: bold;
   @media screen and (max-width: 1023px) {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     padding-bottom: 0.5rem;
   }
 `;
@@ -174,6 +186,8 @@ const Subheader = styled.div`
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
   font-size: 1.25rem;
+  font-weight: bold;
+
   @media screen and (max-width: 1023px) {
     font-size: 1.1rem;
     padding-bottom: 0.75rem;
@@ -288,11 +302,33 @@ const Tweet = styled.a`
   color: #080e57;
   text-decoration: none;
   cursor: pointer;
+  margin: 0 0.5rem;
+  &:hover {
+    color: #ff00ff;
+  }
   font-size: 2rem;
   @media screen and (max-width: 1023px) {
     font-size: 1.5rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 1.25rem;
+  }
+`;
+
+const CopyLink = styled.a`
+  padding-top: 0.25rem;
+  color: #080e57;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 0 0.5rem;
+  &:hover {
+    color: #ff00ff;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.25rem;
   }
 `;

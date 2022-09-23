@@ -8,6 +8,7 @@ import Button from "../Styles/Button";
 import { Links } from "../Styles/Links";
 import Blog from "../../pages/Blog";
 import Footer from "./Footer";
+import Subscribe from "../Subscribe/Subscribe";
 
 const Header = () => {
   const pageTwo = useRef(null);
@@ -70,7 +71,7 @@ const Header = () => {
       </BlockTextWrapper> */}
       <BlockTextWrapper>
         {/* <H1 className="main">Revolution</H1> */}
-        <H3>News & Reviews</H3>
+        <Subscribe />
       </BlockTextWrapper>
       <div ref={pageTwo}></div>
       <div ref={pageTwoSmall}></div>
@@ -87,7 +88,8 @@ const BlockTextWrapper = styled.div`
   width: 100vw;
   height: 10vh;
   border-top: 1px solid #daefff;
-
+  display: flex;
+  flex-direction: column;
   background: #040010;
 
   /* min-height: 100vh; */

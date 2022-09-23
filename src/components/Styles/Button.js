@@ -18,7 +18,7 @@ const MotionButton = styled(motion.button)`
   font-size: 1.25rem;
   font-family: "Russo One", sans-serif;
   letter-spacing: 3px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 0.5rem 1rem;
   margin: 1rem;
   min-width: 10rem;
