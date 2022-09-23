@@ -44,7 +44,6 @@ const Blog = () => {
     };
     filterPosts();
   }, [search, posts]);
-  console.log(filteredSearch);
 
   const renderPosts = () => {
     if (isLoading) return <LoadingSpinner />;
@@ -61,8 +60,8 @@ const Blog = () => {
         </Label>
 
         <Grid>
-          {filteredSearch.map((post) => (
-            <Links to={`/${post.fields.slug}`}>
+          {filteredSearch.map((post, key) => (
+            <Links key={key} to={`/${post.fields.slug}`}>
               <CardContainer
                 key={post.fields.slug}
                 initial="offscreen"
@@ -81,8 +80,6 @@ const Blog = () => {
                     <Header>{post.fields.blogTitle}</Header>
 
                     <Text>{post.fields.blogSummary}</Text>
-                    <Text>{readableDate(post.fields.createdDate)}</Text>
-
                     <SmallText>
                       <span style={{ color: "#ff00ff" }}>
                         {readableDate(post.fields.createdDate)}

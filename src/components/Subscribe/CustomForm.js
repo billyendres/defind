@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Styles/Button";
+import {
+  FaRegHandPointLeft,
+  FaRegThumbsUp,
+  FaSpinner,
+  FaRegThumbsDown,
+} from "react-icons/fa";
 
-const CustomForm = ({ status, message, onValidated }) => {
+const CustomForm = ({ status, onValidated }) => {
   const [email, setEmail] = useState("");
+  const [buttonStatus, setButtonStatus] = useState(
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <FaRegHandPointLeft style={{ marginRight: "0.5rem" }} />
+      Subscribe
+    </div>
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,22 +32,64 @@ const CustomForm = ({ status, message, onValidated }) => {
   };
 
   useEffect(() => {
-    if (status === "success") clearFields();
+    const subscribe = () => {
+      if (status === "sending") {
+        setButtonStatus(
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FaSpinner
+              style={{ marginRight: "0.5rem", marginBottom: "-0.15rem" }}
+            />
+            Loading
+          </div>
+        );
+      }
+      if (status === "error") {
+        setButtonStatus(
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FaRegThumbsDown
+              style={{ marginRight: "0.5rem", marginBottom: "-0.15rem" }}
+            />
+            Invalid email
+          </div>
+        );
+      }
+      if (status === "success") {
+        setButtonStatus(
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FaRegThumbsUp style={{ marginRight: "0.5rem" }} />
+            Subscribed!
+          </div>
+        );
+        setEmail("");
+      }
+    };
+    subscribe();
   }, [status]);
-
-  const clearFields = () => {
-    setEmail("");
-  };
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      {status === "sending" && <Label>sending...</Label>}
+      {/* {status === "sending" && <Label>sending...</Label>}
       {status === "error" && (
         <Label dangerouslySetInnerHTML={{ __html: message }} />
       )}
       {status === "success" && (
         <Label dangerouslySetInnerHTML={{ __html: message }} />
-      )}
+      )} */}
       <Label style={{ display: "flex", alignItems: "center" }}>
         <Input
           onChange={(e) => setEmail(e.target.value)}
@@ -39,8 +98,9 @@ const CustomForm = ({ status, message, onValidated }) => {
           required={true}
           maxLength="40"
           type="email"
+          value={email}
         />
-        <Button type="submit" text="Subscribe" />
+        <Button type="submit" text={buttonStatus} />
       </Label>
     </form>
   );
