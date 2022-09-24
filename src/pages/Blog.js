@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { Links } from "../components/Styles/Links";
 import { usePosts } from "../components/custom-hooks/usePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
+import Button from "../components/Styles/Button";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
@@ -23,12 +24,26 @@ const cardVariants = {
 };
 const category = ["View all", "News", "Reviews"];
 
+const titles = [
+  "Price analysis",
+  "Projects Reviews",
+  "Tutorials",
+  "Blockchain",
+  "NFTS & Metaverse",
+  "News & Reviews",
+  "How to buy",
+  "Trading guides",
+  "Exchange reviews",
+  "Altcoin picks",
+];
+
 const Blog = () => {
   const [posts, isLoading] = usePosts();
   const [filteredSearch, setFilteredSearch] = useState();
   const [search, setSearch] = useState("");
   const [searchCategory, setSearchCategory] = useState("View all");
   const [openCategory, setOpenCategory] = useState(false);
+  const [title, setTitle] = useState("Web3");
   const buttonRef = useRef();
 
   useEffect(() => {
@@ -72,98 +87,107 @@ const Blog = () => {
     filterPosts();
   }, [search, posts, searchCategory]);
 
-  console.log(searchCategory);
   window.localStorage.setItem("searchResultsCategory", searchCategory);
+
+  const shuffle = useCallback(() => {
+    const index = Math.floor(Math.random() * titles.length);
+    setTitle(titles[index]);
+  }, []);
+
+  useEffect(() => {
+    const intervalID = setInterval(shuffle, 3000);
+    return () => clearInterval(intervalID);
+  }, [shuffle]);
 
   const renderPosts = () => {
     if (isLoading) return <LoadingSpinner />;
 
     return (
-      <Wrapper>
-        <H3>News & Reviews</H3>
-        <Label>
-          <Input
-            type="text"
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </Label>
-        <motion.div whileHover={{ scale: 1.05 }}>
+      <>
+        <Wrapper>
+          {/* <H3 className="main">{title}</H3> */}
+          <H3 className="main">News & Reviews</H3>
+
+          <Label>
+            <Input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Label>
           <DropdownHeader
             ref={buttonRef}
             onClick={() => setOpenCategory(!openCategory)}
           >
-            Select Category
+            <Button text="Category" />
           </DropdownHeader>
-        </motion.div>
-        <AnimatePresence>
-          {openCategory && (
-            <motion.div
-              initial={{ opacity: 0, y: "-5%" }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: "-5%" }}
-              key="box"
-              transition={{
-                type: "spring",
-                stiffness: "100",
-              }}
-              style={{ height: "12rem", marginBottom: "-12rem" }}
-            >
-              <DropdownMenu>
-                {category.map((i, key) => (
-                  <motion.div key={key} whileHover={{ scale: 1.05 }}>
-                    <DropdownSearch
-                      style={{
-                        border: i === searchCategory && "1px solid",
-                        borderRadius: "0.25rem",
-                      }}
-                      onClick={() => {
-                        setSearchCategory(i);
-                        setOpenCategory(false);
-                      }}
-                    >
-                      {i}
-                    </DropdownSearch>
-                  </motion.div>
-                ))}
-              </DropdownMenu>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <Grid>
-          {filteredSearch.map((post, key) => (
-            <Links key={key} to={`/${post.fields.slug}`}>
-              <CardContainer
-                key={post.fields.slug}
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.3 }}
+          <AnimatePresence>
+            {openCategory && (
+              <motion.div
+                initial={{ opacity: 0, y: "-5%" }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: "-5%" }}
+                key="box"
+                transition={{
+                  type: "spring",
+                  stiffness: "100",
+                }}
+                style={{ height: "12rem", marginBottom: "-12rem" }}
               >
-                <ProfileWrapper variants={cardVariants}>
-                  {/* <motion.div whileHover={{ scale: 1.05 }}> */}
-                  <Img
-                    src={post?.fields?.blogImage?.fields.file.url}
-                    alt="img"
-                  />
-                  {/* </motion.div> */}
+                <DropdownMenu>
+                  {category.map((i, key) => (
+                    <motion.div key={key} whileHover={{ scale: 1.05 }}>
+                      <DropdownSearch
+                        style={{
+                          border: i === searchCategory && "1px solid",
+                          borderRadius: "0.25rem",
+                        }}
+                        onClick={() => {
+                          setSearchCategory(i);
+                          setOpenCategory(false);
+                        }}
+                      >
+                        {i}
+                      </DropdownSearch>
+                    </motion.div>
+                  ))}
+                </DropdownMenu>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Grid>
+            {filteredSearch.map((post, key) => (
+              <Links key={key} to={`/${post.fields.slug}`}>
+                <CardContainer
+                  key={post.fields.slug}
+                  initial="offscreen"
+                  whileInView="onscreen"
+                  viewport={{ once: true, amount: 0.3 }}
+                >
+                  <ProfileWrapper variants={cardVariants}>
+                    <Img
+                      src={post?.fields?.blogImage?.fields.file.url}
+                      alt="img"
+                    />
 
-                  <TextWrapper>
-                    <Header>{post.fields.blogTitle}</Header>
-                    {/* {console.log(post?.metadata.tags[0].sys.id)} */}
+                    <TextWrapper>
+                      <Header>{post.fields.blogTitle}</Header>
+                      {/* {console.log(post?.metadata.tags[0].sys.id)} */}
 
-                    <Text>{post.fields.blogSummary}</Text>
-                    <SmallText>
-                      <span style={{ color: "#ff00ff" }}>
-                        {readableDate(post.fields.createdDate)}
-                      </span>
-                    </SmallText>
-                  </TextWrapper>
-                </ProfileWrapper>
-              </CardContainer>
-            </Links>
-          ))}
-        </Grid>
-      </Wrapper>
+                      <Text>{post.fields.blogSummary}</Text>
+                      <SmallText>
+                        <span style={{ color: "#ff00ff" }}>
+                          {readableDate(post.fields.createdDate)}
+                        </span>
+                      </SmallText>
+                    </TextWrapper>
+                  </ProfileWrapper>
+                </CardContainer>
+              </Links>
+            ))}
+          </Grid>
+        </Wrapper>
+      </>
     );
   };
   return <>{renderPosts()}</>;
@@ -212,7 +236,7 @@ const CardContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
 
@@ -341,7 +365,8 @@ const H3 = styled.div`
   font-size: 4rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
-
+  /* text-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -379,6 +404,8 @@ const Input = styled.input`
   font-size: 1rem;
   color: #080e57;
   font-family: "Kdam Thmor Pro", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
   &:focus {
     outline: none;
   }
@@ -411,7 +438,7 @@ const H1 = styled.div`
   text-transform: uppercase;
   font-size: 4.5rem;
   /* padding-left: 1rem; */
-  color: #daefff;
+  color: #040010;
   &.main {
     color: #31f2e4;
     filter: drop-shadow(0px 0px 14px #31f2e4);
@@ -445,6 +472,8 @@ const DropdownMenu = styled.div`
   border-radius: 0.5rem;
   padding: 1rem;
   width: 15rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
   @media screen and (max-width: 600px) {
     width: 12rem;
     font-size: 0.75rem;
@@ -468,7 +497,6 @@ const DropdownSearch = styled.div`
 const DropdownHeader = styled.div`
   color: #040010;
   transition: all 0.5s linear;
-  padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
   @media screen and (max-width: 1023px) {
@@ -477,6 +505,5 @@ const DropdownHeader = styled.div`
   }
   @media screen and (max-width: 600px) {
     font-size: 0.6rem;
-    padding: 0.15rem 0.5rem;
   }
 `;
