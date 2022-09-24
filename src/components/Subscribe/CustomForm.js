@@ -62,6 +62,19 @@ const CustomForm = ({ status, onValidated }) => {
             Invalid email
           </div>
         );
+        setTimeout(() => {
+          setButtonStatus(
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <FaRegHandPointLeft style={{ marginRight: "0.5rem" }} />
+              Subscribe
+            </div>
+          );
+        }, [3000]);
       }
       if (status === "success") {
         setButtonStatus(

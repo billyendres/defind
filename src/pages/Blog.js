@@ -21,7 +21,7 @@ const cardVariants = {
     },
   },
 };
-const category = ["News", "Reviews", "dydx", "View all"];
+const category = ["View all", "News", "Reviews"];
 
 const Blog = () => {
   const [posts, isLoading] = usePosts();
@@ -33,6 +33,20 @@ const Blog = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (buttonRef.current) {
+        if (!buttonRef.current.contains(e.target)) {
+          setOpenCategory(false);
+        }
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   useEffect(() => {
@@ -82,7 +96,6 @@ const Blog = () => {
             Select Category
           </DropdownHeader>
         </motion.div>
-
         <AnimatePresence>
           {openCategory && (
             <motion.div
@@ -127,12 +140,12 @@ const Blog = () => {
                 viewport={{ once: true, amount: 0.3 }}
               >
                 <ProfileWrapper variants={cardVariants}>
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Img
-                      src={post?.fields?.blogImage?.fields.file.url}
-                      alt="img"
-                    />
-                  </motion.div>
+                  {/* <motion.div whileHover={{ scale: 1.05 }}> */}
+                  <Img
+                    src={post?.fields?.blogImage?.fields.file.url}
+                    alt="img"
+                  />
+                  {/* </motion.div> */}
 
                   <TextWrapper>
                     <Header>{post.fields.blogTitle}</Header>
