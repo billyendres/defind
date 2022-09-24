@@ -89,7 +89,7 @@ const BlogPost = () => {
                   type="button"
                   role="button"
                   title="Share"
-                  href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fdefind.tech/${post.slug}&text=${post.twitterTitle}`}
+                  href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fdefind.tech/${post.slug}&text=${post.twitterTitle}%20(via%20%40defind_web3) `}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -169,14 +169,14 @@ const Header = styled.div`
   -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   @media screen and (max-width: 1023px) {
-    font-size: 1.65rem;
+    font-size: 2rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.1rem;
+    font-size: 1.5em;
     padding-bottom: 0.5rem;
   }
 `;
@@ -184,17 +184,17 @@ const Header = styled.div`
 const Subheader = styled.div`
   color: #080e57;
   transition: all 0.5s linear;
-  padding-bottom: 0.75rem;
-  font-size: 1.25rem;
+  padding-bottom: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
 
   @media screen and (max-width: 1023px) {
-    font-size: 1.1rem;
-    padding-bottom: 0.75rem;
+    font-size: 1.25rem;
+    padding-bottom: 1.5rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
+    font-size: 1rem;
+    padding-bottom: 1.5rem;
   }
 `;
 

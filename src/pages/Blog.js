@@ -156,7 +156,7 @@ const Blog = () => {
             )}
           </AnimatePresence>
           <Grid>
-            {filteredSearch.map((post, key) => (
+            {filteredSearch?.map((post, key) => (
               <Links key={key} to={`/${post.fields.slug}`}>
                 <CardContainer
                   key={post.fields.slug}
@@ -172,8 +172,6 @@ const Blog = () => {
 
                     <TextWrapper>
                       <Header>{post.fields.blogTitle}</Header>
-                      {/* {console.log(post?.metadata.tags[0].sys.id)} */}
-
                       <Text>{post.fields.blogSummary}</Text>
                       <SmallText>
                         <span style={{ color: "#ff00ff" }}>
@@ -199,7 +197,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* background: #040010; */
   padding-bottom: 2rem;
   padding-top: 3rem;
   min-height: 100vh;
