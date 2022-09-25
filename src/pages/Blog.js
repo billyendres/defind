@@ -22,10 +22,10 @@ const cardVariants = {
     },
   },
 };
-const category = ["View all", "News", "Reviews"];
+const category = ["View all", "News", "Reviews", "Tutorials"];
 
 const titles = [
-  "Price analysis",
+  "technical analysis",
   "Projects Reviews",
   "Tutorials",
   "Blockchain",
@@ -34,7 +34,11 @@ const titles = [
   "How to buy",
   "Trading guides",
   "Exchange reviews",
-  "Altcoin picks",
+  "Low cap altcoin",
+  "Futures & leverage",
+  "Trading setups",
+  "Tokenomics",
+  "Price predictions",
 ];
 
 const Blog = () => {
@@ -105,9 +109,7 @@ const Blog = () => {
     return (
       <>
         <Wrapper>
-          {/* <H3 className="main">{title}</H3> */}
-          <H3 className="main">News & Reviews</H3>
-
+          <H3 className="main">{title}</H3>
           <Label>
             <Input
               type="text"
@@ -274,23 +276,22 @@ const TextWrapper = styled.div`
 
 const Header = styled.div`
   font-family: "Russo One", sans-serif;
-  /* text-transform: uppercase; */
   background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   @media screen and (max-width: 1023px) {
-    font-size: 1rem;
+    font-size: 1.25rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
+    font-size: 1rem;
     padding-bottom: 0.5rem;
   }
   @media screen and (min-width: 1560px) {
-    font-size: 1.3rem;
+    font-size: 1.75rem;
   }
 `;
 
@@ -298,19 +299,19 @@ const Text = styled.div`
   color: #daefff;
   transition: all 0.5s linear;
   padding: 0;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   line-height: 180%;
   white-space: pre-wrap;
 
   @media screen and (max-width: 1023px) {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.5rem;
+    font-size: 0.65rem;
     line-height: 170%;
   }
   @media screen and (min-width: 1560px) {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 `;
 

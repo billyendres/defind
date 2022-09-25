@@ -48,29 +48,6 @@ const BlogPost = () => {
                   children={post.blogContentLong}
                   rehypePlugins={[rehypeRaw]}
                 />
-                {/* <table style="width: 100%;">
-                    <thead style="text-align: center;">
-                      <td style="border: 2px solid #54CAE9; width: 50%; font-weight:  bold;">
-                        Pros
-                      </td>
-                      <td style="border: 2px solid #ff00ff; width: 50%; font-weight:  bold;">
-                        Cons
-                      </td>
-                    </thead>
-                    <tbody style="text-align: center;">
-                      <tr>
-                        <td>Sue</td>
-                        <td>00002</td>
-                      </tr>
-                      <tr>
-                        <td>Barb</td>
-                        <td>00003</td>
-                      </tr>
-                      <tr>
-                        <td>Barb</td>
-                      </tr>
-                    </tbody>
-                  </table> */}
               </Text>
               <Links to={`/`}>
                 <Return>
@@ -161,18 +138,16 @@ const TextWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  /* color: #080e57; */
   font-family: "Russo One", sans-serif;
-  /* text-transform: uppercase; */
   background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.5s linear;
   padding-bottom: 0.75rem;
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: bold;
   @media screen and (max-width: 1023px) {
-    font-size: 2rem;
+    font-size: 2.25rem;
     padding-bottom: 0.75rem;
   }
   @media screen and (max-width: 600px) {
