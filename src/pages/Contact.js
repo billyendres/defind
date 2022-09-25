@@ -15,7 +15,13 @@ const Contact = () => {
         <H1 className="main">In touch</H1>
         <br />
         <H4>
-          Please feel free to reach out anytime, we'd love to hear from you!
+          Blockchain, Web3 and trading can be complicated. <br />
+          <br />
+          Our goal is to make the complex - simple.
+          <br />
+          <br />
+          If you have a suggestion for an article or would like to learn more,
+          please feel free to reach out, we'd love to hear from you!
         </H4>
         <br />
         <H4>
@@ -68,10 +74,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   min-height: 75vh;
   text-align: left;
+  padding: 4rem 0 2rem 0;
   background: #040010;
   transition: all 0.5s linear;
   @media screen and (max-width: 1023px) {
     min-height: 80vh;
+    padding: 2rem 0 1rem 0;
   }
   @media screen and (max-width: 600px) {
     min-height: 85vh;

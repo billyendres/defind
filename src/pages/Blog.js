@@ -22,23 +22,25 @@ const cardVariants = {
     },
   },
 };
-const category = ["View all", "News", "Reviews", "Tutorials"];
+const category = ["View all", "News", "Reviews", "Tutorials", "Guides"];
 
 const titles = [
   "technical analysis",
   "Projects Reviews",
-  "Tutorials",
+  "Web3 Tutorials",
   "Blockchain",
   "NFTS & Metaverse",
-  "News & Reviews",
-  "How to buy",
+  "Crypto News",
+  "How to buy guides",
   "Trading guides",
   "Exchange reviews",
-  "Low cap altcoin",
+  "Altcoin gems",
   "Futures & leverage",
   "Trading setups",
   "Tokenomics",
+  "Whitepapers",
   "Price predictions",
+  "DeFi guides",
 ];
 
 const Blog = () => {
@@ -110,6 +112,7 @@ const Blog = () => {
       <>
         <Wrapper>
           <H3 className="main">{title}</H3>
+          {/* <H4>Complex topics - simplified</H4> */}
           <Label>
             <Input
               type="text"
@@ -248,15 +251,15 @@ const ProfileWrapper = styled(motion.div)`
   background: #040010;
   @media screen and (max-width: 1023px) {
     width: 28rem;
-    height: 28rem;
+    height: 29rem;
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
-    height: 22rem;
+    height: 23rem;
   }
   @media screen and (min-width: 1560px) {
     width: 38rem;
-    height: 36rem;
+    height: 38rem;
   }
 `;
 
@@ -503,5 +506,19 @@ const DropdownHeader = styled.div`
   }
   @media screen and (max-width: 600px) {
     font-size: 0.6rem;
+  }
+`;
+
+const H4 = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-size: 1.25rem;
+  color: #040010;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.15rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
   }
 `;
