@@ -112,6 +112,7 @@ const Blog = () => {
       <>
         <Wrapper>
           <H3 className="main">{title}</H3>
+
           {/* <H4>Complex topics - simplified</H4> */}
           <Label>
             <Input

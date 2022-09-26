@@ -9,6 +9,7 @@ import { FaTwitter, FaLink, FaCheck } from "react-icons/fa";
 import { useSinglePost } from "../components/custom-hooks/useSinglePost";
 import LoadingSpinner from "../components/Styles/LoadingSpinner";
 import Button from "../components/Styles/Button";
+import { Helmet } from "react-helmet";
 
 const readableDate = (dateString) => new Date(dateString).toDateString();
 
@@ -31,6 +32,8 @@ const BlogPost = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  window.twttr.widgets.load();
+
   const renderPost = () => {
     if (isLoading) return <LoadingSpinner />;
     return (
@@ -39,7 +42,7 @@ const BlogPost = () => {
           <ProfileWrapper>
             <TextWrapper>
               <Header>{post.blogTitle}</Header>
-              <Text>{readableDate(post.createdDate)}</Text>
+              <Text id="twitter-wjs">{readableDate(post.createdDate)}</Text>
               <Img src={post.blogImage.fields.file.url} alt="img" />
               <Subheader>{post.blogSummary}</Subheader>
 

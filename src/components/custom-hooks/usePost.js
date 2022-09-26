@@ -13,7 +13,7 @@ export const usePosts = () => {
       setPosts(blogPosts);
       setLoading(false);
     });
-  }, []);
+  }, [posts]);
 
   return [posts, isLoading];
 };
