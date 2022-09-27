@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FaTelegram, FaTwitterSquare, FaMailBulk } from "react-icons/fa";
 
-const Contact = () => {
+const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Wrapper>
       <motion.div
@@ -11,63 +15,54 @@ const Contact = () => {
         animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <H1>Drop</H1>
-        <H1 className="main">Us a line</H1>
+        <H1>WTF</H1>
+        <H1 className="main">is WWCB?</H1>
         <br />
         <H4>
-          If you have a suggestion for a world class article or ground breaking
-          investigative journalism piece, let me know and I'll see if I could be
-          bothered.
+          DISCLAIMER: This is not your typical crypto blog. If you like dull
+          reads and semi-plagarised rewrites, this may not be the place for you.
+          <br />
+          <br />
+          Hi, I'm Billy :) I'm the founder, CEO, CFO and intern at world's worst
+          crypto blog. I started this site cause I'm sick of traditional crypto
+          articles, boring news coverage and clowns talking shit on twitter.
+          <br />
+          <br />
+          Also, I need a place to vent cause my GFs sick of hearing my
+          web3-related complaining.
+          <br />
+          <br />
+          I'm a software developer, crypto writer and trader - I'm not the best
+          at any of the above, but hey, I sometimes kind of know what I'm
+          talking about.
+          <br />
+          <br />
+          Basically, the plan is to provide crypto content, trading guides and
+          project reviews that aren't completely mind numbing to read.
+          <br />
+          <br />
+          Join me on my journey in talking about web3, digging up altcoin g3ms
+          and trying not to lose money trading 1,000x leverage.
+          <br />
+          <br />
+          PS. I coded the website instead of using a shithouse wordpress
+          template. So if somethings broken tell me - like I said, sub par
+          skills.
         </H4>
         <br />
-        <H4>
-          <IconWrapper>
-            <FaMailBulk />
-          </IconWrapper>
-          <Bold>contact@defind.tech</Bold>
-        </H4>
-        <br />
-
-        <H4>
-          <IconWrapper>
-            <FaTwitterSquare />
-          </IconWrapper>
-          <Anchor
-            href="https://twitter.com/WorstCryptoBlog"
-            target="_blank"
-            rel="noopener noreferrer"
-            alt="Apply"
-          >
-            <Bold>https://twitter.com/WorstCryptoBlog</Bold>
-          </Anchor>
-        </H4>
-        <br />
-        <H4>
-          <IconWrapper>
-            <FaTelegram />
-          </IconWrapper>
-          <Anchor
-            href="https://t.me/worlds_worst_crypto_blog"
-            target="_blank"
-            rel="noopener noreferrer"
-            alt="Apply"
-          >
-            <Bold>https://t.me/worlds_worst_crypto_blog</Bold>
-          </Anchor>
-        </H4>
       </motion.div>
     </Wrapper>
   );
 };
 
-export default Contact;
+export default About;
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  flex-direction: column;
+  /* flex-direction: column; */
   min-height: 75vh;
   text-align: left;
   padding: 4rem 0 2rem 0;
@@ -119,18 +114,18 @@ const H4 = styled.div`
   display: flex;
   align-items: center;
   font-family: "Kdam Thmor Pro", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   padding-left: 1rem;
-  width: 35rem;
+  width: 45rem;
   color: #daefff;
   @media screen and (max-width: 1023px) {
     padding-left: 0.5rem;
-    font-size: 1.15rem;
-    width: 27rem;
+    font-size: 1rem;
+    width: 30rem;
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 `;
 

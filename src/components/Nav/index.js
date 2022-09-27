@@ -56,7 +56,7 @@ const Nav = () => {
         title: (
           <IconWrapper>
             <FaHome style={{ marginRight: "1rem" }} />
-            <>Home</>
+            <>blogz plz</>
           </IconWrapper>
         ),
         route: "/",
@@ -66,17 +66,17 @@ const Nav = () => {
         title: (
           <IconWrapper>
             <FaDiceD20 style={{ marginRight: "1rem" }} />
-            <>Portal</>
+            <>WTF is WWCB?</>
           </IconWrapper>
         ),
-        route: `/portal`,
+        route: `/about`,
         key: 15,
       },
       {
         title: (
           <IconWrapper>
             <FaPhone style={{ marginRight: "1rem" }} />
-            <>Contact</>
+            <>Call me ;)</>
           </IconWrapper>
         ),
         route: `/contact`,
@@ -89,7 +89,7 @@ const Nav = () => {
     <>
       <LinkWrapper>
         <TextWrapper className={navColor ? "navTop" : "navScrolled"}>
-          {/* <div>
+          <div>
             {!open && (
               <div className="navTop" onClick={() => setOpen(true)}>
                 <ButtonSmall
@@ -119,7 +119,7 @@ const Nav = () => {
                 />
               </div>
             )}
-          </div> */}
+          </div>
           <Hide
             style={{
               display: "flex",
@@ -138,7 +138,7 @@ const Nav = () => {
             <Links to="/">
               <LogoImage
                 src={logoDarkTheme}
-                alt="DeFind Web3 Portal"
+                alt="World's worst crypto blog"
                 style={{
                   opacity: navColor ? 0 : 1,
                 }}
@@ -162,7 +162,7 @@ const Nav = () => {
           </ArrowWrapper>
         </TextWrapper>
       </LinkWrapper>
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {open && (
           <NavWrapper
             ref={buttonRef}
@@ -187,7 +187,7 @@ const Nav = () => {
             })}
           </NavWrapper>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
     </>
   );
 };

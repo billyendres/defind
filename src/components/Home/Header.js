@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import mainLogoDarkTheme from "../images/mainLogoDarkThemeGlitch.png";
+import WorldsBestCryptoBlog from "../images/WorldBestCryptoBlog.png";
 import { FaAngleDown } from "react-icons/fa";
 import backgroundMain from "../images/background.png";
 import Button from "../Styles/Button";
@@ -13,6 +14,7 @@ import Subscribe from "../Subscribe/Subscribe";
 const Header = () => {
   const pageTwo = useRef(null);
   const pageTwoSmall = useRef(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,9 +38,9 @@ const Header = () => {
     <>
       <Wrapper>
         <BackgroundMain src={backgroundMain} alt={backgroundMain} />
-        <Logo src={mainLogoDarkTheme} alt="DeFind" />
+        <Logo src={WorldsBestCryptoBlog} alt="DeFind" />
         <H1 style={{ position: "absolute" }} className="main">
-          Web3 portal
+          crypto blog
         </H1>
         <Arrow whileHover={{ scale: 1.1 }}>
           <FaAngleDown onClick={() => scrollToSection(pageTwo)} />
@@ -47,32 +49,73 @@ const Header = () => {
           <FaAngleDown onClick={() => scrollToSectionSmall(pageTwoSmall)} />
         </ArrowSmall>
       </Wrapper>
-      {/* <BlockTextWrapper ref={pageTwo}>
-        <div ref={pageTwoSmall}></div>
-        <H2 ref={pageTwoSmall}>The web3</H2>
-        <H1 className="main">Revolution</H1>
-        <H1>awaits</H1>
-        <H3>CRYPTO - BLOCKCHAIN - WEB3 - DEFI</H3>
-        <H4>
-          <p>Decentralised technologies are often overcomplicated. </p>
-          <br />
-          <p>
-            Our goal is to provide up-to-date educational resources and make{" "}
-            <b style={{ color: "#31f2e4" }}>complex</b> -{" "}
-            <b style={{ color: "#ff00ff" }}>simple.</b>
-          </p>
-          <br />
-          <p>
-            Reiventing <b style={{ color: "#31f2e4" }}>news</b> &
-            <b style={{ color: "#ff00ff" }}> reviews</b>, for the world of web3.{" "}
-          </p>
-          <br />
-        </H4>
-      </BlockTextWrapper> */}
-      <BlockTextWrapper>
-        {/* <H1 className="main">Revolution</H1> */}
+      {/* <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            // exit={{ opacity: 0, y: "-100%" }}
+            key="box"
+            transition={{
+              type: "spring",
+              stiffness: "100",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100vw",
+                textAlign: "center",
+                background: "#040010",
+                height: "10vh",
+                borderTop: "2px solid #DAEFFF",
+                alignItems: "center",
+              }}
+            >
+              <Subheader>WTF is world's worst crypto blog?</Subheader>
+            </div>
+            <BlockTextBackground>
+              <BlockTextWrapper>
+                <H4>
+                  <p>
+                    <b>DISCLAIMER: </b>
+                    This is not your typical crypto blog | If you like dull
+                    reads and semi-plagarised rewrites then this may not be the
+                    place for you.
+                  </p>
+                  <br />
+                  <p>
+                    I started world's worst crypto blog cause I'm sick of
+                    traditional crypto articles, boring news coverage and clowns
+                    talking sh!t on twitter.
+                  </p>
+                  <br />
+                  <p>
+                    I'm a software developer, crypto writer and trader - I'm not
+                    the best at any of the above, but hey, you can't win em'
+                    all!
+                  </p>
+                </H4>
+                <H4>
+                  Basically, the plan is to provide web3 content, trading guides
+                  and project reviews that aren't completely mind numbing to
+                  read.
+                  <br />
+                  <br />
+                  Join me on my journey in talking about web3 sH*t, digging up
+                  altcoin g3ms and trying not to lose money trading 1,000x
+                  leverage :?
+                </H4>
+              </BlockTextWrapper>
+            </BlockTextBackground>
+          </motion.div>
+        )}
+      </AnimatePresence> */}
+
+      <SubscribeWrapper>
         <Subscribe />
-      </BlockTextWrapper>
+      </SubscribeWrapper>
       <div ref={pageTwo}></div>
       <div ref={pageTwoSmall}></div>
       <div style={{ minHeight: "100vh" }}>
@@ -84,43 +127,59 @@ const Header = () => {
 
 export default Header;
 
-const BlockTextWrapper = styled.div`
-  width: 100vw;
+const SubscribeWrapper = styled.div`
   height: 10vh;
-  border-top: 1px solid #daefff;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  background: #040010;
-
-  /* min-height: 100vh; */
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  text-align: center;
   justify-content: center;
   align-items: center;
-`;
-
-const H2 = styled.div`
-  font-family: "Russo One", sans-serif;
-  text-transform: uppercase;
-  font-size: 2rem;
-  padding-left: 1rem;
-  color: #daefff;
+  background: #040010;
+  border-top: 2px solid #daefff;
   @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 1.5rem;
+    height: 7.5vh;
   }
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem;
+    height: 6vh;
   }
+`;
+
+const BlockTextWrapper = styled.div`
+  padding: 2rem 0;
+  height: 40vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: left;
+  justify-content: center;
+  grid-gap: 2rem;
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: 1fr;
+    height: 50vh;
+    padding: 1rem 0;
+    grid-gap: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    height: 45vh;
+  }
+`;
+
+const BlockTextBackground = styled.div`
+  width: 100vw;
+  border-top: 2px solid #daefff;
+  display: flex;
+  justify-content: center;
+
+  background: linear-gradient(
+    164deg,
+    rgba(49, 242, 228, 1) 0%,
+    rgba(255, 0, 248, 1) 100%
+  );
 `;
 
 const H1 = styled.h1`
   font-family: "Phatt", sans-serif;
   text-transform: uppercase;
-  font-size: 3.85rem;
-  padding-top: 1.5rem;
+  font-size: 4rem;
+  padding-top: 3rem;
   color: #daefff;
   &.main {
     color: #31f2e4;
@@ -140,52 +199,52 @@ const H1 = styled.h1`
     }
   }
   @media screen and (max-width: 1023px) {
-    padding-top: 1rem;
-    font-size: 2.65rem;
+    padding-top: 2rem;
+    font-size: 2.45rem;
   }
   @media screen and (max-width: 600px) {
-    padding-top: 0.75rem;
-    font-size: 1.6rem;
-  }
-`;
-
-const H3 = styled.div`
-  font-family: "Phatt", sans-serif;
-  text-transform: uppercase;
-  font-size: 1.55rem;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
-    font-size: 1.162rem;
-    padding-bottom: 0.75rem;
-    padding-top: 0.75rem;
-  }
-  @media screen and (max-width: 600px) {
-    font-size: 0.95rem;
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
+    padding-top: 1.5rem;
+    font-size: 1.5rem;
   }
 `;
 
 const H4 = styled.div`
   font-family: "Kdam Thmor Pro", sans-serif;
   font-size: 1.1rem;
-  padding-left: 1rem;
   width: 35rem;
-  color: #daefff;
-  @media screen and (max-width: 1023px) {
-    padding-left: 0.5rem;
+  color: #040010;
+  /* color: #daefff; */
+
+  @media screen and (max-width: 1200px) {
     font-size: 0.9rem;
     width: 27rem;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 0.9rem;
+    width: 29rem;
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
     font-size: 0.8rem;
+  }
+`;
+
+const Subheader = styled.div`
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-size: 2rem;
+  width: 35rem;
+  color: #040010;
+  /* color: #daefff; */
+  background: -webkit-linear-gradient(45deg, #31f2e4, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  @media screen and (max-width: 1023px) {
+    font-size: 1.75rem;
+    width: 31rem;
+  }
+  @media screen and (max-width: 600px) {
+    width: 22rem;
+    font-size: 1.25rem;
   }
 `;
 
@@ -194,6 +253,12 @@ const BackgroundMain = styled.img`
   width: 100vw;
   object-fit: cover;
   position: absolute;
+  @media screen and (max-width: 1023px) {
+    height: 50vh;
+  }
+  @media screen and (max-width: 600px) {
+    height: 35vh;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -202,7 +267,13 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 90vh;
-  /* position: relative; */
+  text-align: center;
+  @media screen and (max-width: 1023px) {
+    height: 50vh;
+  }
+  @media screen and (max-width: 600px) {
+    height: 35vh;
+  }
 `;
 
 const Arrow = styled(motion.div)`
@@ -236,8 +307,7 @@ const Arrow = styled(motion.div)`
 
 const ArrowSmall = styled(motion.div)`
   position: absolute;
-  bottom: 10vh;
-
+  bottom: 40vh;
   text-decoration: none;
   cursor: pointer;
   display: none;
@@ -261,14 +331,16 @@ const ArrowSmall = styled(motion.div)`
   @media screen and (max-width: 1023px) {
     display: inline;
     font-size: 2.5rem;
+    bottom: 50vh;
   }
   @media screen and (max-width: 600px) {
     font-size: 2rem;
+    bottom: 65vh;
   }
 `;
 
 const Logo = styled.img`
-  width: 50rem;
+  width: 60rem;
   position: absolute;
   /* z-index: 1; */
   @media screen and (max-width: 1023px) {
@@ -276,5 +348,17 @@ const Logo = styled.img`
   }
   @media screen and (max-width: 600px) {
     width: 22rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 17.5vh;
+  /* padding-top: 15rem; */
+  @media screen and (max-width: 1023px) {
+    bottom: 57.5vh;
+  }
+  @media screen and (max-width: 600px) {
+    padding-top: 8rem;
   }
 `;

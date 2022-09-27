@@ -54,7 +54,7 @@ const BlogPost = () => {
               </Text>
               <Links to={`/`}>
                 <Return>
-                  <b style={{ color: "#ff00ff" }}>{"<"} Portal</b>
+                  <b style={{ color: "#ff00ff" }}>{"<"} I'm done here</b>
                 </Return>
               </Links>
               <div
@@ -69,7 +69,7 @@ const BlogPost = () => {
                   type="button"
                   role="button"
                   title="Share"
-                  href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fdefind.tech/${post.slug}&text=${post.twitterTitle}%20(via%20%40defind_web3) `}
+                  href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fworldsworstcryptoblog.com/${post.slug}&text=${post.twitterTitle}%20(via%20%40worstcryptoblog) `}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

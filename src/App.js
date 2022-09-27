@@ -4,7 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/404";
 import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
+import About from "./pages/About";
 import BlogPost from "./pages/BlogPost";
 import Nav from "./components/Nav";
 import Logo from "./pages/Logo";
@@ -31,7 +31,7 @@ const App = () => {
       <>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          {/* <Route path="/portal" element={<Blog />} /> */}
+          <Route path="/about" element={<About />} />
           <Route path="/:blogId" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="unknownPage" element={<Logo />} />
@@ -59,8 +59,8 @@ html, body {
     width: auto;
     font-family: "Kdam Thmor Pro", sans-serif;
     letter-spacing: 1.25px;
+    overflow-x: hidden;
     @media screen and (min-width: 1023px) {
-      overflow-x: hidden;
     }
 }
 

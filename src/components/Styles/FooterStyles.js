@@ -10,8 +10,8 @@ export const Twitter = () => {
       <>
         <div>
           <a
-            href="https://twitter.com/defind_web3"
-            alt="DeFind Twitter"
+            href="https://twitter.com/worstcryptoblog"
+            alt="World's worst crypto blog - Twitter"
             rel="noopener noreferrer"
             target="_blank"
           >

@@ -125,7 +125,7 @@ const Blog = () => {
             ref={buttonRef}
             onClick={() => setOpenCategory(!openCategory)}
           >
-            <Button text="Category" />
+            <Button text="Educate me" />
           </DropdownHeader>
           <AnimatePresence>
             {openCategory && (

@@ -18,7 +18,7 @@ const CustomForm = ({ status, onValidated }) => {
       }}
     >
       <FaRegHandPointLeft style={{ marginRight: "0.5rem" }} />
-      Subscribe
+      you do you
     </div>
   );
 
@@ -59,7 +59,7 @@ const CustomForm = ({ status, onValidated }) => {
             <FaRegThumbsDown
               style={{ marginRight: "0.5rem", marginBottom: "-0.15rem" }}
             />
-            Invalid email
+            Nope, wrong email :/
           </div>
         );
         setTimeout(() => {
@@ -71,7 +71,7 @@ const CustomForm = ({ status, onValidated }) => {
               }}
             >
               <FaRegHandPointLeft style={{ marginRight: "0.5rem" }} />
-              Subscribe
+              you do you
             </div>
           );
         }, [3000]);
@@ -85,7 +85,7 @@ const CustomForm = ({ status, onValidated }) => {
             }}
           >
             <FaRegThumbsUp style={{ marginRight: "0.5rem" }} />
-            Subscribed!
+            All done, cheers :D
           </div>
         );
         setEmail("");
@@ -100,7 +100,7 @@ const CustomForm = ({ status, onValidated }) => {
         <Input
           onChange={(e) => setEmail(e.target.value)}
           name="email"
-          placeholder="subscribe@email.com"
+          placeholder="subscribe-or-don't@dm.me"
           required={true}
           maxLength="40"
           type="email"
@@ -115,7 +115,7 @@ const CustomForm = ({ status, onValidated }) => {
 export default CustomForm;
 
 const Label = styled.div`
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   font-size: 1.25rem;
   text-transform: uppercase;
   color: #daefff;
@@ -132,6 +132,7 @@ const Input = styled.input`
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #080e57;
+  width: 17rem;
   font-family: "Kdam Thmor Pro", sans-serif;
   &:focus {
     outline: none;
@@ -142,6 +143,12 @@ const Input = styled.input`
   }
   @media screen and (max-width: 1023px) {
     font-size: 0.75rem;
-    padding: 0.25rem;
+    padding: 0.35rem;
+    width: 13rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.55rem;
+    padding: 0.3rem;
+    width: 10rem;
   }
 `;
